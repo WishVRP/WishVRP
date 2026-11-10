@@ -2,7 +2,7 @@
 
 /*
 | Fotos der Manufaktur.
-| Auf Wunsch des Auftraggebers (10.11.2026) nur Studiobilder: Die Messer sind echt aus eigener
+| Auf Wunsch des Auftraggebers (10.11.2026) Studiobilder plus – ausdrücklich gewünscht – das Foto von Andreas an der Esse: Die Messer sind echt aus eigener
 | Fertigung und vor Ort vorhanden, die Hintergründe sind KI-generiert. Handyfotos aus Werkstatt
 | und Kursen werden nicht verwendet.
 | Web-Fassungen erzeugt `scripts/fotos-erzeugen.sh` nach public/images/fotos/{key}-{breite}.{webp,jpg}.
@@ -79,6 +79,19 @@ return [
         'w' => 1536, 'h' => 1148, 'widths' => [480, 800, 1200],
         'alt' => 'Geöffnetes Damast-Klappmesser mit hellem, gestreiftem Holzgriff auf einer Holzscheibe',
         'pruefen' => 'Holzscheiben-Bild: KI-Hintergrund oder echtes Foto? (Wunsch: nur KI-Bilder)',
+    ],
+
+    // Echtes Foto (Ausnahme von „nur KI-Bilder“, ausdrücklich gewünscht am 10.11.2026)
+    'andreas-esse' => [
+        'w' => 1440, 'h' => 1920, 'widths' => [480, 800, 1200],
+        'alt' => 'Messerschmied Andreas Ulbrich in Lederschürze an der Esse, das Kohlefeuer brennt hell',
+        'pruefen' => 'Aus Instagram-Story-Screenshot; besser Kamera-Original in voller Auflösung',
+    ],
+
+    'andreas-portrait' => [
+        'w' => 960, 'h' => 1200, 'widths' => [480, 800, 960],
+        'alt' => 'Messerschmied Andreas Ulbrich mit Schiebermütze und Lederschürze an der Esse in seiner Werkstatt',
+        'pruefen' => null,
     ],
 
 ];

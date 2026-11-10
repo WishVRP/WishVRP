@@ -49,6 +49,10 @@ crop klappmesser-stehend     klappmesser-offen-stehend.jpg studio
 crop klappmesser-rotholz     klappmesser-rotholz.jpg      studio
 crop klappmesser-zebrano     klappmesser-zebrano.jpg      studio
 
+# Ausnahme auf Wunsch des Auftraggebers (10.11.2026): echtes Foto von Andreas an der Esse
+crop andreas-esse            andreas-esse-screenshot.jpg  werkstatt 1440x1920+0+600   # Instagram-Oberfläche entfernt
+crop andreas-portrait        andreas-esse-screenshot.jpg  werkstatt 960x1200+60+640
+
 for f in "$TMP"/*.png; do
     name=$(basename "$f" .png)
     w=$(identify -format '%w' "$f")

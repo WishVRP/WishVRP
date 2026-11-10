@@ -402,8 +402,13 @@ a.path-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px r
     white-space: nowrap;
 }
 
+/* Mobil: oben im Fotoband, hinter dem Messer; Desktop: oben rechts über dem Foto */
+@media (max-width: 63.99rem) {
+    .hero__year { bottom: auto; top: 4vw; font-size: clamp(7rem, 34vw, 13rem); -webkit-text-stroke-color: rgb(217 180 95 / 0.22); }
+}
+
 @media (min-width: 64rem) {
-    .hero__year { left: auto; right: -2%; transform: none; bottom: -0.18em; --year-x: 0; }
+    .hero__year { left: auto; right: -1%; top: 2%; bottom: auto; transform: none; --year-x: 0; -webkit-text-stroke-color: rgb(217 180 95 / 0.24); }
 }
 
 @media (prefers-reduced-motion: no-preference) {

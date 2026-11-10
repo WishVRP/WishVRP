@@ -1,7 +1,8 @@
 <section class="block maker" aria-labelledby="maker-title">
     <div class="container maker__grid">
         <div class="maker__portrait reveal">
-            <x-ui.type-tile class="maker__tile" :title="$c['owner']" :label="$c['owner_role']" :meta="$c['address']['district']" />
+            <x-ui.media foto="andreas-portrait" format="portrait" pos="top" sizes="(min-width: 60rem) 35vw, 100vw" />
+            <p class="maker__name">{{ $c['owner'] }}<br>{{ $c['owner_role'] }} · {{ $c['heritage']['generation'] }}. Generation</p>
         </div>
         <div class="maker__text reveal reveal-delay-1">
             <x-ui.kicker>Der Messerschmied</x-ui.kicker>

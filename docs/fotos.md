@@ -18,7 +18,7 @@ Originale liegen in `resources/fotos/original/`. Die Web-Fassungen erzeugt `bash
 | 8 Sonderanfertigungen | `klappmesser-griff` |
 | 9 Gutscheine | `klappmesser-zebrano` |
 | 10 Herstellungsprozess | ohne Fotos (Icons und Schritte) |
-| 11 Andreas Ulbrich | Name als typografische Grafik, darunter `klappmesser-hell` |
+| 11 Andreas Ulbrich | `andreas-portrait` (echtes Foto, auf Wunsch), darunter `klappmesser-hell` |
 | 12 Schmieden im Team | Damast-Textur statt Foto |
 | 14 Ratgeber | Thema als typografische Grafik |
 | og:image | `public/images/og-startseite.jpg` (aus der Studio-Collage) |

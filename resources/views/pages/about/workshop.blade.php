@@ -1,5 +1,5 @@
 <x-layouts.site :meta="$meta" :schema="$schema" :current="$path">
-    <x-page.hero :meta="$meta" title="Die Manufaktur" kicker="Messerschmied {{ $c['owner'] }}" :tile="$c['owner']" :tileLabel="$c['owner_role']"
+    <x-page.hero :meta="$meta" title="Die Manufaktur" kicker="Messerschmied {{ $c['owner'] }}" foto="andreas-portrait" pos="top"
         lead="Schmiedehandwerk seit {{ $c['heritage']['since'] }} in der Familie, heute in {{ $c['heritage']['generation'] }}. Generation. Eine Werkstatt in {{ $c['address']['district'] }} bei {{ $c['address']['locality'] }}, ein Messerschmied und drei Wege zum Messer: selbst schmieden, ein fertiges Stück wählen oder eines anfertigen lassen." />
 
     @include('pages.home.01b-heritage')
@@ -14,8 +14,7 @@
                 </ul>
                 <p class="lead mt-5">In der Werkstatt entstehen die Messer der Manufaktur – von der nummerierten Edition 100 bis zur Einzelanfertigung. Hier finden auch die Schmiedekurse statt.</p>
                 <x-ui.missing silent>Kurzbiografie, Ausbildungsweg, seit wann selbstständig – nur belegte Angaben</x-ui.missing>
-                <x-ui.missing silent>Porträtfoto Andreas Ulbrich (nur wenn gewünscht)</x-ui.missing>
-            </div>
+                            </div>
             <x-ui.media foto="klappmesser-hell" format="wide" class="reveal reveal-delay-1" sizes="(min-width: 60rem) 45vw, 100vw" />
         </div>
     </x-page.section>
