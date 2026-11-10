@@ -25,10 +25,13 @@ Eingebunden werden sie mit `<x-ui.media foto="key" format pos sizes>`. Die Seite
 - **Freisteller auf Weiß (PNG):** Die Auflösung ist zu gering (653 px).
 - **Collage mit Logo:** nur als Ausschnitt für das Damastdetail und das Social-Bild verwendet. Das Logo darin ersetzt kein SVG-Logo.
 
+## Geklärt
+
+- **Studiobilder** (`klappmesser-geschlossen`, `-offen`, `-stehend`, `damast-detail`, og:image): Laut Auftraggeber am 10.11.2026 zeigen sie die tatsächlich gefertigten Messer, die vor Ort vorhanden sind; nur die Hintergründe sind KI-generiert. Damit ist das Produkt korrekt dargestellt. Regel für neue Bilder: Messer, Damastmuster, Griff und Proportionen dürfen nicht verändert werden, nur der Hintergrund. Eine Kennzeichnungspflicht nach Art. 50 KI-VO greift nach unserer Einschätzung nicht, weil keine Person, kein Ort und kein Ereignis täuschend echt dargestellt wird (keine Rechtsberatung, bei Zweifel kurz mit dem Anwalt abstimmen, der ohnehin AGB/Widerruf prüft).
+
 ## Vor Go-live zu klären (`php artisan ulbrich:audit` listet sie)
 
-1. **Studiobilder:** Sind es echte Fotos oder mit KI erzeugt oder bearbeitet? Gemeint sind das geschlossene Messer, das offene diagonal, das stehende und die Collage. Wenn sie nicht das tatsächlich verkaufte Messer zeigen, ist das irreführende Werbung (UWG). Dann bitte durch echte Fotos ersetzen oder bestätigen, dass Form, Damastmuster und Griff dem Produkt entsprechen.
-2. **Werkstattfoto mit Gruppe:** Die Personen sind erkennbar, dafür braucht es eine Einwilligung der Abgebildeten (DSGVO/KUG). Alternativ ein Foto, auf dem niemand erkennbar ist.
-3. **Hero-Foto:** Andreas muss die Verwendung freigeben. Soll das Bild mit Zigarette das erste sein, was man sieht? Besser wäre eine Aufnahme in voller Auflösung von der Kamera statt eines Story-Screenshots.
-4. **Edition-100-Zuordnung:** Welche der Klappmesser gehören zur Edition 100? Die Alt-Texte behaupten das bewusst nicht.
-5. AVIF fehlt noch, weil auf diesem Rechner kein Encoder installiert ist. WebP und JPEG reichen für alle Browser.
+1. **Werkstattfoto mit Gruppe:** Die Personen sind erkennbar, dafür braucht es eine Einwilligung der Abgebildeten (DSGVO/KUG). Alternativ ein Foto, auf dem niemand erkennbar ist.
+2. **Hero-Foto:** Andreas muss die Verwendung freigeben. Soll das Bild mit Zigarette das erste sein, was man sieht? Besser wäre eine Aufnahme in voller Auflösung von der Kamera statt eines Story-Screenshots.
+3. **Edition-100-Zuordnung:** Welche der Klappmesser gehören zur Edition 100? Die Alt-Texte behaupten das bewusst nicht.
+4. AVIF fehlt noch, weil auf diesem Rechner kein Encoder installiert ist. WebP und JPEG reichen für alle Browser.

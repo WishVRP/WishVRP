@@ -31,25 +31,25 @@ return [
     'damast-detail' => [
         'w' => 468, 'h' => 490, 'widths' => [468],
         'alt' => 'Nahaufnahme einer Klinge mit Damastmuster',
-        'pruefen' => 'Studiobild – echtes Foto oder KI-bearbeitet? Muss das tatsächliche Messer zeigen.',
+        'pruefen' => null, 'hinweis' => 'Messer echt (eigene Fertigung, vor Ort), Hintergrund KI-generiert – bestätigt 10.11.2026',
     ],
 
     'klappmesser-geschlossen' => [
         'w' => 1229, 'h' => 1536, 'widths' => [480, 800, 1200],
         'alt' => 'Geschlossenes Klappmesser mit dunklem Holzgriff und Stahlbacke, aufrecht an einem Stein',
-        'pruefen' => 'Studiobild – echtes Foto oder KI-bearbeitet? Muss das tatsächliche Messer zeigen.',
+        'pruefen' => null, 'hinweis' => 'Messer echt (eigene Fertigung, vor Ort), Hintergrund KI-generiert – bestätigt 10.11.2026',
     ],
 
     'klappmesser-offen' => [
         'w' => 1229, 'h' => 1536, 'widths' => [480, 800, 1200],
         'alt' => 'Geöffnetes Damast-Klappmesser mit dunklem Holzgriff vor dunklem Hintergrund',
-        'pruefen' => 'Studiobild – echtes Foto oder KI-bearbeitet? Muss das tatsächliche Messer zeigen.',
+        'pruefen' => null, 'hinweis' => 'Messer echt (eigene Fertigung, vor Ort), Hintergrund KI-generiert – bestätigt 10.11.2026',
     ],
 
     'klappmesser-stehend' => [
         'w' => 1287, 'h' => 1536, 'widths' => [480, 800, 1200],
         'alt' => 'Halb geöffnetes Damast-Klappmesser, auf Klinge und Griff stehend',
-        'pruefen' => 'Studiobild – echtes Foto oder KI-bearbeitet? Muss das tatsächliche Messer zeigen.',
+        'pruefen' => null, 'hinweis' => 'Messer echt (eigene Fertigung, vor Ort), Hintergrund KI-generiert – bestätigt 10.11.2026',
     ],
 
     'klappmesser-rotholz' => [
