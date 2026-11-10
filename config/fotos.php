@@ -89,7 +89,7 @@ return [
     ],
 
     'griff-detail' => [
-        'w' => 800, 'h' => 778, 'widths' => [480, 800],
+        'w' => 500, 'h' => 628, 'widths' => [480, 500],
         'alt' => 'Messergriff aus Maserholz und türkisfarbenem Harz mit Messingstiften',
         'pruefen' => null, 'hinweis' => 'Nur der Griff; die Klinge mit lizenzpflichtigem Motiv ist abgeschnitten',
     ],

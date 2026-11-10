@@ -12,32 +12,46 @@ TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 mkdir -p "$OUT"
 
-# name | quelle | zuschnitt (Breite x Höhe + x + y, leer = ganzes Bild)
+# Einheitlicher Look: warm, dunkel, Kontrast, abgedunkelte Ränder – Messer und Personen bleiben unverändert.
+#   werkstatt = Handyfotos aus der Halle · tisch = Handyfotos auf hellem Tisch (stärker abgedunkelt)
+#   studio    = Studiobilder (nur leichte Vignette, Sättigung angeglichen)
+grade() {
+    local file=$1 look=$2 w h
+    w=$(identify -format '%w' "$file"); h=$(identify -format '%h' "$file")
+    case $look in
+        werkstatt) convert "$file" -modulate 92,82 -sigmoidal-contrast 3.5,45% -fill '#2b1a0b' -colorize 9% \( -size "${w}x${h}" radial-gradient:white-'#555555' \) -compose multiply -composite "$file" ;;
+        tisch)     convert "$file" -modulate 90,80 -sigmoidal-contrast 3.5,50% -fill '#24160a' -colorize 10% \( -size "${w}x${h}" radial-gradient:white-'#404040' \) -compose multiply -composite "$file" ;;
+        studio)    convert "$file" -modulate 100,90 \( -size "${w}x${h}" radial-gradient:white-'#7a7a7a' \) -compose multiply -composite "$file" ;;
+    esac
+}
+
+# name | quelle | look | zuschnitt (Breite x Höhe + x + y, leer = ganzes Bild)
 crop() {
-    local name=$1 src=$2 geo=${3:-}
+    local name=$1 src=$2 look=$3 geo=${4:-}
     if [[ -n $geo ]]; then
         convert "$SRC/$src" -auto-orient -crop "$geo" +repage "$TMP/$name.png"
     else
         convert "$SRC/$src" -auto-orient "$TMP/$name.png"
     fi
+    grade "$TMP/$name.png" "$look"
 }
 
-crop andreas-esse           andreas-esse-screenshot.jpg  1440x1920+0+600   # Instagram-Oberfläche entfernt
-crop werkstatt-kurs         werkstatt-kurs.jpg           1536x1150+0+700
-crop messer-tisch           messer-tisch.jpg             1370x1195+0+0     # ohne One-Piece-Messer/-Scheide
-crop damast-detail          klappmesser-collage-logo.jpg 468x490+0+534
-crop klappmesser-geschlossen klappmesser-geschlossen.jpg
-crop klappmesser-offen      klappmesser-offen-diagonal.jpg
-crop klappmesser-stehend    klappmesser-offen-stehend.jpg
-crop klappmesser-rotholz    klappmesser-rotholz.jpg
-crop klappmesser-zebrano    klappmesser-zebrano.jpg
-crop andreas-portrait       andreas-esse-screenshot.jpg  960x1200+60+640
-crop werkstatt-halle        werkstatt-kurs.jpg           1536x960+0+380
-crop werkstatt-amboss       werkstatt-kurs.jpg           800x500+0+820
-crop esse-feuer             andreas-esse-screenshot.jpg  680x425+760+900
-crop griff-detail           kuechenmesser-gravur.jpg     800x778+330+1270  # nur Griff, ohne Gravurmotiv
-crop messer-kuechenmesser   messer-tisch.jpg             747x560+150+620
-crop punze-detail           edition-banner.jpg           400x300+760+240   # ohne eingebrannten Text
+crop andreas-esse            andreas-esse-screenshot.jpg  werkstatt 1440x1920+0+600   # Instagram-Oberfläche entfernt
+crop andreas-portrait        andreas-esse-screenshot.jpg  werkstatt 960x1200+60+640
+crop esse-feuer              andreas-esse-screenshot.jpg  werkstatt 680x425+760+900
+crop werkstatt-kurs          werkstatt-kurs.jpg           werkstatt 1536x1150+0+700
+crop werkstatt-halle         werkstatt-kurs.jpg           werkstatt 1536x960+0+380
+crop werkstatt-amboss        werkstatt-kurs.jpg           werkstatt 800x500+0+820
+crop messer-tisch            messer-tisch.jpg             tisch     1370x1195+0+0     # ohne One-Piece-Messer/-Scheide
+crop messer-kuechenmesser    messer-tisch.jpg             tisch     747x560+150+620
+crop griff-detail            kuechenmesser-gravur.jpg     tisch     500x628+470+1420  # nur Griff, ohne Gravurmotiv und Spiegelung
+crop damast-detail           klappmesser-collage-logo.jpg studio    468x490+0+534
+crop punze-detail            edition-banner.jpg           studio    400x300+760+240   # ohne eingebrannten Text
+crop klappmesser-geschlossen klappmesser-geschlossen.jpg  studio
+crop klappmesser-offen       klappmesser-offen-diagonal.jpg studio
+crop klappmesser-stehend     klappmesser-offen-stehend.jpg studio
+crop klappmesser-rotholz     klappmesser-rotholz.jpg      studio
+crop klappmesser-zebrano     klappmesser-zebrano.jpg      studio
 
 for f in "$TMP"/*.png; do
     name=$(basename "$f" .png)

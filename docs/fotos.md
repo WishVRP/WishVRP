@@ -1,6 +1,6 @@
 # Fotos – Stand 10.11.2026
 
-14 Bilder wurden im Chat geliefert. Zwei davon waren doppelt. Originale liegen unverändert in `resources/fotos/original/`. Die Web-Fassungen erzeugt `bash scripts/fotos-erzeugen.sh`: Sie werden zugeschnitten, ohne Metadaten als WebP und JPEG gespeichert, in den Breiten 480, 800 und 1200, und landen in `public/images/fotos/`. Die Metadaten (Maße, Alt-Text, offene Prüfpunkte) stehen in `config/fotos.php`.
+14 Bilder wurden im Chat geliefert. Zwei davon waren doppelt. Originale liegen unverändert in `resources/fotos/original/`. Die Web-Fassungen erzeugt `bash scripts/fotos-erzeugen.sh`. Alle Bilder bekommen dabei einen einheitlichen Look (warm, dunkel, Kontrast, Vignette; drei Stufen: werkstatt, tisch, studio – Messer und Personen werden nicht verändert). Außerdem: Sie werden zugeschnitten, ohne Metadaten als WebP und JPEG gespeichert, in den Breiten 480, 800 und 1200, und landen in `public/images/fotos/`. Die Metadaten (Maße, Alt-Text, offene Prüfpunkte) stehen in `config/fotos.php`.
 
 Eingebunden werden sie mit `<x-ui.media foto="key" format pos sizes>`. Die Seitenverhältnisse bleiben wie bei den bisherigen Bildflächen, mit `width` und `height` gesetzt, sodass nichts springt. Bis auf das Hero-Bild laden alle Bilder verzögert (lazy).
 
