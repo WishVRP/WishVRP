@@ -1,5 +1,5 @@
 <section class="hero hero--photo is-dark" aria-labelledby="hero-title">
-    <x-ui.media class="hero__media" foto="andreas-esse" pos="upper" eager sizes="(min-width: 64rem) 62vw, 100vw" />
+    <x-ui.media class="hero__media" foto="klappmesser-offen" eager sizes="(min-width: 64rem) 62vw, 100vw" />
     <canvas class="hero__sparks" data-sparks aria-hidden="true"></canvas>
     <div class="container hero__inner">
         <div>

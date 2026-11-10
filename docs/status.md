@@ -11,7 +11,7 @@
 - Verwaltung: Kurse und Kurstermine in Filament pflegbar.
 - Einheitliche Faktenquelle `config/ulbrich.php` inkl. Steuer-Schalter (`ULBRICH_TAX_MODE`).
 - 28 automatisierte Tests: alle Bestands-URLs von der Startseite verlinkt, keine toten internen Links, keine Platzhalter-Bewertungen in Produktion, Meta, H1, Schema, kein Admin-Markup, Header, Redirects, robots, Sitemap, Admin-Schutz – **alle grün**.
-- **Version 3:** keine Bildplätze mehr – Fotos in allen Abschnitten mit Bildbedarf (Kurskarten, Gutschein, Prozess, Kontakt ergänzt) plus Galerie und Social-Vorschau; Effekte: Funken, Bild-Aufdecken, Parallaxe, Zähler, Lichtkegel, Lesefortschritt.
+- **Version 3:** nur Studiobilder (Messer echt, Hintergrund KI) laut Entscheidung 10.11.2026; Kurse, Ratgeber und Porträt als typografische Grafiken; Effekte: Funken, Bild-Aufdecken, Parallaxe, Zähler, Lichtkegel, Lesefortschritt.
 - **Echte Fotos** aus den gelieferten Bildern: WebP und JPEG, srcset, feste Maße, lazy; Bildpipeline `scripts/fotos-erzeugen.sh`, Details und offene Fragen in `docs/fotos.md`.
 - `php artisan ulbrich:audit` listet alle fehlenden Daten, Bildplätze und Foto-Prüfpunkte.
 - Geprüft in Chromium (Playwright): 1440 px und 375 px ohne horizontales Scrollen, keine Konsolenfehler.

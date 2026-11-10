@@ -1,7 +1,7 @@
 <section class="block is-dark textured" aria-labelledby="experience-title">
     <div class="container experience__grid">
         <div class="collage reveal">
-            <x-ui.media foto="werkstatt-kurs" pos="left" sizes="(min-width: 60rem) 35vw, 70vw" />
+            <x-ui.media foto="klappmesser-hell-detail" sizes="(min-width: 60rem) 35vw, 70vw" />
             <x-ui.media foto="damast-detail" sizes="(min-width: 60rem) 25vw, 50vw" />
             <x-ui.media foto="punze-detail" sizes="(min-width: 60rem) 15vw, 35vw" />
         </div>

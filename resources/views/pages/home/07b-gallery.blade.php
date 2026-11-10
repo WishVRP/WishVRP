@@ -3,9 +3,9 @@
     $gallery = [
         ['klappmesser-offen', 'Klappmesser · Damast, dunkles Holz'],
         ['klappmesser-rotholz', 'Klappmesser · rotbrauner Holzgriff'],
-        ['griff-detail', 'Griff · Maserholz und Harz'],
+        ['klappmesser-hell-detail', 'Klappmesser · heller Griff'],
         ['klappmesser-stehend', 'Klappmesser · halb geöffnet'],
-        ['messer-kuechenmesser', 'Küchenmesser · Damastklinge'],
+        ['edition-messer', 'Klappmesser · auf Stein'],
         ['klappmesser-zebrano', 'Klappmesser · heller Streifengriff'],
         ['punze-detail', 'Detail · Zeichen an der Stahlbacke'],
         ['klappmesser-geschlossen', 'Klappmesser · geschlossen'],

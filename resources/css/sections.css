@@ -2274,3 +2274,27 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
+
+/* Typo-Kacheln je Einsatzort */
+.course .type-tile {
+    aspect-ratio: 2 / 1;
+}
+
+.maker__tile {
+    aspect-ratio: 4 / 5;
+    --tile-color: var(--temper-straw);
+    padding: var(--space-6);
+}
+
+.maker__tile .type-tile__title {
+    font-size: clamp(2.4rem, 1.6rem + 3vw, 4rem);
+}
+
+.guide__tile {
+    --tile-color: var(--temper-blue);
+    aspect-ratio: 16 / 10;
+}
+
+.guide:nth-child(2) .guide__tile {
+    --tile-color: var(--temper-brown);
+}

@@ -1,8 +1,7 @@
 <section class="block maker" aria-labelledby="maker-title">
     <div class="container maker__grid">
         <div class="maker__portrait reveal">
-            <x-ui.media foto="andreas-portrait" format="portrait" pos="top" sizes="(min-width: 60rem) 35vw, 100vw" />
-            <p class="maker__name">{{ $c['owner'] }}<br>{{ $c['owner_role'] }}</p>
+            <x-ui.type-tile class="maker__tile" :title="$c['owner']" :label="$c['owner_role']" :meta="$c['address']['district']" />
         </div>
         <div class="maker__text reveal reveal-delay-1">
             <x-ui.kicker>Der Messerschmied</x-ui.kicker>
@@ -22,7 +21,7 @@
                 <a class="link-arrow" href="/presse/">Presseberichte <span aria-hidden="true">→</span></a>
                 <a class="link-arrow" href="/kunsthandwerkermarkt/">Kunsthandwerkermarkt <span aria-hidden="true">→</span></a>
             </div>
-            <x-ui.media foto="werkstatt-halle" format="wide" sizes="(min-width: 60rem) 55vw, 100vw" />
+            <x-ui.media foto="klappmesser-hell" format="cinema" sizes="(min-width: 60rem) 55vw, 100vw" />
         </div>
     </div>
 </section>

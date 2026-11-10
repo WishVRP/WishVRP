@@ -36,17 +36,13 @@ crop() {
     grade "$TMP/$name.png" "$look"
 }
 
-crop andreas-esse            andreas-esse-screenshot.jpg  werkstatt 1440x1920+0+600   # Instagram-Oberfläche entfernt
-crop andreas-portrait        andreas-esse-screenshot.jpg  werkstatt 960x1200+60+640
-crop esse-feuer              andreas-esse-screenshot.jpg  werkstatt 680x425+760+900
-crop werkstatt-kurs          werkstatt-kurs.jpg           werkstatt 1536x1150+0+700
-crop werkstatt-halle         werkstatt-kurs.jpg           werkstatt 1536x960+0+380
-crop werkstatt-amboss        werkstatt-kurs.jpg           werkstatt 800x500+0+820
-crop messer-tisch            messer-tisch.jpg             tisch     1370x1195+0+0     # ohne One-Piece-Messer/-Scheide
-crop messer-kuechenmesser    messer-tisch.jpg             tisch     747x560+150+620
-crop griff-detail            kuechenmesser-gravur.jpg     tisch     500x628+470+1420  # nur Griff, ohne Gravurmotiv und Spiegelung
+# Nur Studiobilder mit KI-Hintergrund (Messer echt, Entscheidung Auftraggeber 10.11.2026).
 crop damast-detail           klappmesser-collage-logo.jpg studio    468x490+0+534
-crop punze-detail            edition-banner.jpg           studio    400x300+760+240   # ohne eingebrannten Text
+crop klappmesser-hell        klappmesser-collage-logo.jpg studio    1300x330+120+188  # ohne Logo-Schriftzug
+crop klappmesser-hell-detail klappmesser-collage-logo.jpg studio    612x490+480+534
+crop klappmesser-griff       klappmesser-collage-logo.jpg studio    436x490+1100+534
+crop edition-messer          edition-banner.jpg           studio    816x658+720+0     # ohne eingebrannten Text
+crop punze-detail            edition-banner.jpg           studio    400x300+760+240
 crop klappmesser-geschlossen klappmesser-geschlossen.jpg  studio
 crop klappmesser-offen       klappmesser-offen-diagonal.jpg studio
 crop klappmesser-stehend     klappmesser-offen-stehend.jpg studio
