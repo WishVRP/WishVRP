@@ -1,0 +1,473 @@
+/* Wiederverwendbare Bausteine. Jede Klasse entspricht einer Blade-Komponente
+   in resources/views/components – siehe docs/design-system.md. */
+
+/* ---------- Button ---------- */
+.btn {
+    --btn-bg: var(--color-action);
+    --btn-bg-hover: var(--color-action-hover);
+    --btn-fg: var(--color-on-action);
+    --btn-border: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 2.875rem; /* 46 px ≥ 44 px Touch-Ziel */
+    padding: 0.625rem 1.125rem;
+    border: 1px solid var(--btn-border);
+    border-radius: var(--radius-1);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font-family: var(--font-tech);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover {
+    background: var(--btn-bg-hover);
+    text-decoration: none;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn__arrow {
+    transition: transform var(--dur-base) var(--ease-out);
+}
+
+.btn:hover .btn__arrow {
+    transform: translateX(3px);
+}
+
+.btn--secondary {
+    --btn-bg: transparent;
+    --btn-bg-hover: var(--steel-100);
+    --btn-fg: var(--color-text);
+    --btn-border: var(--scale-900);
+}
+
+.btn--violet {
+    --btn-bg: var(--temper-violet);
+    --btn-bg-hover: var(--temper-violet-ink);
+}
+
+.btn--brown {
+    --btn-bg: var(--temper-brown-ink);
+    --btn-bg-hover: #5f3d1e;
+}
+
+.section--dark .btn--secondary {
+    --btn-fg: var(--steel-50);
+    --btn-border: var(--steel-300);
+    --btn-bg-hover: var(--scale-800);
+}
+
+.section--dark .btn--straw {
+    --btn-bg: var(--temper-straw);
+    --btn-bg-hover: #e6c57a;
+    --btn-fg: var(--scale-950);
+}
+
+.btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+/* ---------- Textlink mit Pfeil ---------- */
+.link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    font-family: var(--font-tech);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+/* ---------- Punze: eingeschlagener Stempel für echte Fakten ---------- */
+.punze {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5ch;
+    padding: 0.3rem 0.6rem 0.25rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-1);
+    background: var(--color-surface-sunken);
+    box-shadow: var(--shadow-stamp);
+    font-family: var(--font-tech);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--scale-800);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.punze__key {
+    color: var(--color-text-muted);
+    font-weight: 400;
+}
+
+.punze--lg {
+    padding: 0.5rem 0.9rem 0.45rem;
+    font-size: var(--text-lg);
+    letter-spacing: 0.06em;
+}
+
+.section--dark .punze {
+    background: var(--scale-950);
+    border-color: #4a4f54;
+    color: var(--temper-straw);
+    box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.6), inset 0 -1px 0 rgb(255 255 255 / 0.06);
+}
+
+.punze-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* ---------- [FEHLT]-Marker ---------- */
+.missing {
+    display: inline;
+    padding: 0.05em 0.35em;
+    border: 1px dashed var(--signal-missing);
+    border-radius: var(--radius-1);
+    background: var(--signal-missing-bg);
+    color: var(--signal-missing);
+    font-family: var(--font-tech);
+    font-size: 0.82em;
+    font-weight: 500;
+    line-height: 1.5;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+/* ---------- Foto-Platzhalter ---------- */
+.photo {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-2);
+    background-color: var(--steel-200);
+    background-image:
+        repeating-linear-gradient(135deg, rgb(255 255 255 / 0.22) 0 1px, transparent 1px 14px),
+        linear-gradient(160deg, var(--steel-100), var(--steel-300));
+    aspect-ratio: var(--ratio, 4 / 3);
+}
+
+.photo--portrait { --ratio: 4 / 5; }
+.photo--wide { --ratio: 16 / 9; }
+.photo--square { --ratio: 1 / 1; }
+
+.photo__label {
+    position: absolute;
+    inset: auto var(--space-3) var(--space-3) var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3);
+    border: 1px dashed var(--steel-600);
+    background: rgb(251 251 252 / 0.9);
+    font-family: var(--font-tech);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    color: var(--scale-800);
+}
+
+.photo__label strong {
+    font-weight: 500;
+}
+
+.section--dark .photo {
+    background-color: var(--scale-800);
+    background-image:
+        repeating-linear-gradient(135deg, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 14px),
+        linear-gradient(160deg, var(--scale-800), var(--scale-950));
+}
+
+.section--dark .photo__label {
+    background: rgb(18 19 20 / 0.88);
+    border-color: var(--steel-500);
+    color: var(--steel-100);
+}
+
+/* ---------- Abschnittskopf ---------- */
+.section-head {
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: var(--space-7);
+}
+
+@media (min-width: 56rem) {
+    .section-head {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+        gap: var(--space-6);
+    }
+}
+
+.section-head__intro {
+    max-width: 40rem;
+    margin-top: var(--space-4);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    line-height: 1.5;
+}
+
+.section-head__spec {
+    font-family: var(--font-tech);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    padding-bottom: 0.4rem;
+}
+
+/* ---------- Anlassfarben-Skala (inszenierter Moment der Startseite) ---------- */
+.temper {
+    margin: 0;
+}
+
+.temper__bar {
+    position: relative;
+    height: 0.625rem;
+    border-radius: 1px;
+    background: linear-gradient(90deg,
+        #e8d79a 0%,
+        var(--temper-straw) 18%,
+        var(--temper-brown) 42%,
+        var(--temper-violet) 66%,
+        var(--temper-blue) 86%,
+        #5f8fbf 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -1px 0 rgb(0 0 0 / 0.2);
+    transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .temper__bar {
+        animation: temper-run 1.6s var(--ease-out) 0.25s both;
+    }
+}
+
+@keyframes temper-run {
+    from {
+        transform: scaleX(0);
+        filter: saturate(0.2) brightness(1.4);
+    }
+    to {
+        transform: scaleX(1);
+        filter: none;
+    }
+}
+
+.temper__ticks {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-tech);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+.temper__ticks li {
+    position: relative;
+    padding-top: var(--space-2);
+    border-left: 1px solid var(--color-line-strong);
+    padding-left: var(--space-2);
+}
+
+.temper__ticks b {
+    display: block;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.temper__caption {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    max-width: 44rem;
+}
+
+/* ---------- Bemaßungslinie (Klingenlänge) ---------- */
+.dimension {
+    display: block;
+    width: 100%;
+    max-width: 16rem;
+    color: var(--scale-800);
+}
+
+.dimension text {
+    font-family: var(--font-tech);
+    font-size: 11px;
+    fill: currentColor;
+}
+
+/* ---------- Wegekarte (Kurse / Messer / Gutscheine) ---------- */
+.path-grid {
+    display: grid;
+    gap: var(--space-5);
+}
+
+@media (min-width: 56rem) {
+    .path-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.path-card {
+    --accent: var(--temper-blue);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6) var(--space-5) var(--space-5);
+    border: var(--border-hair);
+    border-top: 4px solid var(--accent);
+    border-radius: var(--radius-2);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-raised);
+}
+
+.path-card--knife { --accent: var(--temper-brown); }
+.path-card--gift { --accent: var(--temper-violet); }
+
+.path-card__kind {
+    font-family: var(--font-tech);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.path-card h3 {
+    font-size: var(--text-xl);
+}
+
+.path-card__body {
+    flex: 1;
+    color: var(--scale-800);
+}
+
+.path-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    padding-top: var(--space-3);
+    border-top: var(--border-hair);
+}
+
+/* ---------- Spezifikationsblatt ---------- */
+.spec {
+    display: grid;
+    border-top: var(--border-strong);
+}
+
+.spec__row {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 38%) minmax(0, 1fr);
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-hair);
+}
+
+.spec dt {
+    font-family: var(--font-tech);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.spec dd {
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- FAQ ---------- */
+.faq {
+    border-top: var(--border-strong);
+}
+
+.faq details {
+    border-bottom: var(--border-hair);
+}
+
+.faq summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 3.5rem;
+    padding: var(--space-4) 0;
+    cursor: pointer;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    list-style: none;
+}
+
+.faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq summary::after {
+    content: "+";
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: grid;
+    place-items: center;
+    border: var(--border-strong);
+    border-radius: var(--radius-1);
+    font-family: var(--font-tech);
+    font-weight: 400;
+    transition: transform var(--dur-base) var(--ease-out);
+}
+
+.faq details[open] summary::after {
+    content: "–";
+}
+
+.faq__answer {
+    padding: 0 0 var(--space-5);
+    max-width: var(--container-text);
+    color: var(--scale-800);
+}
+
+/* ---------- Hinweisbox ---------- */
+.note {
+    padding: var(--space-4) var(--space-5);
+    border-left: 3px solid var(--temper-straw);
+    background: var(--color-surface);
+    font-size: var(--text-sm);
+}
+
+.note h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2);
+}
+
+.note ul {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
+.note li + li {
+    margin-top: var(--space-1);
+}
+
+/* Sehr schmale Displays (320–400 px) */
+@media (max-width: 29.99rem) {
+    .punze {
+        white-space: normal;
+    }
+
+    .temper__ticks {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: var(--space-3);
+    }
+}

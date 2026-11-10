@@ -1,0 +1,33 @@
+# Sicherheits-Header für statische Dateien (PHP-Antworten setzen sie selbst)
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    # Vite-Build-Dateien tragen einen Hash im Namen → dauerhaft cachebar
+    <If "%{REQUEST_URI} =~ m#^/build/#">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </If>
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Laravel-Standardregel „Trailing Slashes entfernen“ bewusst ENTFERNT:
+    # Die Bestands-URLs enden auf / (z. B. /schmiedekurse/). Die Normalisierung
+    # übernimmt App\Http\Middleware\EnsureTrailingSlash (301 auf die Slash-Form).
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
