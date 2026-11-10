@@ -289,3 +289,30 @@ if (voucherBuilder) {
     nameInput.addEventListener('input', () => update(false));
     update(false);
 }
+
+/* ---------- Zeitstrahl zeichnen ---------- */
+document.querySelectorAll('[data-timeline]').forEach((tl) => {
+    if (!('IntersectionObserver' in window)) { tl.classList.add('is-drawn'); return; }
+    new IntersectionObserver(([entry], obs) => {
+        if (entry.isIntersecting) { tl.classList.add('is-drawn'); obs.disconnect(); }
+    }, { threshold: 0.3 }).observe(tl);
+});
+
+/* ---------- Erlebnis-Geschichte: Kapitel wechseln Bild und Fortschritt ---------- */
+const story = document.querySelector('[data-story]');
+if (story && 'IntersectionObserver' in window) {
+    story.dataset.storyReady = 'true';
+    const steps = story.querySelectorAll('[data-story-step]');
+    const imgs = story.querySelectorAll('[data-story-img]');
+    const bar = story.querySelector('[data-story-bar]');
+    const activate = (i) => {
+        steps.forEach((s, n) => s.classList.toggle('is-active', n === i));
+        imgs.forEach((img, n) => img.classList.toggle('is-active', n === i));
+        if (bar) bar.style.width = `${((i + 1) / steps.length) * 100}%`;
+    };
+    activate(0);
+    const sio = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { if (entry.isIntersecting) activate(Number(entry.target.dataset.storyStep)); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    steps.forEach((s) => sio.observe(s));
+}

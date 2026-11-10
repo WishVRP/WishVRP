@@ -1,8 +1,10 @@
 {{-- Startseite: 15 Abschnitte, je eine Datei in pages/home/ --}}
 <x-layouts.site :meta="$meta" :schema="$schema" current="/">
     @include('pages.home.01-hero')
+    @include('pages.home.01b-heritage')
     @include('pages.home.02-intro')
     @include('pages.home.03-experience')
+    @include('pages.home.03b-story')
     @include('pages.home.04-finder')
     @include('pages.home.05-dates')
     @include('pages.home.06-knives')

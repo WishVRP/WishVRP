@@ -49,6 +49,8 @@ final class Schema
             ],
             'openingHoursSpecification' => $hours,
             'founder' => ['@id' => self::personId()],
+            'description' => "Schmiedekurse und handgefertigte Messer von {$c['owner_role']} {$c['owner']} – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie, heute in {$c['heritage']['generation']}. Generation.",
+            'knowsAbout' => ['Messerschmieden', 'Damaststahl', 'Klappmesser', 'Schmiedekurse'],
             'sameAs' => $c['same_as'] ?: null,
         ]);
     }
@@ -65,6 +67,8 @@ final class Schema
             'jobTitle' => $c['owner_role'],
             'worksFor' => ['@id' => self::businessId()],
             'memberOf' => ['@type' => 'Organization', 'name' => $c['chamber']],
+            'description' => "{$c['owner_role']} in {$c['heritage']['generation']}. Generation – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie.",
+            'knowsAbout' => ['Messerschmieden', 'Damaststahl', 'Klappmesser', 'Schmiedekurse'],
         ];
     }
 

@@ -1,6 +1,8 @@
 <x-layouts.site :meta="$meta" :schema="$schema" :current="$path">
     <x-page.hero :meta="$meta" title="Die Manufaktur" kicker="Messerschmied {{ $c['owner'] }}" :tile="$c['owner']" :tileLabel="$c['owner_role']"
-        lead="Eine Werkstatt in {{ $c['address']['district'] }} bei {{ $c['address']['locality'] }}, ein Messerschmied und drei Wege zum Messer: selbst schmieden, ein fertiges Stück wählen oder eines anfertigen lassen." />
+        lead="Schmiedehandwerk seit {{ $c['heritage']['since'] }} in der Familie, heute in {{ $c['heritage']['generation'] }}. Generation. Eine Werkstatt in {{ $c['address']['district'] }} bei {{ $c['address']['locality'] }}, ein Messerschmied und drei Wege zum Messer: selbst schmieden, ein fertiges Stück wählen oder eines anfertigen lassen." />
+
+    @include('pages.home.01b-heritage')
 
     <x-page.section title="{{ $c['owner'] }}" kicker="Der Messerschmied">
         <div class="split">

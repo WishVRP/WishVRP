@@ -15,6 +15,7 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
+Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
 
 /*
 | Umgesetzte Unterseiten aus dem Seitenregister (config/pages.php).

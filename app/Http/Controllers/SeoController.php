@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Support\PageMeta;
 use Illuminate\Http\Response;
 
@@ -28,5 +29,49 @@ class SeoController extends Controller
         return response()
             ->view('seo.sitemap', ['urls' => $urls])
             ->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    /**
+     * llms.txt: kompakte, faktische Zusammenfassung für KI-Suchsysteme (GEO).
+     * Nur Angaben aus config/ulbrich.php und der Kursdatenbank – nichts Zusätzliches.
+     */
+    public function llms(): Response
+    {
+        $c = config('ulbrich');
+        $h = $c['heritage'];
+        $a = $c['address'];
+        $fmt = fn (?int $n) => $n ? 'ab '.number_format($n, 0, ',', '.').' € pro Person' : 'Preis auf Anfrage';
+
+        $lines = [
+            '# '.$c['name'],
+            '',
+            "> Messerschmied {$c['owner']} bietet Schmiedekurse und handgefertigte Messer in {$a['district']} ({$a['locality']}, Landkreis Heilbronn). Das Schmiedehandwerk ist seit {$h['since']} in der Familie; {$c['owner']} führt es in {$h['generation']}. Generation fort.",
+            '',
+            '## Fakten',
+            "- Inhaber: {$c['owner']}, {$c['owner_role']}",
+            "- Mitglied: {$c['chamber']}",
+            "- Familientradition: seit {$h['since']}, {$h['generation']}. Generation",
+            "- Adresse: {$a['street']}, {$a['postal_code']} {$a['locality']} (Ortsteil {$a['district']})",
+            "- Telefon: {$c['phone']['display']}",
+            "- Buchung: Kurse werden online gebucht; Umbuchen bis 7 Tage vor dem Termin",
+            '',
+            '## Schmiedekurse',
+        ];
+        foreach (Course::query()->published()->orderBy('sort')->get() as $course) {
+            $lines[] = '- '.$course->name.': '.collect([$course->duration_label, $course->blade_length_cm ? "Klinge bis {$course->blade_length_cm} cm" : null, $fmt($course->price_from)])->filter()->implode(', ');
+        }
+        $e = $c['edition'];
+        $lines = [...$lines, '', '## Messer',
+            "- {$e['name']}: limitiert auf {$e['total']} nummerierte Stücke ({$e['regular']} regulär zu je {$e['price']} €, {$e['special']} Sonderstücke)",
+            '- Messer-Unikate und Sonderanfertigungen auf Anfrage',
+            '', '## Seiten',
+        ];
+        foreach (config('pages') as $path => $page) {
+            if (($page['index'] ?? true) && $page['status'] === 'live') {
+                $lines[] = '- ['.$page['title'].']('.PageMeta::absolute($path).')';
+            }
+        }
+
+        return response(implode("\n", $lines)."\n", 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
     }
 }

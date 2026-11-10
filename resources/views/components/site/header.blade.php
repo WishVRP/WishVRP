@@ -16,7 +16,7 @@
             <x-ui.wordmark-mark />
             <span class="wordmark__text">
                 <span class="wordmark__name">{{ $c['name'] }}</span>
-                <span class="wordmark__place">{{ $c['place_label'] }}</span>
+                <span class="wordmark__place">Schmiedehandwerk seit {{ $c['heritage']['since'] }}</span>
             </span>
         </a>
 
@@ -36,7 +36,7 @@
                 @endforeach
             </ul>
             <div class="site-nav__cta">
-                <x-ui.button href="/schmiedekurse/buchen/" variant="straw">Termin finden</x-ui.button>
+                <x-ui.button href="/schmiedekurse/buchen/" variant="straw">Kurs buchen</x-ui.button>
             </div>
             <p class="site-nav__meta">
                 {{ $c['owner_role'] }} {{ $c['owner'] }}<br>

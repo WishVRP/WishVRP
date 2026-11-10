@@ -27,7 +27,7 @@ class HomeController extends Controller
         $meta = new PageMeta(
             // Vor Go-live mit dem aktuellen Live-Title abgleichen (10,15 % CTR nicht gefährden).
             title: 'Schmiedekurse & Messer aus Neuenstadt am Kocher',
-            description: 'Messer selbst schmieden – vom Grundlagenkurs bis zum Damast-Kurs – oder ein handgeschmiedetes Messer kaufen. Messermanufaktur Ulbrich bei Heilbronn.',
+            description: 'Schmiedekurse bei Heilbronn: Schmiede dein eigenes Messer bei Messerschmied '.config('ulbrich.owner').' – Schmiedehandwerk seit '.config('ulbrich.heritage.since').' in der Familie, in '.config('ulbrich.heritage.generation').'. Generation.',
             path: '/',
         );
 

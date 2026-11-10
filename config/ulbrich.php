@@ -25,6 +25,22 @@ return [
     'owner_role' => 'Messerschmied',
     'chamber' => 'Handwerkskammer Heilbronn-Franken',
 
+    /*
+    | Familientradition (Angabe Auftraggeber im Chat, 10.11.2026):
+    | Schmiedehandwerk seit 1934 in der Familie, Andreas Ulbrich in 3. Generation.
+    | Namen/Stationen der 1. und 2. Generation fehlen noch → null (werden nicht angezeigt).
+    | Bewusst KEIN foundingDate der Firma im Schema: 1934 ist das Jahr der Familientradition.
+    */
+    'heritage' => [
+        'since' => 1934,
+        'generation' => 3,
+        'generations' => [
+            ['no' => 1, 'year' => 1934, 'name' => null, 'text' => 'Das Schmiedehandwerk kommt in die Familie.'],
+            ['no' => 2, 'year' => null, 'name' => null, 'text' => 'Die zweite Generation führt das Handwerk fort.'],
+            ['no' => 3, 'year' => null, 'name' => 'Andreas Ulbrich', 'text' => 'Messerschmied, Messermanufaktur und Schmiedekurse in Stein am Kocher.'],
+        ],
+    ],
+
     'address' => [
         'street' => 'Wannenstraße 33',
         'postal_code' => '74196',

@@ -16,6 +16,16 @@
 - `php artisan ulbrich:audit` listet alle fehlenden Daten, Bildplätze und Foto-Prüfpunkte.
 - Geprüft in Chromium (Playwright): 1440 px und 375 px ohne horizontales Scrollen, keine Konsolenfehler.
 
+## Version 5: Emotion, Tradition, Weg zur Buchung (10.11.2026)
+
+- **Familientradition** laut Auftraggeber: Schmiedehandwerk seit 1934, Andreas Ulbrich in 3. Generation. Steht als eine Quelle in `config/ulbrich.php` → `heritage`.
+- **Hero:** Kontur „1934“, Unterzeile „aus einer Familie, die seit 1934 am Feuer steht“, Hauptbutton „Schmiedekurs buchen“, Kleingedrucktes (ab-Preis, Gutschein, Umbuchen).
+- **Neuer Abschnitt Tradition:** Zähler „92 Jahre“, Zeitstrahl 1. → 2. → 3. Generation → „Und dann: du.“ mit Buchungslink. Die Linie zeichnet sich beim Scrollen. Namen der 1. und 2. Generation fehlen noch.
+- **Neuer Abschnitt Erlebnis-Geschichte:** „Die Glut. / Der erste Schlag. / Dein Messer.“ Das Bild bleibt beim Scrollen stehen und wechselt mit jedem Kapitel. Am Ende stehen „Schmiedekurs buchen“ und „Als Gutschein verschenken“.
+- **Buchung überall:** Der Button im Kopf heißt jetzt „Kurs buchen“, ebenso die erste Aktion in der mobilen Leiste.
+- **SEO/GEO:** Meta-Description mit Tradition; FAQ „Seit wann …“ (auch als FAQPage-Schema); Person- und LocalBusiness-Schema mit Beschreibung und `knowsAbout`. Bewusst **kein** `foundingDate`, weil 1934 die Familientradition ist und nicht die Firmengründung. Neu ist **`/llms.txt`** mit Fakten, Kursen, Preisen und Seiten für KI-Suchsysteme.
+- Offen: Namen und Stationen der Generationen, alte Familienfotos, Pressespiegel (11 Artikel), Kooperationen, Screenshots der aktuellen Website für die Optik.
+
 ## Version 4: alle Seiten umgesetzt (10.11.2026)
 
 Alle 23 Bestands-URLs sind als echte Seiten umgesetzt. Es gibt keine Vorschau-Platzhalter mehr. Alle sind getestet: genau eine H1, Canonical, Description mit 140–160 Zeichen, Breadcrumb-Schema und keine toten internen Links.

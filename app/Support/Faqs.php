@@ -18,7 +18,11 @@ final class Faqs
         $max = $priced->max('price_from');
         $fmt = fn (int $n) => number_format($n, 0, ',', '.').' €';
 
-        $faqs = [];
+        $h = config('ulbrich.heritage');
+        $faqs = [[
+            'q' => 'Seit wann gibt es das Schmiedehandwerk in der Familie Ulbrich?',
+            'a' => "Seit {$h['since']}. Messerschmied ".config('ulbrich.owner')." führt das Handwerk heute in {$h['generation']}. Generation fort – und gibt es in seinen Schmiedekursen weiter.",
+        ]];
 
         if ($min && $max) {
             $cheapest = $priced->firstWhere('price_from', $min);
