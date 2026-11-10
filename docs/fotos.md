@@ -11,13 +11,17 @@ Eingebunden werden sie mit `<x-ui.media foto="key" format pos sizes>`. Die Seite
 | 1 Hero | `andreas-esse` + Funken-Animation |
 | 2 Manufaktur-Intro | `klappmesser-geschlossen` |
 | 3 Schmiedekurs-Erlebnis | `werkstatt-kurs`, `damast-detail`, `punze-detail` |
+| 4 Kurs-Finder (Kartenkopf je Kategorie) | Einstieg `werkstatt-amboss` · Klinge `messer-kuechenmesser` · Damast `damast-detail` · Teams `werkstatt-halle` |
 | 6 Messer-Raster | `klappmesser-stehend`, `klappmesser-rotholz`, `messer-kuechenmesser`, `messer-tisch`, `klappmesser-zebrano` |
 | 7 Edition 100 | `klappmesser-offen` |
 | 7b Galerie „Aus der Werkstatt“ | 8 Messerbilder, wischbar |
 | 8 Sonderanfertigungen | `griff-detail` |
+| 9 Gutscheine | `klappmesser-zebrano` hinter dem Gutschein |
+| 10 Herstellungsprozess | Fotoband `esse-feuer`, `werkstatt-amboss`, `damast-detail`, `griff-detail` |
 | 11 Andreas & Werkstatt | `andreas-portrait`, `werkstatt-halle` |
 | 12 Schmieden im Team | `werkstatt-kurs` (Hintergrund) |
 | 14 Ratgeber | `werkstatt-amboss`, `esse-feuer` |
+| 15 Kontakt | `werkstatt-halle` |
 | og:image | `public/images/og-startseite.jpg` |
 
 Mehrere Bilder sind Ausschnitte aus demselben Foto: `andreas-esse` liefert auch `andreas-portrait` und `esse-feuer`, `werkstatt-kurs` liefert auch `werkstatt-halle` und `werkstatt-amboss`. Sobald es mehr Fotos gibt, ersetzen wir diese Ausschnitte. Es gibt keinen Bildplatz mehr. Ein Foto der Außenansicht ist optional und steht als stiller Prüfpunkt im Audit.

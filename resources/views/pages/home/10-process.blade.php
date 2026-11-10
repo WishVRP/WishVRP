@@ -18,6 +18,14 @@
             </div>
             <p class="block-head__intro">Sechs Schritte, die ein geschmiedetes Messer durchläuft – von der Esse bis zur scharfen Schneide.</p>
         </div>
+        <ul class="process__photos" role="list">
+            @foreach ([['esse-feuer', 'Esse', 'right'], ['werkstatt-amboss', 'Amboss', 'left'], ['damast-detail', 'Damast', null], ['griff-detail', 'Griff', null]] as $i => [$foto, $label, $pos])
+                <li class="reveal {{ $i ? 'reveal-delay-'.min($i, 3) : '' }}">
+                    <x-ui.media :foto="$foto" :pos="$pos" format="tall" sizes="(min-width: 60rem) 22vw, 45vw" />
+                    <span class="process__photo-label">{{ $label }}</span>
+                </li>
+            @endforeach
+        </ul>
         <ol class="process__track" role="list">
             @foreach ($steps as $i => $step)
                 <li class="process__step reveal {{ $i ? 'reveal-delay-'.min($i, 3) : '' }} @if(!empty($step['temper'])) process__step--temper @endif">

@@ -36,6 +36,7 @@
                 <x-ui.button href="https://www.google.com/maps/dir/?api=1&destination={{ urlencode($c['address']['street'].', '.$c['address']['postal_code'].' '.$c['address']['locality']) }}" variant="secondary" rel="noopener" target="_blank">Route planen</x-ui.button>
             </div>
             <x-ui.missing silent>Foto Außenansicht/Zufahrt der Werkstatt (optional)</x-ui.missing>
+            <x-ui.media foto="werkstatt-halle" format="wide" sizes="(min-width: 60rem) 40vw, 100vw" />
         </aside>
     </div>
 </section>

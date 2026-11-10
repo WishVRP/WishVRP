@@ -1,6 +1,7 @@
 <section class="block gifts" aria-labelledby="gifts-title">
     <div class="container gifts__grid">
         <div class="voucher-stage reveal" aria-hidden="true">
+            <x-ui.media class="voucher-stage__photo" foto="klappmesser-zebrano" decorative sizes="(min-width: 60rem) 45vw, 100vw" />
             <div class="voucher voucher--back"></div>
             <div class="voucher">
                 <p class="voucher__kind">GUTSCHEIN</p>

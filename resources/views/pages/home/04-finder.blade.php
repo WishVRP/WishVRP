@@ -21,6 +21,7 @@
         <ul class="course-grid" role="list" data-finder-list>
             @foreach ($courses as $course)
                 <li class="course course--{{ $course->category }} reveal" data-category="{{ $course->category }}">
+                    <x-ui.media class="course__media" :foto="['einstieg' => 'werkstatt-amboss', 'klinge' => 'messer-kuechenmesser', 'damast' => 'damast-detail', 'gruppe' => 'werkstatt-halle'][$course->category] ?? 'werkstatt-amboss'" format="cinema" decorative sizes="(min-width: 64rem) 25vw, (min-width: 40rem) 45vw, 90vw" />
                     <div class="course__top">
                         <span class="course__cat">{{ $course->categoryLabel() }}</span>
                         <span>{{ $course->duration_label ?? '' }}</span>

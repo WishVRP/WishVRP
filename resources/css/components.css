@@ -434,7 +434,7 @@ a:hover .media::before,
 .media--pos-upper img { object-position: 50% 22%; }
 .media--pos-bottom img { object-position: 50% 100%; }
 .media--pos-left img { object-position: 22% 50%; }
-.media--pos-right img { object-position: 78% 50%; }
+.media--pos-right img { object-position: 95% 50%; }
 
 a:hover .media--photo img,
 .media-link:hover .media--photo img {
