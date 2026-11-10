@@ -1142,31 +1142,31 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .js .serials.reveal {
+    .reveal-ready .serials.reveal {
         opacity: 1;
         transform: none;
     }
 
-    .js .serials li {
+    .reveal-ready .serials li {
         opacity: 0;
         transform: scale(0.6);
         transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
     }
 
-    .js .serials.is-visible li {
+    .reveal-ready .serials.is-visible li {
         opacity: 1;
         transform: none;
     }
 
-    .js .serials.is-visible li:nth-child(10n + 2) { transition-delay: 30ms; }
-    .js .serials.is-visible li:nth-child(10n + 3) { transition-delay: 60ms; }
-    .js .serials.is-visible li:nth-child(10n + 4) { transition-delay: 90ms; }
-    .js .serials.is-visible li:nth-child(10n + 5) { transition-delay: 120ms; }
-    .js .serials.is-visible li:nth-child(10n + 6) { transition-delay: 150ms; }
-    .js .serials.is-visible li:nth-child(10n + 7) { transition-delay: 180ms; }
-    .js .serials.is-visible li:nth-child(10n + 8) { transition-delay: 210ms; }
-    .js .serials.is-visible li:nth-child(10n + 9) { transition-delay: 240ms; }
-    .js .serials.is-visible li:nth-child(10n + 10) { transition-delay: 270ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 2) { transition-delay: 30ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 3) { transition-delay: 60ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 4) { transition-delay: 90ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 5) { transition-delay: 120ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 6) { transition-delay: 150ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 7) { transition-delay: 180ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 8) { transition-delay: 210ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 9) { transition-delay: 240ms; }
+    .reveal-ready .serials.is-visible li:nth-child(10n + 10) { transition-delay: 270ms; }
 }
 
 .serials-legend {

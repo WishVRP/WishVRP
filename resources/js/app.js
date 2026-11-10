@@ -42,12 +42,22 @@ if (header) {
 
 /* ---------- Scroll-Reveal ---------- */
 const revealables = document.querySelectorAll('.reveal');
-if (!reduceMotion && 'IntersectionObserver' in window) {
+if (!reduceMotion && 'IntersectionObserver' in window && revealables.length) {
+    // Erst jetzt verstecken – lädt das Skript nicht, bleibt alles sichtbar.
+    document.documentElement.classList.add('reveal-ready');
+    // Sicherheitsnetz: was schon im oder über dem Sichtbereich liegt, sofort zeigen
+    window.setTimeout(() => {
+        revealables.forEach((el) => {
+            if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible');
+        });
+    }, 2500);
     const io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                io.unobserve(entry.target);
+                // In seitlich wischbaren Leisten alle Elemente gemeinsam einblenden
+                const row = entry.target.closest('.process__track');
+                const items = row ? row.querySelectorAll('.reveal') : [entry.target];
+                items.forEach((el) => { el.classList.add('is-visible'); io.unobserve(el); });
             }
         });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
@@ -84,8 +94,9 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
     const pio = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-shown');
-                pio.unobserve(entry.target);
+                const row = entry.target.closest('[data-gallery]');
+                const items = row ? row.querySelectorAll('.media--photo') : [entry.target];
+                items.forEach((el) => { el.classList.add('is-shown'); pio.unobserve(el); });
             }
         });
     }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
