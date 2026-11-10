@@ -59,6 +59,11 @@ Abwechselnde Layouts: Vollbild-Hero, Statement-Typografie, Bild-Collage, Kursras
 - Scroll-Reveal (IntersectionObserver, 24 px / Deckkraft), Edition-Raster baut sich spaltenweise auf.
 - Hero-Textur driftet beim Scrollen (CSS scroll-driven animation, nur wo unterstützt).
 - Mikrointeraktionen: Lichtkante über Buttons, wachsende Unterstreichung, Pfeile, Kachel-Zoom, Gutschein hebt sich.
+- **Version 3:** Funken über der Esse im Hero (Canvas, pausiert außerhalb des Sichtbereichs), Hero-Foto zoomt ein, Text steigt gestaffelt auf.
+- Fotos decken sich beim Scrollen von unten auf (clip-path), danach leichte Parallaxe (scroll-driven).
+- Zahlen zählen hoch (6 Kursformate, 40 cm, 5,0), Lichtkegel folgt dem Zeiger auf den Messer-Kacheln.
+- Galerie: Wischen, Ziehen mit der Maus, Pfeiltasten und Pfeil-Buttons.
+- Lesefortschritt als Anlassfarben-Linie unter der Kopfzeile.
 - Alles aus bei `prefers-reduced-motion`; ohne JavaScript ist alles sichtbar.
 
 ## Komponenten

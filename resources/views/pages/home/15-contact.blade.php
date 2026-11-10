@@ -35,7 +35,7 @@
                 <x-ui.button href="tel:{{ $c['phone']['e164'] }}" variant="straw" :arrow="false">Anrufen</x-ui.button>
                 <x-ui.button href="https://www.google.com/maps/dir/?api=1&destination={{ urlencode($c['address']['street'].', '.$c['address']['postal_code'].' '.$c['address']['locality']) }}" variant="secondary" rel="noopener" target="_blank">Route planen</x-ui.button>
             </div>
-            <x-ui.media motif="Außenansicht der Werkstatt mit Zufahrt" tone="steel" format="wide" />
+            <x-ui.missing silent>Foto Außenansicht/Zufahrt der Werkstatt (optional)</x-ui.missing>
         </aside>
     </div>
 </section>

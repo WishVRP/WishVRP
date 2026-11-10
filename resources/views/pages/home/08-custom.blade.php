@@ -1,6 +1,6 @@
 <section class="block" aria-labelledby="custom-title">
     <div class="container custom__grid">
-        <x-ui.media motif="Sonderanfertigung: Entwurfsskizze neben geschmiedetem Rohling auf der Werkbank" tone="brown" format="wide" class="reveal" />
+        <x-ui.media foto="griff-detail" format="square" class="reveal" sizes="(min-width: 60rem) 45vw, 100vw" />
         <div class="reveal reveal-delay-1">
             <x-ui.kicker color="brown">Sonderanfertigungen</x-ui.kicker>
             <h2 id="custom-title" class="h-section">Ein Messer nach deinen Vorstellungen</h2>

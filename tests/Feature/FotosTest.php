@@ -29,7 +29,9 @@ class FotosTest extends TestCase
         $html = $this->get('/')->assertOk()->getContent();
 
         preg_match_all('/<img [^>]*src="\/images\/fotos\/[^>]*>/', $html, $m);
-        $this->assertGreaterThanOrEqual(8, count($m[0]));
+        $this->assertGreaterThanOrEqual(20, count($m[0]));
+        $this->assertStringContainsString('id="galerie"', $html);
+        $this->assertStringContainsString('data-sparks', $html);
         foreach ($m[0] as $tag) {
             $this->assertMatchesRegularExpression('/ width="\d+"/', $tag);
             $this->assertMatchesRegularExpression('/ height="\d+"/', $tag);

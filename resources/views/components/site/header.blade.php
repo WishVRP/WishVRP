@@ -44,4 +44,5 @@
             </p>
         </nav>
     </div>
+    <span class="site-header__progress" aria-hidden="true"></span>
 </header>

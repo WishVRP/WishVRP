@@ -31,12 +31,20 @@ crop klappmesser-offen      klappmesser-offen-diagonal.jpg
 crop klappmesser-stehend    klappmesser-offen-stehend.jpg
 crop klappmesser-rotholz    klappmesser-rotholz.jpg
 crop klappmesser-zebrano    klappmesser-zebrano.jpg
+crop andreas-portrait       andreas-esse-screenshot.jpg  960x1200+60+640
+crop werkstatt-halle        werkstatt-kurs.jpg           1536x960+0+380
+crop werkstatt-amboss       werkstatt-kurs.jpg           800x500+0+820
+crop esse-feuer             andreas-esse-screenshot.jpg  680x425+760+900
+crop griff-detail           kuechenmesser-gravur.jpg     800x778+330+1270  # nur Griff, ohne Gravurmotiv
+crop messer-kuechenmesser   messer-tisch.jpg             747x560+150+620
+crop punze-detail           edition-banner.jpg           400x300+760+240   # ohne eingebrannten Text
 
 for f in "$TMP"/*.png; do
     name=$(basename "$f" .png)
     w=$(identify -format '%w' "$f")
     sizes=""
     for size in 480 800 1200 1600; do (( size <= w )) && sizes+=" $size"; done
+    (( w < 1200 && w > 480 && w != 800 )) && sizes+=" $w"
     [[ -z $sizes ]] && sizes=$w
     for size in $sizes; do
         convert "$f" -strip -resize "${size}x" -quality 80 "$OUT/$name-$size.jpg"

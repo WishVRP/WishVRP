@@ -3,7 +3,7 @@
         <div class="collage reveal">
             <x-ui.media foto="werkstatt-kurs" pos="left" sizes="(min-width: 60rem) 35vw, 70vw" />
             <x-ui.media foto="damast-detail" sizes="(min-width: 60rem) 25vw, 50vw" />
-            <x-ui.media motif="Hammer und Werkzeuge" tone="steel" :tag="false" />
+            <x-ui.media foto="punze-detail" sizes="(min-width: 60rem) 15vw, 35vw" />
         </div>
         <div class="experience__text reveal reveal-delay-1">
             <x-ui.kicker>Schmiedekurse</x-ui.kicker>
@@ -13,9 +13,9 @@
                 Grundlagenkurs bis zum Damast Premium-Kurs über zwei bis drei Tage.
             </p>
             <dl class="figures">
-                <div><dt>Kursformate</dt><dd>{{ $courses->count() }}</dd></div>
+                <div><dt>Kursformate</dt><dd data-count="{{ $courses->count() }}">{{ $courses->count() }}</dd></div>
                 <div><dt>Tage Kursdauer</dt><dd>1–3</dd></div>
-                <div><dt>cm Klinge im Premium-Kurs</dt><dd>{{ $maxBlade }}</dd></div>
+                <div><dt>cm Klinge im Premium-Kurs</dt><dd data-count="{{ $maxBlade }}">{{ $maxBlade }}</dd></div>
             </dl>
             <div class="btn-row">
                 <x-ui.button href="#kursfinder" variant="straw">Kurse vergleichen</x-ui.button>

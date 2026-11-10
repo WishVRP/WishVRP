@@ -64,4 +64,46 @@ return [
         'pruefen' => null,
     ],
 
+    'andreas-portrait' => [
+        'w' => 960, 'h' => 1200, 'widths' => [480, 800],
+        'alt' => 'Andreas Ulbrich mit Schiebermütze und Lederschürze an der Esse in seiner Werkstatt',
+        'pruefen' => null, 'hinweis' => 'Ausschnitt aus andreas-esse (Freigabe dort)',
+    ],
+
+    'werkstatt-halle' => [
+        'w' => 1536, 'h' => 960, 'widths' => [480, 800, 1200],
+        'alt' => 'Blick in die Werkstatthalle mit Amboss, Werkbänken, Presse und Galerie',
+        'pruefen' => null, 'hinweis' => 'Ausschnitt aus werkstatt-kurs (Einwilligung dort)',
+    ],
+
+    'werkstatt-amboss' => [
+        'w' => 800, 'h' => 500, 'widths' => [480, 800],
+        'alt' => 'Andreas Ulbrich am Amboss, daneben schauen Teilnehmer zu',
+        'pruefen' => null, 'hinweis' => 'Ausschnitt aus werkstatt-kurs (Einwilligung dort)',
+    ],
+
+    'esse-feuer' => [
+        'w' => 680, 'h' => 425, 'widths' => [480, 680],
+        'alt' => 'Hohe Flammen aus der Esse, davor ein Arm im gestreiften Hemd',
+        'pruefen' => null, 'hinweis' => 'Ausschnitt aus andreas-esse',
+    ],
+
+    'griff-detail' => [
+        'w' => 800, 'h' => 778, 'widths' => [480, 800],
+        'alt' => 'Messergriff aus Maserholz und türkisfarbenem Harz mit Messingstiften',
+        'pruefen' => null, 'hinweis' => 'Nur der Griff; die Klinge mit lizenzpflichtigem Motiv ist abgeschnitten',
+    ],
+
+    'messer-kuechenmesser' => [
+        'w' => 747, 'h' => 560, 'widths' => [480, 747],
+        'alt' => 'Küchenmesser mit Damastklinge und Holzgriff, daneben ein kleines Messer und ein Klappmesser',
+        'pruefen' => null,
+    ],
+
+    'punze-detail' => [
+        'w' => 400, 'h' => 300, 'widths' => [400],
+        'alt' => 'Detail eines Klappmessers: Damastklinge mit eingeschlagenem Zeichen an der Stahlbacke',
+        'pruefen' => null, 'hinweis' => 'Messer echt, Hintergrund KI-generiert',
+    ],
+
 ];

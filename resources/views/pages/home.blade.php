@@ -7,6 +7,7 @@
     @include('pages.home.05-dates')
     @include('pages.home.06-knives')
     @include('pages.home.07-edition')
+    @include('pages.home.07b-gallery')
     @include('pages.home.08-custom')
     @include('pages.home.09-gifts')
     @include('pages.home.10-process')

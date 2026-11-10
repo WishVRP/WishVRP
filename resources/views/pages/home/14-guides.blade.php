@@ -10,7 +10,7 @@
         <div class="guides__grid">
             @foreach ($c['guides'] as $i => $guide)
                 <a class="guide media-link reveal {{ $i ? 'reveal-delay-1' : '' }}" href="{{ $guide['path'] }}">
-                    <x-ui.media :motif="'Ratgeber: '.$guide['topic']" :tone="$i ? 'steel' : 'forge'" format="wide" />
+                    <x-ui.media :foto="['werkstatt-amboss', 'esse-feuer'][$i] ?? null" :motif="'Ratgeber: '.$guide['topic']" format="wide" decorative sizes="(min-width: 64rem) 33vw, 100vw" />
                     <span class="guide__topic">{{ $guide['topic'] }}</span>
                     <h3>{{ $guide['title'] }}</h3>
                 </a>

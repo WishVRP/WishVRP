@@ -5,7 +5,7 @@
                 <x-ui.kicker>Bewertungen</x-ui.kicker>
                 <h2 id="voices-title" class="visually-hidden">Bewertungen und Presse</h2>
                 @if ($rating)
-                    <p class="rating__value">{{ $rating['value'] }}</p>
+                    <p class="rating__value" data-count="{{ $rating['value'] }}">{{ $rating['value'] }}</p>
                     <x-ui.stars />
                     <p class="rating__meta">{{ $rating['count'] }} Bewertungen im Google-Unternehmensprofil<br>Stand {{ $rating['as_of'] }}</p>
                     @if ($rating['profile_url'])
