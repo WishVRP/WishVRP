@@ -1,0 +1,67 @@
+<?php
+
+/*
+| Fotos der Manufaktur (geliefert im Chat am 10.11.2026).
+| Web-Fassungen erzeugt `scripts/fotos-erzeugen.sh` nach public/images/fotos/{key}-{breite}.{webp,jpg}.
+| w/h = Maße des Zuschnitts (für width/height → kein Layoutsprung).
+| alt beschreibt nur, was zu sehen ist – keine Behauptungen über Material, Kurs oder Edition-Zugehörigkeit.
+| 'pruefen' = vor Go-live zu klären (läuft in `php artisan ulbrich:audit` mit).
+*/
+
+return [
+
+    'andreas-esse' => [
+        'w' => 1440, 'h' => 1920, 'widths' => [480, 800, 1200],
+        'alt' => 'Andreas Ulbrich in Lederschürze an der Esse, das Kohlefeuer brennt hell',
+        'pruefen' => 'Aus Instagram-Story-Screenshot zugeschnitten; Freigabe durch Andreas, Zigarette im Bild für die Startseite gewünscht?',
+    ],
+
+    'werkstatt-kurs' => [
+        'w' => 1536, 'h' => 1150, 'widths' => [480, 800, 1200],
+        'alt' => 'Werkstatthalle mit Amboss, Esse und Presse; eine Gruppe steht an der Werkbank',
+        'pruefen' => 'Erkennbare Personen: Einwilligung der Abgebildeten (DSGVO/KUG) vorhanden?',
+    ],
+
+    'messer-tisch' => [
+        'w' => 1370, 'h' => 1195, 'widths' => [480, 800, 1200],
+        'alt' => 'Fünf handgefertigte Messer mit Holzgriffen nebeneinander auf einem Tisch',
+        'pruefen' => null,
+    ],
+
+    'damast-detail' => [
+        'w' => 468, 'h' => 490, 'widths' => [468],
+        'alt' => 'Nahaufnahme einer Klinge mit Damastmuster',
+        'pruefen' => 'Studiobild – echtes Foto oder KI-bearbeitet? Muss das tatsächliche Messer zeigen.',
+    ],
+
+    'klappmesser-geschlossen' => [
+        'w' => 1229, 'h' => 1536, 'widths' => [480, 800, 1200],
+        'alt' => 'Geschlossenes Klappmesser mit dunklem Holzgriff und Stahlbacke, aufrecht an einem Stein',
+        'pruefen' => 'Studiobild – echtes Foto oder KI-bearbeitet? Muss das tatsächliche Messer zeigen.',
+    ],
+
+    'klappmesser-offen' => [
+        'w' => 1229, 'h' => 1536, 'widths' => [480, 800, 1200],
+        'alt' => 'Geöffnetes Damast-Klappmesser mit dunklem Holzgriff vor dunklem Hintergrund',
+        'pruefen' => 'Studiobild – echtes Foto oder KI-bearbeitet? Muss das tatsächliche Messer zeigen.',
+    ],
+
+    'klappmesser-stehend' => [
+        'w' => 1287, 'h' => 1536, 'widths' => [480, 800, 1200],
+        'alt' => 'Halb geöffnetes Damast-Klappmesser, auf Klinge und Griff stehend',
+        'pruefen' => 'Studiobild – echtes Foto oder KI-bearbeitet? Muss das tatsächliche Messer zeigen.',
+    ],
+
+    'klappmesser-rotholz' => [
+        'w' => 1536, 'h' => 1148, 'widths' => [480, 800, 1200],
+        'alt' => 'Damast-Klappmesser mit rotbraunem Holzgriff auf einer Holzscheibe mit Brandmuster',
+        'pruefen' => null,
+    ],
+
+    'klappmesser-zebrano' => [
+        'w' => 1536, 'h' => 1148, 'widths' => [480, 800, 1200],
+        'alt' => 'Geöffnetes Damast-Klappmesser mit hellem, gestreiftem Holzgriff auf einer Holzscheibe',
+        'pruefen' => null,
+    ],
+
+];

@@ -1,0 +1,34 @@
+# Fotos – Stand 10.11.2026
+
+14 Bilder wurden im Chat geliefert. Zwei davon waren doppelt. Originale liegen unverändert in `resources/fotos/original/`. Die Web-Fassungen erzeugt `bash scripts/fotos-erzeugen.sh`: Sie werden zugeschnitten, ohne Metadaten als WebP und JPEG gespeichert, in den Breiten 480, 800 und 1200, und landen in `public/images/fotos/`. Die Metadaten (Maße, Alt-Text, offene Prüfpunkte) stehen in `config/fotos.php`.
+
+Eingebunden werden sie mit `<x-ui.media foto="key" format pos sizes>`. Die Seitenverhältnisse bleiben wie bei den bisherigen Bildflächen, mit `width` und `height` gesetzt, sodass nichts springt. Bis auf das Hero-Bild laden alle Bilder verzögert (lazy).
+
+## Verwendung auf der Startseite
+
+| Abschnitt | Foto | Quelle |
+| --- | --- | --- |
+| 1 Hero | `andreas-esse` | Instagram-Story-Screenshot, Bedienleiste weggeschnitten |
+| 2 Manufaktur-Intro | `klappmesser-geschlossen` | Studiobild |
+| 3 Schmiedekurs-Erlebnis | `werkstatt-kurs`, `damast-detail` | Werkstattfoto; Ausschnitt aus der Collage mit Logo |
+| 6 Messer: Klappmesser / Unikate / Projekte / Shop | `klappmesser-stehend`, `klappmesser-rotholz`, `messer-tisch`, `klappmesser-zebrano` | Studio- und Holzscheiben-Fotos, Tischfoto |
+| 7 Edition 100 | `klappmesser-offen` | Studiobild |
+| 12 Schmieden im Team | `werkstatt-kurs` (Hintergrund, abgedunkelt) | Werkstattfoto |
+| Social-Vorschau (og:image) | `public/images/og-startseite.jpg` 1200×630 | aus der Collage mit Logo |
+
+**Noch als Bildplatz:** die Sonderanfertigung (Skizze und Rohling), das Porträt von Andreas im Abschnitt 11, die Werkstatt-Übersicht, die Außenansicht mit Zufahrt, zwei Ratgeber-Bilder und ein kleines Collage-Feld.
+
+## Bewusst nicht verwendet
+
+- **Messer mit One-Piece-Gravur und Scheide:** Die Figur und das Logo sind urheber- und markenrechtlich geschützt (Eiichiro Oda / Shueisha) und dürfen ohne Lizenz nicht in der Werbung verwendet werden. Im Tischfoto ist der untere Teil mit diesem Messer weggeschnitten.
+- **Banner „Limitiert auf 100 Stück · 699 €“:** Der Text ist ins Bild eingebrannt, ist damit weder lesbar für Suchmaschinen noch barrierefrei, und der Preis wäre doppelt gepflegt. Die Aussagen stehen bereits als echter Text auf der Seite.
+- **Freisteller auf Weiß (PNG):** Die Auflösung ist zu gering (653 px).
+- **Collage mit Logo:** nur als Ausschnitt für das Damastdetail und das Social-Bild verwendet. Das Logo darin ersetzt kein SVG-Logo.
+
+## Vor Go-live zu klären (`php artisan ulbrich:audit` listet sie)
+
+1. **Studiobilder:** Sind es echte Fotos oder mit KI erzeugt oder bearbeitet? Gemeint sind das geschlossene Messer, das offene diagonal, das stehende und die Collage. Wenn sie nicht das tatsächlich verkaufte Messer zeigen, ist das irreführende Werbung (UWG). Dann bitte durch echte Fotos ersetzen oder bestätigen, dass Form, Damastmuster und Griff dem Produkt entsprechen.
+2. **Werkstattfoto mit Gruppe:** Die Personen sind erkennbar, dafür braucht es eine Einwilligung der Abgebildeten (DSGVO/KUG). Alternativ ein Foto, auf dem niemand erkennbar ist.
+3. **Hero-Foto:** Andreas muss die Verwendung freigeben. Soll das Bild mit Zigarette das erste sein, was man sieht? Besser wäre eine Aufnahme in voller Auflösung von der Kamera statt eines Story-Screenshots.
+4. **Edition-100-Zuordnung:** Welche der Klappmesser gehören zur Edition 100? Die Alt-Texte behaupten das bewusst nicht.
+5. AVIF fehlt noch, weil auf diesem Rechner kein Encoder installiert ist. WebP und JPEG reichen für alle Browser.

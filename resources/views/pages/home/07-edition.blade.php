@@ -2,7 +2,7 @@
     <div class="container edition__grid">
         <div>
             <div class="edition__big" aria-hidden="true">100</div>
-            <x-ui.media motif="Damast-Klappmesser Edition 100, Klinge mit Seriennummer im Detail" tone="forge" format="square" class="reveal" />
+            <x-ui.media foto="klappmesser-offen" format="square" pos="upper" class="reveal" sizes="(min-width: 60rem) 40vw, 100vw" />
         </div>
         <div class="reveal reveal-delay-1">
             <x-ui.punze size="lg">Nº ___ / {{ $e['total'] }}</x-ui.punze>

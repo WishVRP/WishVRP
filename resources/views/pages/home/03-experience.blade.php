@@ -1,8 +1,8 @@
 <section class="block is-dark textured" aria-labelledby="experience-title">
     <div class="container experience__grid">
         <div class="collage reveal">
-            <x-ui.media motif="Teilnehmer schmiedet am Amboss" tone="forge" />
-            <x-ui.media motif="Glühender Stahl in der Zange" tone="forge" />
+            <x-ui.media foto="werkstatt-kurs" pos="left" sizes="(min-width: 60rem) 35vw, 70vw" />
+            <x-ui.media foto="damast-detail" sizes="(min-width: 60rem) 25vw, 50vw" />
             <x-ui.media motif="Hammer und Werkzeuge" tone="steel" :tag="false" />
         </div>
         <div class="experience__text reveal reveal-delay-1">

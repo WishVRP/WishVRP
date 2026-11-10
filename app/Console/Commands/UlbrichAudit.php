@@ -38,6 +38,16 @@ class UlbrichAudit extends Command
             $total += count($m);
         }
 
+        $checks = collect(config('fotos'))->filter(fn ($f) => ! empty($f['pruefen']));
+        if ($checks->isNotEmpty()) {
+            $this->newLine();
+            $this->line('<info>Fotos</info> – '.$checks->count().' vor Go-live zu klären');
+            foreach ($checks as $key => $foto) {
+                $this->line("   [FOTO] {$key}: {$foto['pruefen']}");
+            }
+            $total += $checks->count();
+        }
+
         $planned = collect(config('pages'))->where('status', 'planned')->count();
         $this->newLine();
         $this->line("Marker gesamt: {$total} · noch nicht umgesetzte Bestandsseiten: {$planned}");

@@ -49,9 +49,9 @@ Dunkle „Schmiede“-Flächen (`.is-dark`, Zunder #0e0f10) wechseln mit hellen 
 
 Abwechselnde Layouts: Vollbild-Hero, Statement-Typografie, Bild-Collage, Kursraster mit Filter, Kalender, Editorial-Raster (Messer), Edition-Inszenierung mit 100er-Raster, Split-Layouts, Gutschein-Objekt, horizontale Prozess-Schritte, Sticky-Porträt, Vollbreiten-Banner (Teams), große Bewertungszahl.
 
-## Bildflächen statt Fotos
+## Fotos und Bildflächen
 
-`<x-ui.media motif tone format>` erzeugt eine gestaltete Fläche (Damast-Textur + Anlassfarben-Licht) mit dezentem Etikett „Bildplatz · Motiv“. Echte Fotos ersetzen sie 1:1 (gleiches Seitenverhältnis → kein Layoutsprung). Fehlende Angaben erscheinen öffentlich neutral als „Angabe folgt“ oder gar nicht (`silent`); intern bleiben sie über `data-missing` markiert (`php artisan ulbrich:audit`).
+`<x-ui.media foto="key" format pos sizes>` zeigt ein echtes Foto aus `config/fotos.php` (siehe `docs/fotos.md`). Auf großen Bildschirmen steht das Hero-Foto rechts, mobil als Band oben. Ohne `foto` erzeugt `<x-ui.media motif tone format>` erzeugt eine gestaltete Fläche (Damast-Textur + Anlassfarben-Licht) mit dezentem Etikett „Bildplatz · Motiv“. Echte Fotos ersetzen sie 1:1 (gleiches Seitenverhältnis → kein Layoutsprung). Fehlende Angaben erscheinen öffentlich neutral als „Angabe folgt“ oder gar nicht (`silent`); intern bleiben sie über `data-missing` markiert (`php artisan ulbrich:audit`).
 
 ## Bewegung
 
@@ -68,7 +68,7 @@ Abwechselnde Layouts: Vollbild-Hero, Statement-Typografie, Bild-Collage, Kursras
 | `<x-ui.button href variant>` | Aktion | primary · secondary · violet · brown · straw. Text sagt, was passiert. |
 | `<x-ui.punze key>` | eingeschlagener Stempel | **nur echte Fakten** (Preis, Dauer, Kammer, Nº) |
 | `<x-ui.missing ask label silent>` | fehlende Angabe | öffentlich „Angabe folgt“ oder unsichtbar, intern `data-missing` |
-| `<x-ui.media motif tone format>` | Bildfläche bis Foto da ist | tone: forge · steel · violet · brown |
+| `<x-ui.media foto motif tone format pos>` | Foto oder Bildfläche | Foto aus config/fotos.php; sonst tone: forge · steel · violet · brown |
 | `<x-ui.kicker color>` | technische Zeile über Überschrift | nicht über jedem Abschnitt, kein Versal |
 | `<x-ui.icon name>` | Linien-Icons (ein Satz) | 1,5 px, 24er Raster |
 | `<x-ui.stars>` | Sterne für echte Gesamtbewertung | nie ohne Quelle und Datum |

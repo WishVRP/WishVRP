@@ -1,5 +1,5 @@
-<section class="hero is-dark" aria-labelledby="hero-title">
-    <x-ui.media class="hero__media media--tag-top" motif="Großaufnahme Werkstatt: Andreas Ulbrich am Amboss, Funken, glühende Klinge" tone="forge" />
+<section class="hero hero--photo is-dark" aria-labelledby="hero-title">
+    <x-ui.media class="hero__media" foto="andreas-esse" pos="upper" eager sizes="(min-width: 64rem) 62vw, 100vw" />
     <div class="container hero__inner">
         <div>
             <x-ui.kicker color="straw">{{ $c['name'] }} · {{ $c['place_label'] }}</x-ui.kicker>

@@ -10,8 +10,9 @@
 - Sicherheit: CSP mit Nonce, Sicherheits-Header, noindex außerhalb Produktion, Verwaltung unter eigenem Pfad mit **Pflicht-2FA**.
 - Verwaltung: Kurse und Kurstermine in Filament pflegbar.
 - Einheitliche Faktenquelle `config/ulbrich.php` inkl. Steuer-Schalter (`ULBRICH_TAX_MODE`).
-- 26 automatisierte Tests: alle Bestands-URLs von der Startseite verlinkt, keine toten internen Links, keine Platzhalter-Bewertungen in Produktion, Meta, H1, Schema, kein Admin-Markup, Header, Redirects, robots, Sitemap, Admin-Schutz – **alle grün**.
-- `php artisan ulbrich:audit` listet alle fehlenden Daten und Bildplätze (aktuell 18 Angaben, 18 Bildplätze).
+- 28 automatisierte Tests: alle Bestands-URLs von der Startseite verlinkt, keine toten internen Links, keine Platzhalter-Bewertungen in Produktion, Meta, H1, Schema, kein Admin-Markup, Header, Redirects, robots, Sitemap, Admin-Schutz – **alle grün**.
+- **Echte Fotos** (10 von 14 gelieferten Bildern) in 7 Abschnitten plus Social-Vorschau: WebP und JPEG, srcset, feste Maße, lazy; Bildpipeline `scripts/fotos-erzeugen.sh`, Details und offene Fragen in `docs/fotos.md`.
+- `php artisan ulbrich:audit` listet alle fehlenden Daten, Bildplätze und Foto-Prüfpunkte.
 - Geprüft in Chromium (Playwright): 1440 px und 375 px ohne horizontales Scrollen, keine Konsolenfehler.
 
 ## Vorbereitet (Gerüst vorhanden, Inhalt fehlt)
@@ -27,7 +28,7 @@
 3. Gutschein-Kauf und -Einlösung (serverseitig, Codes ≥ 12 Zeichen).
 4. `/klappmesser/` und Shop (Product/Offer, Altersprüfung beim Versand).
 5. Rechtsseiten (nach Klärung Steuer/Widerruf), Manufaktur, Presse (11 datierte Quellen), Ratgeber.
-6. Bildpipeline (AVIF/WebP, srcset) sobald Fotos da sind; OG-Bild; echtes Logo/Favicon.
+6. Restliche Fotos (Porträt, Anfertigung, Außenansicht), AVIF, echtes Logo/Favicon.
 7. Staging mit Passwort, Deploy-Skript, Lighthouse/axe-Läufe, Feldmessung nach Go-live.
 
 Nicht gemessen/geprüft: Lighthouse, Rich-Results-Test, Search Console, echtes Hosting.
@@ -50,7 +51,7 @@ Nicht gemessen/geprüft: Lighthouse, Rich-Results-Test, Search Console, echtes H
 | Kurzbiografie mit Belegen | Manufaktur, Person-Schema | Andreas |
 | Link Google-Profil, Instagram-URL | sameAs, Hinweis Bewertung | Jeremy |
 | Logo als SVG | Kopf, Favicon, Schema | Andreas/Jeremy |
-| Fotos: Andreas am Amboss, Edition 100, Werkstatt, Anfertigung (+ OG-Bild 1200×630) | 4 Platzhalter + Social | Fotograf / Andreas |
+| Fotos: Porträt Andreas (ohne Zigarette, Kamera-Original), Anfertigung (Skizze/Rohling), Außenansicht; Herkunft der Studiobilder bestätigen; Einwilligung Personen im Werkstattfoto | restliche Bildplätze, Recht | Andreas |
 | 11 Presse-Quellen mit Datum und Link | Presse | Live-Seite `/presse/` |
 | Aktueller Live-Title/-Description der Startseite | CTR-Erhalt | Live-Seite |
 

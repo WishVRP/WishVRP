@@ -1,5 +1,5 @@
 <section class="block teams is-dark" aria-labelledby="teams-title">
-    <x-ui.media motif="Gruppe in der Werkstatt am Amboss" tone="forge" />
+    <x-ui.media foto="werkstatt-kurs" decorative sizes="(min-width: 60rem) 60vw, 100vw" />
     <div class="container">
         <div class="teams__inner reveal">
             <x-ui.kicker color="straw">Firmen & Gruppen</x-ui.kicker>

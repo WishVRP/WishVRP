@@ -15,7 +15,7 @@
                 <p class="mt-4"><a class="link-arrow" href="/manufaktur/">Mehr über die Manufaktur <span aria-hidden="true">→</span></a></p>
             </div>
             <div class="intro__aside reveal reveal-delay-1">
-                <x-ui.media motif="Andreas Ulbrich mit Schürze vor der Esse" tone="steel" format="portrait" />
+                <x-ui.media foto="klappmesser-geschlossen" format="portrait" sizes="(min-width: 60rem) 30vw, 100vw" />
                 <dl class="spec">
                     <div class="spec__row"><dt>Messerschmied</dt><dd>{{ $c['owner'] }}</dd></div>
                     <div class="spec__row"><dt>Mitglied</dt><dd>{{ $c['chamber'] }}</dd></div>

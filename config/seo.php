@@ -11,5 +11,5 @@ return [
     'title_suffix' => ' | Ulbrich',
 
     // [FEHLT] Echtes Foto (1200×630) für Social-Vorschau. Bis dahin neutrales Motiv.
-    'default_og_image' => '/images/og-default.png',
+    'default_og_image' => '/images/og-startseite.jpg',
 ];
