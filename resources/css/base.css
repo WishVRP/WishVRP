@@ -20,7 +20,7 @@ html {
 
 body {
     margin: 0;
-    background: var(--color-bg);
+    background: var(--night-950);
     color: var(--color-text);
     font-family: var(--font-text);
     font-size: var(--text-base);
@@ -33,7 +33,7 @@ body {
 /* Platz für die mobile Aktionsleiste */
 @media (max-width: 63.99rem) {
     body {
-        padding-bottom: calc(var(--mobilebar-h) + env(safe-area-inset-bottom));
+        padding-bottom: calc(var(--mobilebar-h) + 1.5rem + env(safe-area-inset-bottom));
     }
 }
 
@@ -54,7 +54,7 @@ h4 {
     line-height: var(--leading-snug);
     text-wrap: balance;
     overflow-wrap: break-word;
-    hyphens: auto;
+    hyphens: manual;
     font-variation-settings: "opsz" 48;
 }
 
@@ -100,8 +100,7 @@ a:hover {
     border-radius: var(--radius-1);
 }
 
-ul[role="list"],
-ol[role="list"] {
+:where(ul, ol)[role="list"] {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -217,3 +216,13 @@ table {
 .mt-3 { margin-top: var(--space-3); }
 .mt-4 { margin-top: var(--space-4); }
 .mt-5 { margin-top: var(--space-5); }
+
+main {
+    display: block;
+    background: var(--color-bg);
+}
+
+/* Silbentrennung in Überschriften nur auf sehr schmalen Displays */
+@media (max-width: 29.99rem) {
+    h2, h3 { hyphens: auto; }
+}

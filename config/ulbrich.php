@@ -97,4 +97,38 @@ return [
         'dimensions' => null, // [FEHLT]
         'handle' => null,   // [FEHLT]
     ],
+
+    /*
+    | Bewertungstexte: nur wörtlich aus dem Google-Profil, mit Vorname/Initial
+    | und Datum, nach Freigabe. Leer = Bereich zeigt nur die Gesamtbewertung.
+    | Format: ['text' => '…', 'author' => 'Vorname N.', 'date' => '2026-05-01', 'source' => 'Google']
+    */
+    'reviews' => [],
+
+    /*
+    | Presse: die 11 datierten Quellen von /presse/ übernehmen.
+    | Format: ['outlet' => 'Heilbronner Stimme', 'title' => '…', 'date' => '2025-03-14', 'url' => 'https://…']
+    | Leer = in der Vorschau gestaltete Platzhalter, in Produktion nur der Link.
+    */
+    'press' => [],
+
+    /*
+    | Ratgeber-Artikel, die es auf der Live-Seite gibt (laut Projektskill:
+    | Kosten, Vorbereitung). Pfade noch nicht bekannt → Übersicht.
+    */
+    'guides' => [
+        ['title' => 'Was kostet ein Schmiedekurs?', 'topic' => 'Kosten', 'path' => '/ratgeber/'],
+        ['title' => 'So bereitest du dich auf deinen Schmiedekurs vor', 'topic' => 'Vorbereitung', 'path' => '/ratgeber/'],
+    ],
+
+    /*
+    | Messer-Bereiche = bestehende Seiten der Live-Website.
+    */
+    'knife_areas' => [
+        ['title' => 'Damast-Klappmesser Edition 100', 'path' => '/klappmesser/', 'text' => '100 nummerierte Stücke'],
+        ['title' => 'Messer-Unikate', 'path' => '/messer-unikate/', 'text' => 'Einzelstücke aus der Werkstatt'],
+        ['title' => 'Sonderanfertigungen', 'path' => '/sonderanfertigungen/', 'text' => 'Ein Messer nach deinen Vorstellungen'],
+        ['title' => 'Messerprojekte', 'path' => '/messerprojekte/', 'text' => 'Bisher entstandene Arbeiten'],
+        ['title' => 'Shop', 'path' => '/shop/', 'text' => 'Alle verfügbaren Messer'],
+    ],
 ];

@@ -14,7 +14,7 @@ class UlbrichAudit extends Command
 {
     protected $signature = 'ulbrich:audit {--base=http://127.0.0.1:8000}';
 
-    protected $description = 'Listet fehlende echte Unternehmensdaten ([FEHLT]) auf allen umgesetzten Seiten';
+    protected $description = 'Listet fehlende echte Unternehmensdaten und Bildplätze auf allen umgesetzten Seiten';
 
     public function handle(): int
     {
@@ -27,11 +27,13 @@ class UlbrichAudit extends Command
             }
 
             $html = Http::get($base.$path)->body();
-            preg_match_all('/\[(FEHLT|FOTO): ([^\]]+)\]/u', html_entity_decode(strip_tags($html)), $m, PREG_SET_ORDER);
+            // data-missing = fehlende Angabe, data-placeholder = Bildplatz/Platzhalter (öffentlich neutral gestaltet)
+            preg_match_all('/data-(missing|placeholder)="([^"]*)"/u', $html, $m, PREG_SET_ORDER);
 
-            $this->line("<info>{$path}</info> – ".count($m).' Marker');
+            $this->line("<info>{$path}</info> – ".count($m).' offene Stellen');
             foreach ($m as $hit) {
-                $this->line("   [{$hit[1]}] ".trim(preg_replace('/\s+/', ' ', $hit[2])));
+                $kind = $hit[1] === 'missing' ? 'FEHLT' : 'BILD/PLATZHALTER';
+                $this->line("   [{$kind}] ".html_entity_decode(trim($hit[2])));
             }
             $total += count($m);
         }

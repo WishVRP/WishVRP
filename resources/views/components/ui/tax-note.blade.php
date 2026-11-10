@@ -8,6 +8,6 @@
     @elseif ($mode === 'regular')
         Alle Preise inkl. 19 % MwSt.
     @else
-        <x-ui.missing ask="mit Steuerberater klären">Steuerhinweis – § 19 UStG oder „inkl. MwSt.“</x-ui.missing>
+        <x-ui.missing ask="mit Steuerberater klären" label="Steuerhinweis folgt">Steuerhinweis – § 19 UStG oder „inkl. MwSt.“</x-ui.missing>
     @endif
 </span>

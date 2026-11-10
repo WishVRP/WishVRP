@@ -2,20 +2,27 @@
     $c = config('ulbrich');
     $a = $c['address'];
 @endphp
-<footer class="site-footer">
+<footer class="site-footer is-dark">
     <div class="container">
+        <div class="site-footer__top">
+            <p class="site-footer__claim">Feuer, Stahl und Handarbeit aus {{ $c['address']['district'] }}.</p>
+            <div class="btn-row">
+                <x-ui.button href="/schmiedekurse/buchen/" variant="straw">Kurstermin finden</x-ui.button>
+                <x-ui.button href="tel:{{ $c['phone']['e164'] }}" variant="secondary" :arrow="false">{{ $c['phone']['display'] }}</x-ui.button>
+            </div>
+        </div>
         <div class="site-footer__grid">
             <div>
-                <p class="site-footer__name">{{ $c['name'] }}</p>
+                <h2>Kontakt</h2>
                 <address>
+                    {{ $c['name'] }}<br>
                     {{ $c['owner'] }}, {{ $c['owner_role'] }}<br>
                     {{ $a['street'] }}<br>
-                    {{ $a['postal_code'] }} {{ $a['locality'] }} ({{ $a['district'] }})<br>
-                    Telefon <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a><br>
+                    {{ $a['postal_code'] }} {{ $a['locality'] }}<br>
                     @if ($c['email'])
-                        E-Mail <a href="mailto:{{ $c['email'] }}">{{ $c['email'] }}</a>
+                        <a href="mailto:{{ $c['email'] }}">{{ $c['email'] }}</a>
                     @else
-                        E-Mail <x-ui.missing ask="info@ oder gmx festlegen">E-Mail-Adresse</x-ui.missing>
+                        <x-ui.missing silent ask="info@ oder gmx festlegen">E-Mail-Adresse</x-ui.missing>
                     @endif
                 </address>
             </div>
@@ -27,6 +34,7 @@
                     <li><a href="/schmiedekurse/heilbronn-region/">Schmiedekurs Region Heilbronn</a></li>
                     <li><a href="/schmiedekurse/buchen/">Termin buchen</a></li>
                     <li><a href="/geschenke/schmiedekurs-gutschein/">Kurs-Gutschein</a></li>
+                    <li><a href="/erlebnisse/">Erlebnisse</a></li>
                 </ul>
             </nav>
             <nav aria-labelledby="footer-messer">
@@ -46,14 +54,13 @@
                     <li><a href="/presse/">Presse</a></li>
                     <li><a href="/ratgeber/">Ratgeber</a></li>
                     <li><a href="/geschenke/">Geschenke</a></li>
-                    <li><a href="/erlebnisse/">Erlebnisse</a></li>
                     <li><a href="/partner/">Partner</a></li>
                     <li><a href="/kunsthandwerkermarkt/">Kunsthandwerkermarkt</a></li>
                 </ul>
             </nav>
         </div>
         <div class="site-footer__legal">
-            <x-ui.tax-note />
+            <span>© {{ date('Y') }} {{ $c['name'] }} · <x-ui.tax-note /></span>
             <ul role="list">
                 <li><a href="/impressum/">Impressum</a></li>
                 <li><a href="/datenschutz/">Datenschutz</a></li>

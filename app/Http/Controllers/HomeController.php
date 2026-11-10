@@ -40,7 +40,17 @@ class HomeController extends Controller
             Schema::faq($faqs),
         ]);
 
-        return view('pages.home', compact('meta', 'schema', 'courses', 'dates', 'minPrice', 'maxBlade', 'faqs'));
+        $c = config('ulbrich');
+
+        return view('pages.home', [
+            ...compact('meta', 'schema', 'courses', 'dates', 'minPrice', 'maxBlade', 'faqs', 'c'),
+            'e' => $c['edition'],
+            'rating' => $c['google_rating'],
+            'reviews' => $c['reviews'],
+            'press' => $c['press'],
+            // Gestaltete Platzhalter für Bewertungen/Presse nur außerhalb der Produktion.
+            'isPreview' => ! app()->isProduction(),
+        ]);
     }
 
     /**

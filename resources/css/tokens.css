@@ -40,9 +40,14 @@
     --temper-blue-ink: #234c78;
     --temper-blue-strong: #1f456d;
 
+    /* Dunkle Flächen (Esse, Schmiede) */
+    --night-900: #16181a;
+    --night-950: #0e0f10;
+    --night-line: rgb(255 255 255 / 0.12);
+    --night-text: #e9ebed;
+    --night-muted: #a9b0b7;
+
     /* Status */
-    --signal-missing: #a1361f;   /* [FEHLT]-Marker, bewusst auffällig */
-    --signal-missing-bg: #fbeee9;
 
     /* Rollen */
     --color-bg: var(--steel-50);
@@ -69,6 +74,8 @@
     --text-xl: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
     --text-2xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.625rem);
     --text-3xl: clamp(2.25rem, 1.6rem + 3vw, 4.25rem);
+    --text-display: clamp(2.6rem, 1.5rem + 4.2vw, 5.75rem);
+    --text-statement: clamp(1.5rem, 1.1rem + 1.7vw, 2.5rem);
 
     --leading-tight: 1.08;
     --leading-snug: 1.25;
@@ -96,7 +103,7 @@
     --shadow-stamp: inset 0 1px 2px rgb(18 19 20 / 0.28), inset 0 -1px 0 rgb(255 255 255 / 0.5);
 
     /* Layout */
-    --container: 76rem;
+    --container: 82rem;
     --container-text: 40rem;
     --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
     --header-h: 4.25rem;
@@ -106,4 +113,9 @@
     --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
     --dur-fast: 120ms;
     --dur-base: 200ms;
+    --dur-slow: 700ms;
+    --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+    /* Texturen (Grafik, keine Fotos) */
+    --texture-damast: url("/images/damast-textur.svg");
 }

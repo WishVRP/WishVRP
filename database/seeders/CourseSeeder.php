@@ -17,12 +17,12 @@ class CourseSeeder extends Seeder
     public function run(): void
     {
         $courses = [
-            ['name' => 'Grundlagenkurs', 'duration_label' => '1 Tag', 'blade_length_cm' => null, 'price_from' => 300],
-            ['name' => 'Klingenkurs', 'duration_label' => '1 Tag', 'blade_length_cm' => null, 'price_from' => 440],
-            ['name' => 'Klingenkurs „Alternativ“', 'duration_label' => null, 'blade_length_cm' => null, 'price_from' => 500],
-            ['name' => 'Damast-Messerkurs', 'duration_label' => '2 Tage', 'blade_length_cm' => 32, 'price_from' => 1100],
-            ['name' => 'Damast Premium-Kurs', 'duration_label' => '2–3 Tage', 'blade_length_cm' => 40, 'price_from' => 1300],
-            ['name' => 'Manager-Schmiedekurs', 'duration_label' => '3 Tage', 'blade_length_cm' => null, 'price_from' => null],
+            ['name' => 'Grundlagenkurs', 'category' => 'einstieg', 'duration_label' => '1 Tag', 'blade_length_cm' => null, 'price_from' => 300],
+            ['name' => 'Klingenkurs', 'category' => 'klinge', 'duration_label' => '1 Tag', 'blade_length_cm' => null, 'price_from' => 440],
+            ['name' => 'Klingenkurs „Alternativ“', 'category' => 'klinge', 'duration_label' => null, 'blade_length_cm' => null, 'price_from' => 500],
+            ['name' => 'Damast-Messerkurs', 'category' => 'damast', 'duration_label' => '2 Tage', 'blade_length_cm' => 32, 'price_from' => 1100],
+            ['name' => 'Damast Premium-Kurs', 'category' => 'damast', 'duration_label' => '2–3 Tage', 'blade_length_cm' => 40, 'price_from' => 1300],
+            ['name' => 'Manager-Schmiedekurs', 'category' => 'gruppe', 'duration_label' => '3 Tage', 'blade_length_cm' => null, 'price_from' => null],
         ];
 
         foreach ($courses as $i => $course) {

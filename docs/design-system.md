@@ -41,7 +41,25 @@ Alle ≥ 4,5 : 1 (AA für normalen Text). Ein Browser-Audit (axe/Lighthouse) ist
 
 ## Raster und Form
 
-8-px-Raster (`--space-1` … `--space-9`), Container 76 rem, Textbreite 40 rem. Radien 2–4 px („geschliffene Kante“). Touch-Ziele ≥ 44 px (Buttons 46 px, Footer-Links 44 px).
+8-px-Raster (`--space-1` … `--space-9`), Container 82 rem, Textbreite 40 rem. Radien 2–4 px („geschliffene Kante“). Touch-Ziele ≥ 44 px (Buttons 46 px, Footer-Links 44 px).
+
+## Visuelle Richtung (Version 2, 10.11.2026)
+
+Dunkle „Schmiede“-Flächen (`.is-dark`, Zunder #0e0f10) wechseln mit hellen Stahlflächen. Eine generative **Damast-Textur** (`public/images/damast-textur.svg`, Grafik, kein Foto) liegt dezent auf dunklen Abschnitten und in den Bildflächen. Anlassfarben bleiben Funktionsfarben: Blau = Kurse, Braun = Messer, Violett = Gutscheine, Stroh = Akzent auf Dunkel.
+
+Abwechselnde Layouts: Vollbild-Hero, Statement-Typografie, Bild-Collage, Kursraster mit Filter, Kalender, Editorial-Raster (Messer), Edition-Inszenierung mit 100er-Raster, Split-Layouts, Gutschein-Objekt, horizontale Prozess-Schritte, Sticky-Porträt, Vollbreiten-Banner (Teams), große Bewertungszahl.
+
+## Bildflächen statt Fotos
+
+`<x-ui.media motif tone format>` erzeugt eine gestaltete Fläche (Damast-Textur + Anlassfarben-Licht) mit dezentem Etikett „Bildplatz · Motiv“. Echte Fotos ersetzen sie 1:1 (gleiches Seitenverhältnis → kein Layoutsprung). Fehlende Angaben erscheinen öffentlich neutral als „Angabe folgt“ oder gar nicht (`silent`); intern bleiben sie über `data-missing` markiert (`php artisan ulbrich:audit`).
+
+## Bewegung
+
+- Anlassfarben-Skala im Hero läuft einmal ein.
+- Scroll-Reveal (IntersectionObserver, 24 px / Deckkraft), Edition-Raster baut sich spaltenweise auf.
+- Hero-Textur driftet beim Scrollen (CSS scroll-driven animation, nur wo unterstützt).
+- Mikrointeraktionen: Lichtkante über Buttons, wachsende Unterstreichung, Pfeile, Kachel-Zoom, Gutschein hebt sich.
+- Alles aus bei `prefers-reduced-motion`; ohne JavaScript ist alles sichtbar.
 
 ## Komponenten
 
@@ -49,16 +67,15 @@ Alle ≥ 4,5 : 1 (AA für normalen Text). Ein Browser-Audit (axe/Lighthouse) ist
 | --- | --- | --- |
 | `<x-ui.button href variant>` | Aktion | primary · secondary · violet · brown · straw. Text sagt, was passiert. |
 | `<x-ui.punze key>` | eingeschlagener Stempel | **nur echte Fakten** (Preis, Dauer, Kammer, Nº) |
-| `<x-ui.missing ask>` | `[FEHLT: …]`-Marker | sichtbar, bis echte Daten vorliegen |
-| `<x-ui.photo motif format>` | Foto-Platzhalter `[FOTO: …]` | feste Seitenverhältnisse → kein Layoutsprung |
+| `<x-ui.missing ask label silent>` | fehlende Angabe | öffentlich „Angabe folgt“ oder unsichtbar, intern `data-missing` |
+| `<x-ui.media motif tone format>` | Bildfläche bis Foto da ist | tone: forge · steel · violet · brown |
+| `<x-ui.kicker color>` | technische Zeile über Überschrift | nicht über jedem Abschnitt, kein Versal |
+| `<x-ui.icon name>` | Linien-Icons (ein Satz) | 1,5 px, 24er Raster |
+| `<x-ui.stars>` | Sterne für echte Gesamtbewertung | nie ohne Quelle und Datum |
 | `<x-ui.price amount from>` | Preis im deutschen Format | `null` → „auf Anfrage“ |
 | `<x-ui.tax-note>` | Steuerhinweis | aus `config('ulbrich.tax_mode')`, eine Quelle |
 | `<x-ui.dimension cm max>` | Bemaßungslinie (SVG) | Klingenlänge maßstäblich |
-| `<x-ui.temper-scale>` | Anlassfarben-Skala | einziger inszenierter Moment, einmalig, `prefers-reduced-motion` |
-| `<x-ui.section-head title spec>` | Abschnittskopf | Spec-Zeile nur mit echter Information |
+| `<x-ui.temper-scale>` | Anlassfarben-Skala | Hero, läuft einmal ein, `prefers-reduced-motion` |
 | `<x-site.header/footer/mobile-bar>` | Rahmen | Mobile-Leiste: Termine · Gutschein · Kontakt |
 | `<x-seo.meta :meta>` | Title, Description, Canonical, OG, Twitter | aus `App\Support\PageMeta` |
 
-## Bewegung
-
-Nur die Anlassfarben-Skala animiert beim Laden (transform/filter, 1,6 s). Sonst nur Hover/Fokus-Reaktionen. `prefers-reduced-motion` schaltet alles ab.

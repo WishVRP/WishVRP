@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Courses\Schemas;
 
+use App\Models\Course;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -14,6 +16,7 @@ class CourseForm
         return $schema
             ->components([
                 TextInput::make('name')->label('Kursname')->required()->maxLength(120),
+                Select::make('category')->label('Kategorie (Kurs-Finder)')->options(Course::CATEGORIES),
                 TextInput::make('path')
                     ->label('URL-Pfad der Kursseite')
                     ->helperText('Bestehenden Pfad der Live-Seite 1:1 übernehmen, z. B. /schmiedekurse/grundlagenkurs/')

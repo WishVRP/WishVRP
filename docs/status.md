@@ -3,15 +3,15 @@
 ## Umgesetzt
 
 - Laravel-13-Projekt (PHP 8.3) mit Filament 5, Git, Architekturentscheidungen in `docs/adr/`.
-- **Startseite** vollständig: Hero, drei Verkaufswege (Kurse · Messer · Gutscheine), Kurstabelle aus der Datenbank mit Bemaßungslinien, Terminbereich (serverseitig, aktuell leer), Buchungsregeln, Edition 100 mit Spezifikationsblatt, Anfertigung, Manufaktur/Person, FAQ, Kontakt & Anfahrt.
+- **Startseite Version 2** (Premium-Redesign) mit 15 Abschnitten: Hero · Manufaktur-Intro · Schmiedekurs-Erlebnis · Kurs-Finder mit Filter · Kurstermine · Messer-Raster · Edition 100 (100er-Raster) · Sonderanfertigungen · Gutscheine · Herstellungsprozess · Andreas Ulbrich & Werkstatt · Firmen & Gruppen · Bewertungen & Presse · Ratgeber · FAQ/Kontakt/Anfahrt. Vergleich mit der alten Website: `docs/vergleich-alt-neu.md`.
 - Navigation laut Konzept (Schmiedekurse · Messer · Anfertigung · Gutscheine · Manufaktur · Ratgeber + „Termin finden“), mobiles Menü (Tastatur, Escape, ohne JS sichtbar), mobile Aktionsleiste Termine · Gutschein · Kontakt.
 - Designsystem: Tokens, 11 Blade-Komponenten, Kontraste rechnerisch ≥ AA (`docs/design-system.md`).
 - SEO-Grundlage: PageMeta, JSON-LD, robots, Sitemap, Redirect-Map, Slash-Normalisierung (`docs/seo-migrationsplan.md`).
 - Sicherheit: CSP mit Nonce, Sicherheits-Header, noindex außerhalb Produktion, Verwaltung unter eigenem Pfad mit **Pflicht-2FA**.
 - Verwaltung: Kurse und Kurstermine in Filament pflegbar.
 - Einheitliche Faktenquelle `config/ulbrich.php` inkl. Steuer-Schalter (`ULBRICH_TAX_MODE`).
-- 20 automatisierte Tests (Meta, H1, Schema, keine Bewertungen im Schema, kein Admin-Markup, Header, Redirects, robots, Sitemap, Admin-Schutz) – **alle grün**.
-- `php artisan ulbrich:audit` listet alle fehlenden Daten.
+- 26 automatisierte Tests: alle Bestands-URLs von der Startseite verlinkt, keine toten internen Links, keine Platzhalter-Bewertungen in Produktion, Meta, H1, Schema, kein Admin-Markup, Header, Redirects, robots, Sitemap, Admin-Schutz – **alle grün**.
+- `php artisan ulbrich:audit` listet alle fehlenden Daten und Bildplätze (aktuell 18 Angaben, 18 Bildplätze).
 - Geprüft in Chromium (Playwright): 1440 px und 375 px ohne horizontales Scrollen, keine Konsolenfehler.
 
 ## Vorbereitet (Gerüst vorhanden, Inhalt fehlt)
