@@ -1,5 +1,6 @@
 @php $h = $c['heritage']; $years = now()->year - $h['since']; @endphp
 <section class="block heritage is-dark textured" id="tradition" aria-labelledby="heritage-title">
+    <x-ui.wordmark-mark class="heritage__mark" />
     <div class="container">
         <div class="heritage__head reveal">
             <p class="heritage__count" aria-hidden="true"><span data-count="{{ $years }}">{{ $years }}</span><small>Jahre</small></p>

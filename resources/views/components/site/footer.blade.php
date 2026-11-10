@@ -5,7 +5,10 @@
 <footer class="site-footer is-dark">
     <div class="container">
         <div class="site-footer__top">
-            <p class="site-footer__claim">Feuer, Stahl und Handarbeit aus {{ $c['address']['district'] }}.</p>
+            <div class="site-footer__brand">
+                <x-ui.wordmark-mark class="site-footer__logo" />
+                <p class="site-footer__claim">Feuer, Stahl und Handarbeit aus {{ $c['address']['district'] }}.</p>
+            </div>
             <div class="btn-row">
                 <x-ui.button href="/schmiedekurse/buchen/" variant="straw">Kurstermin finden</x-ui.button>
                 <x-ui.button href="tel:{{ $c['phone']['e164'] }}" variant="secondary" :arrow="false">{{ $c['phone']['display'] }}</x-ui.button>

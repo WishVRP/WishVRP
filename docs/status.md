@@ -72,7 +72,7 @@ Nicht gemessen/geprüft: Lighthouse, Rich-Results-Test, Search Console, echtes H
 | Anfertigung: Ablauf, Lieferzeit, Preisrahmen | Anfertigung | Andreas |
 | Kurzbiografie mit Belegen | Manufaktur, Person-Schema | Andreas |
 | Link Google-Profil, Instagram-URL | sameAs, Hinweis Bewertung | Jeremy |
-| Logo als SVG | Kopf, Favicon, Schema | Andreas/Jeremy |
+| ~~Logo als SVG~~ erledigt: Monogramm A/Ω vektorisiert (`public/images/logo-monogramm.svg`) – Original-Vektordatei vom Gestalter wäre noch besser | Kopf, Favicon, Schema | Andreas/Jeremy |
 | Fotos: Porträt Andreas (ohne Zigarette, Kamera-Original), Anfertigung (Skizze/Rohling), Außenansicht; Herkunft der Studiobilder bestätigen; Einwilligung Personen im Werkstattfoto | restliche Bildplätze, Recht | Andreas |
 | 11 Presse-Quellen mit Datum und Link | Presse | Live-Seite `/presse/` |
 | Aktueller Live-Title/-Description der Startseite | CTR-Erhalt | Live-Seite |

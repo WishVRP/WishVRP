@@ -1,6 +1,6 @@
-{{-- Platzhalter-Signet bis das echte Logo als SVG vorliegt: stilisierte Punze „U“ mit Anlassfarben-Kante. --}}
-<svg {{ $attributes->merge(['class' => 'wordmark__mark', 'viewBox' => '0 0 36 36', 'aria-hidden' => 'true']) }}>
-    <rect x="0.75" y="0.75" width="34.5" height="34.5" rx="2" fill="none" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5"/>
-    <path d="M11 9v10.5a7 7 0 0 0 14 0V9" fill="none" stroke="currentColor" stroke-width="2.2"/>
-    <rect x="7" y="29" width="22" height="2" fill="#d9b45f"/>
-</svg>
+{{-- Signet der Manufaktur: Monogramm A/Ω (Vektor aus dem gelieferten Logo, public/images/logo-monogramm.svg). --}}
+@php
+    $svg = file_get_contents(public_path('images/logo-monogramm.svg'));
+    $svg = preg_replace('/^<svg /', '<svg class="'.e(trim('wordmark__mark '.$attributes->get('class'))).'" aria-hidden="true" focusable="false" ', $svg, 1);
+@endphp
+{!! $svg !!}

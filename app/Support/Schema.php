@@ -37,6 +37,8 @@ final class Schema
             '@id' => self::businessId(),
             'name' => $c['name'],
             'url' => PageMeta::absolute('/'),
+            'logo' => PageMeta::absolute('/images/icon-512.png'),
+            'image' => PageMeta::absolute(config('seo.default_og_image')),
             'telephone' => $c['phone']['e164'],
             'email' => $c['email'],
             'address' => [

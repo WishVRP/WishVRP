@@ -586,3 +586,17 @@ a.path-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px r
 .story__text { margin-top: var(--space-4); max-width: 30rem; font-size: var(--text-lg); line-height: 1.6; color: rgb(233 235 237 / 0.82); }
 .story__cta { padding: var(--space-7) 0 var(--space-4); border-top: 1px solid var(--night-line); }
 .story__cta-title { font-size: var(--text-2xl); margin-bottom: var(--space-5); }
+
+/* ---------- Logo-Einsätze ---------- */
+.site-footer__logo { width: 4rem; height: 4rem; margin-bottom: var(--space-4); }
+.heritage__mark {
+    position: absolute;
+    right: -4%;
+    top: 50%;
+    z-index: -1;
+    width: min(70vw, 34rem);
+    height: auto;
+    color: rgb(217 180 95 / 0.06);
+    transform: translateY(-50%);
+    pointer-events: none;
+}

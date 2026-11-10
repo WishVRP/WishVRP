@@ -12,7 +12,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#1c1e20">
+    <meta name="theme-color" content="#0e0f10">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
