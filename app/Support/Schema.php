@@ -131,6 +131,55 @@ final class Schema
     }
 
     /**
+     * Kursangebote als ItemList von Course (nur Name, Kategorie, Dauer, Anbieter – sichtbare Angaben).
+     *
+     * @return array<string, mixed>
+     */
+    public static function courseList(\Illuminate\Support\Collection $courses): array
+    {
+        return [
+            '@type' => 'ItemList',
+            'name' => 'Schmiedekurse der '.config('ulbrich.name'),
+            'itemListElement' => $courses->values()->map(fn ($course, $i) => [
+                '@type' => 'ListItem',
+                'position' => $i + 1,
+                'item' => self::clean([
+                    '@type' => 'Course',
+                    'name' => $course->name,
+                    'description' => trim($course->name.' – '.collect([$course->categoryLabel(), $course->duration_label])->filter()->implode(', ')),
+                    'url' => PageMeta::absolute('/schmiedekurse/').'#'.\Illuminate\Support\Str::slug($course->name),
+                    'provider' => ['@id' => self::businessId()],
+                ]),
+            ])->all(),
+        ];
+    }
+
+    /**
+     * Edition 100 als Product. Verfügbarkeit ist nicht bekannt → wird weggelassen.
+     *
+     * @param  array<string, mixed>  $e
+     * @return array<string, mixed>
+     */
+    public static function product(array $e): array
+    {
+        return self::clean([
+            '@type' => 'Product',
+            'name' => $e['name'],
+            'description' => "Damast-Klappmesser, limitiert auf {$e['total']} nummerierte Stücke ({$e['regular']} reguläre Stücke, {$e['special']} Sonderstücke).",
+            'brand' => ['@type' => 'Brand', 'name' => config('ulbrich.name')],
+            'manufacturer' => ['@id' => self::businessId()],
+            'image' => PageMeta::absolute('/images/fotos/klappmesser-offen-1200.jpg'),
+            'offers' => [
+                '@type' => 'Offer',
+                'price' => (string) $e['price'],
+                'priceCurrency' => 'EUR',
+                'url' => PageMeta::absolute($e['url']),
+                'seller' => ['@id' => self::businessId()],
+            ],
+        ]);
+    }
+
+    /**
      * @param  array<int, array<string, mixed>|null>  $nodes
      */
     public static function graph(array $nodes): string

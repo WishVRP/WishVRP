@@ -51,7 +51,7 @@ class UrlStructureTest extends TestCase
     public function test_slash_url_is_served_directly(): void
     {
         $this->get('/')->assertOk();
-        $this->get('/schmiedekurse/')->assertOk(); // Vorschau-Platzhalter, in Produktion nicht registriert
+        $this->get('/schmiedekurse/')->assertOk();
     }
 
     public function test_robots_blocks_everything_outside_production(): void
@@ -75,7 +75,9 @@ class UrlStructureTest extends TestCase
 
         $this->assertStringContainsString('<loc>https://messermanufaktur-ulbrich.de/</loc>', $xml);
         $this->assertStringNotContainsString('/impressum/', $xml);
-        $this->assertStringNotContainsString('/schmiedekurse/', $xml, 'Noch nicht umgesetzte Seiten gehören nicht in die Sitemap');
+        $this->assertStringContainsString('<loc>https://messermanufaktur-ulbrich.de/schmiedekurse/</loc>', $xml);
+        $this->assertStringNotContainsString('/schmiedekurse/buchen/', $xml, 'noindex-Seiten gehören nicht in die Sitemap');
+        $this->assertStringNotContainsString('/agb/', $xml);
     }
 
     public function test_admin_requires_login_and_is_noindex(): void

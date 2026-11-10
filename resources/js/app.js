@@ -233,3 +233,59 @@ if (sparkCanvas && !reduceMotion) {
     new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop())).observe(sparkCanvas);
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
 }
+
+/* ---------- Buchung: Auswahl und Gesamtpreis ---------- */
+const euro = (n) => `${new Intl.NumberFormat('de-DE').format(n)} €`;
+const booking = document.querySelector('[data-booking]');
+const summary = document.querySelector('[data-booking-summary]');
+if (booking && summary) {
+    const persons = booking.querySelector('[data-persons]');
+    const set = (sel, text) => { const el = summary.querySelector(sel); if (el) el.textContent = text; };
+    const update = () => {
+        const course = booking.querySelector('input[name="kurs"]:checked');
+        const n = Math.min(12, Math.max(1, parseInt(persons.value, 10) || 1));
+        persons.value = n;
+        if (!course) return;
+        const price = parseInt(course.dataset.price, 10);
+        set('[data-sum-name]', course.dataset.name);
+        set('[data-sum-duration]', course.dataset.duration || '–');
+        set('[data-sum-persons]', String(n));
+        set('[data-sum-price]', price ? `ab ${euro(price)}` : 'auf Anfrage');
+        set('[data-sum-total]', price ? `ab ${euro(price * n)}` : 'auf Anfrage');
+        booking.querySelectorAll('[data-date-course]').forEach((li) => { li.hidden = li.dataset.dateCourse !== course.value; });
+        const url = new URL(window.location.href);
+        url.searchParams.set('kurs', course.value);
+        url.searchParams.set('teilnehmer', String(n));
+        try { window.history.replaceState(null, '', url); } catch { /* z. B. Datei-Vorschau */ }
+    };
+    booking.addEventListener('submit', (event) => event.preventDefault());
+    booking.addEventListener('change', update);
+    persons.addEventListener('input', update);
+    booking.querySelectorAll('[data-step]').forEach((btn) => btn.addEventListener('click', () => {
+        persons.value = (parseInt(persons.value, 10) || 1) + parseInt(btn.dataset.step, 10);
+        update();
+    }));
+    update();
+}
+
+/* ---------- Gutschein-Vorschau ---------- */
+const voucherBuilder = document.querySelector('[data-voucher]');
+if (voucherBuilder) {
+    const card = voucherBuilder.querySelector('.voucher');
+    const nameInput = voucherBuilder.querySelector('[data-voucher-name]');
+    const out = (sel) => voucherBuilder.querySelector(sel);
+    const update = (animate) => {
+        const course = voucherBuilder.querySelector('input[name="gutschein-kurs"]:checked');
+        if (course) {
+            const price = parseInt(course.dataset.price, 10);
+            out('[data-vp-course]').textContent = course.dataset.name;
+            out('[data-vp-meta]').textContent = course.dataset.duration || '';
+            out('[data-vp-price]').textContent = price ? `ab ${euro(price)}` : 'je nach Kurs';
+        }
+        out('[data-vp-name]').textContent = nameInput.value.trim() || '…';
+        if (animate && !reduceMotion) { card.classList.remove('is-updated'); void card.offsetWidth; card.classList.add('is-updated'); }
+    };
+    voucherBuilder.addEventListener('change', () => update(true));
+    nameInput.addEventListener('input', () => update(false));
+    update(false);
+}

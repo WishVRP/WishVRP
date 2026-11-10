@@ -16,9 +16,20 @@
 - `php artisan ulbrich:audit` listet alle fehlenden Daten, Bildplätze und Foto-Prüfpunkte.
 - Geprüft in Chromium (Playwright): 1440 px und 375 px ohne horizontales Scrollen, keine Konsolenfehler.
 
+## Version 4: alle Seiten umgesetzt (10.11.2026)
+
+Alle 23 Bestands-URLs sind als echte Seiten umgesetzt. Es gibt keine Vorschau-Platzhalter mehr. Alle sind getestet: genau eine H1, Canonical, Description mit 140–160 Zeichen, Breadcrumb-Schema und keine toten internen Links.
+
+- **Kurse:** `/schmiedekurse/` mit Kurs-Finder, Detailkarten je Kurs (Anker `#grundlagenkurs` …), Buchungsregeln, Prozess, FAQ, Course-Schema. `/schmiedekurse/vergleich/` mit Tabelle und Orientierung. `/schmiedekurse/heilbronn-region/` mit Anfahrt. `/schmiedekurse/buchen/` mit Kurswahl, Teilnehmern (`?kurs=`, `?teilnehmer=`), Terminbereich und Live-Gesamtpreis. Die **Zahlung ist bewusst deaktiviert**, der Hinweis nennt die Telefonnummer.
+- **Shop:** `/shop/` mit Produktkarten. `/klappmesser/` mit 100er-Raster, technischen Daten und Product-Schema (nur der echte Preis, keine Verfügbarkeit). Dazu Sonderanfertigungen, Unikate und Messerprojekte. Kein Warenkorb, Bestellung telefonisch.
+- **Geschenke:** `/geschenke/`, `/geschenke/schmiedekurs-gutschein/` mit Gutschein-Gestalter (Kurs und Name, Live-Vorschau; Kauf deaktiviert), `/erlebnisse/`.
+- **Manufaktur:** `/manufaktur/` und `/ratgeber/` (Kosten-Artikel aus echten Preisen). `/presse/`, `/partner/` und `/kunsthandwerkermarkt/` haben ein Gerüst, die Inhalte fehlen noch.
+- **Recht:** Impressum mit allen bekannten Angaben. Datenschutz als Entwurf mit den tatsächlichen technischen Fakten (nur notwendige Cookies, keine Drittanbieter). AGB, Widerruf und Kursbedingungen als ehrliches Gerüst. Alle mit noindex, **anwaltliche Prüfung nötig**.
+- **Neue Kursseiten-URLs werden bewusst nicht geraten**, solange die Live-Pfade fehlen (siehe `config/pages.php`).
+- Vorschau: `python3 scripts/vorschau-erzeugen.py` erzeugt eine einzige Datei mit allen Seiten (Hash-Navigation, funktioniert offline am Handy).
+
 ## Vorbereitet (Gerüst vorhanden, Inhalt fehlt)
 
-- 22 Bestands-URLs als Vorschau-Platzhalter (nur außerhalb Produktion, noindex).
 - Kurstermine: Tabelle + Verwaltung + Anzeige vorhanden, keine Daten.
 - Felder für Kursseiten-Pfade und `?kurs=`-Schlüssel (Altseite) in der Kursverwaltung.
 
