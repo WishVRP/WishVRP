@@ -18,7 +18,9 @@ class StagingSetup
         }
         $hash = md5(implode('|', array_map('basename', glob(database_path('migrations/*.php')) ?: [])));
         $marker = storage_path('app/.migrated');
-        if (is_file($marker) && trim((string) file_get_contents($marker)) === $hash) {
+        $db = config('database.default') === 'sqlite' ? config('database.connections.sqlite.database') : null;
+        $dbEmpty = $db && (! is_file($db) || filesize($db) === 0);   // fehlt oder wurde durch eine leere Datei ersetzt
+        if (! $dbEmpty && is_file($marker) && trim((string) file_get_contents($marker)) === $hash) {
             return;
         }
         $lock = fopen(storage_path('app/.migrate.lock'), 'c');
@@ -26,8 +28,7 @@ class StagingSetup
             return;   // läuft gerade in einer anderen Anfrage
         }
         try {
-            $db = config('database.connections.sqlite.database');
-            if (config('database.default') === 'sqlite' && $db && ! is_file($db)) {
+            if ($db && ! is_file($db)) {
                 touch($db);
             }
             Artisan::call('migrate', ['--force' => true]);
