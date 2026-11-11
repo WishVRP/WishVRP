@@ -32,6 +32,17 @@ return [
     | Stripe (Online-Zahlung). Ohne Schlüssel: keine Online-Zahlung, Ablauf wie bisher (Anfrage/Überweisung).
     | Schlüssel nur in .env. Webhook-Ziel: /stripe/webhook/ (Ereignisse checkout.session.completed/expired).
     */
+    /*
+    | Google-Bewertungen automatisch (Places API New, serverseitig – kein Google-Skript beim Besucher).
+    | Schlüssel nur in .env; in der Google Cloud auf „Places API (New)“ und die Server-IP beschränken.
+    | Liefert Gesamtbewertung, Anzahl und die bis zu 5 von Google ausgewählten Bewertungen.
+    */
+    'google_places' => [
+        'key' => env('GOOGLE_PLACES_KEY'),
+        'place_id' => env('GOOGLE_PLACE_ID'),
+        'refresh_minutes' => (int) env('GOOGLE_REVIEWS_REFRESH_MINUTES', 60),
+    ],
+
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),

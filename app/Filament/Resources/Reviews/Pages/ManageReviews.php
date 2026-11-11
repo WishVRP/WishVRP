@@ -4,7 +4,9 @@ namespace App\Filament\Resources\Reviews\Pages;
 
 use App\Filament\Resources\Reviews\ReviewResource;
 use App\Models\Setting;
+use App\Support\GoogleReviews;
 use App\Support\Reviews;
+use Filament\Forms\Components\Select;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\TextInput;
@@ -19,6 +21,16 @@ class ManageReviews extends ManageRecords
     public function getSubheading(): ?string
     {
         $r = Reviews::rating();
+        if (GoogleReviews::enabled()) {
+            $g = GoogleReviews::get();
+
+            return $g
+                ? "Automatisch mit Google verbunden – {$r['value']} Sterne · {$r['count']} Bewertungen, ".count($g['reviews']).' Bewertungstexte von Google (zuletzt abgerufen '.$g['fetched_at'].'). Neue Google-Bewertungen erscheinen von selbst; Google liefert höchstens 5 Texte. Bewertungen hier unten ergänzen diese.'
+                : 'Mit Google verbunden, aber der letzte Abruf ist fehlgeschlagen – es werden die Einträge von hier gezeigt. Details in storage/logs/laravel.log.';
+        }
+        if (filled(config('services.google_places.key'))) {
+            return 'Google-Schlüssel ist eingetragen – jetzt oben rechts „Google verbinden“ klicken und das Unternehmen auswählen.';
+        }
 
         return $r
             ? "Google-Gesamtbewertung auf der Website: {$r['value']} Sterne · {$r['count']} Bewertungen (Stand {$r['as_of']})".($r['profile_url'] ? '' : ' · Link zum Google-Profil fehlt noch')
@@ -28,7 +40,38 @@ class ManageReviews extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('gesamt')->label('Google-Gesamtbewertung')->icon(Heroicon::OutlinedChartBar)->color('gray')
+            Action::make('verbinden')->label('Google verbinden')->icon(Heroicon::OutlinedLink)
+                ->visible(fn () => filled(config('services.google_places.key')) && ! config('services.google_places.place_id'))
+                ->schema([
+                    TextInput::make('query')->label('Unternehmen bei Google suchen')->default(config('ulbrich.name').' '.config('ulbrich.address.locality'))->required()
+                        ->live(onBlur: true),
+                    Select::make('place_id')->label('Treffer auswählen')->required()->native(false)
+                        ->options(function (\Filament\Schemas\Components\Utilities\Get $get) {
+                            if (blank($get('query'))) {
+                                return [];
+                            }
+                            try {
+                                return collect(GoogleReviews::search($get('query')))->mapWithKeys(fn ($p) => [$p['id'] => $p['name'].' – '.$p['address']])->all();
+                            } catch (\Throwable $e) {
+                                return ['' => 'Fehler: '.$e->getMessage()];
+                            }
+                        }),
+                ])
+                ->action(function (array $data) {
+                    Setting::write('google_place_id', $data['place_id']);
+                    $g = GoogleReviews::refresh();
+                    $g ? Notification::make()->title('Mit Google verbunden')->body(count($g['reviews']).' Bewertungen geladen.')->success()->send()
+                       : Notification::make()->title('Verbunden, aber Abruf fehlgeschlagen')->body('Schlüssel und Freischaltung der „Places API (New)“ prüfen.')->danger()->send();
+                }),
+            Action::make('aktualisieren')->label('Jetzt von Google laden')->icon(Heroicon::OutlinedArrowPath)->color('gray')
+                ->visible(fn () => GoogleReviews::enabled())
+                ->action(function () {
+                    $g = GoogleReviews::refresh();
+                    $g ? Notification::make()->title('Aktualisiert')->body(count($g['reviews']).' Bewertungen von Google.')->success()->send()
+                       : Notification::make()->title('Abruf fehlgeschlagen')->danger()->send();
+                }),
+            Action::make('gesamt')->label('Gesamtbewertung von Hand')->icon(Heroicon::OutlinedChartBar)->color('gray')
+                ->visible(fn () => ! GoogleReviews::enabled())
                 ->fillForm(function () {
                     $r = Reviews::rating();
 

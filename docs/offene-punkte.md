@@ -73,6 +73,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
   - Besucherstatistik (ohne Cookies)
   - Formulare und Bestellungen
   - Weihnachtsaktion
+  - Google-Bewertungen (Abruf über die Google Places API, serverseitig, keine Besucherdaten an Google)
   - Newsletter mit Double-Opt-in
   - Stripe
   - E-Mail-Hoster
@@ -129,7 +130,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 - [ ] Partner: welche Kooperationen gibt es konkret?
 
 ### Bewertungen, Fotos, Referenzen
-- [ ] **Google-Bewertungen eintragen:** Verwaltung → Bewertungen. Die Texte wörtlich aus dem Google-Profil übernehmen, dazu Gesamtbewertung und Link zum Profil (Anleitung in `docs/verwaltung.md`). Alternativ die Texte an Claude schicken.
+- [ ] **Google-Bewertungen automatisch:** API-Schlüssel für die „Places API (New)“ in der Google Cloud anlegen, in die `.env` (`GOOGLE_PLACES_KEY`) eintragen, dann Verwaltung → Bewertungen → „Google verbinden“. Schritt für Schritt in `docs/verwaltung.md`.
 - [ ] Freigegebene Kursfotos und Projektbeschreibungen
 - [ ] Zebrano- und Rotholz-Bilder: KI-Hintergrund oder echt? Falls KI, besser durch echte Fotos ersetzen.
 - [ ] **Neue Fotos** für die Website liefern (Wunsch: Bilder überarbeiten). So geht's: `docs/fotos.md` → „Neue Fotos – so liefern“. Dateinamen, Alttexte und Bild-Sitemap werden dann automatisch passend angelegt.

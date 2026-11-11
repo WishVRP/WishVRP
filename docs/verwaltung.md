@@ -116,15 +116,36 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
 4. Sobald beide Werte da sind, zeigt die Website „Zahlungspflichtig buchen/bestellen“ und leitet zu Stripe weiter; vorher bleibt alles bei Anfrage und Überweisung.
 - **Rechtlich prüfen lassen:** AGB, Widerrufsbelehrung (Kurse mit festem Termin sind meist vom Widerruf ausgenommen, Sonderanfertigungen auch, Fertigware nicht), Steuerhinweis (Kleinunternehmer oder MwSt.), Pflichtangaben im Bestellprozess.
 
-## Bewertungen (Google)
+## Bewertungen (Google) – automatisch
 
-Menü **Bewertungen**:
+Die Website holt Gesamtbewertung, Anzahl und Bewertungstexte **direkt von Google**:
 
-1. **„Google-Gesamtbewertung“** (oben rechts): Durchschnitt, Anzahl und den Link zum Google-Profil eintragen. Den Link bekommst du in Google Maps über „Teilen“ → „Link kopieren“. Das Datum „Stand“ setzt sich automatisch. Die Werte erscheinen im Startbereich, im Bewertungsabschnitt und auf `/schmiedekurse/erfahrungen/`.
-2. **„Bewertung hinzufügen“**: Bewertungen aus dem Google-Profil **wörtlich** kopieren.
-   - Felder: Name wie bei Google angezeigt, Sterne, Text, Monat, optional das Thema (z. B. Damastkurs).
-   - Nichts umformulieren und nichts erfinden.
-   - Die Reihenfolge lässt sich per Ziehen ändern. „Auf der Website zeigen“ blendet einzelne Bewertungen aus.
-3. Die Startseite zeigt die ersten 4 Bewertungen. Sind es mehr, erscheint ein Link zu allen auf `/schmiedekurse/erfahrungen/`.
+- Kommt eine neue Bewertung dazu, erscheint sie spätestens nach einer Stunde von selbst (`GOOGLE_REVIEWS_REFRESH_MINUTES`, Standard 60).
+- Der Abruf läuft auf dem Server. Besucher laden nichts von Google: keine Cookies, kein Google-Skript, keine Autorenfotos.
+- **Grenze von Google:** Die Schnittstelle liefert höchstens **5 Bewertungstexte**, die Google selbst auswählt. Gesamtwert und Anzahl stimmen immer.
 
-Bewusst ohne Bewertungs-Sterne im Google-Code (Schema): Google zeigt für selbst eingebundene Bewertungen eines Unternehmens keine Sterne in den Suchergebnissen an und kann das als irreführend werten. Die Sterne in der Google-Suche kommen direkt aus dem Google-Unternehmensprofil. Mehr Bewertungen dort sind deshalb der wirksamste Hebel: Nach jedem Kurs um eine Bewertung bitten.
+### Einmalig einrichten (ca. 15 Minuten)
+
+1. In der [Google Cloud Console](https://console.cloud.google.com/) ein Projekt anlegen, z. B. „Ulbrich Website“. Ein Rechnungskonto mit Karte ist nötig.
+   - Nach heutigem Preismodell bleibt der stündliche Abruf (ca. 730 Abrufe im Monat) im kostenlosen Kontingent. Zur Sicherheit unter „Budgets & Benachrichtigungen“ ein Budget von z. B. 5 € mit Benachrichtigung anlegen.
+2. „APIs & Dienste“ → „Bibliothek“ → **Places API (New)** aktivieren.
+3. „APIs & Dienste“ → „Anmeldedaten“ → „API-Schlüssel erstellen“. Danach den Schlüssel einschränken:
+   - API-Einschränkung: nur „Places API (New)“
+   - Anwendungseinschränkung: IP-Adresse des Servers
+4. Den Schlüssel auf dem Server in die `.env` eintragen: `GOOGLE_PLACES_KEY=…`. Niemals in einen Chat oder eine E-Mail schreiben.
+5. Verwaltung → **Bewertungen** → **„Google verbinden“**: Unternehmen suchen, Treffer auswählen, fertig.
+
+Danach zeigt die Seite oben „Automatisch mit Google verbunden“ mit dem Zeitpunkt des letzten Abrufs. **„Jetzt von Google laden“** holt sofort neu.
+
+### Von Hand gepflegte Bewertungen
+
+- **„Bewertung hinzufügen“** ergänzt die 5 Google-Texte, z. B. ältere Google-Bewertungen. Immer wörtlich übernehmen. Steht derselbe Name schon in den Google-Texten, wird der Eintrag nicht doppelt gezeigt.
+- Ohne Google-Verbindung (oder wenn Google gerade nicht antwortet) zeigt die Seite automatisch diese Einträge. Die Gesamtbewertung lässt sich dann über **„Gesamtbewertung von Hand“** setzen.
+
+### Wo sichtbar
+
+- Startseite: ganz oben die Gesamtbewertung, im Abschnitt „Bewertungen“ die ersten 4 Texte
+- `/schmiedekurse/erfahrungen/`: alle Texte
+- Namen und „Google“ sind mit der Bewertung bei Google verlinkt. Das verlangt Google als Quellenangabe.
+
+Bewusst ohne Bewertungs-Sterne im Google-Code (Schema): Google zeigt für selbst eingebundene Bewertungen eines Unternehmens keine Sterne in den Suchergebnissen an. Die Sterne in der Google-Suche kommen direkt aus dem Google-Unternehmensprofil. Mehr Bewertungen dort sind der wirksamste Hebel: nach jedem Kurs um eine Bewertung bitten.
