@@ -67,6 +67,10 @@
         </div>
     </article>
 
+    @if ($path === '/shop/ringe/')
+        @include('pages.partials.shop-products', ['products' => \App\Models\Product::query()->visible()->where('category', 'ringe')->latest()->get(), 'title' => 'Ringe im Shop'])
+    @endif
+
     @if (! empty($page['inquiry']))
         @include('pages.partials.inquiry', $page['inquiry'])
     @endif

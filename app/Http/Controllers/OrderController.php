@@ -183,6 +183,19 @@ class OrderController extends Controller
         return $this->pay($order, [['name' => $course->name.' am '.$start->locale('de')->isoFormat('D. MMMM YYYY').' · '.$data['teilnehmer'].' P.', 'amount' => $this->due($order)]], '/schmiedekurse/buchen/#buchung-gesendet');
     }
 
+    /** Für Produktkäufe: Rabattcode anwenden und Zahlung auslösen (Versand als eigene Position). */
+    public function payOrder(Order $order, array $data, string $fallbackRedirect): RedirectResponse
+    {
+        [$disc] = $this->discount($data);
+        $this->applyDiscount($order, $disc);
+        $lines = [['name' => $order->item.($order->discount_percent ? " (−{$order->discount_percent} %)" : ''), 'amount' => (float) $order->amount]];
+        if ((float) $order->shipping_amount > 0) {
+            $lines[] = ['name' => 'Versand innerhalb Deutschlands', 'amount' => (float) $order->shipping_amount];
+        }
+
+        return $this->pay($order, $lines, $fallbackRedirect);
+    }
+
     /** Offener Betrag nach Rabatt und Gutschein (inkl. Versand). */
     private function due(Order $order): float
     {
@@ -322,6 +335,19 @@ class OrderController extends Controller
             $piece->update(['status' => 'reserviert', 'order_id' => $order->id, 'buyer_name' => $order->public_name, 'show_name' => filled($order->public_name)]);
         }
         SiteEvent::create(['name' => 'anfrage', 'path' => $order->source_path, 'occurred_on' => now()->toDateString()]);
+
+        // Edition 100 mit Online-Zahlung: Versand/Abholung wählen, Nummer bleibt während der Zahlung reserviert.
+        if ($item && str_starts_with($item, config('ulbrich.edition.name')) && Stripe::enabled()) {
+            $ship = $request->input('versand') === 'abholung' ? 0.0 : (float) config('ulbrich.sales.shipping_de_eur');
+            $order->forceFill(['shipping_method' => $ship ? 'versand' : 'abholung', 'shipping_amount' => $ship,
+                'hold_until' => now()->addMinutes((int) config('ulbrich.booking.hold_minutes'))])->save();
+            $lines = [['name' => $order->item, 'amount' => (float) $order->amount]];
+            if ($ship) {
+                $lines[] = ['name' => 'Versand innerhalb Deutschlands', 'amount' => $ship];
+            }
+
+            return $this->pay($order, $lines, '/klappmesser/#anfrage-gesendet');
+        }
         OrderMail::received($order);
 
         return redirect(($order->source_path ?? '/').'#anfrage-gesendet')->with('order_ok', $order->number);

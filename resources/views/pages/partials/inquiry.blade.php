@@ -56,6 +56,13 @@
                     @endif
                 </div>
                 @include('pages.partials.contact-fields')
+                @if (! empty($publicName) && \App\Support\Stripe::enabled())
+                    <fieldset class="fields">
+                        <legend class="field__label">Lieferung</legend>
+                        <label class="check"><input type="radio" name="versand" value="versand" @checked(old('versand', 'versand') === 'versand')> <span>Versand in Deutschland ({{ number_format((float) config('ulbrich.sales.shipping_de_eur'), 2, ',', '.') }} €)</span></label>
+                        <label class="check"><input type="radio" name="versand" value="abholung" @checked(old('versand') === 'abholung')> <span>Abholung in der Manufaktur (kostenlos)</span></label>
+                    </fieldset>
+                @endif
                 @if (! empty($publicName))
                     <fieldset class="inquiry__public">
                         <label class="check">
@@ -79,7 +86,7 @@
                         </div>
                     </details>
                 @endif
-                <button type="submit" class="btn btn--primary btn--lg mt-5">{{ $submit ?? 'Anfrage senden' }}</button>
+                <button type="submit" class="btn btn--primary btn--lg mt-5">{{ ! empty($publicName) && \App\Support\Stripe::enabled() ? 'Zahlungspflichtig bestellen' : ($submit ?? 'Anfrage senden') }}</button>
             </form>
         </div>
     </div>

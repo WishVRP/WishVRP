@@ -28,6 +28,8 @@
         </x-slot:actions>
     </x-page.hero>
 
+    @include('pages.partials.shop-products', ['products' => \App\Models\Product::query()->visible()->where('category', $page['category'])->orderByRaw("status = 'verkauft'")->orderBy('sort')->latest()->get(), 'title' => $cat['kicker'].' im Shop'])
+
     <x-page.section title="Gut zu wissen" kicker="{{ $cat['kicker'] }}" kicker-color="brown">
         <div class="split">
             <ul class="check-list reveal" role="list">

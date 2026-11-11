@@ -82,3 +82,36 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
   - E-Mail-Versand: SMTP-Zugang in der `.env` (`MAIL_MAILER=smtp`, `MAIL_HOST`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS=info@…`, `MAIL_FROM_NAME="Messermanufaktur Ulbrich"`). Bei vielen Empfängern das Versandlimit des Mail-Anbieters beachten, sonst einen Versanddienst nutzen (Auftragsverarbeitung!).
   - Ausschalten: `NEWSLETTER_AUTO=false` (eigene Ausgaben gehen weiterhin).
   - Von Hand: `php artisan newsletter:weekly` (Ausgabe anlegen), `php artisan newsletter:send-due` (fällige senden).
+
+## Buchungskalender
+- **Jeder Tag ist buchbar**, frühestens übermorgen und bis 5 Jahre im Voraus (`config/ulbrich.php → booking`). **Ein Kurs pro Tag:** Sobald ein Tag gebucht ist, ist er belegt. Mehrtägige Kurse (Damast 2 Tage, Premium bis 3) blockieren alle Kurstage. Termine von Hand anlegen ist nicht mehr nötig.
+- Online buchbar: Grundlagenkurs, Klingenkurs, Klingenkurs „Alternativ“, Damast-Messerkurs, Damast Premium-Kurs. Der Manager-Schmiedekurs bleibt auf Anfrage (kein fester Preis).
+- **Preise:** Der bisherige „ab“-Preis wird als Preis pro Person berechnet. Bitte bestätigen. Höchstzahl Personen vorläufig 6 (`max_persons`).
+- **Verwaltung → Kalender & Sperrtage:** einzelne Tage oder einen **Zeitraum sperren** (Urlaub, Markt), freigeben. Oben stehen die nächsten Kurstage; auf dem Dashboard „Nächste Kurstage“. Jede Buchung ist ein Vorgang unter „Bestellungen & Buchungen“ mit Kurstag(en).
+- **Ablauf mit Stripe:** Kurs → freier Tag → Personen → Daten → „Zahlungspflichtig buchen“ → Stripe-Zahlung. Der Tag ist 30 Minuten reserviert; mit der Zahlung ist die Buchung **bestätigt** (Mail an Kunde und Manufaktur). Bricht jemand ab oder läuft die Zeit ab, wird der Tag automatisch wieder frei.
+- **Ohne Stripe** (so lange keine Schlüssel eingetragen sind): „Buchung anfragen“. Der Tag ist vorgemerkt, die Zahlungsdaten gehen per Mail raus; in der Verwaltung „Zahlung erhalten“ klicken. Storniert = Tag wieder frei.
+- Die alte Verwaltung „Kurstermine“ ist ausgeblendet; der Kalender ersetzt sie.
+
+## Gutscheine
+- **Kaufen:** Auf `/geschenke/schmiedekurs-gutschein/` Kurs, Personen und optional den Namen der beschenkten Person wählen, dann bezahlen. Nach der Zahlung kommt der **Gutscheincode (GS-…)** automatisch per E-Mail. Bei Überweisung: in der Verwaltung „Zahlung erhalten“ → Code geht raus.
+- **Einlösen:** im Buchungskalender im Feld „Gutscheincode“. Deckt der Gutschein alles ab, ist die Buchung sofort bestätigt; sonst wird nur der Rest über Stripe bezahlt. Jeder Code einmal.
+- **Gültigkeit:** 3 Jahre zum Jahresende (gesetzliche Verjährung, vom Anwalt bestätigen lassen).
+- **Verwaltung → Gutscheine:** Code, Kurs, Wert, Status (Zahlung offen / gültig / eingelöst), Kauf- und Einlöse-Vorgang, offener Gutscheinwert gesamt.
+
+## Shop-Produkte
+- **Verwaltung → Produkte → „Produkt anlegen“:** Name (so, wie Kunden suchen), Kategorie, Preis, Bestand (Unikat = 1), Kurzbeschreibung, Beschreibung, bis zu 8 Fotos (erstes = Titelbild, werden auf max. 1600 px verkleinert), technische Daten (nur echte Angaben). Status **„Im Shop“** schaltet das Produkt frei.
+- **Produktseite** unter `/shop/{kategorie}/{name}/` mit Galerie, Preis, Verfügbarkeit, Daten, Garantie-Hinweis und **Kaufen** (Versand Deutschland 7,99 € oder Abholung; Ausland auf Anfrage). Während der Online-Zahlung ist das Stück reserviert; nach der Zahlung sinkt der Bestand. Bei 0 heißt es „Verkauft“ (bleibt als Referenz sichtbar, ohne Kaufen-Knopf).
+- **Bei Google:**
+  - jede Produktseite mit Strukturdaten `Product` (Preis, Verfügbarkeit, Versand, Zustand neu, Garantie, Bilder, Merkmale)
+  - in der **Sitemap**
+  - im **Produkt-Feed `https://messermanufaktur-ulbrich.de/produkte.xml`**: im **Google Merchant Center** einmal als Feed mit täglichem Abruf hinterlegen, dann erscheinen die Messer kostenlos im Shopping-Tab und in der Google-Suche (Merchant-Center-Konto nötig, dort Versand und Rückgabe angeben)
+  - in der Shop-Übersicht und der passenden Kategorie
+  - in llms.txt für KI-Assistenten
+- **Edition 100:** Mit Stripe wird die Edition direkt bezahlt (Wunschnummer, Versand oder Abholung). Die Nummer ist während der Zahlung reserviert, nach Zahlung verkauft (mit Namen, falls gewünscht), bei Abbruch wieder frei.
+
+## Stripe einrichten (vor Go-live)
+1. Konto bei stripe.com anlegen, Firma verifizieren, Zahlungsarten wählen (Karte, Apple/Google Pay, Klarna, SEPA …).
+2. API-Schlüssel (geheim) und unter „Webhooks“ einen Endpunkt **`https://messermanufaktur-ulbrich.de/stripe/webhook/`** anlegen mit den Ereignissen `checkout.session.completed`, `checkout.session.expired`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`. Den Signing-Secret kopieren.
+3. Nur in der `.env` des Servers: `STRIPE_SECRET=sk_live_…` und `STRIPE_WEBHOOK_SECRET=whsec_…`. Zum Testen zuerst die Test-Schlüssel (`sk_test_…`) nutzen.
+4. Sobald beide Werte da sind, zeigt die Website „Zahlungspflichtig buchen/bestellen“ und leitet zu Stripe weiter; vorher bleibt alles bei Anfrage und Überweisung.
+- **Rechtlich prüfen lassen:** AGB, Widerrufsbelehrung (Kurse mit festem Termin sind meist vom Widerruf ausgenommen, Sonderanfertigungen auch, Fertigware nicht), Steuerhinweis (Kleinunternehmer oder MwSt.), Pflichtangaben im Bestellprozess.

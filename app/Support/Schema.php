@@ -322,6 +322,39 @@ final class Schema
         ]);
     }
 
+    /** Shop-Produkt mit Angebot (Preis, Verfügbarkeit, Versand DE, Zustand). */
+    public static function shopProduct(\App\Models\Product $p): array
+    {
+        return self::clean([
+            '@type' => 'Product',
+            '@id' => PageMeta::absolute($p->url()).'#product',
+            'name' => $p->name,
+            'description' => $p->short ?: \Illuminate\Support\Str::limit(strip_tags(\Illuminate\Support\Str::markdown((string) $p->description)), 300),
+            'sku' => 'ULB-'.$p->id,
+            'category' => $p->categoryName(),
+            'image' => array_map(fn ($u) => PageMeta::absolute($u), $p->imageUrls()) ?: null,
+            'brand' => ['@type' => 'Brand', 'name' => config('ulbrich.name')],
+            'manufacturer' => self::businessRef(),
+            'additionalProperty' => collect($p->specs ?? [])->map(fn ($s) => ['@type' => 'PropertyValue', 'name' => $s['label'], 'value' => $s['value']])->values()->all() ?: null,
+            'offers' => [
+                '@type' => 'Offer',
+                'url' => PageMeta::absolute($p->url()),
+                'price' => number_format((float) $p->price, 2, '.', ''),
+                'priceCurrency' => 'EUR',
+                'availability' => $p->available() ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+                'itemCondition' => 'https://schema.org/NewCondition',
+                'seller' => self::businessRef(),
+                'availableDeliveryMethod' => ['http://purl.org/goodrelations/v1#DeliveryModeParcelService', 'http://purl.org/goodrelations/v1#DeliveryModePickUp'],
+                'shippingDetails' => [
+                    '@type' => 'OfferShippingDetails',
+                    'shippingRate' => ['@type' => 'MonetaryAmount', 'value' => (string) config('ulbrich.sales.shipping_de_eur'), 'currency' => 'EUR'],
+                    'shippingDestination' => ['@type' => 'DefinedRegion', 'addressCountry' => 'DE'],
+                ],
+                'warranty' => ['@type' => 'WarrantyPromise', 'durationOfWarranty' => ['@type' => 'QuantitativeValue', 'value' => config('ulbrich.warranty.years'), 'unitCode' => 'ANN']],
+            ],
+        ]);
+    }
+
     /**
      * Ratgeber-Artikel. Kein Datum, solange keins bekannt ist (nichts erfinden).
      *

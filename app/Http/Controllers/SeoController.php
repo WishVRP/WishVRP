@@ -31,10 +31,38 @@ class SeoController extends Controller
         $urls = collect(config('pages'))
             ->filter(fn (array $p) => $p['status'] === 'live' && ($p['index'] ?? true))
             ->keys()
+            ->merge(\App\Models\Product::query()->visible()->get()->map->url())
             ->map(fn (string $path) => PageMeta::absolute($path));
 
         return response()
             ->view('seo.sitemap', ['urls' => $urls])
+            ->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    /**
+     * Produkt-Feed für Google Merchant Center (kostenlose Einträge im Shopping-Tab).
+     * In Merchant Center als geplanten Abruf hinterlegen: https://messermanufaktur-ulbrich.de/produkte.xml
+     */
+    public function merchantFeed(): Response
+    {
+        $items = \App\Models\Product::query()->visible()->get()->map(function (\App\Models\Product $p) {
+            $desc = $p->short ?: \Illuminate\Support\Str::limit(strip_tags(\Illuminate\Support\Str::markdown((string) $p->description)), 4900);
+            $img = $p->imageUrls();
+
+            return [
+                'id' => 'ULB-'.$p->id,
+                'title' => mb_substr($p->name, 0, 150),
+                'description' => $desc ?: $p->name,
+                'link' => PageMeta::absolute($p->url()),
+                'image' => $img ? PageMeta::absolute($img[0]) : null,
+                'extra' => array_map(fn ($u) => PageMeta::absolute($u), array_slice($img, 1, 9)),
+                'price' => number_format((float) $p->price, 2, '.', '').' EUR',
+                'availability' => $p->available() ? 'in_stock' : 'out_of_stock',
+                'type' => 'Messer > '.$p->categoryName(),
+            ];
+        })->filter(fn ($i) => $i['image']);   // Google verlangt ein Bild
+
+        return response()->view('seo.merchant-feed', ['items' => $items, 'shipping' => number_format((float) config('ulbrich.sales.shipping_de_eur'), 2, '.', '').' EUR'])
             ->header('Content-Type', 'application/xml; charset=UTF-8');
     }
 
@@ -84,6 +112,8 @@ class SeoController extends Controller
             '- Garantie: '.$c['warranty']['years'].' Jahre '.$c['warranty']['condition'].'; dazu '.implode(' und ', $c['warranty']['included']),
             '- Messer schärfen lassen: vorbeibringen oder per Post',
             '- English pages: '.PageMeta::absolute('/en/'),
+            ...(($products = \App\Models\Product::query()->where('status', 'aktiv')->get())->isNotEmpty() ? ['', '## Messer im Shop', ...$products->map(fn ($p) => '- ['.$p->name.']('.PageMeta::absolute($p->url()).'): '.number_format((float) $p->price, 2, ',', '.').' €')->all()] : []),
+            '', '## Buchung', '- Schmiedekurse: jeder Tag bis 5 Jahre im Voraus buchbar, ein Kurs pro Tag, freie Tage im Kalender: '.PageMeta::absolute('/schmiedekurse/buchen/'),
             '', '## Seiten',
         ];
         foreach (config('pages') as $path => $page) {

@@ -51,6 +51,12 @@ Route::get('/'.trim(config('ulbrich_admin.path'), '/').'/newsletter-vorschau/{is
 Route::post('/stripe/webhook/', \App\Http\Controllers\StripeWebhookController::class)
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('stripe.webhook');
 
+// Produktseiten unter den bestehenden Shop-Kategorien (Ausnahme vom statischen Seitenregister: Produkte kommen aus der Datenbank)
+$shopCategories = 'damastmesser|kuechenmesser|jagdmesser|einzelstuecke|ringe';
+Route::get('/shop/{category}/{slug}/', [\App\Http\Controllers\ProductController::class, 'show'])->where(['category' => $shopCategories, 'slug' => '[a-z0-9-]+'])->name('product.show');
+Route::post('/shop/{category}/{slug}/', [\App\Http\Controllers\ProductController::class, 'buy'])->where(['category' => $shopCategories, 'slug' => '[a-z0-9-]+'])->middleware('throttle:forms')->name('product.buy');
+Route::get('/produkte.xml', [SeoController::class, 'merchantFeed'])->name('merchant.feed');
+
 Route::post('/e/', EventController::class)->middleware('throttle:events')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('event');
 
 /*

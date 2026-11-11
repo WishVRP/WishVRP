@@ -24,6 +24,8 @@
         <x-ui.missing silent>Altersprüfung beim Messerversand (rechtlich prüfen lassen)</x-ui.missing>
     </x-page.section>
 
+    @include('pages.partials.shop-products', ['products' => \App\Models\Product::query()->where('status', 'aktiv')->latest()->limit(8)->get(), 'title' => 'Neu im Shop'])
+
     @include('pages.home.07b-gallery')
 
     @include('pages.partials.subpages', ['prefix' => '/shop/', 'title' => 'Messer nach Art', 'kicker' => 'Kategorien', 'sunken' => true])
