@@ -18,9 +18,8 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: rgb(14 15 16 / 0.86);
-    -webkit-backdrop-filter: blur(12px) saturate(1.2);
-    backdrop-filter: blur(12px) saturate(1.2);
+    /* Ohne backdrop-filter: die Unschärfe musste bei jedem Scroll-Frame neu berechnet werden (Ruckeln). */
+    background: rgb(14 15 16 / 0.94);
     transition: background-color var(--dur-base) var(--ease-out);
 }
 
@@ -328,20 +327,7 @@
     aspect-ratio: auto;
 }
 
-@supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-        .hero__media::before,
-        .hero__media img {
-            animation: hero-drift linear both;
-            animation-timeline: view();
-            animation-range: exit 0% exit 100%;
-        }
-    }
-}
-
-@keyframes hero-drift {
-    to { transform: translateY(8%) scale(1.08); }
-}
+/* Keine scrollgebundene Bewegung am Hero-Foto: zusammen mit den Funken war das der Hauptgrund fürs Ruckeln oben auf der Seite. */
 
 .hero::after {
     content: "";
@@ -392,9 +378,7 @@
         padding: var(--space-2) var(--space-5);
         border-top: 0;
         border-radius: var(--radius-2);
-        background: rgb(14 15 16 / 0.72);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
+        background: rgb(14 15 16 / 0.84);
     }
 
     .hero--photo .hero__facts div:last-child {
@@ -1928,9 +1912,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     border-radius: var(--radius-2);
-    background: rgb(14 15 16 / 0.92);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    background: rgb(14 15 16 / 0.97);
     box-shadow: 0 16px 40px -12px rgb(0 0 0 / 0.6);
     border: 1px solid rgb(255 255 255 / 0.08);
 }

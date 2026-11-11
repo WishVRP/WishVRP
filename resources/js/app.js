@@ -35,7 +35,12 @@ if (toggle && nav) {
 /* ---------- Kopfzeile: dichter beim Scrollen ---------- */
 const header = document.querySelector('[data-header]');
 if (header) {
-    const onScroll = () => { header.dataset.scrolled = String(window.scrollY > 24); };
+    // Nur bei Zustandswechsel schreiben – sonst Stil-Neuberechnung bei jedem Scroll-Ereignis.
+    let scrolled = null;
+    const onScroll = () => {
+        const now = window.scrollY > 24;
+        if (now !== scrolled) { scrolled = now; header.dataset.scrolled = String(now); }
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 }
@@ -170,18 +175,36 @@ if (track && galleryNav) {
     track.addEventListener('dragstart', (event) => event.preventDefault());
 }
 
-/* ---------- Funken über der Esse (Hero) ---------- */
+/* ---------- Funken über der Esse (Hero) ----------
+   Leistung: Glühen als vorgerendertes Sprite (statt shadowBlur pro Funke), wenige Funken,
+   Auflösung begrenzt, Neuaufbau nur bei Breitenänderung (nicht beim Ein-/Ausblenden der
+   Handy-Adressleiste) und Pause während des Scrollens. */
 const sparkCanvas = document.querySelector('[data-sparks]');
 if (sparkCanvas && !reduceMotion) {
     const ctx = sparkCanvas.getContext('2d');
     const sparks = [];
-    let w = 0; let h = 0; let running = false; let raf = 0;
+    let w = 0; let h = 0; let raf = 0; let lastW = -1;
+    let visible = false; let scrolling = false; let scrollTimer = 0; let running = false;
     const desktop = window.matchMedia('(min-width: 64rem)');
 
+    // Glüh-Sprite einmal zeichnen
+    const sprite = document.createElement('canvas');
+    sprite.width = sprite.height = 32;
+    const sctx = sprite.getContext('2d');
+    const grad = sctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    grad.addColorStop(0, 'rgba(255,236,190,1)');
+    grad.addColorStop(0.25, 'rgba(255,170,70,0.9)');
+    grad.addColorStop(1, 'rgba(255,120,20,0)');
+    sctx.fillStyle = grad;
+    sctx.fillRect(0, 0, 32, 32);
+
     const resize = () => {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        w = sparkCanvas.clientWidth; h = sparkCanvas.clientHeight;
-        sparkCanvas.width = w * dpr; sparkCanvas.height = h * dpr;
+        const cw = sparkCanvas.clientWidth;
+        if (cw === lastW) return;           // Höhe ändert sich am Handy beim Scrollen – ignorieren
+        lastW = cw;
+        const dpr = Math.min(window.devicePixelRatio || 1, desktop.matches ? 1.5 : 1);
+        w = cw; h = sparkCanvas.clientHeight;
+        sparkCanvas.width = Math.round(w * dpr); sparkCanvas.height = Math.round(h * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
@@ -198,15 +221,14 @@ if (sparkCanvas && !reduceMotion) {
             vy: -(0.6 + Math.random() * 1.6),
             life: 0,
             max: 70 + Math.random() * 110,
-            size: 0.6 + Math.random() * 1.6,
-            hue: 28 + Math.random() * 22,
+            size: 3 + Math.random() * 5,
         });
     };
 
     const frame = () => {
         ctx.clearRect(0, 0, w, h);
         ctx.globalCompositeOperation = 'lighter';
-        if (sparks.length < (desktop.matches ? 70 : 35)) { spawn(); if (Math.random() > 0.5) spawn(); }
+        if (sparks.length < (desktop.matches ? 45 : 20) && Math.random() > 0.3) spawn();
         for (let i = sparks.length - 1; i >= 0; i -= 1) {
             const s = sparks[i];
             s.life += 1;
@@ -215,23 +237,29 @@ if (sparkCanvas && !reduceMotion) {
             s.x += s.vx; s.y += s.vy;
             const k = 1 - s.life / s.max;
             if (k <= 0) { sparks.splice(i, 1); continue; }
-            ctx.beginPath();
-            ctx.fillStyle = `hsla(${s.hue}, 100%, ${55 + k * 25}%, ${k})`;
-            ctx.shadowColor = `hsla(${s.hue}, 100%, 55%, ${k})`;
-            ctx.shadowBlur = 8;
-            ctx.arc(s.x, s.y, s.size * (0.5 + k * 0.5), 0, Math.PI * 2);
-            ctx.fill();
+            const d = s.size * (0.5 + k * 0.5);
+            ctx.globalAlpha = k;
+            ctx.drawImage(sprite, s.x - d / 2, s.y - d / 2, d, d);
         }
+        ctx.globalAlpha = 1;
         raf = requestAnimationFrame(frame);
     };
 
-    const start = () => { if (!running) { running = true; raf = requestAnimationFrame(frame); } };
-    const stop = () => { running = false; cancelAnimationFrame(raf); };
+    const update = () => {
+        const should = visible && !scrolling && !document.hidden;
+        if (should && !running) { running = true; raf = requestAnimationFrame(frame); }
+        if (!should && running) { running = false; cancelAnimationFrame(raf); }
+    };
 
     resize();
-    window.addEventListener('resize', resize, { passive: true });
-    new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop())).observe(sparkCanvas);
-    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    new ResizeObserver(resize).observe(sparkCanvas);
+    new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); }).observe(sparkCanvas);
+    document.addEventListener('visibilitychange', update);
+    window.addEventListener('scroll', () => {
+        scrolling = true; update();
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => { scrolling = false; update(); }, 180);
+    }, { passive: true });
 }
 
 /* ---------- Buchung: Kurs, Kalender (ein Kurs pro Tag), Personen, Gesamtpreis ---------- */
