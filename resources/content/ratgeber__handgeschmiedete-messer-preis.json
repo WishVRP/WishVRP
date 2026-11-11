@@ -1,0 +1,101 @@
+{
+ "h1": "Warum sind handgeschmiedete Messer so teuer?",
+ "lead": [
+  "Ein handgeschmiedetes Messer ist Arbeitszeit, die du in der Hand hältst.",
+  "Ein Messer aus der Fabrik entsteht in Minuten, ein handgeschmiedetes in vielen Arbeitsschritten am Feuer, an der Schleifmaschine und an der Werkbank. Hier erfährst du, was den Preis ausmacht – und was du dafür bekommst."
+ ],
+ "sections": [
+  {
+   "h": "Die Arbeitsschritte",
+   "items": [
+    {
+     "t": "li",
+     "x": "Stahl auswählen und beim Damast mehrere Stähle feuerverschweißen"
+    },
+    {
+     "t": "li",
+     "x": "Die Klinge in der Esse erhitzen und mit dem Hammer ausformen"
+    },
+    {
+     "t": "li",
+     "x": "Härten und anlassen – hier entscheidet sich, wie die Klinge schneidet und wie lange sie scharf bleibt"
+    },
+    {
+     "t": "li",
+     "x": "Schleifen, bei Damast ätzen, damit das Muster sichtbar wird"
+    },
+    {
+     "t": "li",
+     "x": "Den Griff anpassen, formen und befestigen"
+    },
+    {
+     "t": "li",
+     "x": "Den Endschliff: Schneide anlegen, polieren, prüfen"
+    },
+    {
+     "t": "p",
+     "x": "Jeder Schritt geschieht von Hand, und jeder Fehler zeigt sich am Ende im Messer."
+    }
+   ]
+  },
+  {
+   "h": "Material",
+   "items": [
+    {
+     "t": "p",
+     "x": "Damaststahl besteht aus mehreren Stahlsorten. Dazu kommen Griffmaterialien wie Holz und bei Klappmessern die Teile der Mechanik. Ausgesuchte Hölzer und gute Stähle kosten mehr als Massenware."
+    }
+   ]
+  },
+  {
+   "h": "Einzelstück statt Serie",
+   "items": [
+    {
+     "t": "p",
+     "x": "In der Fabrik verteilen sich Werkzeuge und Einrichtung auf tausende Messer. In der Manufaktur entsteht jedes Messer einzeln, oft mit eigener Klingenzeichnung und eigenem Griff. Du bezahlst die Zeit eines Handwerkers, nicht eine Maschine."
+    }
+   ]
+  },
+  {
+   "h": "Was du dafür bekommst",
+   "items": [
+    {
+     "t": "li",
+     "x": "Ein Messer, das zu deiner Hand und deinem Einsatz passt"
+    },
+    {
+     "t": "li",
+     "x": "Eine Klinge, die nachgeschärft und repariert werden kann"
+    },
+    {
+     "t": "li",
+     "x": "Ein Stück mit Herkunft: Du weißt, wer es gemacht hat"
+    }
+   ]
+  },
+  {
+   "h": "Preisbeispiele aus der Messermanufaktur Ulbrich",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein reguläres Damast-Klappmesser der Edition 100 kostet 699 €. Unikate und Sonderanfertigungen werden nach Ausführung kalkuliert; den Preis bekommst du auf Anfrage. Wer sein Messer selbst schmieden möchte: Die Schmiedekurse beginnen bei 300 € pro Person."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was kostet ein handgeschmiedetes Messer?",
+   "a": "Das hängt von Größe, Stahl, Griff und Aufwand ab. In der Messermanufaktur Ulbrich kostet ein reguläres Damast-Klappmesser der Edition 100 699 €; Unikate und Sonderanfertigungen werden auf Anfrage kalkuliert."
+  },
+  {
+   "q": "Lohnt sich ein handgeschmiedetes Messer?",
+   "a": "Wenn du ein Messer suchst, das zu deinem Einsatz passt, nachgeschärft und repariert werden kann und eine Herkunft hat, ja."
+  },
+  {
+   "q": "Gibt es eine günstigere Alternative?",
+   "a": "Im Grundlagenkurs schmiedest du ab 300 € pro Person selbst ein Werkstück und lernst, was in einem Messer steckt."
+  }
+ ],
+ "source": "Allgemeines Handwerkswissen; Preise laut config/ulbrich.php und Kursdatenbank"
+}

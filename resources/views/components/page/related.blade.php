@@ -8,7 +8,7 @@
 @if ($items->isNotEmpty())
     <nav class="related" aria-labelledby="related-h">
         <div class="container">
-            <h2 id="related-h" class="related__title">Passend dazu</h2>
+            <h2 id="related-h" class="related__title">{{ str_starts_with($path, '/en/') ? 'Related pages' : 'Passend dazu' }}</h2>
             <ul class="related__list" role="list">
                 @foreach ($items as $p)
                     <li>

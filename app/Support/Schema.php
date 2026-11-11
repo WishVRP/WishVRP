@@ -53,8 +53,11 @@ final class Schema
             'founder' => ['@id' => self::personId()],
             'disambiguatingDescription' => "Messerschmiede mit Schmiedekursen in {$c['address']['district']}, {$c['address']['locality']} (Landkreis Heilbronn, Baden-Württemberg), Inhaber {$c['owner']}.",
             'description' => "Schmiedekurse und handgefertigte Messer von {$c['owner_role']} {$c['owner']} – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie, heute in {$c['heritage']['generation']}. Generation.",
-            'knowsAbout' => ['Messerschmieden', 'Damaststahl', 'Klappmesser', 'Schmiedekurse'],
+            'knowsAbout' => ['Messerschmieden', 'Damaststahl', 'Klappmesser', 'Schmiedekurse', 'Küchenmesser', 'Jagdmesser', 'Messer schärfen', 'Messerreparatur', 'Gravur'],
             'areaServed' => $c['sales']['area_served'] ?? null,
+            'currenciesAccepted' => 'EUR',
+            'paymentAccepted' => implode(', ', [...$c['sales']['payment'], ...array_map(fn ($p) => $p.' (vor Ort)', $c['sales']['payment_onsite'])]),
+            'makesOffer' => array_map(fn ($s) => ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => $s]], $c['sales']['services']),
             'sameAs' => $c['same_as'] ?: null,
         ]);
     }
@@ -85,7 +88,7 @@ final class Schema
             '@id' => PageMeta::absolute('/').'#website',
             'url' => PageMeta::absolute('/'),
             'name' => config('ulbrich.name'),
-            'inLanguage' => 'de-DE',
+            'inLanguage' => ['de-DE', 'en'],
             'publisher' => ['@id' => self::businessId()],
         ];
     }
@@ -99,7 +102,7 @@ final class Schema
             'url' => $meta->canonical(),
             'name' => $meta->fullTitle(),
             'description' => $meta->description,
-            'inLanguage' => 'de-DE',
+            'inLanguage' => $meta->locale() === 'en' ? 'en' : 'de-DE',
             'isPartOf' => ['@id' => PageMeta::absolute('/').'#website'],
             'about' => ['@id' => self::businessId()],
         ];
@@ -251,6 +254,7 @@ final class Schema
             'url' => $url,
             'serviceType' => $name,
             'provider' => ['@id' => self::businessId()],
+            'areaServed' => config('ulbrich.sales.area_served'),
         ];
     }
 

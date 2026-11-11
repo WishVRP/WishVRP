@@ -52,6 +52,11 @@
                     <li><a href="/messerprojekte/">Messerprojekte</a></li>
                     <li><a href="/messer-kunst/">Messer als Handwerkskunst</a></li>
                     <li><a href="/shop/ringe/">Ringe</a></li>
+                    <li><a href="/messer-gravur/">Messer mit Gravur</a></li>
+                    <li><a href="/firmengeschenke/">Firmengeschenke</a></li>
+                    <li><a href="/messer-schaerfen-lassen/">Messer schärfen lassen</a></li>
+                    <li><a href="/messer-reparieren-lassen/">Messer reparieren lassen</a></li>
+                    <li><a href="/versand/">Versand &amp; Abholung</a></li>
                 </ul>
             </nav>
             <nav aria-labelledby="footer-manufaktur">
@@ -63,6 +68,7 @@
                     <li><a href="/geschenke/">Geschenke</a></li>
                     <li><a href="/partner/">Partner</a></li>
                     <li><a href="/kunsthandwerkermarkt/">Kunsthandwerkermarkt</a></li>
+                    <li><a href="/en/" hreflang="en" lang="en">English</a></li>
                 </ul>
             </nav>
         </div>

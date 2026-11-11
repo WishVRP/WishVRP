@@ -1,0 +1,76 @@
+{
+ "h1": "Andreas Ulbrich – a family of smiths since 1934",
+ "lead": [
+  "Three generations at the forge.",
+  "Forging came into the Ulbrich family in 1934 with Andreas’ grandfather. Today Andreas Ulbrich carries the craft on in the third generation – in his own workshop, Messermanufaktur Ulbrich, in Stein am Kocher near Heilbronn."
+ ],
+ "sections": [
+  {
+   "h": "Three generations",
+   "items": [
+    {
+     "t": "h3",
+     "x": "1934 – the grandfather"
+    },
+    {
+     "t": "p",
+     "x": "With him, smithing came into the family, and he shaped Andreas’ approach to forging."
+    },
+    {
+     "t": "h3",
+     "x": "The second generation"
+    },
+    {
+     "t": "p",
+     "x": "The second generation carried the craft on."
+    },
+    {
+     "t": "h3",
+     "x": "2024 – Andreas Ulbrich"
+    },
+    {
+     "t": "p",
+     "x": "After his workshop in Aalen, Andreas opened Messermanufaktur Ulbrich in Stein am Kocher on 1 March 2024 – with forging courses and handmade knives."
+    }
+   ]
+  },
+  {
+   "h": "In his own words",
+   "items": [
+    {
+     "t": "p",
+     "x": "“Being able to forge is a privilege for me.” – Andreas Ulbrich, quoted in Schwäbische Post, 12 April 2021 (translated from German)."
+    }
+   ]
+  },
+  {
+   "h": "The workshop",
+   "items": [
+    {
+     "t": "p",
+     "x": "Andreas Ulbrich is a bladesmith and a member of the Chamber of Crafts Heilbronn-Franken. In the workshop he makes damascus knives, kitchen, hunting and folding knives, custom pieces and the numbered Edition 100 – and teaches people to forge their own knife."
+    }
+   ]
+  },
+  {
+   "h": "Visit and pickup",
+   "items": [
+    {
+     "t": "p",
+     "x": "Messermanufaktur Ulbrich, Wannenstraße 33, 74196 Neuenstadt am Kocher (Stein am Kocher), Germany. You can collect your knife here by appointment and pay in cash or by card."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Where is Messermanufaktur Ulbrich?",
+   "a": "In Stein am Kocher, part of Neuenstadt am Kocher, in the district of Heilbronn, Baden-Württemberg, Germany."
+  },
+  {
+   "q": "How long has the family been forging?",
+   "a": "Since 1934. Andreas Ulbrich is the third generation."
+  }
+ ],
+ "source": "config/ulbrich.php → heritage, press, address"
+}

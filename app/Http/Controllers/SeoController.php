@@ -72,7 +72,16 @@ class SeoController extends Controller
         $e = $c['edition'];
         $lines = [...$lines, '', '## Messer',
             "- {$e['name']}: limitiert auf {$e['total']} nummerierte Stücke ({$e['regular']} regulär zu je {$e['price']} €, {$e['special']} Sonderstücke)",
-            '- Messer-Unikate und Sonderanfertigungen auf Anfrage',
+            '- Messer-Unikate und Sonderanfertigungen auf Anfrage; Formen u. a. '.implode(', ', $c['sales']['knife_forms']),
+            '- Leistungen: '.implode(', ', $c['sales']['services']),
+            '', '## Versand, Abholung, Zahlung',
+            '- '.$c['sales']['shipping_de'],
+            '- '.$c['sales']['pickup_note'],
+            '- '.$c['sales']['international'],
+            '- '.$c['sales']['customs'],
+            '- '.$c['sales']['delivery'],
+            '- Zahlung: '.implode(', ', $c['sales']['payment']).'; vor Ort: '.implode(', ', $c['sales']['payment_onsite']),
+            '- English pages: '.PageMeta::absolute('/en/'),
             '', '## Seiten',
         ];
         foreach (config('pages') as $path => $page) {

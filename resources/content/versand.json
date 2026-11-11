@@ -1,0 +1,100 @@
+{
+ "h1": "Versand, Abholung und Zahlung",
+ "lead": [
+  "So kommt dein Messer zu dir.",
+  "Messer aus der Messermanufaktur Ulbrich verschicken wir in ganz Deutschland für 7,99 € pro Artikel. Du kannst dein Messer auch in der Werkstatt in Stein am Kocher abholen – oder es dir weltweit schicken lassen, wenn du die anfallenden Kosten übernimmst."
+ ],
+ "sections": [
+  {
+   "h": "Versand innerhalb Deutschlands",
+   "items": [
+    {
+     "t": "p",
+     "x": "Der Versand innerhalb Deutschlands kostet 7,99 € pro Artikel. Bestellst du zwei Messer, fallen also zweimal 7,99 € an."
+    },
+    {
+     "t": "p",
+     "x": "Die Lieferzeit hängt davon ab, was du bestellst: Ein fertiges Messer ist schneller bei dir als eine Sonderanfertigung, die erst geschmiedet wird. Die voraussichtliche Lieferzeit erfährst du bei der Bestellung. Für die Edition 100 gilt: voraussichtlich 7–14 Werktage ab Bestellung bei zeitnaher Zahlung."
+    }
+   ]
+  },
+  {
+   "h": "Selbstabholung in der Manufaktur",
+   "items": [
+    {
+     "t": "p",
+     "x": "Du kannst dein Messer in der Messermanufaktur Ulbrich in der Wannenstraße 33, 74196 Neuenstadt am Kocher (Ortsteil Stein am Kocher) abholen. Vereinbare vorher einen Termin, damit Andreas Ulbrich vor Ort ist und dein Messer bereitliegt."
+    },
+    {
+     "t": "p",
+     "x": "Bei Abholung zahlst du bar oder mit Karte – oder vorab per Überweisung. Die Abholung ist kostenlos und für Kundinnen und Kunden aus aller Welt möglich."
+    }
+   ]
+  },
+  {
+   "h": "Versand ins Ausland",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst – also Versand, Versicherung und eventuelle Gebühren. Frag vor deiner Bestellung nach den Kosten für dein Land."
+    },
+    {
+     "t": "p",
+     "x": "Fällt Zoll oder Einfuhrsteuer an, kommt dieser Betrag zum Preis hinzu."
+    },
+    {
+     "t": "h3",
+     "x": "Einfuhrregeln für Messer"
+    },
+    {
+     "t": "p",
+     "x": "Viele Länder haben eigene Regeln für die Einfuhr von Messern, besonders für Klapp- und Jagdmesser. Informiere dich vor der Bestellung, was in deinem Land gilt."
+    }
+   ]
+  },
+  {
+   "h": "Zahlung",
+   "items": [
+    {
+     "t": "li",
+     "x": "Überweisung – der Auftrag wird nach geprüftem Zahlungseingang bestätigt"
+    },
+    {
+     "t": "li",
+     "x": "Barzahlung bei Abholung in der Manufaktur"
+    },
+    {
+     "t": "li",
+     "x": "Kartenzahlung bei Abholung in der Manufaktur"
+    },
+    {
+     "t": "p",
+     "x": "Weitere Zahlungsarten folgen."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was kostet der Versand innerhalb Deutschlands?",
+   "a": "Der Versand kostet 7,99 € pro Artikel."
+  },
+  {
+   "q": "Kann ich mein Messer selbst abholen?",
+   "a": "Ja. Du holst dein Messer nach Absprache in der Manufaktur in Stein am Kocher ab und zahlst vor Ort bar, mit Karte oder vorab per Überweisung."
+  },
+  {
+   "q": "Verschickt ihr Messer ins Ausland?",
+   "a": "Ja, wenn du alle anfallenden Kosten übernimmst. Alternativ holst du das Messer in der Manufaktur ab."
+  },
+  {
+   "q": "Wer zahlt den Zoll?",
+   "a": "Fällt Zoll oder Einfuhrsteuer an, kommt dieser Betrag zum Preis hinzu."
+  },
+  {
+   "q": "Wie lange dauert die Lieferung?",
+   "a": "Das hängt davon ab, ob du ein fertiges Messer oder eine Sonderanfertigung bestellst. Die voraussichtliche Lieferzeit erfährst du bei der Bestellung."
+  }
+ ],
+ "source": "Angaben des Inhabers (11.11.2026)"
+}

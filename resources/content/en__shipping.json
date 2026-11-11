@@ -1,0 +1,97 @@
+{
+ "h1": "Shipping, pickup and payment",
+ "lead": [
+  "How your knife gets to you.",
+  "We ship within Germany for €7.99 per item and worldwide if you cover all costs involved. You can also collect your knife at the workshop in Stein am Kocher."
+ ],
+ "sections": [
+  {
+   "h": "Shipping within Germany",
+   "items": [
+    {
+     "t": "p",
+     "x": "€7.99 per item. Delivery time depends on whether you order a finished knife or a custom piece; the expected time is given with your order."
+    }
+   ]
+  },
+  {
+   "h": "Shipping worldwide",
+   "items": [
+    {
+     "t": "p",
+     "x": "We ship outside Germany if you cover all costs involved – shipping, insurance and any fees. Ask for the costs to your country before ordering."
+    },
+    {
+     "t": "p",
+     "x": "If customs duties or import taxes apply, they are added to the price."
+    },
+    {
+     "t": "h3",
+     "x": "Import rules for knives"
+    },
+    {
+     "t": "p",
+     "x": "Many countries restrict the import of certain knives, especially folding and hunting knives. Please check the rules in your country before you order."
+    }
+   ]
+  },
+  {
+   "h": "Pickup at the workshop",
+   "items": [
+    {
+     "t": "p",
+     "x": "Collect your knife by appointment at Wannenstraße 33, 74196 Neuenstadt am Kocher (Stein am Kocher), Germany – free of charge, for customers from anywhere in the world."
+    }
+   ]
+  },
+  {
+   "h": "Payment",
+   "items": [
+    {
+     "t": "li",
+     "x": "Bank transfer – your order is confirmed once payment has been received"
+    },
+    {
+     "t": "li",
+     "x": "Cash when collecting in person"
+    },
+    {
+     "t": "li",
+     "x": "Card when collecting in person"
+    },
+    {
+     "t": "p",
+     "x": "Further payment options will follow."
+    }
+   ]
+  },
+  {
+   "h": "How to enquire",
+   "items": [
+    {
+     "t": "p",
+     "x": "Email us with the knife you are interested in and your country – in English or German."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Do you ship knives outside Germany?",
+   "a": "Yes, if you cover all costs involved – shipping, insurance and any fees. Alternatively, you can collect your knife from the workshop in person."
+  },
+  {
+   "q": "Who pays customs duties?",
+   "a": "If customs duties or import taxes apply, they are added to the price."
+  },
+  {
+   "q": "How can I pay?",
+   "a": "By bank transfer; your order is confirmed once payment has been received. When collecting in person, you can also pay in cash or by card."
+  },
+  {
+   "q": "What does shipping within Germany cost?",
+   "a": "€7.99 per item."
+  }
+ ],
+ "source": "owner information (11 Nov 2026)"
+}

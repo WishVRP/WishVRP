@@ -1,0 +1,84 @@
+{
+ "h1": "Custom knives, made to order in Germany",
+ "lead": [
+  "Your idea, forged by hand.",
+  "Bladesmith Andreas Ulbrich makes knives to your wishes: blade shape, length, steel, handle and engraving. Whether a kitchen knife, a hunting knife, a folding knife or a gift with a name and date – it starts with a conversation."
+ ],
+ "sections": [
+  {
+   "h": "What you can choose",
+   "items": [
+    {
+     "t": "li",
+     "x": "Knife type and blade shape – for example chef's knife, gyuto, santoku, nakiri, hunting or folding knife"
+    },
+    {
+     "t": "li",
+     "x": "Blade length and, if you like, a damascus blade"
+    },
+    {
+     "t": "li",
+     "x": "Handle shape and material"
+    },
+    {
+     "t": "li",
+     "x": "Engraving – names, initials, a date or a logo"
+    }
+   ]
+  },
+  {
+   "h": "How it works",
+   "items": [
+    {
+     "t": "li",
+     "x": "Send your idea by email – intended use, size, preferences, budget and desired date"
+    },
+    {
+     "t": "li",
+     "x": "Consultation and quote with price and delivery time"
+    },
+    {
+     "t": "li",
+     "x": "Forging and finishing in the workshop"
+    },
+    {
+     "t": "li",
+     "x": "Pickup at the workshop or shipping – outside Germany at your cost"
+    }
+   ]
+  },
+  {
+   "h": "Delivery time",
+   "items": [
+    {
+     "t": "p",
+     "x": "A custom knife takes longer than a finished piece because it is forged for you. The expected delivery time is part of your quote. A desired date is only binding once it has been confirmed."
+    }
+   ]
+  },
+  {
+   "h": "Also for companies",
+   "items": [
+    {
+     "t": "p",
+     "x": "Knives with an engraved logo for clients, partners or employees – quantity and schedule are agreed individually."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How much does a custom knife cost?",
+   "a": "It depends on size, steel, handle and effort. You receive a quote after your enquiry."
+  },
+  {
+   "q": "Can I order a custom knife from outside Germany?",
+   "a": "Yes. Shipping abroad is possible if you cover all costs involved; customs duties, where they apply, are added to the price."
+  },
+  {
+   "q": "Can my knife be engraved?",
+   "a": "Yes. Names, initials, dates or logos – placement and execution are agreed for each knife."
+  }
+ ],
+ "source": "owner information (11 Nov 2026)"
+}

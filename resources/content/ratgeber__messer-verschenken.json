@@ -1,0 +1,96 @@
+{
+ "h1": "Messer verschenken: Bringt das Unglück?",
+ "lead": [
+  "Ein alter Aberglaube – und ein schöner Brauch.",
+  "Viele zögern, ein Messer zu verschenken: Es soll die Freundschaft „zerschneiden“. Dagegen gibt es einen alten Brauch mit einer Münze. Hier erfährst du, was dahintersteckt und wie aus einem Messer ein Geschenk wird, das bleibt."
+ ],
+ "sections": [
+  {
+   "h": "Woher der Aberglaube kommt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Der Aberglaube, dass ein geschenktes Messer eine Beziehung durchtrennt, ist in vielen Ländern verbreitet. Woher er genau stammt, ist nicht eindeutig belegt. Es handelt sich um Volksglauben, nicht um eine Regel."
+    }
+   ]
+  },
+  {
+   "h": "Der Brauch mit der Münze",
+   "items": [
+    {
+     "t": "p",
+     "x": "Damit das Messer kein Geschenk im eigentlichen Sinn ist, gibt die beschenkte Person eine kleine Münze zurück. So hat sie das Messer symbolisch gekauft – und der Aberglaube ist aufgehoben."
+    },
+    {
+     "t": "h3",
+     "x": "So setzt du den Brauch schön um"
+    },
+    {
+     "t": "li",
+     "x": "Leg eine Münze direkt mit in die Verpackung, dazu eine Karte mit einer Erklärung."
+    },
+    {
+     "t": "li",
+     "x": "Wähle eine besondere Münze, etwa aus dem Geburts- oder Hochzeitsjahr."
+    },
+    {
+     "t": "li",
+     "x": "Lass ein Datum oder einen Namen auf das Messer gravieren – dann erzählt es die Geschichte weiter."
+    }
+   ]
+  },
+  {
+   "h": "Welche Messer sich als Geschenk eignen",
+   "items": [
+    {
+     "t": "h3",
+     "x": "Ein Messer zum Behalten"
+    },
+    {
+     "t": "p",
+     "x": "Ein nummeriertes Damast-Klappmesser der Edition 100 oder ein Unikat aus der Werkstatt ist ein Geschenk, das ein Leben lang hält."
+    },
+    {
+     "t": "h3",
+     "x": "Ein Messer für den Alltag"
+    },
+    {
+     "t": "p",
+     "x": "Für Menschen, die gern kochen, passt ein handgefertigtes Küchenmesser. Welche Form passt, hängt davon ab, was sie schneiden."
+    },
+    {
+     "t": "h3",
+     "x": "Ein Erlebnis statt eines Messers"
+    },
+    {
+     "t": "p",
+     "x": "Mit einem Schmiedekurs-Gutschein schmiedet die beschenkte Person ihr Messer selbst. Dann stellt sich die Frage nach dem Aberglauben gar nicht."
+    }
+   ]
+  },
+  {
+   "h": "Anlässe",
+   "items": [
+    {
+     "t": "p",
+     "x": "Messer werden oft zur Hochzeit, zum Ruhestand, zur bestandenen Meister- oder Jägerprüfung, zum runden Geburtstag oder als Dank im Beruf verschenkt. Wenn du zu einem festen Datum schenken möchtest, frag früh an."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Darf man ein Messer verschenken?",
+   "a": "Ja. Der Aberglaube, ein Messer zerschneide die Freundschaft, ist Volksglaube. Wer ihn ernst nimmt, lässt sich eine Münze zurückgeben."
+  },
+  {
+   "q": "Was bedeutet die Münze beim Messer-Geschenk?",
+   "a": "Mit der Münze kauft die beschenkte Person das Messer symbolisch. So gilt es nicht als Geschenk, und der Aberglaube ist aufgehoben."
+  },
+  {
+   "q": "Welches Messer eignet sich als Geschenk?",
+   "a": "Ein Messer, das zum Alltag der beschenkten Person passt – etwa ein Küchenmesser für Kochbegeisterte oder ein nummeriertes Klappmesser als bleibendes Stück. Bist du unsicher, ist ein Schmiedekurs-Gutschein eine Alternative."
+  }
+ ],
+ "source": "Volksbrauch; Angebot laut config/ulbrich.php"
+}

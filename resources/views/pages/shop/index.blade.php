@@ -19,7 +19,9 @@
             Der Online-Kauf mit Warenkorb und Zahlung wird vor dem Start eingerichtet. Bis dahin bestellst du telefonisch bei {{ $c['owner'] }}:
             <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a>. Preise: <x-ui.tax-note />.
         </x-page.note>
-        <x-ui.missing silent>Versandbedingungen, Versandkosten, Altersprüfung beim Messerversand</x-ui.missing>
+        <h3 class="spec-title mt-8">Versand, Abholung &amp; Zahlung</h3>
+        @include('pages.partials.delivery')
+        <x-ui.missing silent>Altersprüfung beim Messerversand (rechtlich prüfen lassen)</x-ui.missing>
     </x-page.section>
 
     @include('pages.home.07b-gallery')

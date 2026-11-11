@@ -42,6 +42,9 @@ class PageController extends Controller
         $extra = match (true) {
             $course !== null => [Schema::course($course), ($cf = json_decode(file_get_contents(resource_path('content/schmiedekurse__'.$course->slug.'.json')), true)['faq']) ? Schema::faq($cf) : null],
             ! empty($page['article']) => [Schema::article($page['h1'] ?? $content['h1'], $meta->canonical(), $page['description']), $content['faq'] ? Schema::faq($content['faq']) : null],
+            ! empty($page['service']) => [Schema::service($page['service'], $page['description'], $meta->canonical()), $content['faq'] ? Schema::faq($content['faq']) : null],
+            ! empty($page['product']) => [Schema::product($c['edition']), $content['faq'] ? Schema::faq($content['faq']) : null],
+            ! empty($page['about']) => [Schema::localBusiness(), Schema::person(), $content['faq'] ? Schema::faq($content['faq']) : null],
             $content !== null && ! empty($content['faq']) => [Schema::faq($content['faq'])],
             default => match ($path) {
             '/schmiedekurse/', '/schmiedekurse/vergleich/' => [Schema::courseList($courses), Schema::faq($faqs)],
@@ -80,6 +83,14 @@ class PageController extends Controller
     private function breadcrumb(string $path): array
     {
         $pages = config('pages');
+        if (str_starts_with($path, '/en/')) {
+            $crumbs = [['name' => 'Home', 'path' => '/en/']];
+            if ($path !== '/en/') {
+                $crumbs[] = ['name' => $pages[$path]['title'], 'path' => $path];
+            }
+
+            return $crumbs;
+        }
         $crumbs = [['name' => 'Startseite', 'path' => '/']];
         $acc = '/';
         foreach (array_filter(explode('/', $path)) as $segment) {

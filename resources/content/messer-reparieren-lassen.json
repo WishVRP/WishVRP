@@ -1,0 +1,92 @@
+{
+ "h1": "Messer reparieren lassen: Klinge und Griff",
+ "lead": [
+  "Ein gutes Messer muss nicht in die Schublade.",
+  "Abgebrochene Spitze, Ausbrüche in der Schneide, ein lockerer oder gerissener Griff: Messerschmied Andreas Ulbrich repariert Messer in seiner Werkstatt – auch alte Familienstücke, an denen Erinnerungen hängen."
+ ],
+ "sections": [
+  {
+   "h": "Was sich reparieren lässt",
+   "items": [
+    {
+     "t": "h3",
+     "x": "Schäden an der Klinge"
+    },
+    {
+     "t": "p",
+     "x": "Eine abgebrochene Spitze lässt sich neu ausformen, Ausbrüche in der Schneide werden ausgeschliffen. Rost und Flugrost werden entfernt, soweit die Klinge das zulässt."
+    },
+    {
+     "t": "h3",
+     "x": "Neuer Griff"
+    },
+    {
+     "t": "p",
+     "x": "Ist der Griff locker, gerissen oder verschlissen, bekommt dein Messer einen neuen Griff. Material und Form stimmst du vorher mit Andreas Ulbrich ab."
+    },
+    {
+     "t": "h3",
+     "x": "Klappmesser"
+    },
+    {
+     "t": "p",
+     "x": "Bei Klapp- und Taschenmessern geht es oft um eine schwergängige oder lockere Mechanik. Beschreib bei deiner Anfrage, was dir auffällt."
+    }
+   ]
+  },
+  {
+   "h": "Erbstücke und alte Messer",
+   "items": [
+    {
+     "t": "p",
+     "x": "Das Messer vom Großvater, das Jagdmesser aus der Familie: Solche Stücke sind oft mehr wert als ihr Material. In einer Familie, in der seit 1934 geschmiedet wird, ist dieses Gefühl vertraut. Ob und wie sich ein altes Messer wieder in Form bringen lässt, klärt ihr vor der Reparatur."
+    }
+   ]
+  },
+  {
+   "h": "So läuft eine Reparatur ab",
+   "items": [
+    {
+     "t": "li",
+     "x": "Anfrage per Telefon oder E-Mail – am besten mit Fotos von Klinge und Griff"
+    },
+    {
+     "t": "li",
+     "x": "Einschätzung, ob sich die Reparatur lohnt und was sie kostet"
+    },
+    {
+     "t": "li",
+     "x": "Reparatur in der Werkstatt"
+    },
+    {
+     "t": "li",
+     "x": "Abholung in der Manufaktur oder Versand innerhalb Deutschlands für 7,99 €"
+    }
+   ]
+  },
+  {
+   "h": "Reparieren oder neu anfertigen?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Manchmal ist der Schaden so groß, dass ein neues Messer sinnvoller ist. Dann kann eine Sonderanfertigung Form und Charakter des alten Messers aufgreifen."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was kostet eine Messerreparatur?",
+   "a": "Das hängt vom Schaden ab. Schick Fotos oder beschreib den Schaden, dann bekommst du eine Einschätzung."
+  },
+  {
+   "q": "Kann mein Messer einen neuen Griff bekommen?",
+   "a": "Ja. Material und Form des neuen Griffs stimmst du vorher ab."
+  },
+  {
+   "q": "Repariert ihr auch alte Familienmesser?",
+   "a": "Ja, auch alte Messer und Erbstücke. Ob sich die Reparatur lohnt, klärt ihr vorher gemeinsam."
+  }
+ ],
+ "source": "Angaben des Inhabers (11.11.2026): Reparaturen und neue Griffe werden angeboten; Preise auf Anfrage"
+}

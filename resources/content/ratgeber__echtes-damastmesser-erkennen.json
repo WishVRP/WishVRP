@@ -1,0 +1,108 @@
+{
+ "h1": "Echtes Damastmesser erkennen: 6 Merkmale",
+ "lead": [
+  "Nicht jedes Muster ist Damast.",
+  "Viele Messer werden mit „Damast“ beworben, obwohl das Muster nur aufgelasert oder aufgedruckt ist. Echter Damaststahl entsteht, wenn verschiedene Stähle miteinander verbunden werden – das Muster ist dann ein Teil des Materials. Mit diesen sechs Merkmalen erkennst du den Unterschied."
+ ],
+ "sections": [
+  {
+   "h": "Was „echter Damast“ bedeutet",
+   "items": [
+    {
+     "t": "p",
+     "x": "Beim Damaststahl werden mehrere Stahlsorten miteinander verschweißt, gefaltet und geschmiedet. Nach dem Schleifen und Ätzen zeigen die unterschiedlichen Stähle ihr Muster. Industriell gibt es auch Damast aus Stahlpulver, der ebenfalls aus verschiedenen Stählen besteht."
+    },
+    {
+     "t": "p",
+     "x": "Bei der sogenannten Damast-Optik ist die Klinge aus einem einzigen Stahl. Das Muster wird nur auf die Oberfläche gelasert, geätzt oder gedruckt."
+    }
+   ]
+  },
+  {
+   "h": "Die 6 Merkmale",
+   "items": [
+    {
+     "t": "h3",
+     "x": "1. Das Muster läuft über Rücken und Schneide"
+    },
+    {
+     "t": "p",
+     "x": "Bei echtem Damast zeigen sich die Lagen auch am Klingenrücken und an der Schneidenfase. Ein aufgelasertes Muster bleibt auf der Fläche und hört an Kanten oder Schliff auf."
+    },
+    {
+     "t": "h3",
+     "x": "2. Das Muster ist lebendig, nicht gestempelt"
+    },
+    {
+     "t": "p",
+     "x": "Geschmiedeter Damast hat kleine Unregelmäßigkeiten. Wiederholt sich ein Muster bei vielen Messern völlig identisch, ist das ein Hinweis auf eine aufgebrachte Optik."
+    },
+    {
+     "t": "h3",
+     "x": "3. Die Hersteller nennen Stähle und Aufbau"
+    },
+    {
+     "t": "p",
+     "x": "Seriöse Anbieter sagen, welche Stähle verwendet wurden und wie die Klinge aufgebaut ist. Fehlen diese Angaben ganz, frag nach."
+    },
+    {
+     "t": "h3",
+     "x": "4. Damastmantel mit Kern ist auch echt"
+    },
+    {
+     "t": "p",
+     "x": "Viele Küchenmesser haben einen Kern aus einem harten Schneidstahl, umhüllt von Damastlagen. Das ist echter Damast – die Schneide besteht dann aus dem Kernstahl."
+    },
+    {
+     "t": "h3",
+     "x": "5. Der Preis passt zum Aufwand"
+    },
+    {
+     "t": "p",
+     "x": "Damast herzustellen kostet Zeit und Material. Ein auffällig billiges „Damastmesser“ ist ein Grund, genau hinzusehen."
+    },
+    {
+     "t": "h3",
+     "x": "6. Die Herkunft ist nachvollziehbar"
+    },
+    {
+     "t": "p",
+     "x": "Bei einem handgeschmiedeten Messer kannst du fragen, wer es gemacht hat und wie. Ein Messerschmied kann dir den Aufbau seiner Klinge erklären."
+    }
+   ]
+  },
+  {
+   "h": "Verschwindet das Muster beim Schärfen?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Das Muster selbst bleibt, weil es im Stahl steckt. An der frisch geschliffenen Schneide kann es heller wirken, weil die Ätzung dort abgeschliffen wurde. Bei einer bloßen Damast-Optik kann das Muster dagegen mit der Zeit verschwinden."
+    }
+   ]
+  },
+  {
+   "h": "Damast aus der Messermanufaktur Ulbrich",
+   "items": [
+    {
+     "t": "p",
+     "x": "Messerschmied Andreas Ulbrich fertigt Damastmesser von Hand in seiner Werkstatt in Stein am Kocher, darunter das Damast-Klappmesser der Edition 100. Zu jedem konkreten Stück bekommst du die Angaben auf Anfrage. Wer Damast selbst erleben will, schmiedet sein eigenes Damastmesser im Damast-Messerkurs."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Woran erkenne ich ein echtes Damastmesser am schnellsten?",
+   "a": "Schau auf Klingenrücken und Schneidenfase. Bei echtem Damast zeigt sich das Muster auch dort, bei einer aufgelaserten Optik nur auf der Fläche."
+  },
+  {
+   "q": "Ist ein Messer mit Damastmantel und Kern echter Damast?",
+   "a": "Ja. Die Damastlagen sind echt, geschnitten wird mit dem Kernstahl in der Mitte."
+  },
+  {
+   "q": "Ist Damast schärfer als normaler Stahl?",
+   "a": "Nicht automatisch. Wie scharf ein Messer wird und bleibt, hängt vor allem von Stahl, Wärmebehandlung und Schliff ab. Das Muster selbst schneidet nicht."
+  }
+ ],
+ "source": "Allgemeines Fachwissen zu Damaststahl"
+}

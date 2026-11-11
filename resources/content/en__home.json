@@ -1,0 +1,92 @@
+{
+ "h1": "Handmade German damascus knives",
+ "lead": [
+  "Fire, steel and handwork – since 1934.",
+  "Messermanufaktur Ulbrich is the workshop of bladesmith Andreas Ulbrich in Stein am Kocher near Heilbronn, Germany. Forging has been in his family since 1934; Andreas carries it on in the third generation. Every knife is made by hand – and ships to you worldwide."
+ ],
+ "sections": [
+  {
+   "h": "What we make",
+   "items": [
+    {
+     "t": "h3",
+     "x": "Damascus folding knife – Edition 100"
+    },
+    {
+     "t": "p",
+     "x": "A damascus folding knife limited to 100 numbered pieces: 90 regular knives at €699 each and 10 special pieces made to individual specifications."
+    },
+    {
+     "t": "h3",
+     "x": "Handmade knives"
+    },
+    {
+     "t": "p",
+     "x": "Kitchen knives such as chef's knife, gyuto, santoku and nakiri, hunting knives, folding knives and one-of-a-kind pieces – each with its own blade and handle."
+    },
+    {
+     "t": "h3",
+     "x": "Custom knives and engraving"
+    },
+    {
+     "t": "p",
+     "x": "A knife made to your wishes: blade shape, length, handle and, if you like, a damascus blade and an engraving."
+    },
+    {
+     "t": "h3",
+     "x": "Sharpening and repair"
+    },
+    {
+     "t": "p",
+     "x": "Sharpening, blade repairs and new handles – including old family knives."
+    }
+   ]
+  },
+  {
+   "h": "Buying from abroad",
+   "items": [
+    {
+     "t": "p",
+     "x": "We ship worldwide if you cover all costs involved. Customs duties or import taxes, where they apply, are added to the price. You are also welcome to collect your knife at the workshop and pay in cash or by card."
+    }
+   ]
+  },
+  {
+   "h": "Who makes your knife",
+   "items": [
+    {
+     "t": "p",
+     "x": "Andreas Ulbrich is a bladesmith and a member of the Chamber of Crafts Heilbronn-Franken (Handwerkskammer Heilbronn-Franken). After his workshop in Aalen, he opened Messermanufaktur Ulbrich in Stein am Kocher on 1 March 2024. Regional newspapers have reported on his work."
+    }
+   ]
+  },
+  {
+   "h": "Forging courses",
+   "items": [
+    {
+     "t": "p",
+     "x": "In Germany, Andreas also teaches forging courses – from a one-day introduction to a damascus knife course over several days. The courses are described and booked on the German website. Ask if you would like to take part in English."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Do you ship knives outside Germany?",
+   "a": "Yes, if you cover all costs involved – shipping, insurance and any fees. Alternatively, you can collect your knife from the workshop in person."
+  },
+  {
+   "q": "Who pays customs duties?",
+   "a": "If customs duties or import taxes apply, they are added to the price."
+  },
+  {
+   "q": "How can I pay?",
+   "a": "By bank transfer; your order is confirmed once payment has been received. When collecting in person, you can also pay in cash or by card."
+  },
+  {
+   "q": "Can I order a custom knife from abroad?",
+   "a": "Yes. Send your enquiry by email; shape, length, handle, price and delivery time are agreed individually."
+  }
+ ],
+ "source": "config/ulbrich.php; owner information (11 Nov 2026)"
+}

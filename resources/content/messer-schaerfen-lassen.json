@@ -1,0 +1,101 @@
+{
+ "h1": "Messer schärfen lassen beim Messerschmied",
+ "lead": [
+  "Eine scharfe Klinge ist sicherer und macht mehr Freude.",
+  "Wenn dein Messer nicht mehr schneidet, wie es soll, schärft Messerschmied Andreas Ulbrich es in seiner Werkstatt in Stein am Kocher – ob Küchenmesser, Damastmesser, Taschenmesser oder Jagdmesser."
+ ],
+ "sections": [
+  {
+   "h": "Woran du merkst, dass dein Messer geschärft werden muss",
+   "items": [
+    {
+     "t": "li",
+     "x": "Die Klinge rutscht an einer Tomatenhaut ab, statt sie zu schneiden."
+    },
+    {
+     "t": "li",
+     "x": "Du brauchst mehr Druck als früher – das macht das Schneiden unsicherer."
+    },
+    {
+     "t": "li",
+     "x": "Ein Blatt Papier reißt, statt sauber geschnitten zu werden."
+    },
+    {
+     "t": "li",
+     "x": "An der Schneide sind kleine Ausbrüche oder eine glänzende Linie zu sehen."
+    }
+   ]
+  },
+  {
+   "h": "So läuft das Schärfen ab",
+   "items": [
+    {
+     "t": "p",
+     "x": "Zuerst schaut sich Andreas Ulbrich die Klinge an: Ist sie nur stumpf, oder gibt es Ausbrüche, eine abgebrochene Spitze oder Rost? Danach wird die Schneide neu angelegt und abgezogen."
+    },
+    {
+     "t": "p",
+     "x": "Hat die Klinge größere Schäden, besprecht ihr vorher, ob eine Reparatur sinnvoll ist. Mehr dazu auf der Seite „Messer reparieren lassen“."
+    }
+   ]
+  },
+  {
+   "h": "Welche Messer geschärft werden",
+   "items": [
+    {
+     "t": "p",
+     "x": "Geschärft werden Küchenmesser wie Kochmesser, Santoku oder Nakiri, Damastmesser, Taschen- und Klappmesser sowie Jagdmesser. Beschreib bei deiner Anfrage kurz, um welches Messer es geht und was dir aufgefallen ist."
+    }
+   ]
+  },
+  {
+   "h": "Kosten und Abgabe",
+   "items": [
+    {
+     "t": "p",
+     "x": "Was das Schärfen kostet, hängt vom Messer und seinem Zustand ab. Frag kurz telefonisch oder per E-Mail an. Wie du dein Messer zur Manufaktur bringst – persönlich oder per Post – klärst du bei der Anfrage."
+    }
+   ]
+  },
+  {
+   "h": "So bleibt dein Messer länger scharf",
+   "items": [
+    {
+     "t": "li",
+     "x": "Schneide auf Holz oder Kunststoff, nie auf Glas, Stein oder Porzellan."
+    },
+    {
+     "t": "li",
+     "x": "Spüle dein Messer von Hand und trockne es sofort ab – nicht in die Spülmaschine."
+    },
+    {
+     "t": "li",
+     "x": "Bewahre es so auf, dass die Schneide nirgends anstößt, zum Beispiel im Messerblock oder an einer Magnetleiste."
+    },
+    {
+     "t": "li",
+     "x": "Zieh die Schneide zwischendurch ab, dann musst du seltener schärfen lassen."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was kostet es, ein Messer schärfen zu lassen?",
+   "a": "Das hängt vom Messer und seinem Zustand ab. Frag kurz an, dann bekommst du eine Einschätzung."
+  },
+  {
+   "q": "Kann ich ein Damastmesser schärfen lassen?",
+   "a": "Ja. Auch Damastklingen werden geschärft; das Muster bleibt auf der Klinge erhalten, an der frisch geschliffenen Schneide kann es heller wirken."
+  },
+  {
+   "q": "Kann ich mein Messer per Post schicken?",
+   "a": "Wie dein Messer in die Manufaktur kommt, klärst du bei der Anfrage – persönlich vorbeibringen oder per Post."
+  },
+  {
+   "q": "Wie oft sollte ich mein Messer schärfen lassen?",
+   "a": "Das hängt davon ab, wie oft und worauf du schneidest. Wer die Schneide zwischendurch abzieht und auf Holz schneidet, muss seltener schärfen lassen."
+  }
+ ],
+ "source": "Angaben des Inhabers (11.11.2026): Schärfservice wird angeboten; Preise auf Anfrage"
+}

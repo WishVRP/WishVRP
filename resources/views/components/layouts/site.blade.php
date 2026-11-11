@@ -1,6 +1,6 @@
 @props(['meta', 'schema' => null, 'current' => null])
 <!DOCTYPE html>
-<html lang="de" class="no-js">
+<html lang="{{ $meta->locale() }}" class="no-js">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,15 +23,20 @@
     @endif
 </head>
 <body>
-    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <a class="skip-link" href="#inhalt">{{ $meta->locale() === 'en' ? 'Skip to content' : 'Zum Inhalt springen' }}</a>
 
-    <x-site.header :current="$current" />
+    <x-site.header :current="$current" :meta="$meta" />
 
     <main id="inhalt" tabindex="-1">
         {{ $slot }}
     </main>
 
-    <x-site.footer />
-    <x-site.mobile-bar />
+    @if ($meta->locale() === 'en')
+        <x-site.footer-en />
+        <x-site.mobile-bar-en />
+    @else
+        <x-site.footer />
+        <x-site.mobile-bar />
+    @endif
 </body>
 </html>

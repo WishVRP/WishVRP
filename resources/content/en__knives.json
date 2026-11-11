@@ -1,0 +1,81 @@
+{
+ "h1": "Handmade knives from a German bladesmith",
+ "lead": [
+  "Every knife made by hand.",
+  "In his workshop near Heilbronn, bladesmith Andreas Ulbrich makes damascus knives, kitchen knives, hunting knives and folding knives. Many are one of a kind – so price and availability are confirmed personally."
+ ],
+ "sections": [
+  {
+   "h": "Damascus knives",
+   "items": [
+    {
+     "t": "p",
+     "x": "Damascus steel is made by forge-welding different steels together. After grinding and etching, the layers show a pattern that makes every blade unique."
+    }
+   ]
+  },
+  {
+   "h": "Kitchen knives",
+   "items": [
+    {
+     "t": "p",
+     "x": "Chef's knife, gyuto, santoku, nakiri, paring knife, bread, filleting and boning knives. Which shape suits you depends on what and how you cut – Andreas will help you choose."
+    }
+   ]
+  },
+  {
+   "h": "Hunting and folding knives",
+   "items": [
+    {
+     "t": "p",
+     "x": "Fixed-blade hunting knives and folding knives, including the numbered damascus folding knife of the Edition 100."
+    }
+   ]
+  },
+  {
+   "h": "One-of-a-kind pieces",
+   "items": [
+    {
+     "t": "p",
+     "x": "Blade and handle designed as a whole, each piece made only once. If nothing available fits, a custom knife is possible."
+    }
+   ]
+  },
+  {
+   "h": "How to order",
+   "items": [
+    {
+     "t": "li",
+     "x": "Email or call with what you are looking for"
+    },
+    {
+     "t": "li",
+     "x": "Confirmation of price, availability and – outside Germany – shipping costs"
+    },
+    {
+     "t": "li",
+     "x": "Payment by bank transfer, or cash or card when collecting in person"
+    },
+    {
+     "t": "li",
+     "x": "Shipping or pickup at the workshop"
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Do you make santoku, gyuto and nakiri knives?",
+   "a": "Yes. These shapes are available and can also be made as custom knives."
+  },
+  {
+   "q": "Why is there no fixed price for some knives?",
+   "a": "Many knives are one of a kind. Price and availability are therefore confirmed personally."
+  },
+  {
+   "q": "Do you ship knives outside Germany?",
+   "a": "Yes, if you cover all costs involved – shipping, insurance and any fees. Alternatively, you can collect your knife from the workshop in person."
+  }
+ ],
+ "source": "config/ulbrich.php; owner information (11 Nov 2026)"
+}

@@ -61,6 +61,7 @@ return [
     'phone' => [
         'display' => '0179 4079218',
         'e164' => '+491794079218',
+        'intl' => '+49 179 4079218',
     ],
 
     // info@… oder gmx-Adresse – noch nicht entschieden.
@@ -131,23 +132,31 @@ return [
         'handle' => null,   // [FEHLT]
         // laut Live-Seite /klappmesser/ (11.11.2026)
         'special_note' => 'Die ersten zehn Stücke der Edition sind für Sonderanfertigungen reserviert; Ausführung und höherer Preis werden persönlich vereinbart.',
-        'shipping' => '7,99 € Versand innerhalb Deutschlands',
+        'shipping' => '7,99 € Versand pro Artikel innerhalb Deutschlands',
         'delivery' => 'voraussichtlich 7–14 Werktage ab Bestellung bei zeitnaher Zahlung (5–10 Werktage Bearbeitung, 2–4 Werktage Versand)',
         'payment' => 'Banküberweisung; Auftragsbestätigung nach geprüftem Zahlungseingang',
         'serial_note' => 'Eine bestimmte Seriennummer wird nicht zugesagt; sie wird vor dem Versand zugeordnet.',
     ],
 
     /*
-    | Verkaufsgebiet – laut Inhaber (Chat 11.11.2026): Versand deutschlandweit
-    | und weltweit, Selbstabholung vor Ort. Auslandsversand: Länder, Kosten,
-    | Zoll und Laufzeit noch [FEHLT] – nicht schätzen.
+    | Verkauf, Versand, Zahlung – laut Inhaber (Chat 11.11.2026).
+    | Auslandsversand nur, wenn der Kunde alle anfallenden Kosten trägt;
+    | sonst weltweit per Selbstabholung. Zoll kommt, falls er anfällt, auf den Preis.
     */
     'sales' => [
         'area_served' => ['Deutschland', 'weltweit'],
         'pickup' => true,
         'pickup_note' => 'Selbstabholung in der Manufaktur in Stein am Kocher nach Absprache',
         'shipping_de_eur' => 7.99,
-        'international' => null, // [FEHLT] Länder, Versandkosten, Zoll, Laufzeit
+        'shipping_de' => '7,99 € Versand pro Artikel innerhalb Deutschlands',
+        'international' => 'Versand ins Ausland ist möglich, wenn du alle anfallenden Kosten übernimmst (Versand, Versicherung, Gebühren). Alternativ holst du dein Messer in der Manufaktur ab.',
+        'customs' => 'Fällt Zoll oder Einfuhrsteuer an, kommt dieser Betrag zum Preis hinzu.',
+        'delivery' => 'Die Lieferzeit hängt davon ab, ob ein fertiges Messer oder eine Sonderanfertigung bestellt wird; sie wird bei der Bestellung genannt.',
+        'payment' => ['Überweisung'],
+        'payment_onsite' => ['Barzahlung', 'Kartenzahlung'],
+        'payment_online' => null, // geplant, noch nicht verfügbar – erst nach Freigabe aktivieren
+        'services' => ['Sonderanfertigung', 'Gravur', 'Messer schärfen', 'Messer reparieren', 'Neuer Griff'],
+        'knife_forms' => ['Kochmesser', 'Santoku', 'Gyuto', 'Nakiri', 'Officemesser', 'Brotmesser', 'Filetiermesser', 'Ausbeinmesser', 'Jagdmesser', 'Klappmesser'],
     ],
 
     /*

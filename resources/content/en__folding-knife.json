@@ -1,0 +1,79 @@
+{
+ "h1": "Damascus folding knife – Edition 100",
+ "lead": [
+  "One hundred knives, one hundred numbers.",
+  "The Edition 100 is a damascus folding knife made by Andreas Ulbrich, limited to 100 numbered pieces. 90 belong to the regular edition at €699 each; 10 are reserved as special pieces."
+ ],
+ "sections": [
+  {
+   "h": "The edition",
+   "items": [
+    {
+     "t": "li",
+     "x": "Limited to 100 numbered knives"
+    },
+    {
+     "t": "li",
+     "x": "90 regular pieces at €699 each"
+    },
+    {
+     "t": "li",
+     "x": "10 special pieces: execution and higher price are agreed personally"
+    },
+    {
+     "t": "li",
+     "x": "A specific serial number cannot be promised; it is assigned before shipping"
+    }
+   ]
+  },
+  {
+   "h": "Specifications",
+   "items": [
+    {
+     "t": "p",
+     "x": "Blade length, overall length, weight, steel and handle material are available on request – ask by email before you order."
+    }
+   ]
+  },
+  {
+   "h": "Ordering, payment and delivery",
+   "items": [
+    {
+     "t": "p",
+     "x": "Payment is by bank transfer; your order is confirmed once payment has been received. Shipping within Germany costs €7.99 per item, with delivery expected within 7–14 working days of prompt payment."
+    },
+    {
+     "t": "p",
+     "x": "Outside Germany, we ship if you cover all costs involved. Customs duties or import taxes, where they apply, are added to the price. You can also collect your knife at the workshop and pay in cash or by card."
+    },
+    {
+     "t": "h3",
+     "x": "Import rules"
+    },
+    {
+     "t": "p",
+     "x": "Many countries have their own rules on importing folding knives. Please check what applies in your country before ordering."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How many knives are there in the Edition 100?",
+   "a": "100 numbered pieces: 90 regular knives at €699 each and 10 special pieces."
+  },
+  {
+   "q": "Can I choose my serial number?",
+   "a": "A specific serial number cannot be promised; it is assigned before shipping."
+  },
+  {
+   "q": "Do you ship knives outside Germany?",
+   "a": "Yes, if you cover all costs involved – shipping, insurance and any fees. Alternatively, you can collect your knife from the workshop in person."
+  },
+  {
+   "q": "Who pays customs duties?",
+   "a": "If customs duties or import taxes apply, they are added to the price."
+  }
+ ],
+ "source": "config/ulbrich.php → edition, sales"
+}

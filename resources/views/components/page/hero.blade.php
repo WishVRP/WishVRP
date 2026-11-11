@@ -3,7 +3,7 @@
 <section {{ $attributes->class(['page-hero is-dark textured page-hero--'.$tone]) }} aria-labelledby="page-title">
     <div class="container page-hero__grid">
         <div class="page-hero__text">
-            <nav class="breadcrumb breadcrumb--dark" aria-label="Brotkrumen">
+            <nav class="breadcrumb breadcrumb--dark" aria-label="{{ $meta->locale() === 'en' ? 'Breadcrumb' : 'Brotkrumen' }}">
                 <ol role="list">
                     @foreach ($meta->breadcrumb as $crumb)
                         <li>@if(! $loop->last)<a href="{{ $crumb['path'] }}">{{ $crumb['name'] }}</a>@else<span aria-current="page">{{ $crumb['name'] }}</span>@endif</li>

@@ -4,11 +4,11 @@
         'damast' => ['h1' => 'Damastmesser aus der Manufaktur', 'kicker' => 'Damastmesser', 'foto' => 'damast-detail',
             'lead' => 'Damastmesser mit sichtbarer Klingenzeichnung – von Hand gefertigt von Messerschmied '.$c['owner'].'. Weil jedes Stück ein Einzelstück ist, klären wir Preis und Verfügbarkeit persönlich.',
             'points' => ['Klinge aus Damaststahl: das Muster entsteht aus verschweißten Stahllagen und macht jedes Messer einzigartig', 'Griff und Form unterscheiden sich von Stück zu Stück', 'Auch als limitiertes Damast-Klappmesser der Edition 100 erhältlich'],
-            'links' => [['Was ist ein Damastmesser?', '/ratgeber/damastmesser/'], ['Edition 100', '/klappmesser/'], ['Damastmesser selbst schmieden', '/schmiedekurse/damast-messerkurs/']]],
+            'links' => [['Was ist ein Damastmesser?', '/ratgeber/damastmesser/'], ['Echtes Damastmesser erkennen', '/ratgeber/echtes-damastmesser-erkennen/'], ['Edition 100', '/klappmesser/'], ['Damastmesser selbst schmieden', '/schmiedekurse/damast-messerkurs/']]],
         'kueche' => ['h1' => 'Küchen- und Kochmesser', 'kicker' => 'Küchenmesser', 'foto' => 'klappmesser-hell',
             'lead' => 'Handgefertigte Küchen- und Kochmesser aus der Messermanufaktur Ulbrich. Welche Form zu dir passt, hängt davon ab, was du schneidest – das klären wir gemeinsam vor dem Kauf.',
             'points' => ['Form und Klingenlänge nach Einsatz wählen – Gemüse, Fleisch, Brot', 'Pflege einplanen: von Hand spülen, sofort abtrocknen', 'Kein passendes Stück dabei? Eine Sonderanfertigung ist möglich'],
-            'links' => [['Welches Kochmesser passt zu mir?', '/ratgeber/welches-kochmesser/'], ['Messer pflegen', '/ratgeber/messer-pflege/'], ['Sonderanfertigung', '/sonderanfertigungen/']]],
+            'links' => [['Welches Kochmesser passt zu mir?', '/ratgeber/welches-kochmesser/'], ['Messerformen: Santoku, Gyuto, Nakiri', '/ratgeber/messerformen/'], ['Messer pflegen', '/ratgeber/messer-pflege/'], ['Sonderanfertigung', '/sonderanfertigungen/']]],
         'jagd' => ['h1' => 'Jagdmesser aus der Manufaktur', 'kicker' => 'Jagdmesser', 'foto' => 'klappmesser-stehend',
             'lead' => 'Jagdmesser aus der Messermanufaktur Ulbrich. Eigenschaften und Eignung für dein Vorhaben besprechen wir vor einer Bestellung persönlich.',
             'points' => ['Eignung, Form und Griff vor dem Kauf persönlich klären', 'Verfügbarkeit einzelner Stücke auf Anfrage', 'Ein Jagdmesser nach deinen Vorgaben lässt sich anfertigen'],
@@ -35,7 +35,7 @@
             </ul>
             <div class="reveal reveal-delay-1">
                 <x-page.note title="So bestellst du">
-                    Einzelstücke haben keinen festen Listenpreis. Schreib an <a href="mailto:{{ $c['email'] }}">{{ $c['email'] }}</a> oder ruf an: <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a>. Bezahlt wird per Überweisung; der Auftrag wird nach geprüftem Zahlungseingang bestätigt. Preise: <x-ui.tax-note />.
+                    Einzelstücke haben keinen festen Listenpreis. Schreib an <a href="mailto:{{ $c['email'] }}">{{ $c['email'] }}</a> oder ruf an: <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a>. Bezahlt wird per Überweisung, bei Abholung auch bar oder mit Karte; der Auftrag wird nach geprüftem Zahlungseingang bestätigt. Preise: <x-ui.tax-note />.
                 </x-page.note>
                 <div class="link-list mt-5">
                     @foreach ($cat['links'] as [$label, $href])<a href="{{ $href }}">{{ $label }} <span aria-hidden="true">→</span></a>@endforeach
@@ -43,6 +43,13 @@
             </div>
         </div>
     </x-page.section>
+
+    <section class="block block--sunken" aria-labelledby="lieferung-h">
+        <div class="container">
+            <h2 id="lieferung-h" class="h-section">Versand, Abholung &amp; Zahlung</h2>
+            @include('pages.partials.delivery')
+        </div>
+    </section>
 
     <x-page.cta title="Ein Messer im Kopf?" text="Beschreib, wofür du es brauchst – {{ $c['owner'] }} sagt dir, welches Stück passt oder ob eine Anfertigung sinnvoll ist." />
 </x-layouts.site>

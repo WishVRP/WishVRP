@@ -1,0 +1,124 @@
+{
+ "h1": "Messerformen erklärt: Santoku, Gyuto, Nakiri und Co.",
+ "lead": [
+  "Die Form entscheidet, wie sich ein Messer anfühlt.",
+  "Ob Santoku, Gyuto, Nakiri oder klassisches Kochmesser: Jede Klingenform ist für bestimmte Aufgaben gemacht. Hier findest du die wichtigsten Formen für Küche, Jagd und Tasche – und welche zu dir passt. Alle diese Formen fertigt Messerschmied Andreas Ulbrich auch als Sonderanfertigung."
+ ],
+ "sections": [
+  {
+   "h": "Küchenmesser",
+   "items": [
+    {
+     "t": "h3",
+     "x": "Kochmesser"
+    },
+    {
+     "t": "p",
+     "x": "Das europäische Kochmesser hat eine breite Klinge und eine gebogene Schneide. Damit kannst du im Wiegeschnitt Kräuter hacken und Gemüse, Fleisch und Fisch schneiden. Es ist der Allrounder in der Küche."
+    },
+    {
+     "t": "h3",
+     "x": "Gyuto"
+    },
+    {
+     "t": "p",
+     "x": "Das Gyuto ist die japanische Form des Kochmessers. Die Klinge ist meist schlanker, die Spitze spitzer und die Schneide etwas flacher. Es eignet sich für präzise, ziehende Schnitte und ist ebenfalls ein Allrounder."
+    },
+    {
+     "t": "h3",
+     "x": "Santoku"
+    },
+    {
+     "t": "p",
+     "x": "Santoku bedeutet sinngemäß „drei Tugenden“: Fleisch, Fisch und Gemüse. Die Klinge ist kürzer als beim Kochmesser, die Spitze abgerundet, die Schneide flacher. Es passt gut zu drückenden und ziehenden Schnitten und zu kleineren Händen."
+    },
+    {
+     "t": "h3",
+     "x": "Nakiri"
+    },
+    {
+     "t": "p",
+     "x": "Das Nakiri hat eine rechteckige Klinge mit gerader Schneide. Es ist für Gemüse gemacht: Die gerade Schneide trifft das Brett auf ganzer Länge, so trennst du Zwiebeln, Kohl und Möhren sauber durch."
+    },
+    {
+     "t": "h3",
+     "x": "Officemesser"
+    },
+    {
+     "t": "p",
+     "x": "Das kleine Officemesser ist für Feinarbeit: schälen, putzen, kleine Stücke schneiden. Neben dem Kochmesser ist es das Messer, das in den meisten Küchen täglich gebraucht wird."
+    },
+    {
+     "t": "h3",
+     "x": "Brotmesser, Filetiermesser, Ausbeinmesser"
+    },
+    {
+     "t": "p",
+     "x": "Das Brotmesser hat meist einen Wellenschliff und eine lange Klinge für Kruste und weiche Krume. Das Filetiermesser ist dünn und flexibel, um Fisch von Haut und Gräten zu lösen. Das Ausbeinmesser ist schmal und kräftig, um Fleisch am Knochen zu lösen."
+    }
+   ]
+  },
+  {
+   "h": "Jagdmesser",
+   "items": [
+    {
+     "t": "p",
+     "x": "Jagdmesser sind meist feststehende Messer mit kräftiger Klinge. Häufige Formen sind der Drop Point mit abgesenkter Spitze, der zum Aufbrechen und für allgemeine Arbeiten verbreitet ist, und der Skinner mit stark gebogener Schneide zum Abhäuten. Welche Form passt, hängt davon ab, wofür du das Messer im Revier brauchst."
+    }
+   ]
+  },
+  {
+   "h": "Klapp- und Taschenmesser",
+   "items": [
+    {
+     "t": "p",
+     "x": "Beim Klappmesser liegt die Klinge geschlossen im Griff. Unterschieden wird unter anderem nach der Mechanik: Manche Messer halten die Klinge nur durch eine Feder in Position, andere verriegeln sie im geöffneten Zustand. Ein Beispiel aus der Manufaktur ist das Damast-Klappmesser der Edition 100."
+    }
+   ]
+  },
+  {
+   "h": "Welche Form passt zu dir?",
+   "items": [
+    {
+     "t": "li",
+     "x": "Ein Messer für fast alles: Kochmesser oder Gyuto"
+    },
+    {
+     "t": "li",
+     "x": "Eher kürzer und viel Gemüse: Santoku"
+    },
+    {
+     "t": "li",
+     "x": "Fast nur Gemüse: Nakiri"
+    },
+    {
+     "t": "li",
+     "x": "Dazu für Kleinarbeit: ein Officemesser"
+    },
+    {
+     "t": "p",
+     "x": "Wenn keine Standardform zu deinem Alltag passt, lässt sich ein Messer nach deinen Vorgaben anfertigen: Länge, Klingenform, Griff und auf Wunsch Damast."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Santoku oder Kochmesser – was ist besser?",
+   "a": "Keins ist besser, sie passen zu unterschiedlichen Schnitttechniken. Das Kochmesser eignet sich mit seiner gebogenen Schneide gut für den Wiegeschnitt, das Santoku mit flacherer Schneide und kürzerer Klinge für drückende und ziehende Schnitte."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Gyuto und Kochmesser?",
+   "a": "Das Gyuto ist die japanische Form des Kochmessers: meist schlanker, mit spitzerer Spitze und etwas flacherer Schneide."
+  },
+  {
+   "q": "Wofür ist ein Nakiri?",
+   "a": "Für Gemüse. Die gerade Schneide trifft das Brett auf ganzer Länge und trennt Gemüse sauber durch."
+  },
+  {
+   "q": "Kann ich mir eine dieser Formen anfertigen lassen?",
+   "a": "Ja. Messerschmied Andreas Ulbrich fertigt diese Formen auch als Sonderanfertigung, auf Wunsch mit Damastklinge."
+  }
+ ],
+ "source": "Allgemeines Messerwissen; Angebot laut Inhaber (11.11.2026)"
+}

@@ -152,3 +152,53 @@ ulbrich messer, messermanufaktur ulbrich, andreas ulbrich messerschmied, edition
 2. `/geschenke/` (C1): jetzt vor Weihnachten
 3. `/versand/` (C2), sobald AT/CH und Ausland geklärt sind
 4. Englischer Bereich (C3, C4 + 4 weitere Seiten), nachdem Zielländer, Zahlung und Rechtstexte geklärt sind
+
+---
+
+## Umsetzung (11.11.2026, nach Angaben des Inhabers)
+
+**Fakten** (`config/ulbrich.php → sales`):
+- Versand in Deutschland: 7,99 € pro Artikel
+- Ausland: nur bei Übernahme aller Kosten, sonst Selbstabholung
+- Zoll: kommt auf den Preis
+- Lieferzeit: je nach fertigem Messer oder Sonderanfertigung
+- Zahlung: Überweisung, vor Ort bar oder mit Karte; Online-Zahlung folgt nach Freigabe
+- Leistungen: alle Formen, Gravur, Schärfen, Reparatur, neuer Griff
+
+**Neue deutsche Seiten:**
+- `/versand/`
+- `/messer-schaerfen-lassen/` und `/messer-reparieren-lassen/` (mit Service-Schema)
+- `/messer-gravur/`
+- `/firmengeschenke/`
+- `/ratgeber/messerformen/`
+- `/ratgeber/echtes-damastmesser-erkennen/`
+- `/ratgeber/messer-verschenken/`
+- `/ratgeber/handgeschmiedete-messer-preis/`
+
+**Englischer Bereich** (`lang="en"`, hreflang de ↔ en + x-default, englische Navigation und Fußzeile):
+
+| Englische Seite | Deutsches Gegenstück |
+|---|---|
+| `/en/` | `/` |
+| `/en/folding-knife/` | `/klappmesser/` |
+| `/en/knives/` | `/shop/` |
+| `/en/custom-knives/` | `/sonderanfertigungen/` |
+| `/en/about/` | `/manufaktur/` |
+| `/en/shipping/` | `/versand/` |
+
+**Bestehende Seiten:**
+- Baustein „Versand, Abholung & Zahlung“ auf Shop, Kategorien und Edition 100
+- Interne Links von den Ratgebern, der Anfertigung und den Geschenken auf die neuen Seiten
+- Neue Links in der Fußzeile
+
+**Strukturdaten:**
+- LocalBusiness: `areaServed`, `paymentAccepted`, `currenciesAccepted`, `makesOffer` (Leistungen)
+- Edition 100: Lieferarten Paket und Abholung, Versand DE 7,99 €
+- llms.txt mit Versand- und Zahlungsregeln
+
+**Offen [liefern]:**
+- Preise oder Preisrahmen für Schärfen, Reparatur und Gravur
+- Technische Daten der Edition 100
+- Ob Messer zum Schärfen per Post angenommen werden
+- Rückgaberegel, damit Google-Shopping-Einträge möglich sind
+- Altersprüfung beim Versand und Rechtstexte auf Englisch: anwaltlich prüfen lassen

@@ -1,0 +1,99 @@
+{
+ "h1": "Messer als Firmengeschenk",
+ "lead": [
+  "Ein Geschenk, das nicht in der Schublade landet.",
+  "Ein handgefertigtes Messer zeigt Wertschätzung: für langjährige Kunden, Geschäftspartner, ein Mitarbeiterjubiläum oder den Ruhestand. Auf Wunsch mit Logo oder Namen graviert – aus der Messermanufaktur Ulbrich, wo seit 1934 geschmiedet wird."
+ ],
+ "sections": [
+  {
+   "h": "Anlässe",
+   "items": [
+    {
+     "t": "li",
+     "x": "Dank an Kunden und Geschäftspartner"
+    },
+    {
+     "t": "li",
+     "x": "Mitarbeiterjubiläum oder Ruhestand"
+    },
+    {
+     "t": "li",
+     "x": "Firmenjubiläum oder Projektabschluss"
+    },
+    {
+     "t": "li",
+     "x": "Weihnachtsgeschenk für ausgewählte Kunden"
+    }
+   ]
+  },
+  {
+   "h": "Drei Wege zum Firmengeschenk",
+   "items": [
+    {
+     "t": "h3",
+     "x": "Damast-Klappmesser der Edition 100"
+    },
+    {
+     "t": "p",
+     "x": "Die Edition 100 ist auf 100 nummerierte Stücke begrenzt; reguläre Stücke kosten 699 €. Weil jede Nummer nur einmal existiert, eignet sie sich für besondere Empfänger."
+    },
+    {
+     "t": "h3",
+     "x": "Messer mit Logo-Gravur oder als kleine Serie"
+    },
+    {
+     "t": "p",
+     "x": "Ein Messer nach euren Vorstellungen, auf Wunsch mit Logo, Namen oder Datum graviert. Form, Stückzahl und Zeitplan stimmt ihr bei der Anfrage ab."
+    },
+    {
+     "t": "h3",
+     "x": "Schmiedekurs oder Teamevent"
+    },
+    {
+     "t": "p",
+     "x": "Statt eines fertigen Messers ein Erlebnis: ein Schmiedekurs-Gutschein oder ein gemeinsamer Werkstatttag für das Team."
+    }
+   ]
+  },
+  {
+   "h": "So läuft die Anfrage ab",
+   "items": [
+    {
+     "t": "li",
+     "x": "Anlass, ungefähre Stückzahl, Budget und Wunschtermin nennen"
+    },
+    {
+     "t": "li",
+     "x": "Vorschlag zu Messer, Gravur und Verpackung"
+    },
+    {
+     "t": "li",
+     "x": "Angebot und Bestätigung"
+    },
+    {
+     "t": "li",
+     "x": "Fertigung, dann Abholung oder Versand"
+    },
+    {
+     "t": "p",
+     "x": "Plane vor Weihnachten früh: Sonderanfertigungen und Gravuren brauchen Vorlauf."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Kann unser Firmenlogo auf das Messer?",
+   "a": "Ja, Logos, Namen und Daten lassen sich gravieren. Platz und Ausführung werden je Messer abgestimmt."
+  },
+  {
+   "q": "Gibt es eine Mindest- oder Höchststückzahl?",
+   "a": "Stückzahl und Zeitplan stimmt ihr bei der Anfrage ab. Von der Edition 100 gibt es insgesamt nur 100 Stücke."
+  },
+  {
+   "q": "Wie früh sollten wir anfragen?",
+   "a": "So früh wie möglich, besonders vor Weihnachten. Sonderanfertigungen und Gravuren brauchen Vorlauf."
+  }
+ ],
+ "source": "Angaben des Inhabers (11.11.2026); Edition-Daten laut config/ulbrich.php"
+}

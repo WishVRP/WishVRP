@@ -50,6 +50,35 @@ final class PageMeta
         return self::absolute($this->ogImage ?? config('seo.default_og_image'));
     }
 
+    /** Sprache der Seite: alles unter /en/ ist Englisch, sonst Deutsch. */
+    public function locale(): string
+    {
+        return str_starts_with($this->path, '/en/') ? 'en' : 'de';
+    }
+
+    /**
+     * Sprachversionen derselben Seite (hreflang). Englische Seiten nennen ihr
+     * deutsches Gegenstück in config/pages.php unter 'alternate'.
+     *
+     * @return array<string, string> Sprache => Pfad
+     */
+    public function alternates(): array
+    {
+        $pages = config('pages');
+        if ($this->locale() === 'en') {
+            $de = $pages[$this->path]['alternate'] ?? null;
+
+            return $de ? ['de' => $de, 'en' => $this->path] : [];
+        }
+        foreach ($pages as $p => $page) {
+            if (str_starts_with($p, '/en/') && ($page['alternate'] ?? null) === $this->path) {
+                return ['de' => $this->path, 'en' => $p];
+            }
+        }
+
+        return [];
+    }
+
     /** Absolute URL auf der kanonischen Domain, Schrägstrich bleibt erhalten. */
     public static function absolute(string $path): string
     {
