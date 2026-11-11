@@ -39,6 +39,32 @@
      "x": "Kennt die beschenkte Person den Termin noch nicht, kann ein Gutschein sinnvoller sein als ein fest gebuchtes Datum. Klärt später gemeinsam, welches Format passt. Für einen exklusiven Termin stellt ihr zuerst eine Anfrage per Telefon oder E-Mail. Die Antwort klärt Verfügbarkeit und Preis; sie ist noch keine automatische Reservierung."
     }
    ]
+  },
+  {
+   "h": "Welcher Kurs für zwei?",
+   "items": [
+    {
+     "t": "li",
+     "x": "Grundlagenkurs, 1 Tag, ab 300 € pro Person – der entspannte Einstieg für zwei"
+    },
+    {
+     "t": "li",
+     "x": "Klingenkurs, 1 Tag, ab 440 € pro Person – für zwei, die schon Erfahrung haben"
+    },
+    {
+     "t": "li",
+     "x": "Damast-Messerkurs, 2 Tage, ab 1.100 € pro Person – jeder schmiedet sein eigenes Damastmesser, mit Übernachtung"
+    }
+   ]
+  },
+  {
+   "h": "Ein Erlebnis, das bleibt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Am Ende des Kurses hält jeder etwas in der Hand, das er selbst geschmiedet hat. Für Paare kann daraus eine Erinnerung an einen besonderen Tag werden – auf Wunsch später ergänzt durch eine Gravur mit euren Namen."
+    }
+   ]
   }
  ],
  "faq": [
@@ -49,6 +75,10 @@
   {
    "q": "Ist die Gruppe nur für uns reserviert?",
    "a": "Nein. Eine reguläre Zweierbuchung ist keine Exklusivbuchung. Ein privates Format könnt ihr separat anfragen."
+  },
+  {
+   "q": "Gibt es einen Paarpreis?",
+   "a": "Die Kurspreise gelten pro Person; für zwei Personen bucht ihr zwei Plätze im selben Termin."
   }
  ],
  "source": "https://messermanufaktur-ulbrich.de/erlebnisse/schmieden-zu-zweit/"

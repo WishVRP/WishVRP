@@ -1,0 +1,78 @@
+{
+ "sections": [
+  {
+   "h": "Die richtige Form für deine Küche",
+   "items": [
+    {
+     "t": "li",
+     "x": "Kochmesser oder Gyuto: Allrounder für Gemüse, Fleisch, Fisch und Kräuter"
+    },
+    {
+     "t": "li",
+     "x": "Santoku: etwas kürzer, flachere Schneide, handlich"
+    },
+    {
+     "t": "li",
+     "x": "Nakiri: rechteckige Klinge mit gerader Schneide, für Gemüse"
+    },
+    {
+     "t": "li",
+     "x": "Officemesser: klein, für Schälen und Feinarbeit"
+    },
+    {
+     "t": "li",
+     "x": "Brot-, Filetier- und Ausbeinmesser für besondere Aufgaben"
+    },
+    {
+     "t": "p",
+     "x": "Für die meisten Küchen reichen ein Allrounder und ein kleines Messer. Mehr dazu im Ratgeber zu den Messerformen."
+    }
+   ]
+  },
+  {
+   "h": "Damit dein Küchenmesser lange scharf bleibt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Schneide auf Holz oder Kunststoff, spüle dein Messer von Hand und trockne es gleich ab. Lagere es so, dass die Schneide nirgends anstößt. Wenn es doch einmal stumpf wird: Messer schärfen lassen geht in der Manufaktur – persönlich oder per Post."
+    }
+   ]
+  },
+  {
+   "h": "Mit Gravur als Geschenk",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Küchenmesser mit eingraviertem Namen oder Datum ist ein Geschenk für alle, die gern kochen – zur Hochzeit, zum Einzug oder zum runden Geburtstag."
+    }
+   ]
+  },
+  {
+   "h": "Versand, Abholung und Garantie",
+   "items": [
+    {
+     "t": "p",
+     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
+    },
+    {
+     "t": "p",
+     "x": "Zu jedem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Welches Küchenmesser brauche ich zuerst?",
+   "a": "Ein Allrounder wie Kochmesser, Gyuto oder Santoku – und ergänzend ein kleines Officemesser."
+  },
+  {
+   "q": "Gibt es Küchenmesser mit Damastklinge?",
+   "a": "Ja. Damastklingen gibt es auch für Küchenmesser, auf Wunsch als Sonderanfertigung."
+  },
+  {
+   "q": "Kann ich mein Küchenmesser später schärfen lassen?",
+   "a": "Ja. Du bringst es in der Manufaktur vorbei oder schickst es per Post."
+  }
+ ]
+}

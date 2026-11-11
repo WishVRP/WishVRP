@@ -39,8 +39,57 @@
      "x": "Halte den Zugang zu deinem Onlinebanking bereit. Die 15 Minuten beginnen erst, wenn der Server deine Reservierung bestätigt. Innerhalb dieses Fensters veranlasst du die Überweisung und meldest sie telefonisch oder per E-Mail. Das Geld muss nicht innerhalb von 15 Minuten auf unserem Konto sichtbar sein. Bewahre deinen vertraulichen Buchungslink auf."
     }
    ]
+  },
+  {
+   "h": "Anreise zur Werkstatt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Die Kurse finden in der Messermanufaktur Ulbrich statt: Wannenstraße 33, 74196 Neuenstadt am Kocher, Ortsteil Stein am Kocher. Plane deine Anreise so, dass du pünktlich zum Kursbeginn da bist."
+    }
+   ]
+  },
+  {
+   "h": "Mehrtägige Kurse",
+   "items": [
+    {
+     "t": "p",
+     "x": "Beim Damast-Messerkurs ist eine Übernachtung inklusive, beim Damast Premium-Kurs je nach Termin ein bis zwei Übernachtungen. Beim Manager-Schmiedekurs werden Übernachtungen individuell angeboten."
+    }
+   ]
+  },
+  {
+   "h": "Mit Gutschein buchen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Hast du einen Schmiedekurs-Gutschein bekommen? Der Gutschein reserviert noch keinen Platz. Wähle Kurs und Termin im Buchungskalender aus."
+    }
+   ]
+  },
+  {
+   "h": "Wenn sich dein Termin ändert",
+   "items": [
+    {
+     "t": "p",
+     "x": "Umbuchen ist bis 7 Tage vor dem Kurstermin möglich."
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Kann ich meinen Kurstermin verschieben?",
+   "a": "Ja, Umbuchen ist bis 7 Tage vor dem Kurstermin möglich."
+  },
+  {
+   "q": "Wo findet der Schmiedekurs statt?",
+   "a": "In der Messermanufaktur Ulbrich, Wannenstraße 33, 74196 Neuenstadt am Kocher (Stein am Kocher)."
+  },
+  {
+   "q": "Was soll ich zum Schmiedekurs anziehen?",
+   "a": "Frag vor dem Kurs kurz nach, welche Kleidung und Schuhe Andreas Ulbrich empfiehlt."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-vorbereitung/"
 }

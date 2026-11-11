@@ -48,6 +48,15 @@
      "x": "This warranty is a voluntary promise by the workshop. Your statutory rights remain unaffected."
     }
    ]
+  },
+  {
+   "h": "Sharpening and repair after the warranty",
+   "items": [
+    {
+     "t": "p",
+     "x": "A handmade knife can be resharpened and repaired. After the warranty period, the workshop still sharpens knives, repairs blades and fits new handles – just get in touch."
+    }
+   ]
   }
  ],
  "faq": [
@@ -58,6 +67,10 @@
   {
    "q": "Is dishwasher rust covered?",
    "a": "No. Damage from a dishwasher counts as improper handling. Goodwill may be possible in individual cases, but not as a rule."
+  },
+  {
+   "q": "What is included with my knife?",
+   "a": "A care booklet and a care product, free of charge."
   }
  ],
  "source": "owner information (11 Nov 2026)"

@@ -39,8 +39,44 @@
      "x": "Du kannst ein angebotenes Messer kaufen, eine Sonderanfertigung besprechen oder das Handwerk in einem Kurs kennenlernen. Diese drei Wege bieten unterschiedliche Erfahrungen. Ein Kursfoto oder ein Werkstückbeispiel ist kein pauschales Versprechen für das Ergebnis jeder teilnehmenden Person."
     }
    ]
+  },
+  {
+   "h": "Wann ein Messer zur Handwerkskunst wird",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Messer ist zuerst ein Werkzeug. Zur Handwerkskunst wird es, wenn Form, Material und Funktion zusammenpassen: wenn die Klinge gut schneidet, der Griff in der Hand liegt und das Ganze stimmig aussieht. Bei Damast kommt das Muster dazu, das aus den Stahllagen entsteht und jedes Messer einzigartig macht."
+    }
+   ]
+  },
+  {
+   "h": "Vom Gebrauchsgegenstand zum Sammlerstück",
+   "items": [
+    {
+     "t": "p",
+     "x": "Viele Messer aus der Manufaktur werden täglich benutzt – in der Küche, im Revier, in der Hosentasche. Andere werden gesammelt, etwa die nummerierten Klappmesser der Edition 100. Beides gehört zusammen: Ein gutes Messer darf schön sein, und ein schönes Messer soll gut schneiden."
+    }
+   ]
+  },
+  {
+   "h": "Drei Generationen Schmiedehandwerk",
+   "items": [
+    {
+     "t": "p",
+     "x": "In der Familie Ulbrich wird seit 1934 geschmiedet. Andreas Ulbrich führt das Handwerk in dritter Generation fort und hat am 1. März 2024 die Messermanufaktur in Stein am Kocher eröffnet. Er sagt: „Schmieden können ist für mich ein Privileg.“"
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Was macht ein handgeschmiedetes Messer besonders?",
+   "a": "Es entsteht von Hand in vielen Arbeitsschritten, Klinge und Griff werden als Ganzes gestaltet, und es kann nachgeschärft und repariert werden."
+  },
+  {
+   "q": "Kann ich ein Messer als Kunstobjekt anfertigen lassen?",
+   "a": "Ja, als Sonderanfertigung nach deinen Vorstellungen."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/messer-kunst/"
 }

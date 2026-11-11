@@ -47,8 +47,70 @@
      "x": "Der Grundlagenkurs führt an die Arbeit mit Feuer, Hammer und Stahl heran. Der Klingenkurs konzentriert sich auf zwei Klingen; die Griff-Fertigung kostet zusätzlich. Im Damast-Messerkurs ist ein Messer inklusive Griff vorgesehen. Wenn du deinen ersten Kurs suchst, vergleiche daher nicht nur die Dauer, sondern vor allem das ausdrücklich versprochene Ergebnis."
     }
    ]
+  },
+  {
+   "h": "Die Arbeitsschritte im Detail",
+   "items": [
+    {
+     "t": "h3",
+     "x": "Stahl auswählen"
+    },
+    {
+     "t": "p",
+     "x": "Am Anfang steht der Stahl. Für Damast werden mehrere Stahlsorten zu einem Paket geschichtet und im Feuer miteinander verschweißt."
+    },
+    {
+     "t": "h3",
+     "x": "Ausschmieden"
+    },
+    {
+     "t": "p",
+     "x": "In der Esse wird der Stahl auf Schmiedetemperatur gebracht und mit dem Hammer zur Klinge geformt – Spitze, Rücken und Schneide entstehen Schritt für Schritt."
+    },
+    {
+     "t": "h3",
+     "x": "Härten"
+    },
+    {
+     "t": "p",
+     "x": "Die Klinge wird erhitzt und schnell abgekühlt. Dadurch wird der Stahl hart genug, um eine scharfe Schneide zu halten."
+    },
+    {
+     "t": "h3",
+     "x": "Anlassen"
+    },
+    {
+     "t": "p",
+     "x": "Nach dem Härten wird die Klinge erneut erwärmt, damit sie weniger spröde wird. Härte und Zähigkeit werden so in ein gutes Verhältnis gebracht."
+    },
+    {
+     "t": "h3",
+     "x": "Schleifen und Ätzen"
+    },
+    {
+     "t": "p",
+     "x": "Die Klinge bekommt ihren Schliff. Bei Damast macht das Ätzen das Muster der Stahllagen sichtbar."
+    },
+    {
+     "t": "h3",
+     "x": "Griff und Endschliff"
+    },
+    {
+     "t": "p",
+     "x": "Zum Schluss wird der Griff angepasst und befestigt, die Schneide angelegt und das Messer geprüft."
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen Härten und Anlassen?",
+   "a": "Beim Härten wird der Stahl durch schnelles Abkühlen hart. Beim Anlassen wird er erneut erwärmt, damit er weniger spröde wird."
+  },
+  {
+   "q": "Kann ich das Messerschmieden selbst erleben?",
+   "a": "Ja, in den Schmiedekursen – vom eintägigen Grundlagenkurs bis zum mehrtägigen Damastkurs."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/ratgeber/messerschmieden-ablauf/"
 }

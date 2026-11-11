@@ -39,6 +39,36 @@
      "x": "Nach der Abstimmung braucht ihr eine klare Leistungsbeschreibung mit Termin, Ort, Teilnehmerzahl und Preis. Die verbindliche Buchung und Zahlung erfolgen telefonisch oder per E-Mail. Telefonische Absprachen ersetzen diesen Abschluss nicht. Für einzelne Plätze in einem regulären Kurs könnt ihr direkt die veröffentlichten Termine nutzen."
     }
    ]
+  },
+  {
+   "h": "Warum Schmieden als Teamevent?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Am Feuer zählt, was jemand mit den Händen schafft – nicht die Position im Organigramm. Ein Werkstatttag schafft gemeinsame Erlebnisse, über die man noch lange spricht, und jeder nimmt etwas mit nach Hause, das er selbst geschmiedet hat."
+    }
+   ]
+  },
+  {
+   "h": "Mögliche Formate",
+   "items": [
+    {
+     "t": "li",
+     "x": "Ein gemeinsamer Werkstatttag für das Team, geplant nach Gruppengröße und Zeitrahmen"
+    },
+    {
+     "t": "li",
+     "x": "Der Manager-Schmiedekurs: drei Tage an einem Damastprojekt bis 40 cm Gesamtlänge"
+    },
+    {
+     "t": "li",
+     "x": "Schmiedekurs-Gutscheine als Anerkennung für einzelne Mitarbeitende"
+    },
+    {
+     "t": "li",
+     "x": "Messer mit Logo-Gravur als Erinnerung an den Tag oder als Firmengeschenk"
+    }
+   ]
   }
  ],
  "faq": [
@@ -49,6 +79,14 @@
   {
    "q": "Sind Essen und Übernachtung immer enthalten?",
    "a": "Nein. Es gilt der schriftlich vereinbarte Leistungsumfang. Getränke und Übernachtungen unterscheiden sich je nach Kursformat."
+  },
+  {
+   "q": "Wie viele Personen können an einem Teamevent teilnehmen?",
+   "a": "Das wird nach eurer Anfrage geplant. Nennt Gruppengröße, Zeitrahmen und gewünschtes Ergebnis."
+  },
+  {
+   "q": "Wo findet das Teamevent statt?",
+   "a": "In der Messermanufaktur Ulbrich in Stein am Kocher (Neuenstadt am Kocher, Landkreis Heilbronn)."
   }
  ],
  "source": "https://messermanufaktur-ulbrich.de/erlebnisse/teamevent/"

@@ -55,6 +55,15 @@
      "x": "Many countries have their own rules on importing folding knives. Please check what applies in your country before ordering."
     }
    ]
+  },
+  {
+   "h": "Warranty and what is included",
+   "items": [
+    {
+     "t": "p",
+     "x": "Each knife comes with a care booklet and a care product, free of charge, and a 2-year warranty when cared for as instructed."
+    }
+   ]
   }
  ],
  "faq": [
@@ -73,6 +82,10 @@
   {
    "q": "Who pays customs duties?",
    "a": "If customs duties or import taxes apply, they are added to the price."
+  },
+  {
+   "q": "Is there a warranty on the Edition 100?",
+   "a": "Yes, 2 years when cared for according to the enclosed care instructions."
   }
  ],
  "source": "config/ulbrich.php → edition, sales"

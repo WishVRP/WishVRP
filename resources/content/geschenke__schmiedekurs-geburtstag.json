@@ -60,8 +60,35 @@
      "x": "Vergleiche zuerst das Kursformat und plane bei mehrtägigen Angeboten auch Anreise und mögliche Übernachtungen. Informiere die beschenkte Person über die Vorbereitungshinweise. Bei Fragen zu Terminänderungen gelten die veröffentlichten Kursbedingungen. Nutze dafür und für offene Geschenkfragen die Website."
     }
    ]
+  },
+  {
+   "h": "Für runde Geburtstage",
+   "items": [
+    {
+     "t": "p",
+     "x": "Zum 30., 40., 50. oder 60. darf es etwas Besonderes sein. Ein Tag in der Schmiede ist ein Erlebnis, das man nicht jedes Jahr hat – und das eigene Werkstück erinnert noch lange daran. Für den ganz großen Geburtstag: der Damast-Messerkurs, bei dem ein vollständiges Damastmesser mit Griff entsteht."
+    }
+   ]
+  },
+  {
+   "h": "Gemeinsam schenken",
+   "items": [
+    {
+     "t": "p",
+     "x": "Familie oder Freunde können zusammenlegen – etwa für einen Damastkurs oder für zwei Plätze, damit das Geburtstagskind nicht allein am Feuer steht."
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Welcher Schmiedekurs passt zum Geburtstag?",
+   "a": "Für Einsteiger der Grundlagenkurs ab 300 €, für ein fertiges Messer mit Griff der Damast-Messerkurs ab 1.100 € pro Person."
+  },
+  {
+   "q": "Kann das Geburtstagskind den Termin selbst wählen?",
+   "a": "Ja, mit einem Schmiedekurs-Gutschein wählt die beschenkte Person Kurs und Termin später selbst."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/geschenke/schmiedekurs-geburtstag/"
 }

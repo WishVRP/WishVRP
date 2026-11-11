@@ -4,7 +4,69 @@
   "Individuell gestaltete Ringe aus der Messermanufaktur Ulbrich anfragen.",
   "Du interessierst dich für ein individuell gestaltetes Ringpaar? Beschreibe deine Vorstellungen. Für Ringe gelten gesonderte Absprachen zu Ausführung, Größe und Preis."
  ],
- "sections": [],
- "faq": [],
+ "sections": [
+  {
+   "h": "Ein Ringpaar nach euren Vorstellungen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ringe aus der Messermanufaktur Ulbrich entstehen in Handarbeit, genau wie die Messer. Ob als Eheringe, Partnerringe oder als Ring für einen besonderen Anlass: Form, Material, Oberfläche und Größe stimmt ihr persönlich mit Andreas Ulbrich ab."
+    }
+   ]
+  },
+  {
+   "h": "So läuft eure Anfrage ab",
+   "items": [
+    {
+     "t": "li",
+     "x": "Beschreibt eure Vorstellungen per Telefon oder E-Mail – gern mit Bildern, die euch gefallen"
+    },
+    {
+     "t": "li",
+     "x": "Gemeinsam klärt ihr Material, Ausführung und Ringgrößen"
+    },
+    {
+     "t": "li",
+     "x": "Ihr bekommt ein Angebot mit Preis und voraussichtlicher Fertigstellung"
+    },
+    {
+     "t": "li",
+     "x": "Die Ringe entstehen in der Werkstatt; danach holt ihr sie ab oder sie werden verschickt"
+    }
+   ]
+  },
+  {
+   "h": "Mit Gravur",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Datum, Namen oder ein kurzer Satz machen die Ringe zu eurem ganz persönlichen Zeichen. Was graviert werden soll, nennt ihr bei der Anfrage."
+    }
+   ]
+  },
+  {
+   "h": "Rechtzeitig planen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Wenn eure Ringe zu einem festen Termin fertig sein sollen – etwa zur Hochzeit –, fragt früh an. Ein Fertigstellungstermin gilt erst, wenn er bestätigt ist."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was kosten Ringe aus der Manufaktur?",
+   "a": "Das hängt von Material und Ausführung ab. Ihr bekommt ein Angebot nach eurer Anfrage."
+  },
+  {
+   "q": "Können die Ringe graviert werden?",
+   "a": "Ja. Datum, Namen oder einen kurzen Text stimmt ihr bei der Anfrage ab."
+  },
+  {
+   "q": "Wie früh sollten wir Eheringe anfragen?",
+   "a": "So früh wie möglich. Ein Fertigstellungstermin gilt erst, wenn er bestätigt ist."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/shop/ringe/"
 }

@@ -35,8 +35,35 @@
      "x": "Eine Projektdokumentation ist keine Verfügbarkeitszusage. Verbindliche Preise und Bestellmöglichkeiten findest du beim angebotenen Messer. Für eine eigene Gestaltung kannst du uns dein Vorhaben beschreiben."
     }
    ]
+  },
+  {
+   "h": "Nummeriert und begrenzt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Die Edition 100 ist auf 100 Damast-Klappmesser begrenzt. Jedes trägt eine eigene Nummer. 90 Stücke bilden die reguläre Edition zu je 699 €, zehn sind für Sonderausführungen reserviert, deren Ausführung und höherer Preis persönlich vereinbart werden."
+    }
+   ]
+  },
+  {
+   "h": "Bestellung, Lieferung und Garantie",
+   "items": [
+    {
+     "t": "p",
+     "x": "Bezahlt wird per Überweisung; der Auftrag wird nach geprüftem Zahlungseingang bestätigt. Innerhalb Deutschlands kostet der Versand 7,99 €, die Lieferzeit beträgt voraussichtlich 7–14 Werktage bei zeitnaher Zahlung. Du kannst dein Messer auch in der Manufaktur abholen. Pflegeheft und Pflegemittel liegen bei, bei richtiger Pflege gilt 2 Jahre Garantie."
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Wie viele Messer umfasst die Edition 100?",
+   "a": "100 nummerierte Damast-Klappmesser: 90 reguläre zu je 699 € und 10 Sonderstücke."
+  },
+  {
+   "q": "Wo kann ich die Edition 100 bestellen?",
+   "a": "Auf der Seite der Edition 100 – derzeit telefonisch oder per E-Mail mit Bezahlung per Überweisung."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/messerprojekte/damast-klappmesser-edition-100/"
 }

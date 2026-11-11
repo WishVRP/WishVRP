@@ -1,0 +1,77 @@
+{
+ "sections": [
+  {
+   "h": "Welcher Kurs passt als Geschenk?",
+   "items": [
+    {
+     "t": "li",
+     "x": "Grundlagenkurs, 1 Tag, ab 300 € pro Person – für den Einstieg ohne Vorwissen; Ergebnis ist ein selbstgeschmiedetes Werkstück"
+    },
+    {
+     "t": "li",
+     "x": "Klingenkurs, 1 Tag, ab 440 € pro Person – zwei selbstgeschmiedete Klingen; Griff-Fertigung gegen Aufpreis"
+    },
+    {
+     "t": "li",
+     "x": "Klingenkurs „Alternativ“, 1 Tag, ab 500 € pro Person – Ergebnis laut veröffentlichtem Termin"
+    },
+    {
+     "t": "li",
+     "x": "Damast-Messerkurs, 2 Tage, ab 1.100 € pro Person – Damastmesser bis 32 cm Gesamtlänge inklusive Griff, mit Übernachtung"
+    },
+    {
+     "t": "li",
+     "x": "Damast Premium-Kurs, 2–3 Tage, ab 1.300 € pro Person – Damastmesser bis 40 cm Gesamtlänge, ein bis zwei Übernachtungen"
+    },
+    {
+     "t": "p",
+     "x": "Die Preise gelten pro Person. Wenn du unsicher bist, welcher Kurs passt: Der Grundlagenkurs ist für den Einstieg gedacht, die Damastkurse für alle, die ein vollständiges Messer mit nach Hause nehmen möchten."
+    }
+   ]
+  },
+  {
+   "h": "Für wen ein Schmiedekurs das richtige Geschenk ist",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Schmiedekurs passt zu Menschen, die gern mit den Händen arbeiten, Handwerk schätzen oder etwas erleben möchten, das man nicht jeden Tag macht. Feuer, Hammer und Stahl, ein Tag in einer echten Werkstatt – und am Ende etwas, das man selbst geschmiedet hat."
+    },
+    {
+     "t": "p",
+     "x": "Zu zweit wird daraus ein gemeinsames Erlebnis: Zwei Plätze im selben Termin sind ein Geschenk für Paare, Freunde, Vater und Sohn oder Mutter und Tochter."
+    }
+   ]
+  },
+  {
+   "h": "Ideen für die Übergabe",
+   "items": [
+    {
+     "t": "li",
+     "x": "Den Gutschein zusammen mit einer kleinen Karte überreichen, auf der steht, warum du gerade an diesen Kurs gedacht hast"
+    },
+    {
+     "t": "li",
+     "x": "Gemeinsam den Termin aussuchen – dann ist schon die Planung Teil des Geschenks"
+    },
+    {
+     "t": "li",
+     "x": "Den Gutschein mit einem Messer aus der Manufaktur kombinieren, etwa einem Küchenmesser für die Zeit bis zum Kurs"
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Kann ich einen Schmiedekurs für zwei Personen verschenken?",
+   "a": "Ja. Die Kurspreise gelten pro Person; für zwei Personen werden zwei Plätze im selben Termin gebucht."
+  },
+  {
+   "q": "Welcher Kurs eignet sich für Anfänger?",
+   "a": "Der Grundlagenkurs: ein Tag mit etwa acht Stunden, ohne Vorwissen, ab 300 € pro Person."
+  },
+  {
+   "q": "Bei welchem Kurs entsteht ein fertiges Messer mit Griff?",
+   "a": "Im Damast-Messerkurs entsteht ein Damastmesser bis 32 cm Gesamtlänge inklusive Griff."
+  }
+ ]
+}

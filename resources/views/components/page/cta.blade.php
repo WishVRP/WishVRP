@@ -3,6 +3,10 @@
     $c = config('ulbrich');
     $en = request()->is('en', 'en/*');
 @endphp
+@php $xfile = \App\Support\PageExtra::file(request()->path()); @endphp
+@if ($xfile)
+    @include('pages.partials.extra', ['x' => json_decode(file_get_contents($xfile), true)])
+@endif
 <x-page.related />
 <section class="page-cta is-dark textured" aria-label="{{ $en ? 'Contact' : 'Kontakt' }}">
     <div class="container page-cta__inner">

@@ -1,0 +1,28 @@
+{
+ "sections": [
+  {
+   "h": "Pflegemittel und Garantie aus der Manufaktur",
+   "items": [
+    {
+     "t": "p",
+     "x": "Zu jedem Messer aus der Messermanufaktur Ulbrich gehören Pflegehinweise als kleines Heft und ein Pflegemittel, kostenlos. Wer sein Messer nach diesen Hinweisen behandelt, hat 2 Jahre Garantie. Schäden durch falsche Behandlung – etwa Rost nach der Spülmaschine – sind davon ausgenommen."
+    }
+   ]
+  },
+  {
+   "h": "Wenn Schärfen allein nicht reicht",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ist die Schneide ausgebrochen, die Spitze abgebrochen oder der Griff locker, hilft der Messerservice der Manufaktur: schärfen, reparieren oder einen neuen Griff anfertigen. Du bringst dein Messer vorbei oder schickst es per Post."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Kann ich mein Messer zum Schärfen per Post schicken?",
+   "a": "Ja. Verpacke die Klinge sicher, leg Namen und Telefonnummer bei und frag vorher kurz an."
+  }
+ ]
+}

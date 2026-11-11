@@ -1,0 +1,61 @@
+{
+ "sections": [
+  {
+   "h": "Was ein Unikat ausmacht",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Unikat gibt es genau einmal. Bei einem handgeschmiedeten Messer zeigt sich das in vielen Details: in der Zeichnung der Damastklinge, im Holz des Griffs, in den Proportionen. Selbst zwei Messer derselben Form unterscheiden sich, weil jedes von Hand entsteht."
+    },
+    {
+     "t": "p",
+     "x": "Bei Damast kommt dazu: Das Muster entsteht aus den verschweißten Stahllagen und wird beim Ätzen sichtbar. Wie es am Ende aussieht, lässt sich steuern, aber nie exakt wiederholen."
+    }
+   ]
+  },
+  {
+   "h": "So findest du dein Unikat",
+   "items": [
+    {
+     "t": "li",
+     "x": "Überleg dir, wofür du das Messer nutzen möchtest – Küche, Sammlung, Jagd oder Alltag"
+    },
+    {
+     "t": "li",
+     "x": "Frag nach den verfügbaren Stücken und lass dir Fotos und Angaben zum konkreten Messer schicken"
+    },
+    {
+     "t": "li",
+     "x": "Kläre Preis, Maße und Pflege, bevor du kaufst"
+    },
+    {
+     "t": "li",
+     "x": "Passt kein vorhandenes Stück, ist eine Sonderanfertigung möglich"
+    }
+   ]
+  },
+  {
+   "h": "Versand, Abholung und Garantie",
+   "items": [
+    {
+     "t": "p",
+     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
+    },
+    {
+     "t": "p",
+     "x": "Zu jedem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Warum haben Unikate keinen festen Listenpreis?",
+   "a": "Weil jedes Stück anders ist. Preis und Verfügbarkeit erfährst du für das konkrete Messer auf Anfrage."
+  },
+  {
+   "q": "Kann ich ein Unikat vor dem Kauf ansehen?",
+   "a": "Frag nach Fotos des konkreten Stücks. Wenn du in der Nähe bist, sprich einen Termin in der Manufaktur ab."
+  }
+ ]
+}

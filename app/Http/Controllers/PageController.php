@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseDate;
 use App\Support\Faqs;
+use App\Support\PageExtra;
 use App\Support\PageMeta;
 use App\Support\Schema;
 use Illuminate\Contracts\View\View;
@@ -68,6 +69,7 @@ class PageController extends Controller
             },
         };
 
+        $extra = PageExtra::mergeFaq($extra, $path);
         $schema = Schema::graph([Schema::webPage($meta), Schema::breadcrumb($meta), ...$extra]);
 
         return view('pages.'.$page['view'], [

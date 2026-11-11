@@ -1,0 +1,32 @@
+{
+ "sections": [
+  {
+   "h": "Ein eigenes Kursformat",
+   "items": [
+    {
+     "t": "p",
+     "x": "Der Klingenkurs „Alternativ“ ist ein eigenständiges Format an einem Tag mit etwa acht Stunden. Werkstück, Material und Griffumfang richten sich nach dem konkreten Termin. Lies deshalb die Angaben beim Termin genau, bevor du buchst, oder frag kurz nach."
+    }
+   ]
+  },
+  {
+   "h": "Und danach?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Nach dem Kurs hast du einen Ansprechpartner: Andreas Ulbrich schärft und repariert Messer, fertigt auf Wunsch einen Griff oder ein ganzes Messer an – und berät dich, welcher Kurs als nächster Schritt passt."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zum Klingenkurs?",
+   "a": "Der Klingenkurs „Alternativ“ ist ein eigenständiges Format; Werkstück, Material und Griffumfang stehen beim jeweiligen Termin."
+  },
+  {
+   "q": "Was kostet der Klingenkurs „Alternativ“?",
+   "a": "Ab 500 € pro Person."
+  }
+ ]
+}

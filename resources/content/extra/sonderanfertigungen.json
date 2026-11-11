@@ -1,0 +1,127 @@
+{
+ "sections": [
+  {
+   "h": "Was du anfertigen lassen kannst",
+   "items": [
+    {
+     "t": "p",
+     "x": "Messerschmied Andreas Ulbrich fertigt Messer nach deinen Vorstellungen – vom Alltagsmesser für die Küche bis zum Sammlerstück. Mögliche Formen sind unter anderem:"
+    },
+    {
+     "t": "li",
+     "x": "Küchenmesser: Kochmesser, Gyuto, Santoku, Nakiri, Officemesser, Brot-, Filetier- und Ausbeinmesser"
+    },
+    {
+     "t": "li",
+     "x": "Jagdmesser, etwa mit Drop-Point- oder Skinner-Klinge"
+    },
+    {
+     "t": "li",
+     "x": "Klapp- und Taschenmesser"
+    },
+    {
+     "t": "li",
+     "x": "Messer mit Damastklinge"
+    },
+    {
+     "t": "li",
+     "x": "Messer mit Gravur – Name, Datum oder Logo"
+    },
+    {
+     "t": "p",
+     "x": "Auch individuell gestaltete Ringpaare gehören zum Angebot der Manufaktur."
+    }
+   ]
+  },
+  {
+   "h": "In vier Schritten zu deinem Messer",
+   "items": [
+    {
+     "t": "h3",
+     "x": "1. Anfrage"
+    },
+    {
+     "t": "p",
+     "x": "Beschreib per Telefon oder E-Mail, wofür du das Messer brauchst und wie du es dir vorstellst. Fotos, Skizzen oder ein Messer, das dir gefällt, helfen sehr."
+    },
+    {
+     "t": "h3",
+     "x": "2. Gespräch und Angebot"
+    },
+    {
+     "t": "p",
+     "x": "Gemeinsam klärt ihr Form, Länge, Stahl, Griff und eine mögliche Gravur. Danach bekommst du ein Angebot mit Preis und voraussichtlicher Lieferzeit."
+    },
+    {
+     "t": "h3",
+     "x": "3. Schmieden und Fertigen"
+    },
+    {
+     "t": "p",
+     "x": "Dein Messer entsteht von Hand in der Werkstatt in Stein am Kocher: am Feuer, am Amboss, an der Schleifmaschine und an der Werkbank."
+    },
+    {
+     "t": "h3",
+     "x": "4. Übergabe"
+    },
+    {
+     "t": "p",
+     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
+    }
+   ]
+  },
+  {
+   "h": "Preis und Lieferzeit",
+   "items": [
+    {
+     "t": "p",
+     "x": "Der Preis einer Sonderanfertigung richtet sich nach Größe, Stahl, Griffmaterial, Aufwand und einer möglichen Gravur. Eine Damastklinge ist aufwendiger als eine Klinge aus einem einzigen Stahl. Den Preis erfährst du im Angebot, bevor die Arbeit beginnt."
+    },
+    {
+     "t": "p",
+     "x": "Eine Anfertigung dauert länger als der Kauf eines fertigen Messers, weil sie erst für dich entsteht. Wenn du zu einem festen Anlass schenken möchtest, frag früh an. Ein Wunschtermin gilt erst, wenn er für deinen Auftrag bestätigt ist."
+    }
+   ]
+  },
+  {
+   "h": "Ein altes Messer als Vorbild",
+   "items": [
+    {
+     "t": "p",
+     "x": "Manchmal beginnt eine Anfertigung mit einem Erbstück: dem Messer vom Großvater, das nicht mehr zu retten ist, oder einer Form, die es so nicht mehr gibt. Ein neues Messer kann Form und Charakter des alten aufgreifen. Lässt sich das alte Messer noch reparieren, ist auch das möglich."
+    }
+   ]
+  },
+  {
+   "h": "Pflege und Garantie",
+   "items": [
+    {
+     "t": "p",
+     "x": "Zu jedem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was kostet ein Messer als Sonderanfertigung?",
+   "a": "Das hängt von Größe, Stahl, Griff, Aufwand und Gravur ab. Du bekommst ein Angebot, bevor die Arbeit beginnt."
+  },
+  {
+   "q": "Wie lange dauert eine Sonderanfertigung?",
+   "a": "Die voraussichtliche Lieferzeit steht im Angebot. Für einen festen Anlass frag möglichst früh an; ein Termin gilt erst, wenn er bestätigt ist."
+  },
+  {
+   "q": "Kann ich eine Damastklinge wählen?",
+   "a": "Ja. Auf Wunsch bekommt deine Anfertigung eine Damastklinge."
+  },
+  {
+   "q": "Kann ich ein Messer aus dem Ausland anfertigen lassen?",
+   "a": "Ja. Der Versand ins Ausland ist möglich, wenn du alle anfallenden Kosten übernimmst; Zoll kommt, falls er anfällt, zum Preis hinzu. Alternativ holst du das Messer in der Manufaktur ab."
+  },
+  {
+   "q": "Gibt es eine Garantie auf Sonderanfertigungen?",
+   "a": "Bei Pflege nach den mitgelieferten Pflegehinweisen gilt 2 Jahre Garantie."
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "sections": [
+  {
+   "h": "So kaufst du ein Einzelstück",
+   "items": [
+    {
+     "t": "li",
+     "x": "Frag per Telefon oder E-Mail nach den verfügbaren Stücken"
+    },
+    {
+     "t": "li",
+     "x": "Du bekommst Fotos und Angaben zum konkreten Messer sowie den Preis"
+    },
+    {
+     "t": "li",
+     "x": "Bezahlt wird per Überweisung, bei Abholung auch bar oder mit Karte"
+    },
+    {
+     "t": "li",
+     "x": "Dein Messer kommt per Versand oder du holst es in der Manufaktur ab"
+    }
+   ]
+  },
+  {
+   "h": "Warum sich ein Einzelstück lohnt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Einzelstück ist mehr als ein Werkzeug: Klinge und Griff sind als Ganzes gestaltet, und es gibt das Messer kein zweites Mal. Weil es von Hand entsteht, kann es nachgeschärft, gepflegt und wenn nötig repariert werden. So begleitet es dich viele Jahre."
+    }
+   ]
+  },
+  {
+   "h": "Versand, Abholung und Garantie",
+   "items": [
+    {
+     "t": "p",
+     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
+    },
+    {
+     "t": "p",
+     "x": "Zu jedem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen Einzelstück und Sonderanfertigung?",
+   "a": "Ein Einzelstück ist bereits fertig und sofort verfügbar. Eine Sonderanfertigung entsteht erst nach deinen Vorgaben."
+  },
+  {
+   "q": "Kann ich ein Einzelstück reservieren?",
+   "a": "Frag direkt nach dem Stück, das dich interessiert; Reservierung und Bezahlung klärst du dann persönlich."
+  }
+ ]
+}

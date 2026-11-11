@@ -79,6 +79,33 @@
      "x": "Plane vor Weihnachten früh: Sonderanfertigungen und Gravuren brauchen Vorlauf."
     }
    ]
+  },
+  {
+   "h": "Warum ein Messer als Firmengeschenk?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Viele Firmengeschenke landen schnell in der Schublade. Ein handgefertigtes Messer wird benutzt – in der Küche, im Garten, im Revier – und erinnert jedes Mal an den Absender. Mit eingraviertem Logo oder Namen wird es zu einem Geschenk mit Bezug zu eurem Unternehmen."
+    }
+   ]
+  },
+  {
+   "h": "Handwerk aus der Region Heilbronn",
+   "items": [
+    {
+     "t": "p",
+     "x": "Die Messermanufaktur Ulbrich liegt in Stein am Kocher im Landkreis Heilbronn. Seit 1934 wird in der Familie geschmiedet. Für Unternehmen aus der Region ist das ein Geschenk mit regionalem Bezug; Messer können vor Ort abgeholt werden."
+    }
+   ]
+  },
+  {
+   "h": "Garantie und Pflege",
+   "items": [
+    {
+     "t": "p",
+     "x": "Zu jedem Messer gehören Pflegehinweise als kleines Heft und ein Pflegemittel. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+    }
+   ]
   }
  ],
  "faq": [
@@ -93,6 +120,10 @@
   {
    "q": "Wie früh sollten wir anfragen?",
    "a": "So früh wie möglich, besonders vor Weihnachten. Sonderanfertigungen und Gravuren brauchen Vorlauf."
+  },
+  {
+   "q": "Können wir die Messer abholen?",
+   "a": "Ja, nach Absprache in der Manufaktur in Stein am Kocher. Vor Ort ist Barzahlung oder Kartenzahlung möglich."
   }
  ],
  "source": "Angaben des Inhabers (11.11.2026); Edition-Daten laut config/ulbrich.php"

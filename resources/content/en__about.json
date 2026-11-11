@@ -60,6 +60,15 @@
      "x": "Messermanufaktur Ulbrich, Wannenstraße 33, 74196 Neuenstadt am Kocher (Stein am Kocher), Germany. You can collect your knife here by appointment and pay in cash or by card."
     }
    ]
+  },
+  {
+   "h": "Courses and services",
+   "items": [
+    {
+     "t": "p",
+     "x": "Besides making knives, Andreas teaches forging courses in his workshop and offers sharpening, repairs, new handles and engraving."
+    }
+   ]
   }
  ],
  "faq": [
@@ -70,6 +79,10 @@
   {
    "q": "How long has the family been forging?",
    "a": "Since 1934. Andreas Ulbrich is the third generation."
+  },
+  {
+   "q": "Who runs Messermanufaktur Ulbrich?",
+   "a": "Bladesmith Andreas Ulbrich, a member of the Chamber of Crafts Heilbronn-Franken."
   }
  ],
  "source": "config/ulbrich.php → heritage, press, address"

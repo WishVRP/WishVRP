@@ -55,6 +55,22 @@ class SeoQualityTest extends TestCase
         $this->assertStringContainsString('Reserviert der Gutschein schon einen Kurstermin?', $voucher, 'FAQ-Schema nur mit sichtbaren Fragen');
     }
 
+    public function test_faq_schema_questions_are_visible_on_every_page_and_only_one_faqpage(): void
+    {
+        foreach (config('pages') as $path => $page) {
+            if ($page['status'] !== 'live' || ! isset($page['view'])) {
+                continue;
+            }
+            $html = $this->get($path)->getContent();
+            preg_match('/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/s', $html, $m);
+            $nodes = collect(json_decode($m[1], true)['@graph'])->where('@type', 'FAQPage');
+            $this->assertLessThanOrEqual(1, $nodes->count(), "Mehrere FAQPage auf {$path}");
+            foreach ($nodes->first()['mainEntity'] ?? [] as $q) {
+                $this->assertStringContainsString('<summary>'.e($q['name']).'</summary>', $html, "FAQ ohne sichtbare Frage auf {$path}: {$q['name']}");
+            }
+        }
+    }
+
     public function test_custom_404_is_helpful_and_noindex(): void
     {
         $html = $this->get('/gibt-es-nicht/')->assertNotFound()->getContent();

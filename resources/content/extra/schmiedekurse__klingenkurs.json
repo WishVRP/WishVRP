@@ -1,0 +1,41 @@
+{
+ "sections": [
+  {
+   "h": "Zwei Klingen an einem Tag",
+   "items": [
+    {
+     "t": "p",
+     "x": "Im Klingenkurs schmiedest du zwei eigene Klingen. Er baut auf den Grundlagen des Schmiedens auf und richtet sich an alle, die nach dem ersten Werkstück an echten Klingen arbeiten möchten. Die beiden Klingen nimmst du mit nach Hause."
+    }
+   ]
+  },
+  {
+   "h": "Griff gegen Aufpreis",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Griff ist im Klingenkurs nicht enthalten. Wenn aus deinen Klingen fertige Messer werden sollen, kann die Griff-Fertigung gegen Aufpreis vereinbart werden – sprich das am besten vor dem Kurs an."
+    }
+   ]
+  },
+  {
+   "h": "Und danach?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Wer ein vollständiges Messer mit Griff schmieden möchte, wählt als nächsten Schritt den Damast-Messerkurs. Nach dem Kurs hast du einen Ansprechpartner: Andreas Ulbrich schärft und repariert Messer, fertigt auf Wunsch einen Griff oder ein ganzes Messer an – und berät dich, welcher Kurs als nächster Schritt passt."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Wie viele Klingen schmiede ich im Klingenkurs?",
+   "a": "Zwei selbstgeschmiedete Klingen."
+  },
+  {
+   "q": "Was kostet der Klingenkurs?",
+   "a": "Ab 440 € pro Person für einen Tag mit etwa acht Stunden; die Griff-Fertigung kostet extra."
+  }
+ ]
+}

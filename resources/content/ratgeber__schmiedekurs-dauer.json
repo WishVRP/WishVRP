@@ -39,8 +39,55 @@
      "x": "Eine reguläre Umbuchung muss spätestens sieben Kalendertage vor Kursbeginn angefragt werden. Ein Ersatztermin hängt von freien Plätzen ab. Der bisherige Termin bleibt bestehen, bis ein Wechsel bestätigt wurde. Buche deshalb eine Kursdauer, die du vollständig einplanen kannst."
     }
    ]
+  },
+  {
+   "h": "Dauer der Kurse im Überblick",
+   "items": [
+    {
+     "t": "li",
+     "x": "Grundlagenkurs: 1 Tag, etwa 8 Stunden"
+    },
+    {
+     "t": "li",
+     "x": "Klingenkurs: 1 Tag, etwa 8 Stunden"
+    },
+    {
+     "t": "li",
+     "x": "Klingenkurs „Alternativ“: 1 Tag, etwa 8 Stunden"
+    },
+    {
+     "t": "li",
+     "x": "Damast-Messerkurs: 2 Tage, jeweils etwa 8 Stunden, mit einer Übernachtung"
+    },
+    {
+     "t": "li",
+     "x": "Damast Premium-Kurs: 2–3 Tage, mit ein bis zwei Übernachtungen"
+    },
+    {
+     "t": "li",
+     "x": "Manager-Schmiedekurs: 3 Tage, jeweils etwa 8 Stunden"
+    }
+   ]
+  },
+  {
+   "h": "Warum Damast mehr Zeit braucht",
+   "items": [
+    {
+     "t": "p",
+     "x": "Für Damast werden zuerst mehrere Stahlsorten zu einem Paket verschweißt und geschmiedet, bevor daraus eine Klinge entsteht. Dazu kommen Härten, Schleifen, Ätzen und der Griff. Deshalb dauern die Damastkurse zwei bis drei Tage."
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Wie lange dauert ein Schmiedekurs?",
+   "a": "Je nach Kurs einen bis drei Tage. Grundlagen- und Klingenkurs dauern einen Tag mit etwa acht Stunden."
+  },
+  {
+   "q": "Kann ich an einem Tag ein Messer mit Griff schmieden?",
+   "a": "In den eintägigen Kursen entstehen ein Werkstück oder Klingen. Ein Damastmesser mit Griff entsteht im zweitägigen Damast-Messerkurs."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-dauer/"
 }

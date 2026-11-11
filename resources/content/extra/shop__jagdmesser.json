@@ -1,0 +1,66 @@
+{
+ "sections": [
+  {
+   "h": "Welches Jagdmesser passt zu dir?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Jagdmesser sind meist feststehende Messer mit kräftiger Klinge. Verbreitet sind der Drop Point mit abgesenkter Spitze, der sich für viele Arbeiten im Revier eignet, und der Skinner mit stark gebogener Schneide zum Abhäuten. Wichtig sind außerdem ein Griff, der auch nass sicher in der Hand liegt, und eine Klingenlänge, die zu deinen Aufgaben passt."
+    },
+    {
+     "t": "p",
+     "x": "Welche Form für dich sinnvoll ist, besprichst du vor dem Kauf mit Andreas Ulbrich. Passt kein verfügbares Stück, entsteht dein Jagdmesser als Sonderanfertigung – auf Wunsch mit Damastklinge und Gravur."
+    }
+   ]
+  },
+  {
+   "h": "Pflege nach der Jagd",
+   "items": [
+    {
+     "t": "li",
+     "x": "Klinge und Griff nach dem Einsatz reinigen und gründlich trocknen"
+    },
+    {
+     "t": "li",
+     "x": "Die Klinge mit dem mitgelieferten Pflegemittel behandeln"
+    },
+    {
+     "t": "li",
+     "x": "Trocken lagern, nicht feucht in der Scheide oder Tasche"
+    }
+   ]
+  },
+  {
+   "h": "Gut zu wissen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Für das Führen von Messern in der Öffentlichkeit gelten in Deutschland die Regeln des Waffengesetzes. Informiere dich, was für dein Messer und deinen Einsatz gilt."
+    }
+   ]
+  },
+  {
+   "h": "Versand, Abholung und Garantie",
+   "items": [
+    {
+     "t": "p",
+     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
+    },
+    {
+     "t": "p",
+     "x": "Zu jedem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Kann ich ein Jagdmesser nach meinen Vorstellungen anfertigen lassen?",
+   "a": "Ja. Form, Länge, Griff und auf Wunsch eine Damastklinge oder Gravur stimmst du bei der Anfrage ab."
+  },
+  {
+   "q": "Kann ich mein Jagdmesser schärfen oder reparieren lassen?",
+   "a": "Ja. Schärfen, Reparaturen und neue Griffe gehören zum Messerservice der Manufaktur."
+  }
+ ]
+}

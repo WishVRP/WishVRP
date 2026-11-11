@@ -1,0 +1,45 @@
+{
+ "sections": [
+  {
+   "h": "Das größte Damastprojekt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Im Damast Premium-Kurs schmiedest du an zwei bis drei Tagen ein Damastmesser bis 40 cm Gesamtlänge. Je nach Termin sind ein bis zwei Übernachtungen und Getränke vor Ort inklusive. Mehr Zeit bedeutet mehr Raum für dein Projekt – für eine größere Klinge und mehr Sorgfalt bei jedem Schritt."
+    }
+   ]
+  },
+  {
+   "h": "Premium oder Damast-Messerkurs?",
+   "items": [
+    {
+     "t": "li",
+     "x": "Damast-Messerkurs: 2 Tage, Messer bis 32 cm Gesamtlänge inklusive Griff, eine Übernachtung, ab 1.100 € pro Person"
+    },
+    {
+     "t": "li",
+     "x": "Damast Premium-Kurs: 2–3 Tage, Messer bis 40 cm Gesamtlänge, ein bis zwei Übernachtungen, ab 1.300 € pro Person"
+    }
+   ]
+  },
+  {
+   "h": "Und danach?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Nach dem Kurs hast du einen Ansprechpartner: Andreas Ulbrich schärft und repariert Messer, fertigt auf Wunsch einen Griff oder ein ganzes Messer an – und berät dich, welcher Kurs als nächster Schritt passt."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Wie lang wird das Messer im Damast Premium-Kurs?",
+   "a": "Bis 40 cm Gesamtlänge."
+  },
+  {
+   "q": "Wie viele Übernachtungen sind inklusive?",
+   "a": "Je nach Termin ein bis zwei Übernachtungen."
+  }
+ ]
+}

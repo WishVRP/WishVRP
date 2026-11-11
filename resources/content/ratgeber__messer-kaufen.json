@@ -39,8 +39,57 @@
      "x": "Kläre den Geschmack und den Einsatzzweck der beschenkten Person. Wenn du unsicher bist, kann ein Gutschein geeigneter sein. Für einen persönlichen Entwurf nutze die Anfrage zur Sonderanfertigung und nenne deinen gewünschten Übergabetermin. Ein Wunschdatum ist erst dann eine Zusage, wenn es bestätigt wurde."
     }
    ]
+  },
+  {
+   "h": "Die richtige Form wählen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Bevor du auf Stahl und Muster schaust, überleg dir, was du schneiden willst. Für die Küche sind Kochmesser, Gyuto oder Santoku Allrounder, das Nakiri ist für Gemüse gemacht. Draußen brauchst du eher ein Jagd- oder Klappmesser. Der Ratgeber zu den Messerformen hilft dir bei der Auswahl."
+    }
+   ]
+  },
+  {
+   "h": "Echt oder nur Optik?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Viele Messer werden als „Damast“ verkauft, obwohl das Muster nur aufgebracht ist. Bei echtem Damast zeigt sich das Muster auch am Klingenrücken und an der Schneidenfase. Seriöse Anbieter nennen Stahl und Aufbau."
+    }
+   ]
+  },
+  {
+   "h": "Garantie, Pflege und Service",
+   "items": [
+    {
+     "t": "p",
+     "x": "Frag nach Garantie und Pflege. Bei der Messermanufaktur Ulbrich gibt es 2 Jahre Garantie bei Pflege nach den mitgelieferten Hinweisen; Pflegeheft und Pflegemittel sind kostenlos dabei. Und wenn das Messer später stumpf wird oder beschädigt ist: Schärfen, Reparatur und neue Griffe gehören zum Service."
+    }
+   ]
+  },
+  {
+   "h": "Versand, Abholung und Zahlung",
+   "items": [
+    {
+     "t": "p",
+     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland wird verschickt, wenn du alle anfallenden Kosten übernimmst; Zoll kommt, falls er anfällt, zum Preis hinzu. Abholung in der Manufaktur ist möglich, vor Ort zahlst du bar oder mit Karte."
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Worauf sollte ich beim Kauf eines handgefertigten Messers achten?",
+   "a": "Auf den Einsatzzweck, die bestätigten Angaben zum konkreten Messer, Pflege, Garantie und den Gesamtpreis inklusive Versand."
+  },
+  {
+   "q": "Gibt es eine Garantie auf handgefertigte Messer?",
+   "a": "Bei der Messermanufaktur Ulbrich 2 Jahre bei Pflege nach den mitgelieferten Pflegehinweisen."
+  },
+  {
+   "q": "Kann ich ein Messer aus dem Ausland bestellen?",
+   "a": "Ja, wenn du alle anfallenden Kosten übernimmst. Zoll kommt, falls er anfällt, zum Preis hinzu."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/ratgeber/messer-kaufen/"
 }

@@ -64,8 +64,34 @@
      "x": "Neue Kurseinblicke veröffentlichen wir nach Freigabe durch die Teilnehmenden. Bis dahin hilft dir der Kursvergleich bei der Orientierung."
     }
    ]
+  },
+  {
+   "h": "Was Teilnehmende mit nach Hause nehmen",
+   "items": [
+    {
+     "t": "li",
+     "x": "Grundlagenkurs: ein selbstgeschmiedetes Werkstück"
+    },
+    {
+     "t": "li",
+     "x": "Klingenkurs: zwei selbstgeschmiedete Klingen"
+    },
+    {
+     "t": "li",
+     "x": "Damast-Messerkurs: ein Damastmesser bis 32 cm Gesamtlänge inklusive Griff"
+    },
+    {
+     "t": "li",
+     "x": "Damast Premium-Kurs und Manager-Schmiedekurs: ein Damastprojekt bis 40 cm Gesamtlänge"
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Was nehme ich aus einem Schmiedekurs mit?",
+   "a": "Je nach Kurs ein Werkstück, zwei Klingen oder ein Damastmesser."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/schmiedekurse/erfahrungen/"
 }

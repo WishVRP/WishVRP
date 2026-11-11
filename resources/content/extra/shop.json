@@ -1,0 +1,43 @@
+{
+ "sections": [
+  {
+   "h": "Messer kaufen beim Messerschmied",
+   "items": [
+    {
+     "t": "p",
+     "x": "Im Shop der Messermanufaktur Ulbrich kaufst du direkt in der Werkstatt, in der deine Messer entstehen. Das heißt: persönliche Beratung durch den Messerschmied, Angaben zum konkreten Stück und ein Ansprechpartner, wenn dein Messer Jahre später geschärft oder repariert werden soll."
+    },
+    {
+     "t": "li",
+     "x": "Edition 100: nummeriertes Damast-Klappmesser, 699 €"
+    },
+    {
+     "t": "li",
+     "x": "Damast-, Küchen- und Jagdmesser sowie Einzelstücke auf Anfrage"
+    },
+    {
+     "t": "li",
+     "x": "Sonderanfertigungen und Gravuren nach Wunsch"
+    },
+    {
+     "t": "li",
+     "x": "Schmiedekurs-Gutscheine"
+    },
+    {
+     "t": "li",
+     "x": "Messerservice: schärfen, reparieren, neuer Griff"
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Kann ich im Shop schon online bezahlen?",
+   "a": "Derzeit bestellst du per Telefon oder E-Mail und bezahlst per Überweisung, bei Abholung auch bar oder mit Karte. Weitere Zahlungsarten folgen."
+  },
+  {
+   "q": "Was kostet der Versand?",
+   "a": "Innerhalb Deutschlands 7,99 € pro Artikel. Ins Ausland bei Übernahme aller anfallenden Kosten."
+  }
+ ]
+}

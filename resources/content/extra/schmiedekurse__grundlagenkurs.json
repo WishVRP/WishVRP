@@ -1,0 +1,53 @@
+{
+ "sections": [
+  {
+   "h": "Was du im Grundlagenkurs lernst",
+   "items": [
+    {
+     "t": "li",
+     "x": "Wie die Werkstatt aufgebaut ist und wie du sicher mit Esse, Hammer und Amboss arbeitest"
+    },
+    {
+     "t": "li",
+     "x": "Wie sich Stahl im Feuer verhält und wann er sich formen lässt"
+    },
+    {
+     "t": "li",
+     "x": "Wie du mit gezielten Schlägen aus einem Stück Stahl eine Form treibst"
+    },
+    {
+     "t": "li",
+     "x": "Wie aus deinen Schritten ein eigenes Werkstück entsteht"
+    }
+   ]
+  },
+  {
+   "h": "Für wen der Grundlagenkurs gemacht ist",
+   "items": [
+    {
+     "t": "p",
+     "x": "Für alle, die zum ersten Mal schmieden: als Erlebnis für dich, als Geschenk oder als Einstieg, bevor du dich an Klingen oder Damast wagst. Vorwissen brauchst du nicht."
+    }
+   ]
+  },
+  {
+   "h": "Und danach?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Wer Feuer gefangen hat, macht mit dem Klingenkurs weiter oder schmiedet im Damast-Messerkurs ein vollständiges Messer mit Griff. Nach dem Kurs hast du einen Ansprechpartner: Andreas Ulbrich schärft und repariert Messer, fertigt auf Wunsch einen Griff oder ein ganzes Messer an – und berät dich, welcher Kurs als nächster Schritt passt."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Brauche ich Vorkenntnisse für den Grundlagenkurs?",
+   "a": "Nein. Der Grundlagenkurs ist für den Einstieg ohne Vorwissen gedacht."
+  },
+  {
+   "q": "Was kostet der Grundlagenkurs?",
+   "a": "Ab 300 € pro Person für einen Tag mit etwa acht Stunden, Getränke vor Ort inklusive."
+  }
+ ]
+}

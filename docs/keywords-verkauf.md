@@ -213,3 +213,24 @@ ulbrich messer, messermanufaktur ulbrich, andreas ulbrich messerschmied, edition
   - Technische Daten der Edition 100 (kommen)
   - Rückgaberegel für Google Shopping: Gemeint ist das Widerrufs- bzw. Rückgaberecht (z. B. 14 Tage), nicht die Garantie. Erst eintragen, wenn die Widerrufsbelehrung anwaltlich steht.
   - Rechtstexte auf Englisch (anwaltlich)
+
+### Content-Ausbau ganze Website (11.11.2026)
+- **Neuer Baustein:** `resources/content/extra/{pfad}.json` zeigt Zusatzabschnitte und „Weitere Fragen“ über `<x-page.cta>` auf jeder Unterseite. Die FAQ werden mit der vorhandenen FAQPage zusammengeführt (`App\Support\PageExtra`); ein Test prüft, dass jede Schema-Frage sichtbar ist und es höchstens eine FAQPage pro Seite gibt.
+- **20 Seiten mit Zusatzinhalt:**
+  - Anfertigung, Gutschein, Unikate
+  - 4 Shop-Kategorien, Shop
+  - Edition 100, Messerprojekte, Geschenke
+  - Kursvergleich, Region Heilbronn
+  - 6 Kursseiten
+  - Pflege-Ratgeber
+- **22 Seiten ergänzt:**
+  - Ratgeber, Erlebnisse, Ringe, Messer als Handwerkskunst, Gravur, Firmengeschenke
+  - Edition-Projekt, Sonderstücke, Partner
+  - englische Seiten
+- **Ergebnis:** 62 indexierbare Seiten, rund 30.000 Wörter, im Schnitt rund 490 pro Seite (vorher deutlich darunter). Alle Fakten stammen aus `config/ulbrich.php`, der Kursdatenbank und deinen Angaben im Chat.
+- **Bewusst knapp (Fakten fehlen):**
+  - Kunsthandwerkermarkt (Termin)
+  - Ringe (Material, Preise)
+  - Partner (konkrete Kooperationen)
+  - Kleidungsempfehlung für Kurse
+  - Preisspannen im Messerservice

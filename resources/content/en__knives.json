@@ -61,6 +61,15 @@
      "x": "Shipping or pickup at the workshop"
     }
    ]
+  },
+  {
+   "h": "Warranty and care",
+   "items": [
+    {
+     "t": "p",
+     "x": "Every knife comes with a care booklet and a care product, free of charge. When cared for as instructed, it has a 2-year warranty."
+    }
+   ]
   }
  ],
  "faq": [
@@ -75,6 +84,10 @@
   {
    "q": "Do you ship knives outside Germany?",
    "a": "Yes, if you cover all costs involved – shipping, insurance and any fees. Alternatively, you can collect your knife from the workshop in person."
+  },
+  {
+   "q": "Do you offer sharpening and repair?",
+   "a": "Yes. Knives can be brought to the workshop or sent by post for sharpening, repair or a new handle."
   }
  ],
  "source": "config/ulbrich.php; owner information (11 Nov 2026)"

@@ -1,0 +1,105 @@
+{
+ "sections": [
+  {
+   "h": "Geschenkideen nach Anlass",
+   "items": [
+    {
+     "t": "h3",
+     "x": "Hochzeit"
+    },
+    {
+     "t": "p",
+     "x": "Ein graviertes Küchenmesser mit Namen und Datum, ein Ringpaar aus der Manufaktur oder ein Schmiedekurs zu zweit."
+    },
+    {
+     "t": "h3",
+     "x": "Runder Geburtstag"
+    },
+    {
+     "t": "p",
+     "x": "Die nummerierte Edition 100 oder ein Schmiedekurs, bei dem das Geburtstagskind sein eigenes Werkstück schmiedet."
+    },
+    {
+     "t": "h3",
+     "x": "Ruhestand und Jubiläum"
+    },
+    {
+     "t": "p",
+     "x": "Ein Messer mit eingraviertem Datum – ein Geschenk, das an diesen Tag erinnert."
+    },
+    {
+     "t": "h3",
+     "x": "Bestandene Prüfung und Jagdschein"
+    },
+    {
+     "t": "p",
+     "x": "Ein Jagdmesser vom Messerschmied oder ein Unikat aus der Werkstatt."
+    },
+    {
+     "t": "h3",
+     "x": "Weihnachten"
+    },
+    {
+     "t": "p",
+     "x": "Messer, Kurs oder Gutschein – mit Hinweisen, bis wann du bestellen solltest."
+    },
+    {
+     "t": "h3",
+     "x": "Für Kunden und Mitarbeitende"
+    },
+    {
+     "t": "p",
+     "x": "Messer mit Logo-Gravur als Firmengeschenk."
+    }
+   ]
+  },
+  {
+   "h": "Geschenke nach Budget",
+   "items": [
+    {
+     "t": "li",
+     "x": "Ab 300 € pro Person: Grundlagenkurs"
+    },
+    {
+     "t": "li",
+     "x": "Ab 440 € pro Person: Klingenkurs"
+    },
+    {
+     "t": "li",
+     "x": "699 €: Damast-Klappmesser der Edition 100"
+    },
+    {
+     "t": "li",
+     "x": "Ab 1.100 € pro Person: Damast-Messerkurs mit eigenem Damastmesser"
+    },
+    {
+     "t": "li",
+     "x": "Auf Anfrage: Unikate, Küchen- und Jagdmesser, Sonderanfertigungen, Gravuren"
+    }
+   ]
+  },
+  {
+   "h": "Ein Messer verschenken – mit Münze",
+   "items": [
+    {
+     "t": "p",
+     "x": "Nach altem Brauch gibt die beschenkte Person für ein Messer eine Münze zurück und kauft es damit symbolisch. So soll das Messer die Freundschaft nicht „zerschneiden“. Leg einfach eine Münze mit ins Geschenk."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was schenke ich jemandem, der schon alles hat?",
+   "a": "Ein Erlebnis: einen Schmiedekurs, bei dem die Person ihr eigenes Werkstück oder Damastmesser schmiedet."
+  },
+  {
+   "q": "Kann ich ein Messer mit Gravur verschenken?",
+   "a": "Ja. Name, Initialen, ein Datum oder ein Logo stimmst du mit Andreas Ulbrich ab."
+  },
+  {
+   "q": "Bringt es Unglück, ein Messer zu verschenken?",
+   "a": "Das ist ein alter Aberglaube. Wer ihn ernst nimmt, legt eine Münze bei, die die beschenkte Person zurückgibt."
+  }
+ ]
+}

@@ -39,8 +39,59 @@
      "x": "Die Zahlung erfolgt per Banküberweisung. Vor dem Reservieren zeigt die Website den jetzt fälligen Betrag. Je nach freigeschaltetem Angebot ist das die vollständige Vorkasse oder eine ausdrücklich ausgewiesene Anzahlung. Eine Überweisungsmitteilung ist noch kein Zahlungseingang. Erst nach der Kontoprüfung bestätigen wir den Kurs verbindlich."
     }
    ]
+  },
+  {
+   "h": "Was im Preis enthalten ist",
+   "items": [
+    {
+     "t": "li",
+     "x": "Grundlagenkurs, ab 300 €: ein Tag, Einführung, eigenes Werkstück, Getränke"
+    },
+    {
+     "t": "li",
+     "x": "Klingenkurs, ab 440 €: ein Tag, zwei Klingen, Getränke; Griff gegen Aufpreis"
+    },
+    {
+     "t": "li",
+     "x": "Klingenkurs „Alternativ“, ab 500 €: ein Tag, Umfang laut Termin"
+    },
+    {
+     "t": "li",
+     "x": "Damast-Messerkurs, ab 1.100 €: zwei Tage, Damastmesser bis 32 cm inklusive Griff, eine Übernachtung, Getränke"
+    },
+    {
+     "t": "li",
+     "x": "Damast Premium-Kurs, ab 1.300 €: zwei bis drei Tage, Damastmesser bis 40 cm, ein bis zwei Übernachtungen, Getränke"
+    },
+    {
+     "t": "li",
+     "x": "Manager-Schmiedekurs: drei Tage, Damastprojekt bis 40 cm, Preis nach Angebot"
+    },
+    {
+     "t": "p",
+     "x": "Alle Preise gelten pro Person."
+    }
+   ]
+  },
+  {
+   "h": "Lohnt sich ein teurerer Kurs?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Das hängt von deinem Ziel ab. Wer erst einmal ausprobieren möchte, ist mit dem Grundlagenkurs gut beraten. Wer ein vollständiges Messer mit Griff mitnehmen möchte, bekommt es im Damast-Messerkurs – inklusive Übernachtung."
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Was kostet der günstigste Schmiedekurs?",
+   "a": "Der Grundlagenkurs ab 300 € pro Person."
+  },
+  {
+   "q": "Ist beim Damastkurs die Übernachtung im Preis?",
+   "a": "Ja. Beim Damast-Messerkurs ist eine Übernachtung inklusive, beim Damast Premium-Kurs ein bis zwei."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-kosten/"
 }

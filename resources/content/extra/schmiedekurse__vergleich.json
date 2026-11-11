@@ -1,0 +1,43 @@
+{
+ "sections": [
+  {
+   "h": "In drei Fragen zum passenden Kurs",
+   "items": [
+    {
+     "t": "h3",
+     "x": "1. Hast du schon geschmiedet?"
+    },
+    {
+     "t": "p",
+     "x": "Nein: Starte mit dem Grundlagenkurs. Ja: Der Klingenkurs baut auf den Grundlagen auf."
+    },
+    {
+     "t": "h3",
+     "x": "2. Was möchtest du mit nach Hause nehmen?"
+    },
+    {
+     "t": "p",
+     "x": "Ein erstes Werkstück: Grundlagenkurs. Zwei Klingen: Klingenkurs. Ein fertiges Damastmesser mit Griff: Damast-Messerkurs. Ein größeres Damastprojekt bis 40 cm Gesamtlänge: Damast Premium-Kurs."
+    },
+    {
+     "t": "h3",
+     "x": "3. Wie viel Zeit hast du?"
+    },
+    {
+     "t": "p",
+     "x": "Ein Tag: Grundlagen- oder Klingenkurs. Zwei Tage: Damast-Messerkurs. Zwei bis drei Tage: Damast Premium-Kurs. Drei Tage: Manager-Schmiedekurs."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Welcher Schmiedekurs ist der beliebteste Einstieg?",
+   "a": "Für den Einstieg ohne Vorwissen ist der Grundlagenkurs vorgesehen."
+  },
+  {
+   "q": "In welchem Kurs entsteht ein Messer mit Griff?",
+   "a": "Im Damast-Messerkurs: ein Damastmesser bis 32 cm Gesamtlänge inklusive Griff."
+  }
+ ]
+}

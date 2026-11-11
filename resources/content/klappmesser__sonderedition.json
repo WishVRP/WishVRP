@@ -50,6 +50,15 @@
    ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Was kostet ein Sonderstück der Edition 100?",
+   "a": "Ausführung und Preis werden persönlich vereinbart; Sonderstücke liegen über dem Preis der regulären Stücke von 699 €."
+  },
+  {
+   "q": "Wie viele Sonderstücke gibt es?",
+   "a": "Zehn der 100 Messer sind für Sonderausführungen reserviert."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/klappmesser/sonderedition/"
 }

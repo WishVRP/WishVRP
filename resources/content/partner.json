@@ -42,6 +42,15 @@
    ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Für wen sind Kooperationen gedacht?",
+   "a": "Für Gastgeber, Tourismus und regionale Partner, die ihren Gästen ein Handwerkserlebnis anbieten möchten."
+  },
+  {
+   "q": "Wie starten wir eine Kooperation?",
+   "a": "Mit einer Anfrage per Telefon oder E-Mail. Danach stimmt ihr gemeinsam ab, was ihr vorbereiten könnt."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/partner/"
 }

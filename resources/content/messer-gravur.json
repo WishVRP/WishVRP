@@ -64,6 +64,35 @@
      "x": "Abholung in der Manufaktur oder Versand"
     }
    ]
+  },
+  {
+   "h": "Ideen für deine Gravur",
+   "items": [
+    {
+     "t": "li",
+     "x": "Hochzeit: eure Namen und das Datum"
+    },
+    {
+     "t": "li",
+     "x": "Geburt oder Taufe: Name und Geburtsdatum"
+    },
+    {
+     "t": "li",
+     "x": "Ruhestand: „Danke für … Jahre“ und das Datum"
+    },
+    {
+     "t": "li",
+     "x": "Jagdschein oder Meisterprüfung: Name und Jahr"
+    },
+    {
+     "t": "li",
+     "x": "Firma: Logo und eventuell ein Jubiläumsjahr"
+    },
+    {
+     "t": "p",
+     "x": "Kurz ist oft besser: Wenige Zeichen wirken auf einer Klinge oder einem Griff meist edler als ein langer Satz."
+    }
+   ]
   }
  ],
  "faq": [
@@ -78,6 +107,10 @@
   {
    "q": "Kann ich ein Messer gravieren lassen, das ich schon habe?",
    "a": "Frag mit einem Foto an. Ob und wo eine Gravur möglich ist, hängt vom Messer ab."
+  },
+  {
+   "q": "Wie lang darf ein Gravurtext sein?",
+   "a": "Das hängt vom Messer und vom Platz ab. Kurze Texte, Initialen oder ein Datum funktionieren meist am besten."
   }
  ],
  "source": "Angaben des Inhabers (11.11.2026): Gravuren werden angeboten; Technik und Preise auf Anfrage"

@@ -39,8 +39,47 @@
      "x": "Prüfe Datum, Treffpunkt, Dauer, Preis und Leistungen. Hinweise zu Kleidung, Schutz und Teilnahme werden für den Kurs geklärt. Für Minderjährige, Begleitpersonen oder besondere Anforderungen gibt es keine pauschale Zusage auf dieser Seite. Stelle deine Fragen online, bevor du einen kostenpflichtigen Termin abschließt."
     }
    ]
+  },
+  {
+   "h": "Was Einsteiger im Grundlagenkurs erwartet",
+   "items": [
+    {
+     "t": "li",
+     "x": "Eine Einführung in Werkstatt und Werkzeug"
+    },
+    {
+     "t": "li",
+     "x": "Arbeit am eigenen Werkstück unter Anleitung"
+    },
+    {
+     "t": "li",
+     "x": "Ein Tag mit etwa acht Stunden, Getränke vor Ort"
+    },
+    {
+     "t": "li",
+     "x": "Ab 300 € pro Person"
+    }
+   ]
+  },
+  {
+   "h": "Der nächste Schritt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Nach dem Grundlagenkurs baut der Klingenkurs auf: Du schmiedest zwei eigene Klingen. Wer ein vollständiges Messer mit Griff möchte, wählt den Damast-Messerkurs."
+    }
+   ]
   }
  ],
- "faq": [],
+ "faq": [
+  {
+   "q": "Ist Schmieden für Anfänger schwer?",
+   "a": "Im Grundlagenkurs lernst du die ersten Schritte unter Anleitung. Vorwissen brauchst du nicht."
+  },
+  {
+   "q": "Kann ich als Anfänger direkt einen Damastkurs buchen?",
+   "a": "Frag am besten vorher kurz nach. Für den Einstieg ist der Grundlagenkurs vorgesehen."
+  }
+ ],
  "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-anfaenger/"
 }
