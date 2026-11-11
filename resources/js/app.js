@@ -258,7 +258,6 @@ if (booking && summary) {
         url.searchParams.set('teilnehmer', String(n));
         try { window.history.replaceState(null, '', url); } catch { /* z. B. Datei-Vorschau */ }
     };
-    booking.addEventListener('submit', (event) => event.preventDefault());
     booking.addEventListener('change', update);
     persons.addEventListener('input', update);
     booking.querySelectorAll('[data-step]').forEach((btn) => btn.addEventListener('click', () => {
@@ -316,3 +315,28 @@ if (story && 'IntersectionObserver' in window) {
     }, { rootMargin: '-45% 0px -45% 0px' });
     steps.forEach((s) => sio.observe(s));
 }
+
+
+/* ---------- Klick-Zählung (eigener Server, ohne Cookies; respektiert DNT/GPC) ---------- */
+(() => {
+    if (navigator.doNotTrack === '1' || navigator.globalPrivacyControl || !navigator.sendBeacon) return;
+    const kind = (a) => {
+        const href = a.getAttribute('href') || '';
+        if (href.startsWith('tel:')) return 'telefon';
+        if (href.startsWith('mailto:')) return 'email';
+        if (href.startsWith('/schmiedekurse/buchen/')) return 'buchen';
+        if (href.startsWith('/geschenke/schmiedekurs-gutschein/')) return 'gutschein';
+        if (/^https?:\/\//.test(href) && !href.includes(location.host)) return 'extern';
+        return null;
+    };
+    document.addEventListener('click', (event) => {
+        const a = event.target.closest('a[href]');
+        const n = a && kind(a);
+        if (!n) return;
+        const data = new FormData();
+        data.append('n', n);
+        data.append('p', location.pathname);
+        if (n === 'extern') data.append('t', a.href);
+        navigator.sendBeacon('/e/', data);
+    }, { capture: true });
+})();

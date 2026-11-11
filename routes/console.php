@@ -6,3 +6,6 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+// Statistik nach 13 Monaten löschen (PageView, SiteEvent).
+\Illuminate\Support\Facades\Schedule::command('model:prune')->daily();

@@ -67,5 +67,9 @@
         </div>
     </article>
 
+    @if (! empty($page['inquiry']))
+        @include('pages.partials.inquiry', $page['inquiry'])
+    @endif
+
     <x-page.cta :title="$page['cta_title'] ?? ($en ? 'Questions? Just get in touch.' : 'Fragen? Ruf einfach an.')" />
 </x-layouts.site>

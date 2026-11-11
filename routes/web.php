@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PendingPageController;
 use App\Http\Controllers\SeoController;
@@ -16,6 +18,13 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
 Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
+
+/*
+| Formulare (Buchung, Bestellung/Anfrage) und Klick-Zählung. Keine Online-Zahlung.
+*/
+Route::post('/schmiedekurse/buchen/', [OrderController::class, 'booking'])->middleware('throttle:8,1')->name('booking.store');
+Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:8,1')->name('inquiry.store');
+Route::post('/e/', EventController::class)->middleware('throttle:120,1')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('event');
 
 /*
 | Umgesetzte Unterseiten aus dem Seitenregister (config/pages.php).

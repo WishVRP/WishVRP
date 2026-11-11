@@ -21,5 +21,7 @@
 
     @include('pages.partials.content-sections', ['key' => 'messer-unikate', 'label' => 'Drei Wege zum Unikat'])
 
+    @include('pages.partials.inquiry', ['type' => 'messer', 'item' => 'Unikat', 'title' => 'Nach einem Unikat fragen', 'submit' => 'Anfrage senden'])
+
     <x-page.cta title="Ein Unikat gefunden?" />
 </x-layouts.site>

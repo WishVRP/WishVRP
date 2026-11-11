@@ -8,7 +8,15 @@
 
     <section class="block" aria-label="Buchungsformular">
         <div class="container booking">
-            <form class="booking__form" data-booking novalidate>
+            @if (session('order_ok'))
+                <div class="form-success" id="buchung-gesendet" role="status">
+                    <h2>Danke – deine Buchungsanfrage ist angekommen.</h2>
+                    <p>Vorgangsnummer <strong>{{ session('order_ok') }}</strong>. Du bekommst eine Bestätigung per E-Mail. Dein Platz ist verbindlich, sobald {{ $c['owner'] }} ihn dir nach Zahlungseingang bestätigt hat.</p>
+                </div>
+            @endif
+            <form class="booking__form" id="booking-form" method="post" action="/schmiedekurse/buchen/" data-booking>
+                @csrf
+                <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <fieldset class="booking__step">
                     <legend><span class="booking__num">1</span> Kurs wählen</legend>
                     <div class="booking__courses">
@@ -44,7 +52,7 @@
                             @foreach ($dates as $date)
                                 <li data-date-course="{{ \Illuminate\Support\Str::slug($date->course->name) }}">
                                     <label class="date-option">
-                                        <input type="radio" name="termin" value="{{ $date->id }}">
+                                        <input type="radio" name="termin" value="{{ $date->id }}" @checked(old('termin') == $date->id)>
                                         <span><b>{{ $date->starts_on->locale('de')->isoFormat('dd, D. MMMM YYYY') }}</b> · {{ $date->seatsLeftLabel() }}</span>
                                     </label>
                                 </li>
@@ -56,7 +64,22 @@
                             <p>Die Kurstermine werden gerade aus dem Buchungskalender übernommen. Freie Termine nennt dir {{ $c['owner'] }} am Telefon.</p>
                         </div>
                         <x-ui.missing silent ask="aus dem Buchungssystem übernehmen">Kurstermine</x-ui.missing>
+                        <label class="field mt-4">
+                            <span class="field__label">Wunschtermin (optional)</span>
+                            <input type="text" name="wunschtermin" maxlength="120" value="{{ old('wunschtermin') }}" placeholder="z. B. ein Samstag im März">
+                        </label>
                     @endif
+                    @error('termin')<p class="field__error" role="alert">{{ $message }}</p>@enderror
+                </fieldset>
+
+                <fieldset class="booking__step">
+                    <legend><span class="booking__num">4</span> Deine Daten</legend>
+                    @include('pages.partials.contact-fields')
+                    <label class="check">
+                        <input type="checkbox" name="bedingungen" value="1" required @checked(old('bedingungen'))>
+                        <span>Ich habe die <a href="/kursbedingungen/">Kursbedingungen</a> gelesen.</span>
+                    </label>
+                    @error('bedingungen')<p class="field__error" role="alert">{{ $message }}</p>@enderror
                 </fieldset>
             </form>
 
@@ -70,10 +93,10 @@
                 </dl>
                 <p class="booking__total"><span>Gesamt</span><strong data-sum-total>–</strong></p>
                 <p class="tech muted"><x-ui.tax-note /></p>
-                <button type="button" class="btn btn--primary btn--lg booking__pay" disabled aria-describedby="pay-note">Weiter zur Zahlung</button>
-                <x-page.note id="pay-note" title="Online-Zahlung folgt">
-                    Die Bezahlung über einen Zahlungsanbieter wird vor dem Start eingerichtet. Bis dahin buchst du telefonisch:
-                    <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a>.
+                <button type="submit" form="booking-form" class="btn btn--primary btn--lg booking__pay" aria-describedby="pay-note">Buchung anfragen</button>
+                <x-page.note id="pay-note" title="So geht es weiter">
+                    Du bekommst eine Bestätigung per E-Mail und von uns die Zahlungsdaten für die Überweisung. Verbindlich ist dein Platz, sobald die Zahlung eingegangen und bestätigt ist.
+                    Lieber telefonisch? <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a>
                 </x-page.note>
                 <ul class="booking__rules" role="list">
                     @foreach ($c['booking_rules'] as $rule)<li>{{ $rule }}</li>@endforeach

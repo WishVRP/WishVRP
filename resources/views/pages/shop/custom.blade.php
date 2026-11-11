@@ -28,5 +28,7 @@
         </div>
     </x-page.section>
 
+    @include('pages.partials.inquiry', ['type' => 'messer', 'item' => 'Sonderanfertigung', 'title' => 'Sonderanfertigung anfragen', 'intro' => 'Beschreib, wofür du das Messer brauchst, welche Form, Länge und welchen Griff du dir vorstellst – gern mit Budget und Wunschtermin.', 'submit' => 'Anfrage senden'])
+
     <x-page.cta title="Dein Messer besprechen" text="Ruf an und beschreibe, was du vorhast – {{ $c['owner'] }} sagt dir, was möglich ist." />
 </x-layouts.site>

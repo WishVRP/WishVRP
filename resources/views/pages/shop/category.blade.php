@@ -51,5 +51,7 @@
         </div>
     </section>
 
+    @include('pages.partials.inquiry', ['type' => 'messer', 'item' => $cat['kicker'], 'title' => $cat['kicker'].' anfragen', 'shipping' => true, 'submit' => 'Anfrage senden'])
+
     <x-page.cta title="Ein Messer im Kopf?" text="Beschreib, wofür du es brauchst – {{ $c['owner'] }} sagt dir, welches Stück passt oder ob eine Anfertigung sinnvoll ist." />
 </x-layouts.site>
