@@ -31,7 +31,7 @@ class OrderController extends Controller
 
     private const MESSAGES = [
         'consent.accepted' => 'Bitte bestätige die Datenschutzhinweise.',
-        'phone.required_with' => 'Für den Weihnachtsrabatt brauchen wir deine Telefonnummer (ein Rabatt pro Person/Haushalt).',
+        'phone.required_with' => 'Für den Weihnachtsrabatt brauchen wir die Handynummer, mit der du gespielt hast.',
         'bedingungen.accepted' => 'Bitte bestätige die Kursbedingungen.',
     ];
 
@@ -48,6 +48,9 @@ class OrderController extends Controller
         }
         if ($entry->email_key !== XmasEntry::emailKey($data['email'] ?? '')) {
             $fail('Der Rabattcode gilt nur zusammen mit der E-Mail-Adresse, mit der gespielt wurde.');
+        }
+        if ($entry->phone_key && $entry->phone_key !== XmasEntry::mobileE164($data['phone'] ?? '')) {
+            $fail('Der Rabattcode gilt nur zusammen mit der Handynummer, mit der gespielt wurde.');
         }
         // Ein Weihnachtsrabatt je Person bzw. Haushalt: gleiche Telefonnummer oder gleicher Name + PLZ
         $phone = XmasEntry::phoneKey($data['phone'] ?? null);

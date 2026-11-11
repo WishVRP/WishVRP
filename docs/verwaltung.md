@@ -50,13 +50,20 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
 - **Kalibrierung:** Automatische Testspieler mit pixelgenauem Zielen schafften 5–6 Treffer pro Runde.
 - **Ablauf:** E-Mail eingeben und Teilnahmebedingungen bestätigen → 30 Sekunden spielen → Treffer werden gezählt → Rabatt und persönlicher Code erscheinen und kommen per E-Mail.
 - **Rabattstufen (`config/ulbrich.php → xmas.tiers`):** 0–3 Treffer = kein Rabatt, 4–9 Treffer = **5 %**, ab 10 Treffern = **10 %**. **Höchstens 10 %** ist fest eingebaut (`max_percent`).
-- **Nur einmal pro Person – vier Sperren:**
-  1. **Spiel nur über den persönlichen Link per E-Mail:** Auf der Seite wird nur die Adresse eingetragen; gespielt wird über `/weihnachtsaktion/?t=…` aus der E-Mail. Wegwerf-Adressen (Mailinator, 10minutemail, Yopmail …) werden abgelehnt.
-  2. **Eine Teilnahme je E-Mail-Adresse:** Schreibvarianten wie `Anna.Test+x@googlemail.com` = `annatest@gmail.com` zählen als dieselbe. Der Link funktioniert genau einmal; mit dem Klick auf „Jetzt spielen“ zählt die Teilnahme, auch bei Abbruch.
-  3. **Höchstens 3 Anmeldungen pro Internetanschluss und Tag.** Die IP-Adresse wird nur als Prüfwert (Hash) 24 h im Cache gehalten.
-  4. **Ein Rabatt pro Person bzw. Haushalt beim Einlösen:** Der Code gilt nur mit derselben E-Mail-Adresse, und die Telefonnummer ist dann Pflicht. Wurde unter derselben Telefonnummer (auch +49/0049-Schreibweise) oder demselben Namen mit PLZ schon ein Weihnachtsrabatt eingelöst, wird abgelehnt. Wer mit mehreren Adressen spielt, kann also trotzdem nur einmal sparen.
-  - **Restrisiko:** Mit komplett anderen Daten (andere E-Mail, andere Telefonnummer, anderer Name/Anschrift) ließe sich das umgehen. Das verbieten die Teilnahmebedingungen; ganz ausschließen ließe es sich nur mit SMS- oder Ausweisprüfung (externer Dienst, kostenpflichtig, nur mit Freigabe).
-- **Testen in der Entwicklung:** Mails werden nicht versendet; nach der Anmeldung erscheint der Spiel-Link direkt als „Testmodus“-Link. In der Produktion gibt es ihn nicht. IP-Limit zurücksetzen: `php artisan cache:clear`.
+- **Nur einmal pro Person – per SMS-Code:**
+  1. **Handynummer mit SMS bestätigen:** Teilnahme nur mit E-Mail **und** Handynummer. Es kommt ein 6-stelliger Code per SMS (10 Minuten gültig, höchstens 5 Eingabeversuche, höchstens 3 SMS je Anmeldung, neuer Code frühestens nach 1 Minute). Festnetznummern werden abgelehnt (deutsche Nummern müssen 015x/016x/017x sein; Auslandsnummern mit Ländervorwahl gehen).
+  2. **Eine Handynummer = eine Teilnahme**, ebenso eine E-Mail-Adresse = eine Teilnahme. `0171…`, `+49 171…` und `0049 171…` gelten als dieselbe Nummer. Keine Wegwerf-E-Mails. Mit „Jetzt spielen“ zählt die Teilnahme, auch bei Abbruch.
+  3. **Höchstens 3 Anmeldungen pro Internetanschluss und Tag** (IP nur als Hash, 24 h im Cache).
+  4. **Einlösen nur mit derselben E-Mail und derselben Handynummer**, und nur einmal pro Person bzw. Haushalt (gleiche Telefonnummer oder gleicher Name mit PLZ wird abgelehnt).
+  - **Restrisiko:** Wer mehrere eigene Handynummern (SIM-Karten) besitzt und andere Namen/Adressen angibt, kommt theoretisch durch. Das ist bewusster Betrug; die Teilnahmebedingungen erlauben, solche Codes abzulehnen.
+- **SMS-Anbieter einrichten (vor Go-live, Pflicht):** Konto bei **seven.io** anlegen (Anbieter aus Deutschland, Kosten wenige Cent pro SMS laut Preisliste des Anbieters), Auftragsverarbeitungsvertrag abschließen, API-Schlüssel erzeugen und **nur** in der `.env` des Servers eintragen:
+  ```
+  SMS_DRIVER=seven
+  SMS_FROM=Ulbrich
+  SEVEN_API_KEY=…
+  ```
+  Ohne eingerichteten Anbieter ist die Anmeldung in der Produktion **gesperrt** („gerade nicht möglich“). Es kann also nie ein Spiel ohne echte SMS-Prüfung starten. Der Server muss `gateway.seven.io` erreichen können.
+- **Testen in der Entwicklung:** Es wird keine SMS verschickt (`SMS_DRIVER=log`); der Code erscheint als „Testmodus“ direkt unter dem Eingabefeld. IP-Limit zurücksetzen: `php artisan cache:clear`.
 - **Gegen Schummeln:** Die Wertung passiert auf dem Server. Wer vor Ablauf der 30 Sekunden ein Ergebnis schickt, bekommt 0 Treffer; mehr als 60 Treffer werden auf 60 begrenzt. Der Rabatt übersteigt nie 10 %.
 - **Code einlösen:** Feld „Rabattcode“ in allen Bestell- und Buchungsformularen (solange die Codes gelten, bis 31.12.2026, `valid_until`). Jeder Code ist **einmalig**: Danach gilt er als eingelöst und ist dem Vorgang zugeordnet; der Betrag im Vorgang ist schon reduziert.
 - **Verwaltung → Weihnachtsaktion:** Teilnahmen, Treffer, Rabatt, Code, eingelöst ja/nein, Vorgang. Einlösung lässt sich manuell setzen oder zurücknehmen, etwa bei telefonischen Bestellungen. Auf dem Dashboard steht die Zahl der Teilnahmen und Codes.

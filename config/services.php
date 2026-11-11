@@ -28,6 +28,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+    | SMS für die Weihnachtsaktion. driver: log (Entwicklung, nichts wird verschickt)
+    | oder seven (seven.io, Anbieter aus Deutschland). API-Schlüssel nur in .env, nie ins Repository.
+    */
+    'sms' => [
+        'driver' => env('SMS_DRIVER', 'log'),
+        'from' => env('SMS_FROM', 'Ulbrich'),        // Absendername, max. 11 Zeichen
+        'seven_key' => env('SEVEN_API_KEY'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

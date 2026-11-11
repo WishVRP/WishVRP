@@ -10,13 +10,13 @@ use Illuminate\Support\Str;
 /** Teilnahme an der Weihnachtsaktion – genau eine je (normalisierter) E-Mail-Adresse. */
 class XmasEntry extends Model
 {
-    protected $fillable = ['email', 'email_key', 'token', 'verify_token', 'verified_at', 'started_at', 'finished_at', 'score', 'percent', 'code', 'redeemed_at', 'order_id'];
+    protected $fillable = ['email', 'email_key', 'phone', 'phone_key', 'token', 'verify_token', 'verified_at', 'sms_code_hash', 'sms_sent_at', 'sms_count', 'sms_attempts', 'started_at', 'finished_at', 'score', 'percent', 'code', 'redeemed_at', 'order_id'];
 
-    protected $hidden = ['token', 'verify_token'];
+    protected $hidden = ['token', 'verify_token', 'sms_code_hash'];
 
     protected function casts(): array
     {
-        return ['verified_at' => 'datetime', 'started_at' => 'datetime', 'finished_at' => 'datetime', 'redeemed_at' => 'datetime'];
+        return ['sms_sent_at' => 'datetime', 'verified_at' => 'datetime', 'started_at' => 'datetime', 'finished_at' => 'datetime', 'redeemed_at' => 'datetime'];
     }
 
     public function order(): BelongsTo
@@ -38,6 +38,30 @@ class XmasEntry extends Model
         $domain = strtolower(substr(strrchr($email, '@') ?: '', 1));
 
         return $domain === '' || in_array($domain, self::DISPOSABLE, true);
+    }
+
+    /**
+     * Handynummer in E.164 (+49…). Deutsche Nummern müssen Mobilnummern sein (015x/016x/017x);
+     * ausländische Nummern mit Ländervorwahl werden akzeptiert. null = ungültig.
+     */
+    public static function mobileE164(?string $phone): ?string
+    {
+        $raw = trim((string) $phone);
+        $d = preg_replace('/\D/', '', $raw);
+        if (str_starts_with($raw, '+')) {
+            $e = '+'.$d;
+        } elseif (str_starts_with($d, '00')) {
+            $e = '+'.substr($d, 2);
+        } elseif (str_starts_with($d, '0')) {
+            $e = '+49'.substr($d, 1);
+        } else {
+            return null;
+        }
+        if (str_starts_with($e, '+49')) {
+            return preg_match('/^\+491[567]\d{7,10}$/', $e) ? $e : null;
+        }
+
+        return preg_match('/^\+[1-9]\d{7,14}$/', $e) ? $e : null;
     }
 
     /** Telefonnummer vergleichbar machen (nur Ziffern, 0049/+49 → 0). */

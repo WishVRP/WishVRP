@@ -71,10 +71,12 @@ export function startXmasGame(root) {
         if (event.key === ' ' || event.key === 'Enter') { throwTo(aimX, 0); event.preventDefault(); }
     });
 
-    const form = $('[data-xmas-form]'), errorEl = $('[data-xmas-error]'), goBtn = $('[data-xmas-go]'), invite = $('[data-xmas-invite]');
+    const form = $('[data-xmas-form]'), codeForm = $('[data-xmas-code-form]'), errorEl = $('[data-xmas-error]'), goBtn = $('[data-xmas-go]');
     const headline = $('[data-xmas-headline]'), prize = $('[data-xmas-prize]'), codeEl = $('[data-xmas-code]'), note = $('[data-xmas-note]');
     const csrf = $('[data-xmas-csrf]')?.value;
-    let token = null;
+    let token = null, ref = null;
+    const step = (n) => root.querySelectorAll('[data-xmas-step]').forEach((el) => { el.hidden = el.dataset.xmasStep !== String(n); });
+    const error = (msg) => { errorEl.textContent = msg || ''; errorEl.hidden = !msg; };
 
     async function post(url, data) {
         const res = await fetch(url, { method: 'POST', headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json' }, body: data, credentials: 'same-origin' });
@@ -89,7 +91,7 @@ export function startXmasGame(root) {
         if (r.percent > 0) {
             prize.textContent = `${r.percent} % Rabatt`;
             codeEl.hidden = false; codeEl.querySelector('b').textContent = r.code;
-            note.textContent = `Einmal einlösbar bis ${root.dataset.until} bei einer Bestellung oder Kursbuchung auf dieser Website – nur mit der E-Mail-Adresse, mit der du gespielt hast, und einmal pro Person bzw. Haushalt.` + (already ? '' : ' Den Code haben wir dir auch per E-Mail geschickt.');
+            note.textContent = `Einmal einlösbar bis ${root.dataset.until} bei einer Bestellung oder Kursbuchung auf dieser Website – nur mit der E-Mail-Adresse und Handynummer, mit denen du gespielt hast, einmal pro Person bzw. Haushalt.` + (already ? '' : ' Den Code haben wir dir auch per E-Mail geschickt.');
         } else {
             prize.textContent = already ? 'Diesmal gab es leider keinen Rabatt.' : 'Zu wenige Treffer – diesmal kein Rabatt.';
             codeEl.hidden = true;
@@ -97,35 +99,43 @@ export function startXmasGame(root) {
         }
     }
 
-    // Schritt 1: E-Mail eintragen → persönlicher Link per E-Mail
-    form?.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        errorEl.hidden = true;
-        const button = form.querySelector('button[type=submit]'); button.disabled = true;
+    async function requestCode(button) {
+        error(''); button.disabled = true;
         try {
             const r = await post(root.dataset.register, new FormData(form));
-            form.hidden = true;
-            const sent = $('[data-xmas-sent]'); sent.hidden = false;
-            $('[data-xmas-sent-text]').textContent = r.message;
-            if (r.dev_link) { const dev = $('[data-xmas-dev]'); dev.hidden = false; dev.querySelector('a').href = r.dev_link; }
-        } catch (e) {
-            errorEl.textContent = e.message; errorEl.hidden = false;
-        } finally { button.disabled = false; }
+            ref = r.ref; step(2);
+            $('[data-xmas-sms-text]').textContent = r.message;
+            const dev = $('[data-xmas-dev]'); dev.hidden = !r.dev_code; if (r.dev_code) $('[data-xmas-dev-code]').textContent = r.dev_code;
+            codeForm.querySelector('input[name=code]').focus();
+        } catch (e) { error(e.message); } finally { button.disabled = false; }
+    }
+
+    // Schritt 1: E-Mail + Handynummer → SMS-Code
+    form.addEventListener('submit', (event) => { event.preventDefault(); requestCode(form.querySelector('button[type=submit]')); });
+    $('[data-xmas-resend]').addEventListener('click', (event) => requestCode(event.currentTarget));
+
+    // Schritt 2: Code bestätigen
+    codeForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); error('');
+        const button = codeForm.querySelector('button[type=submit]'); button.disabled = true;
+        try {
+            const data = new FormData(codeForm); data.append('ref', ref);
+            await post(root.dataset.verify, data);
+            step(3); goBtn.focus();
+        } catch (e) { error(e.message); } finally { button.disabled = false; }
     });
 
-    // Schritt 2: über den Link → genau ein Spiel
-    goBtn?.addEventListener('click', async () => {
-        errorEl.hidden = true; goBtn.disabled = true;
+    // Schritt 3: genau ein Spiel
+    goBtn.addEventListener('click', async () => {
+        error(''); goBtn.disabled = true;
         try {
-            const data = new FormData(); data.append('t', invite.value);
+            const data = new FormData(); data.append('ref', ref);
             const r = await post(root.dataset.start, data);
             if (r.status === 'played') { showResult(r, true); return; }
             token = r.token;
             reset(); state = 'play'; startBox.hidden = true; endBox.hidden = true; root.focus({ preventScroll: true });
             last = performance.now(); requestAnimationFrame(loop);
-        } catch (e) {
-            errorEl.textContent = e.message; errorEl.hidden = false; goBtn.disabled = false;
-        }
+        } catch (e) { error(e.message); goBtn.disabled = false; }
     });
 
     async function end() {

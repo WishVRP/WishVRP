@@ -39,6 +39,8 @@ class XmasEntryResource extends Resource
             ->defaultSort('started_at', 'desc')
             ->columns([
                 TextColumn::make('email')->label('E-Mail')->searchable(),
+                TextColumn::make('phone_key')->label('Handy')->searchable()->placeholder('–'),
+                TextColumn::make('verified_at')->label('SMS bestätigt')->since()->placeholder('nein')->toggleable(),
                 TextColumn::make('started_at')->label('Gespielt')->since()->dateTimeTooltip('d.m.Y H:i')->sortable(),
                 TextColumn::make('score')->label('Treffer')->sortable()->placeholder('läuft/abgebrochen'),
                 TextColumn::make('percent')->label('Rabatt')->suffix(' %')->sortable()->placeholder('–'),

@@ -23,12 +23,13 @@ Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
 /*
 | Formulare (Buchung, Bestellung/Anfrage) und Klick-Zählung. Keine Online-Zahlung.
 */
-Route::post('/schmiedekurse/buchen/', [OrderController::class, 'booking'])->middleware('throttle:8,1')->name('booking.store');
-Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:8,1')->name('inquiry.store');
-Route::post('/weihnachtsaktion/anmelden/', [XmasController::class, 'register'])->middleware('throttle:6,1')->name('xmas.register');
-Route::post('/weihnachtsaktion/start/', [XmasController::class, 'start'])->middleware('throttle:10,1')->name('xmas.start');
-Route::post('/weihnachtsaktion/ergebnis/', [XmasController::class, 'finish'])->middleware('throttle:10,1')->name('xmas.finish');
-Route::post('/e/', EventController::class)->middleware('throttle:120,1')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('event');
+Route::post('/schmiedekurse/buchen/', [OrderController::class, 'booking'])->middleware('throttle:forms')->name('booking.store');
+Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:forms')->name('inquiry.store');
+Route::post('/weihnachtsaktion/anmelden/', [XmasController::class, 'register'])->middleware('throttle:xmas')->name('xmas.register');
+Route::post('/weihnachtsaktion/code/', [XmasController::class, 'verify'])->middleware('throttle:xmas')->name('xmas.verify');
+Route::post('/weihnachtsaktion/start/', [XmasController::class, 'start'])->middleware('throttle:xmas')->name('xmas.start');
+Route::post('/weihnachtsaktion/ergebnis/', [XmasController::class, 'finish'])->middleware('throttle:xmas')->name('xmas.finish');
+Route::post('/e/', EventController::class)->middleware('throttle:events')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('event');
 
 /*
 | Umgesetzte Unterseiten aus dem Seitenregister (config/pages.php).
