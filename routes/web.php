@@ -36,6 +36,22 @@ Route::post('/newsletter/bestaetigen/', [NewsletterController::class, 'confirm']
 Route::post('/newsletter/abmelden/', [NewsletterController::class, 'unsubscribe'])->middleware('throttle:forms')->name('newsletter.unsubscribe');
 Route::post('/newsletter/abmelden/sofort/', [NewsletterController::class, 'oneClick'])->middleware('throttle:events')
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('newsletter.oneclick');
+// Vorschau der Kunden-E-Mails zu einem Vorgang (nur angemeldet; nichts wird verschickt)
+Route::get('/'.trim(config('ulbrich_admin.path'), '/').'/mail-vorschau/{order}/{kind}', function (\App\Models\Order $order, string $kind) {
+    abort_unless(auth()->check(), 403);
+    abort_unless(isset(\App\Mail\CustomerUpdateMail::KINDS[$kind]), 404);
+    $preview = $order->replicate();
+    $preview->number = $order->number;
+    if ($kind === 'versendet' && ! $preview->tracking_number) {
+        $preview->forceFill(['tracking_carrier' => 'dhl', 'tracking_number' => '00340434161094000000']);
+    }
+    $preview->production_time ??= 'ca. 3–4 Wochen';
+
+    return response((new \App\Mail\CustomerUpdateMail($preview, $kind, request('nachricht')))->render())
+        ->header('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'self'")
+        ->header('X-Robots-Tag', 'noindex, nofollow');
+})->middleware('web')->whereIn('kind', array_keys(\App\Mail\CustomerUpdateMail::KINDS))->name('order.mail-preview');
+
 // E-Mail-Vorschau für die Verwaltung (nur angemeldet; eigene CSP, weil E-Mails Inline-Styles brauchen)
 Route::get('/'.trim(config('ulbrich_admin.path'), '/').'/newsletter-vorschau/{issue}', function (\App\Models\NewsletterIssue $issue) {
     abort_unless(auth()->check(), 403);

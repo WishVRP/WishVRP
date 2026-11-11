@@ -12,7 +12,7 @@ final class OrderPaid
 {
     public static function paid(Order $order, string $method = 'stripe'): void
     {
-        if (in_array($order->status, ['bezahlt', 'bestaetigt', 'versendet', 'abgeschlossen'], true)) {
+        if (in_array($order->status, ['bezahlt', 'bestaetigt', 'in_arbeit', 'versendet', 'zugestellt', 'abgeschlossen'], true)) {
             return;   // schon verarbeitet (Webhook kann mehrfach kommen)
         }
         $order->forceFill(['payment_method' => $method, 'hold_until' => null])->save();

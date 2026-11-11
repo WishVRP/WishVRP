@@ -63,7 +63,7 @@ class NoteResource extends Resource
                 TextColumn::make('is_pinned')->label('')->formatStateUsing(fn ($state) => $state ? '★' : '')->color('warning')->tooltip(fn (Note $record) => $record->is_pinned ? 'angeheftet' : null),
                 TextColumn::make('body')->label('Notiz')->wrap()->searchable()
                     ->color(fn (Note $r) => $r->done_at ? 'gray' : null),
-                TextColumn::make('user.name')->label('Von'),
+                TextColumn::make('user.name')->label('Von')->placeholder('System'),
                 TextColumn::make('order.number')->label('Vorgang')
                     ->url(fn (Note $r) => $r->order_id ? \App\Filament\Resources\Orders\OrderResource::getUrl('edit', ['record' => $r->order_id]) : null),
                 TextColumn::make('created_at')->label('Wann')->since()->dateTimeTooltip('d.m.Y H:i'),

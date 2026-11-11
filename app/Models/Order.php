@@ -26,7 +26,9 @@ class Order extends Model
         'zahlung_offen' => 'Zahlung offen',
         'bezahlt' => 'Bezahlt',
         'bestaetigt' => 'Bestätigt',
+        'in_arbeit' => 'In Arbeit',
         'versendet' => 'Versendet / übergeben',
+        'zugestellt' => 'Zugestellt',
         'abgeschlossen' => 'Abgeschlossen',
         'storniert' => 'Storniert',
     ];
@@ -36,13 +38,53 @@ class Order extends Model
         'zahlung_offen' => 'info',
         'bezahlt' => 'success',
         'bestaetigt' => 'success',
-        'versendet' => 'gray',
+        'in_arbeit' => 'warning',
+        'versendet' => 'info',
+        'zugestellt' => 'success',
         'abgeschlossen' => 'gray',
         'storniert' => 'danger',
     ];
 
     /** Offene Vorgänge = noch etwas zu tun. */
-    public const OPEN = ['neu', 'zahlung_offen', 'bezahlt'];
+    public const OPEN = ['neu', 'zahlung_offen', 'bezahlt', 'in_arbeit'];
+
+    /** Versanddienstleister: Name und Sendungsverfolgung ({n} = Sendungsnummer). */
+    public const CARRIERS = [
+        'dhl' => ['DHL', 'https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html?piececode={n}'],
+        'dpd' => ['DPD', 'https://tracking.dpd.de/status/de_DE/parcel/{n}'],
+        'hermes' => ['Hermes', 'https://www.myhermes.de/empfangen/sendungsverfolgung/sendungsinformation#{n}'],
+        'gls' => ['GLS', 'https://gls-group.com/DE/de/paketverfolgung?match={n}'],
+        'ups' => ['UPS', 'https://www.ups.com/track?loc=de_DE&tracknum={n}'],
+        'post' => ['Deutsche Post', 'https://www.deutschepost.de/de/s/sendungsverfolgung.html?piececode={n}'],
+        'sonstige' => ['Anderer Versanddienst', null],
+    ];
+
+    public function carrierName(): ?string
+    {
+        return self::CARRIERS[$this->tracking_carrier][0] ?? null;
+    }
+
+    /** Link zur Sendungsverfolgung: eigener Link oder aus Versanddienst + Nummer gebaut. */
+    public function trackingLink(): ?string
+    {
+        if ($this->tracking_url && preg_match('#^https://#i', $this->tracking_url)) {
+            return $this->tracking_url;
+        }
+        $tpl = self::CARRIERS[$this->tracking_carrier][1] ?? null;
+
+        return $tpl && $this->tracking_number ? str_replace('{n}', rawurlencode($this->tracking_number), $tpl) : null;
+    }
+
+    public function isPickup(): bool
+    {
+        return $this->shipping_method === 'abholung';
+    }
+
+    /** Letzter Kurstag (für die Bewertungsanfrage am Abend). */
+    public function courseLastDay(): ?\Illuminate\Support\Carbon
+    {
+        return $this->course_end ?? $this->course_start ?? $this->courseDate?->ends_on ?? $this->courseDate?->starts_on;
+    }
 
     protected $guarded = ['id', 'number', 'seats_counted'];
 
@@ -58,6 +100,11 @@ class Order extends Model
             'course_start' => 'date',
             'course_end' => 'date',
             'hold_until' => 'datetime',
+            'in_progress_at' => 'datetime',
+            'delivered_at' => 'datetime',
+            'tracking_checked_at' => 'datetime',
+            'review_requested_at' => 'datetime',
+            'review_consent' => 'boolean',
             'shipping_amount' => 'decimal:2',
             'voucher_amount' => 'decimal:2',
         ];
@@ -66,6 +113,10 @@ class Order extends Model
     protected static function booted(): void
     {
         static::creating(function (Order $order) {
+            // Einwilligung „Bitte um Bewertung“ aus dem Website-Formular (Checkbox in contact-fields), sonst nein
+            if ($order->review_consent === null && app()->bound('request') && request()->has('review_consent')) {
+                $order->review_consent = request()->boolean('review_consent');
+            }
             $year = now()->year;
             $last = static::query()->where('number', 'like', "U{$year}-%")->orderByDesc('id')->value('number');
             $next = $last ? (int) substr($last, -4) + 1 : 1;
@@ -76,7 +127,7 @@ class Order extends Model
             if (! $order->isDirty('status')) {
                 return;
             }
-            $stamp = ['bezahlt' => 'paid_at', 'bestaetigt' => 'confirmed_at', 'versendet' => 'shipped_at', 'storniert' => 'cancelled_at'][$order->status] ?? null;
+            $stamp = ['bezahlt' => 'paid_at', 'bestaetigt' => 'confirmed_at', 'in_arbeit' => 'in_progress_at', 'versendet' => 'shipped_at', 'zugestellt' => 'delivered_at', 'storniert' => 'cancelled_at'][$order->status] ?? null;
             if ($stamp && ! $order->{$stamp}) {
                 $order->{$stamp} = now();
             }

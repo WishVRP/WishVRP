@@ -80,6 +80,9 @@ return [
     // Google-Profil: nur als sichtbarer Hinweis mit Datum, NIE als
     // AggregateRating-Schema (keine eigenen, auf der Seite gesammelten
     // Bewertungen). Auf null setzen, um den Hinweis auszublenden.
+    // Link „Bewertung schreiben“ (Google-Unternehmensprofil → „Bewertungen anfordern“), sonst aus der Place-ID gebaut.
+    'google_review_url' => env('GOOGLE_REVIEW_URL'),
+
     'google_rating' => [
         'value' => '5,0',
         'count' => 10,

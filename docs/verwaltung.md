@@ -149,3 +149,38 @@ Danach zeigt die Seite oben „Automatisch mit Google verbunden“ mit dem Zeitp
 - Namen und „Google“ sind mit der Bewertung bei Google verlinkt. Das verlangt Google als Quellenangabe.
 
 Bewusst ohne Bewertungs-Sterne im Google-Code (Schema): Google zeigt für selbst eingebundene Bewertungen eines Unternehmens keine Sterne in den Suchergebnissen an. Die Sterne in der Google-Suche kommen direkt aus dem Google-Unternehmensprofil. Mehr Bewertungen dort sind der wirksamste Hebel: nach jedem Kurs um eine Bewertung bitten.
+
+## Nach dem Kauf: Status-E-Mails an Kunden
+
+Alles läuft über **Bestellungen & Buchungen → Vorgang → „Status ändern“**. Jede E-Mail wird als Notiz am Vorgang festgehalten (automatische Mails: Verfasser „System“). Über **„E-Mail-Vorschau“** siehst du jede Mail vorher, ohne dass etwas verschickt wird.
+
+| Schritt | Was du tust | Was der Kunde bekommt |
+|---|---|---|
+| **In Arbeit** | Fertigungszeit eintragen (z. B. „ca. 3–4 Wochen“), optional eine persönliche Nachricht | „Wir haben mit deiner Bestellung begonnen“ mit Fertigungszeit und Fortschrittsanzeige |
+| **Versendet / abholbereit** | Versanddienst (DHL, DPD, Hermes, GLS, UPS, Post, andere) und Sendungsnummer eintragen. Der Tracking-Link wird automatisch gebaut. Bei Abholung „Abholung“ wählen. | „Dein Paket ist unterwegs“ mit Sendungsnummer und Knopf „Sendung verfolgen“, bei Abholung „Abholbereit“ |
+| **Zugestellt / abgeholt** | Klick, oder bei DHL automatisch (siehe unten) | „Dein Paket ist angekommen“ mit Pflegetipp und, falls eingewilligt, Bitte um Google-Bewertung mit direktem Link |
+| **Kurs** | nichts: geht automatisch am Abend (19 Uhr) des letzten Kurstags raus, nur wenn eingewilligt | „Danke für deinen Kurstag“ mit Bitte um Google-Bewertung. Der Vorgang wird „Abgeschlossen“. |
+
+- Das Häkchen „Kunde per E-Mail informieren“ lässt sich abschalten. Dann ändert sich nur der Status.
+- **„Bitte um Google-Bewertung senden“** schickt die Bewertungsbitte von Hand, z. B. bei Telefonbuchungen. Der Knopf erscheint nur mit Einwilligung.
+
+### Einwilligung (wichtig)
+
+Eine Bitte um Bewertung per E-Mail gilt in Deutschland ohne Einwilligung als Werbung (BGH, Urteil vom 10.07.2018 – VI ZR 225/17). Deshalb gilt:
+
+- Bei jeder Buchung und Bestellung gibt es die freiwillige, nicht vorausgewählte Checkbox „Nach dem Kurs bzw. der Lieferung darf ich um eine Bewertung gebeten werden“.
+- Ohne Häkchen bekommt der Kunde die Status-Mails, aber keine Bewertungsbitte. Nach dem Kurs geht dann gar keine Mail raus.
+- Bei Telefonbuchungen im Vorgang „Einverstanden mit Bitte um Bewertung“ nur ankreuzen, wenn die Person ausdrücklich zugestimmt hat.
+
+### Link „Bewertung schreiben“
+
+Verwaltung → Bewertungen → **„Link ‚Bewertung schreiben‘“**: den Link aus dem Google-Unternehmensprofil eintragen („Bewertungen anfordern“, sieht aus wie `https://g.page/r/…/review`). Ohne eigenen Link wird er automatisch aus der Google-Verbindung gebaut.
+
+### DHL-Zustellung automatisch erkennen (optional)
+
+1. Auf developer.dhl.com kostenlos registrieren, eine App mit der API **„Shipment Tracking – Unified“** anlegen und den API-Key kopieren.
+2. In die `.env` auf dem Server eintragen: `DHL_API_KEY=…`
+
+Danach prüft die Seite DHL-Sendungen alle 2 Stunden (8–21 Uhr). Ist ein Paket zugestellt, springt der Status auf „Zugestellt“ und die „Angekommen“-Mail geht raus. Andere Versanddienste setzt du von Hand auf „Zugestellt“.
+
+**Voraussetzung für alle Automatiken:** Der Cron-Job `php artisan schedule:run` läuft jede Minute auf dem Server (siehe Go-live).

@@ -22,6 +22,7 @@ class OrderForm
                 Section::make('Vorgang')->columns(3)->schema([
                     Select::make('type')->label('Art')->options(Order::TYPES)->required()->default('anfrage')->live(),
                     Select::make('status')->label('Status')->options(Order::STATUSES)->required()->default('neu'),
+                    \Filament\Forms\Components\Toggle::make('review_consent')->label('Einverstanden mit Bitte um Bewertung per E-Mail')->helperText('Nur ankreuzen, wenn die Person ausdrücklich zugestimmt hat (z. B. am Telefon).'),
                     Select::make('assigned_to')->label('Zuständig')->options(fn () => User::query()->pluck('name', 'id'))->placeholder('niemand'),
                 ]),
                 Section::make('Kundin / Kunde')->columns(2)->schema([
@@ -50,10 +51,22 @@ class OrderForm
                     TextInput::make('public_name')->label('Anzeigename im Edition-Raster (mit Zustimmung)')->maxLength(80),
                     Textarea::make('message')->label('Nachricht der Kundschaft')->rows(4)->columnSpanFull(),
                 ]),
+                Section::make('Fertigung & Versand')->columns(3)->visible(fn ($get) => $get('type') !== 'kurs')
+                    ->description('Am einfachsten über „Status ändern“ → „In Arbeit“ / „Versendet“ – dann geht die passende E-Mail automatisch raus.')
+                    ->schema([
+                        TextInput::make('production_time')->label('Fertigungszeit')->maxLength(80),
+                        Select::make('shipping_method')->label('Lieferung')->options(['versand' => 'Versand', 'abholung' => 'Abholung'])->placeholder('–'),
+                        Select::make('tracking_carrier')->label('Versanddienst')->options(collect(Order::CARRIERS)->map(fn ($c) => $c[0]))->placeholder('–'),
+                        TextInput::make('tracking_number')->label('Sendungsnummer')->maxLength(60),
+                        TextInput::make('tracking_url')->label('Eigener Tracking-Link')->url()->maxLength(500)->columnSpan(2),
+                    ]),
                 Section::make('Verlauf')->columns(4)->collapsed()->schema([
                     DateTimePicker::make('paid_at')->label('Bezahlt am'),
                     DateTimePicker::make('confirmed_at')->label('Bestätigt am'),
+                    DateTimePicker::make('in_progress_at')->label('In Arbeit seit'),
                     DateTimePicker::make('shipped_at')->label('Versendet am'),
+                    DateTimePicker::make('delivered_at')->label('Zugestellt am'),
+                    DateTimePicker::make('review_requested_at')->label('Bewertungsbitte gesendet'),
                     DateTimePicker::make('cancelled_at')->label('Storniert am'),
                 ]),
             ]);

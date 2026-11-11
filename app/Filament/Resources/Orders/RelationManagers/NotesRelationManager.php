@@ -30,7 +30,7 @@ class NotesRelationManager extends RelationManager
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
-                TextColumn::make('user.name')->label('Von'),
+                TextColumn::make('user.name')->label('Von')->placeholder('System'),
                 TextColumn::make('body')->label('Notiz')->wrap(),
                 TextColumn::make('created_at')->label('Wann')->since()->dateTimeTooltip('d.m.Y H:i'),
             ])

@@ -90,6 +90,17 @@ class ManageReviews extends ManageRecords
                     ]);
                     Notification::make()->title('Gesamtbewertung gespeichert')->success()->send();
                 }),
+            Action::make('bewertungslink')->label('Link „Bewertung schreiben“')->icon(Heroicon::OutlinedPencilSquare)->color('gray')
+                ->fillForm(fn () => ['url' => Setting::read('google_review_url')])
+                ->modalDescription(fn () => 'Dieser Link steckt im Knopf „Jetzt bei Google bewerten“ der E-Mails nach Zustellung und nach dem Kurs. Aktuell: '.(Reviews::writeUrl() ?? 'noch keiner – bitte eintragen oder Google verbinden').'. Den Link findest du im Google-Unternehmensprofil unter „Bewertungen anfordern“ bzw. „Profil teilen“.')
+                ->schema([
+                    TextInput::make('url')->label('Link (leer = automatisch aus der Google-Verbindung)')->url()->maxLength(500)
+                        ->rule('regex:#^https://(g\.page|maps\.app\.goo\.gl|goo\.gl|search\.google\.com|(www\.)?google\.[a-z.]+)/#i'),
+                ])
+                ->action(function (array $data) {
+                    Setting::write('google_review_url', $data['url'] ?: null);
+                    Notification::make()->title('Bewertungslink gespeichert')->success()->send();
+                }),
             CreateAction::make()->label('Bewertung hinzufügen'),
         ];
     }

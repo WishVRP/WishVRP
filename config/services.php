@@ -43,6 +43,11 @@ return [
         'refresh_minutes' => (int) env('GOOGLE_REVIEWS_REFRESH_MINUTES', 60),
     ],
 
+    // DHL Shipment Tracking (developer.dhl.com, kostenlos bis 250 Abfragen/Tag): erkennt Zustellungen automatisch.
+    'dhl' => [
+        'key' => env('DHL_API_KEY'),
+    ],
+
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),

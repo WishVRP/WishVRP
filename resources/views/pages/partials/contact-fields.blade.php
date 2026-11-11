@@ -29,3 +29,7 @@
     <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert werden (<a href="/datenschutz/">Datenschutz</a>).</span>
 </label>
 @error('consent')<p class="field__error" role="alert">{{ $message }}</p>@enderror
+<label class="check">
+    <input type="checkbox" name="review_consent" value="1" @checked(old('review_consent'))>
+    <span>Optional: Nach dem Kurs bzw. nach der Lieferung darf mich die {{ config('ulbrich.name') }} einmal per E-Mail um eine Bewertung bitten. Widerruf jederzeit per Antwort auf eine E-Mail.</span>
+</label>

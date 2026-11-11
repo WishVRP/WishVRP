@@ -29,3 +29,15 @@ Artisan::command('newsletter:weekly', function () {
 \Illuminate\Support\Facades\Schedule::command('newsletter:weekly')
     ->weeklyOn((int) config('ulbrich.newsletter.weekday') % 7, config('ulbrich.newsletter.time'))->timezone('Europe/Berlin');
 \Illuminate\Support\Facades\Schedule::command('newsletter:send-due')->everyFiveMinutes()->withoutOverlapping();
+
+// Nach dem Kurs: am Abend des letzten Kurstags Danke + Bitte um Google-Bewertung.
+Artisan::command('orders:course-reviews', function () {
+    $this->info(\App\Support\OrderAutomation::courseReviews().' Bewertungsanfrage(n) nach Kurs gesendet.');
+})->purpose('Bewertungsanfragen nach Kurstagen senden');
+\Illuminate\Support\Facades\Schedule::command('orders:course-reviews')->dailyAt('19:00')->timezone('Europe/Berlin')->withoutOverlapping();
+
+// DHL-Pakete automatisch auf „Zugestellt“ setzen (nur mit DHL_API_KEY), dann „Angekommen“-Mail mit Bewertungslink.
+Artisan::command('orders:track-deliveries', function () {
+    $this->info(\App\Support\OrderAutomation::trackDeliveries().' Sendung(en) als zugestellt erkannt.');
+})->purpose('DHL-Sendungsstatus prüfen');
+\Illuminate\Support\Facades\Schedule::command('orders:track-deliveries')->everyTwoHours()->between('8:00', '21:00')->timezone('Europe/Berlin')->withoutOverlapping();

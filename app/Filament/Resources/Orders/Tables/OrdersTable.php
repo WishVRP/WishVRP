@@ -8,7 +8,13 @@ use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use App\Support\CustomerMail;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -33,14 +39,109 @@ class OrdersTable
             });
     }
 
+    private static function notifyField(string $label = 'Kunde per E-Mail informieren'): Toggle
+    {
+        return Toggle::make('notify')->label($label)->default(true);
+    }
+
+    private static function done(Order $record, string $title, bool $sent): void
+    {
+        Notification::make()->title("{$record->number}: {$title}")
+            ->body($sent ? 'E-Mail an '.$record->email.' gesendet.' : null)->success()->send();
+    }
+
+    /** In Arbeit: Fertigungszeit angeben, Kunde bekommt „Wir haben begonnen“. */
+    public static function inProgressAction(): Action
+    {
+        return Action::make('in_arbeit')->label('In Arbeit')->icon(Heroicon::OutlinedWrenchScrewdriver)->color('warning')
+            ->visible(fn (Order $record) => $record->type !== 'kurs' && in_array($record->status, ['neu', 'zahlung_offen', 'bezahlt', 'bestaetigt'], true))
+            ->fillForm(fn (Order $record) => ['production_time' => $record->production_time ?: 'ca. 3–4 Wochen', 'notify' => true])
+            ->schema([
+                TextInput::make('production_time')->label('Voraussichtliche Fertigungszeit')->required()->maxLength(80)->placeholder('z. B. ca. 3–4 Wochen'),
+                Textarea::make('personal')->label('Persönliche Nachricht (optional, erscheint in der E-Mail)')->rows(3)->maxLength(1000),
+                self::notifyField(),
+            ])
+            ->modalDescription('Status wird „In Arbeit“. Mit Häkchen bekommt der Kunde eine E-Mail: Wir haben begonnen, Fertigung voraussichtlich …')
+            ->action(function (Order $record, array $data) {
+                $record->update(['status' => 'in_arbeit', 'production_time' => $data['production_time']]);
+                $sent = $data['notify'] && CustomerMail::send($record, 'in_arbeit', $data['personal'] ?? null);
+                self::done($record, 'In Arbeit', $sent);
+            });
+    }
+
+    /** Versendet: Versanddienst + Sendungsnummer → Tracking-Mail (bei Abholung: „Abholbereit“). */
+    public static function shippedAction(): Action
+    {
+        return Action::make('versendet')->label('Versendet / abholbereit')->icon(Heroicon::OutlinedTruck)->color('info')
+            ->visible(fn (Order $record) => $record->type !== 'kurs' && in_array($record->status, ['bezahlt', 'bestaetigt', 'in_arbeit'], true))
+            ->fillForm(fn (Order $record) => ['method' => $record->isPickup() ? 'abholung' : 'versand', 'tracking_carrier' => $record->tracking_carrier ?: 'dhl', 'notify' => true])
+            ->schema([
+                Select::make('method')->label('Art')->options(['versand' => 'Versand (Paket)', 'abholung' => 'Abholung in der Manufaktur'])->required()->native(false)->live(),
+                Select::make('tracking_carrier')->label('Versanddienst')->options(collect(Order::CARRIERS)->map(fn ($c) => $c[0]))->native(false)
+                    ->visible(fn (Get $get) => $get('method') === 'versand')->required(fn (Get $get) => $get('method') === 'versand')->live(),
+                TextInput::make('tracking_number')->label('Sendungsnummer')->maxLength(60)->regex('/^[A-Za-z0-9 \-]+$/')
+                    ->visible(fn (Get $get) => $get('method') === 'versand')->required(fn (Get $get) => $get('method') === 'versand' && $get('tracking_carrier') !== 'sonstige'),
+                TextInput::make('tracking_url')->label('Tracking-Link (nur bei anderem Versanddienst)')->url()->maxLength(500)->rule('starts_with:https://')
+                    ->visible(fn (Get $get) => $get('method') === 'versand' && $get('tracking_carrier') === 'sonstige'),
+                Textarea::make('personal')->label('Persönliche Nachricht (optional)')->rows(2)->maxLength(1000),
+                self::notifyField(),
+            ])
+            ->action(function (Order $record, array $data) {
+                $pickup = $data['method'] === 'abholung';
+                $record->update([
+                    'status' => 'versendet',
+                    'shipping_method' => $pickup ? 'abholung' : 'versand',
+                    'tracking_carrier' => $pickup ? null : $data['tracking_carrier'],
+                    'tracking_number' => $pickup ? null : (preg_replace('/\s+/', '', (string) ($data['tracking_number'] ?? '')) ?: null),
+                    'tracking_url' => $pickup ? null : ($data['tracking_url'] ?? null),
+                ]);
+                $sent = $data['notify'] && CustomerMail::send($record, $pickup ? 'abholbereit' : 'versendet', $data['personal'] ?? null);
+                self::done($record, $pickup ? 'Abholbereit' : 'Versendet', $sent);
+            });
+    }
+
+    /** Zugestellt: Kunde bekommt „Angekommen“ mit Bitte um Google-Bewertung. */
+    public static function deliveredAction(): Action
+    {
+        return Action::make('zugestellt')->label('Zugestellt / abgeholt')->icon(Heroicon::OutlinedHomeModern)->color('success')
+            ->visible(fn (Order $record) => $record->status === 'versendet')
+            ->fillForm(['notify' => true])
+            ->schema([self::notifyField('Kunde bekommt die „Angekommen“-E-Mail (mit Bitte um Google-Bewertung, falls eingewilligt)')])
+            ->modalDescription(fn (Order $record) => $record->tracking_carrier === 'dhl' && config('services.dhl.key')
+                ? 'Hinweis: DHL-Sendungen werden auch automatisch erkannt, sobald sie zugestellt sind.' : null)
+            ->action(function (Order $record, array $data) {
+                $record->update(['status' => 'zugestellt']);
+                $sent = $data['notify'] && CustomerMail::send($record, 'zugestellt');
+                self::done($record, 'Zugestellt', $sent);
+            });
+    }
+
+    /** Bewertungsanfrage von Hand (z. B. Kurs ohne Datum, Telefonbuchung). */
+    public static function reviewAction(): Action
+    {
+        return Action::make('bewertung')->label('Bitte um Google-Bewertung senden')->icon(Heroicon::OutlinedStar)->color('gray')
+            ->visible(fn (Order $record) => $record->review_consent && ! $record->review_requested_at && in_array($record->status, ['bezahlt', 'bestaetigt', 'zugestellt', 'abgeschlossen'], true))
+            ->requiresConfirmation()
+            ->modalDescription(fn (Order $record) => $record->type === 'kurs'
+                ? 'Normalerweise geht diese E-Mail am Abend des letzten Kurstags automatisch raus.'
+                : 'Schickt die „Angekommen“-E-Mail mit Link zur Google-Bewertung.')
+            ->action(function (Order $record) {
+                $sent = CustomerMail::send($record, $record->type === 'kurs' ? 'kurs' : 'zugestellt');
+                self::done($record, 'Bewertungsanfrage', $sent);
+            });
+    }
+
     public static function actions(): array
     {
         return [
             self::statusAction('zahlung_offen', 'Zahlungsdaten gesendet', 'zahlung_offen', 'info', Heroicon::OutlinedEnvelope, ['neu']),
             self::statusAction('bezahlt', 'Zahlung erhalten', 'bezahlt', 'success', Heroicon::OutlinedBanknotes, ['neu', 'zahlung_offen']),
             self::statusAction('bestaetigt', 'Bestätigen', 'bestaetigt', 'success', Heroicon::OutlinedCheckBadge, ['neu', 'zahlung_offen', 'bezahlt']),
-            self::statusAction('versendet', 'Versendet / übergeben', 'versendet', 'gray', Heroicon::OutlinedTruck, ['bezahlt', 'bestaetigt']),
-            self::statusAction('abgeschlossen', 'Abschließen', 'abgeschlossen', 'gray', Heroicon::OutlinedArchiveBox, ['bestaetigt', 'versendet']),
+            self::inProgressAction(),
+            self::shippedAction(),
+            self::deliveredAction(),
+            self::reviewAction(),
+            self::statusAction('abgeschlossen', 'Abschließen', 'abgeschlossen', 'gray', Heroicon::OutlinedArchiveBox, ['bestaetigt', 'versendet', 'zugestellt']),
             self::statusAction('storniert', 'Stornieren', 'storniert', 'danger', Heroicon::OutlinedXCircle, ['neu', 'zahlung_offen', 'bezahlt', 'bestaetigt']),
         ];
     }

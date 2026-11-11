@@ -52,4 +52,23 @@ class Reviews
 
         return array_slice([...$google, ...array_values($manual)], 0, $limit);
     }
+
+    /**
+     * Link „Bewertung schreiben“ für E-Mails.
+     * 1. eigener Link aus der Verwaltung / .env (z. B. g.page/r/…/review aus dem Google-Unternehmensprofil)
+     * 2. aus der Place-ID gebaut (öffnet direkt das Bewertungsfenster)
+     * 3. Link zum Google-Profil
+     */
+    public static function writeUrl(): ?string
+    {
+        $own = Setting::read('google_review_url') ?: config('ulbrich.google_review_url');
+        if ($own) {
+            return $own;
+        }
+        if ($id = GoogleReviews::placeId()) {
+            return 'https://search.google.com/local/writereview?placeid='.rawurlencode($id);
+        }
+
+        return self::rating()['profile_url'] ?? null;
+    }
 }

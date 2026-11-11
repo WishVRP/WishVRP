@@ -43,6 +43,8 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
   - Feed `https://<domain>/produkte.xml`
   - Rückgabe- und Versandrichtlinie hinterlegen
 - [ ] Optional **seven.io** (nur wenn die SMS-Bestätigung statt E-Mail gewünscht ist; kostet pro SMS): `SEVEN_API_KEY`, `XMAS_VERIFICATION=sms`, AV-Vertrag abschließen
+- [ ] **Bewertungslink** aus dem Google-Unternehmensprofil („Bewertungen anfordern“) in der Verwaltung → Bewertungen eintragen. Er steckt im Knopf der Mails nach Zustellung und nach dem Kurs.
+- [ ] Optional **DHL-API-Key** (developer.dhl.com, „Shipment Tracking – Unified“, kostenlos) → `DHL_API_KEY`: Zustellungen werden automatisch erkannt.
 - [ ] Optional **Brevo** o. Ä. als Newsletter-Versanddienst, falls die Mengen für das eigene Postfach zu groß werden
 
 ---
@@ -78,6 +80,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
   - Stripe
   - E-Mail-Hoster
   - ggf. seven.io oder Brevo
+- [ ] Text der Checkbox „Bitte um Bewertung per E-Mail“ und Hinweis in den Mails prüfen (BGH VI ZR 225/17). Status-Mails (In Arbeit, Versendet, Zugestellt) sind Vertragskommunikation.
 - [ ] Newsletter an Bestandskunden ohne Einwilligung (§ 7 Abs. 3 UWG): nur nach Prüfung
 - [ ] Messerversand: Altersprüfung (ab 18) bei Versand, Hinweise zum Waffengesetz (§ 42a WaffG Führverbot)
 - [ ] Englische Rechtstexte (Imprint, Privacy, Terms)
