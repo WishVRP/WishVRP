@@ -56,7 +56,7 @@ final class OrderPaid
         }
         $lines = [...$lines, '', "Fragen? {$c['phone']['display']} · {$c['email']}", '', $c['owner'], $c['name']];
         try {
-            Mail::raw(implode("\n", $lines), fn ($m) => $m->to($order->email, $order->name)->subject("Zahlung erhalten – {$order->number}"));
+            CustomerMail::send($order, 'bezahlt');   // gestaltete Zahlungs-/Buchungsbestätigung
             Mail::raw("Bezahlt: {$order->number} · {$order->typeLabel()} · {$order->summary()} · ".number_format((float) $order->amount, 2, ',', '.').' €', fn ($m) => $m->to($c['email'])->subject("Bezahlt: {$order->number}"));
         } catch (\Throwable $e) {
             report($e);

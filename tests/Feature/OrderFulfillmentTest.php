@@ -181,4 +181,41 @@ class OrderFulfillmentTest extends TestCase
         $this->app['request']->replace([]);
         $this->assertFalse(Order::create(['type' => 'anfrage', 'name' => 'B', 'email' => 'b@example.org'])->refresh()->review_consent);
     }
+
+    public function test_order_confirmation_on_receipt_and_payment_confirmation(): void
+    {
+        $order = $this->knife(['status' => 'neu', 'amount' => 289.00, 'shipping_amount' => 7.99, 'street' => 'Musterweg 1', 'postal_code' => '12345', 'city' => 'Musterstadt', 'payment_method' => 'ueberweisung']);
+
+        \App\Support\OrderMail::received($order);
+        Mail::assertSent(CustomerUpdateMail::class, fn ($m) => $m->kind === 'eingang' && $m->hasTo('max@example.org'));
+
+        config(['ulbrich.bank' => ['holder' => 'Andreas Ulbrich', 'iban' => 'DE02120300000000202051', 'bic' => 'BYLADEM1001']]);
+        $html = preg_replace('/\s+/', ' ', (new CustomerUpdateMail($order, 'eingang'))->render());
+        $this->assertStringContainsString('Danke für deine Bestellung', $html);
+        $this->assertStringContainsString('296,99 €', $html);                // 289,00 + 7,99 Versand
+        $this->assertStringContainsString('DE02 1203 0000 0000 2020 51', $html);
+        $this->assertStringContainsString('Verwendungszweck', $html);
+        $this->assertStringContainsString('Musterweg 1', $html);
+        $this->assertStringContainsString('/widerruf/', $html);
+
+        \App\Support\OrderPaid::paid($order, 'ueberweisung');
+        Mail::assertSent(CustomerUpdateMail::class, fn ($m) => $m->kind === 'bezahlt');
+        $paid = (new CustomerUpdateMail($order->refresh(), 'bezahlt'))->render();
+        $this->assertStringContainsString('Zahlung erhalten', $paid);
+        $this->assertStringNotContainsString('Zahlung per Überweisung', $paid);
+    }
+
+    public function test_course_booking_confirmation_shows_date_and_place_and_no_bank_without_config(): void
+    {
+        $this->seed(CourseSeeder::class);
+        $course = Course::query()->first();
+        $order = Order::create(['type' => 'kurs', 'status' => 'neu', 'name' => 'Lea M', 'email' => 'lea@example.org', 'course_id' => $course->id, 'course_start' => '2026-12-05', 'participants' => 2, 'amount' => 600, 'payment_method' => 'ueberweisung']);
+        $html = preg_replace('/\s+/', ' ', (new CustomerUpdateMail($order, 'eingang'))->render());
+        $this->assertStringContainsString('Danke für deine Buchung', $html);
+        $this->assertStringContainsString('Samstag, 5. Dezember 2026', $html);
+        $this->assertStringContainsString('2 Personen', $html);
+        $this->assertStringContainsString('Wannenstraße 33', $html);
+        $this->assertStringContainsString('Die Zahlungsdaten schicken wir dir in Kürze', $html);
+        $this->assertStringContainsString('/kursbedingungen/', $html);
+    }
 }

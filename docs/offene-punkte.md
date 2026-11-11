@@ -56,7 +56,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 - [ ] `php artisan migrate --force`, `php artisan storage:link`, `npm run build`
 - [ ] Cron-Job jede Minute: `php artisan schedule:run` (wöchentlicher Newsletter, Rabattcodes, Ablauf von Reservierungen)
 - [ ] Admin-Konten für Andreas und dich: `php artisan make:filament-user`, danach den Authenticator am Handy einrichten. Den Testzugang `test@ulbrich.local` vorher löschen.
-- [ ] **IBAN und Kontoinhaber** für die Zahlungsinfo in den Bestätigungs-E-Mails bei Überweisung
+- [ ] **IBAN und Kontoinhaber** für die Bestellbestätigung bei Überweisung in die `.env`: `BANK_HOLDER`, `BANK_IBAN`, `BANK_BIC`, `BANK_NAME`
 - [ ] Weiterleitungen der alten URLs nach dem Umzug prüfen (`config/redirects.php`, `docs/redirects.md`)
 - [ ] Ablauf einmal komplett durchspielen: Anfrage → Zahlungsinfo → Zahlung → Bestätigung. Zuerst mit Stripe-Testschlüssel, dann mit echtem Kleinbetrag.
 - [ ] Sicherungen (Datenbank `database/database.sqlite` und `storage/app/public`) beim Hoster einrichten
@@ -80,6 +80,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
   - Stripe
   - E-Mail-Hoster
   - ggf. seven.io oder Brevo
+- [ ] Bestellbestätigung prüfen lassen: Nach § 312f BGB müssen Vertragsinhalt, AGB und Widerrufsbelehrung dem Kunden auf einem dauerhaften Datenträger vorliegen. Die Mail verlinkt sie bisher nur. Sobald die Texte stehen, als PDF-Anhang oder Volltext in die Mail aufnehmen.
 - [ ] Text der Checkbox „Bitte um Bewertung per E-Mail“ und Hinweis in den Mails prüfen (BGH VI ZR 225/17). Status-Mails (In Arbeit, Versendet, Zugestellt) sind Vertragskommunikation.
 - [ ] Newsletter an Bestandskunden ohne Einwilligung (§ 7 Abs. 3 UWG): nur nach Prüfung
 - [ ] Messerversand: Altersprüfung (ab 18) bei Versand, Hinweise zum Waffengesetz (§ 42a WaffG Führverbot)

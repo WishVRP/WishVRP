@@ -156,6 +156,8 @@ Alles läuft über **Bestellungen & Buchungen → Vorgang → „Status ändern�
 
 | Schritt | Was du tust | Was der Kunde bekommt |
 |---|---|---|
+| **Bestellung/Buchung geht ein** | nichts, läuft automatisch | **Bestell- bzw. Buchungsbestätigung**: Übersicht (Artikel oder Kurs, Kurstag, Personen, Ort, Preis, Rabatt, Versand, Gesamt, Lieferadresse) und bei Überweisung die Bankdaten mit Verwendungszweck (= Vorgangsnummer) |
+| **Zahlung erhalten** | bei Stripe automatisch, bei Überweisung „Zahlung erhalten“ klicken | **Zahlungsbestätigung**: beim Kurs „Dein Kurstag ist fest gebucht“, bei Messern „Zahlung erhalten“ |
 | **In Arbeit** | Fertigungszeit eintragen (z. B. „ca. 3–4 Wochen“), optional eine persönliche Nachricht | „Wir haben mit deiner Bestellung begonnen“ mit Fertigungszeit und Fortschrittsanzeige |
 | **Versendet / abholbereit** | Versanddienst (DHL, DPD, Hermes, GLS, UPS, Post, andere) und Sendungsnummer eintragen. Der Tracking-Link wird automatisch gebaut. Bei Abholung „Abholung“ wählen. | „Dein Paket ist unterwegs“ mit Sendungsnummer und Knopf „Sendung verfolgen“, bei Abholung „Abholbereit“ |
 | **Zugestellt / abgeholt** | Klick, oder bei DHL automatisch (siehe unten) | „Dein Paket ist angekommen“ mit Pflegetipp und, falls eingewilligt, Bitte um Google-Bewertung mit direktem Link |
@@ -163,6 +165,8 @@ Alles läuft über **Bestellungen & Buchungen → Vorgang → „Status ändern�
 
 - Das Häkchen „Kunde per E-Mail informieren“ lässt sich abschalten. Dann ändert sich nur der Status.
 - **„Bitte um Google-Bewertung senden“** schickt die Bewertungsbitte von Hand, z. B. bei Telefonbuchungen. Der Knopf erscheint nur mit Einwilligung.
+
+Bankdaten für die Bestellbestätigung in der `.env` auf dem Server eintragen: `BANK_HOLDER`, `BANK_IBAN`, `BANK_BIC`, `BANK_NAME`. Ohne diese Werte steht in der Mail „Die Zahlungsdaten schicken wir dir in Kürze“.
 
 ### Einwilligung (wichtig)
 

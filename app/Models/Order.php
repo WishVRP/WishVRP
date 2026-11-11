@@ -75,6 +75,12 @@ class Order extends Model
         return $tpl && $this->tracking_number ? str_replace('{n}', rawurlencode($this->tracking_number), $tpl) : null;
     }
 
+    /** Zu zahlender Betrag: Betrag (nach Rabatt) + Versand − Gutschein. */
+    public function totalDue(): float
+    {
+        return max(0, round((float) $this->amount + (float) $this->shipping_amount - (float) $this->voucher_amount, 2));
+    }
+
     public function isPickup(): bool
     {
         return $this->shipping_method === 'abholung';

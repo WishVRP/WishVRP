@@ -3,6 +3,39 @@
 Hallo {{ $firstName }},
 
 @switch($kind)
+@case('eingang')
+@case('bezahlt')
+{{ $kind === 'eingang' ? 'vielen Dank! Hier ist die Übersicht deiner '.($o->type === 'kurs' ? 'Buchung' : (in_array($o->type, ['anfrage', 'service'], true) ? 'Anfrage' : 'Bestellung')).'.' : 'deine Zahlung ist eingegangen, vielen Dank!'.($o->type === 'kurs' ? ' Dein Kurstag ist damit fest gebucht.' : '') }}
+
+Vorgangsnummer: {{ $o->number }}
+@if ($o->type === 'kurs')
+Kurs: {{ $o->course?->name ?? 'Schmiedekurs' }}
+Kurstag: {{ $o->course_start ? $o->course_start->locale('de')->isoFormat('dddd, D. MMMM YYYY').($o->course_end && ! $o->course_end->isSameDay($o->course_start) ? ' – '.$o->course_end->locale('de')->isoFormat('dddd, D. MMMM YYYY') : '') : ($o->preferred_date ? 'Wunsch: '.$o->preferred_date : 'wird abgestimmt') }}
+Teilnehmer: {{ $o->participants }}
+Ort: {{ $c['name'] }}, {{ $c['address']['street'] }}, {{ $c['address']['postal_code'] }} {{ $c['address']['locality'] }}
+@else
+Artikel: {{ $o->item ?? $o->typeLabel() }}{{ $o->quantity > 1 ? ' × '.$o->quantity : '' }}
+@endif
+@if ((float) $o->amount > 0)
+{{ $kind === 'bezahlt' ? 'Bezahlt' : 'Gesamt' }}: {{ number_format($o->totalDue(), 2, ',', '.') }} €{{ (float) $o->shipping_amount > 0 ? ' (inkl. Versand '.number_format((float) $o->shipping_amount, 2, ',', '.').' €)' : '' }}
+@endif
+@if ($kind === 'eingang' && $o->totalDue() > 0 && $o->payment_method !== 'stripe' && ! in_array($o->type, ['anfrage', 'service'], true))
+
+Zahlung per Überweisung:
+@if (! empty($bank['iban']))
+Kontoinhaber: {{ $bank['holder'] ?? $c['owner'] }}
+IBAN: {{ $bank['iban'] }}
+@if (! empty($bank['bic']))BIC: {{ $bank['bic'] }}
+@endif
+Betrag: {{ number_format($o->totalDue(), 2, ',', '.') }} €
+Verwendungszweck: {{ $o->number }}
+@else
+Die Zahlungsdaten schicken wir dir in Kürze. Verwendungszweck: {{ $o->number }}
+@endif
+@endif
+
+AGB: https://messermanufaktur-ulbrich.de/agb/ · Widerruf: https://messermanufaktur-ulbrich.de/widerruf/
+@break
 @case('in_arbeit')
 gute Nachrichten aus der Werkstatt: Wir haben mit deiner Bestellung begonnen.
 @if ($o->production_time)

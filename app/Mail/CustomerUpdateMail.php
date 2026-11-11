@@ -22,6 +22,8 @@ class CustomerUpdateMail extends Mailable
     use Queueable;
 
     public const KINDS = [
+        'eingang' => 'Bestellbestätigung',
+        'bezahlt' => 'Zahlungsbestätigung',
         'in_arbeit' => 'Dein Messer ist in Arbeit',
         'versendet' => 'Dein Paket ist unterwegs',
         'abholbereit' => 'Abholbereit in der Manufaktur',
@@ -29,11 +31,26 @@ class CustomerUpdateMail extends Mailable
         'kurs' => 'Danke für deinen Kurstag',
     ];
 
+    public static function title(Order $o, string $kind): string
+    {
+        return match ($kind) {
+            'eingang' => match ($o->type) {
+                'kurs' => 'Danke für deine Buchung', 'anfrage', 'service' => 'Danke für deine Anfrage', default => 'Danke für deine Bestellung',
+            },
+            'bezahlt' => $o->type === 'kurs' ? 'Dein Kurstag ist fest gebucht' : 'Zahlung erhalten',
+            default => self::KINDS[$kind],
+        };
+    }
+
     public function __construct(public Order $order, public string $kind, public ?string $personal = null) {}
 
     public function envelope(): Envelope
     {
         $subject = match ($this->kind) {
+            'eingang' => match ($this->order->type) {
+                'kurs' => 'Buchungsbestätigung', 'gutschein' => 'Bestellbestätigung Gutschein', 'anfrage', 'service' => 'Eingangsbestätigung deiner Anfrage', default => 'Bestellbestätigung',
+            },
+            'bezahlt' => 'Zahlung erhalten – '.($this->order->type === 'kurs' ? 'dein Kurstag ist fest gebucht' : 'vielen Dank'),
             'in_arbeit' => 'Wir haben mit deiner Bestellung begonnen',
             'versendet' => 'Dein Paket ist unterwegs',
             'abholbereit' => 'Deine Bestellung liegt zur Abholung bereit',
@@ -50,18 +67,20 @@ class CustomerUpdateMail extends Mailable
             'c' => config('ulbrich'),
             'o' => $this->order,
             'kind' => $this->kind,
-            'title' => self::KINDS[$this->kind],
+            'title' => self::title($this->order, $this->kind),
+            'bank' => array_filter(config('ulbrich.bank', [])),
             'personal' => $this->personal,
             // Bitte um Bewertung nur mit Einwilligung (BGH VI ZR 225/17)
             'reviewUrl' => in_array($this->kind, ['zugestellt', 'kurs'], true) && $this->order->review_consent ? Reviews::writeUrl() : null,
             'firstName' => trim(strtok((string) $this->order->name, ' ')) ?: 'du',
-            'steps' => $this->order->type === 'kurs' ? [] : [
+            // Fortschritt nur bei Messern/Service (und Anfertigungen ab „In Arbeit“), nicht bei Kurs und Gutschein
+            'steps' => in_array($this->order->type, ['kurs', 'gutschein'], true) || ($this->order->type === 'anfrage' && in_array($this->kind, ['eingang', 'bezahlt'], true)) ? [] : [
                 ['key' => 'bestellt', 'label' => 'Bestellt'],
                 ['key' => 'in_arbeit', 'label' => 'In Arbeit'],
                 ['key' => 'versendet', 'label' => $this->order->isPickup() ? 'Abholbereit' : 'Versendet'],
                 ['key' => 'zugestellt', 'label' => $this->order->isPickup() ? 'Abgeholt' : 'Zugestellt'],
             ],
-            'stepIndex' => ['in_arbeit' => 1, 'versendet' => 2, 'abholbereit' => 2, 'zugestellt' => 3][$this->kind] ?? 0,
+            'stepIndex' => ['eingang' => 0, 'bezahlt' => 0, 'in_arbeit' => 1, 'versendet' => 2, 'abholbereit' => 2, 'zugestellt' => 3][$this->kind] ?? 0,
         ]);
     }
 }

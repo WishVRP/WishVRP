@@ -29,25 +29,10 @@ final class OrderMail
             Mail::raw(implode("\n", array_filter($lines, fn ($l) => $l !== null)), function ($m) use ($order, $c) {
                 $m->to($c['email'])->replyTo($order->email, $order->name)->subject("Neu: {$order->typeLabel()} {$order->number}");
             });
-            Mail::raw(implode("\n", [
-                "Hallo {$order->name},",
-                '',
-                "danke für deine Nachricht an die {$c['name']}. Wir haben deine {$order->typeLabel()} erhalten:",
-                $order->summary(),
-                '',
-                "Vorgangsnummer: {$order->number}",
-                '',
-                $order->type === 'kurs'
-                    ? 'Dein Platz ist verbindlich, sobald wir ihn dir nach Zahlungseingang bestätigt haben. Die Zahlungsdaten bekommst du von uns.'
-                    : 'Wir melden uns persönlich bei dir, um alle Details, den Preis und die Lieferung zu klären.',
-                '',
-                "Fragen? Ruf an: {$c['phone']['display']}",
-                '',
-                "{$c['owner']}",
-                $c['name'],
-            ]), fn ($m) => $m->to($order->email, $order->name)->subject("Deine Anfrage bei der {$c['name']} ({$order->number})"));
         } catch (\Throwable $e) {
             report($e);
         }
+        // Bestell- bzw. Buchungsbestätigung an die Kundschaft (gestaltet, mit Übersicht und Zahlungsdaten)
+        CustomerMail::send($order, 'eingang');
     }
 }

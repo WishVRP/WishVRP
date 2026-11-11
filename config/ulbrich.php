@@ -80,6 +80,14 @@ return [
     // Google-Profil: nur als sichtbarer Hinweis mit Datum, NIE als
     // AggregateRating-Schema (keine eigenen, auf der Seite gesammelten
     // Bewertungen). Auf null setzen, um den Hinweis auszublenden.
+    // Bankverbindung für Überweisungen (nur in der .env pflegen). Leer = Mail sagt „Zahlungsdaten folgen“.
+    'bank' => [
+        'holder' => env('BANK_HOLDER'),
+        'iban' => env('BANK_IBAN'),
+        'bic' => env('BANK_BIC'),
+        'name' => env('BANK_NAME'),
+    ],
+
     // Link „Bewertung schreiben“ (Google-Unternehmensprofil → „Bewertungen anfordern“), sonst aus der Place-ID gebaut.
     'google_review_url' => env('GOOGLE_REVIEW_URL'),
 

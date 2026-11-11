@@ -31,6 +31,8 @@
     <tr><td style="padding:34px 32px 8px;">
         <div style="font-family:Menlo,Consolas,monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:{{ $goldDark }};">
             @switch($kind)
+                @case('eingang') {{ $o->type === 'kurs' ? 'Buchungsbestätigung' : ($o->type === 'anfrage' || $o->type === 'service' ? 'Eingangsbestätigung' : 'Bestellbestätigung') }} @break
+                @case('bezahlt') Zahlungsbestätigung @break
                 @case('in_arbeit') Bestellstatus · In Arbeit @break
                 @case('versendet') Bestellstatus · Versendet @break
                 @case('abholbereit') Bestellstatus · Abholbereit @break
@@ -68,6 +70,26 @@
         <p style="{{ $p }}">Hallo {{ $firstName }},</p>
 
         @switch($kind)
+            @case('eingang')
+                @if ($o->type === 'kurs')
+                    <p style="{{ $p }}">vielen Dank für deine Buchung bei uns! Hier ist die Übersicht. Dein Kurstag ist verbindlich für dich reserviert, sobald deine Zahlung eingegangen ist – dann bekommst du von uns die endgültige Bestätigung.</p>
+                @elseif ($o->type === 'gutschein')
+                    <p style="{{ $p }}">vielen Dank für deine Gutscheinbestellung! Sobald deine Zahlung eingegangen ist, schicken wir dir den Gutschein mit persönlichem Code per E-Mail.</p>
+                @elseif (in_array($o->type, ['anfrage', 'service'], true))
+                    <p style="{{ $p }}">vielen Dank für deine Anfrage – sie ist bei uns angekommen. Wir melden uns persönlich bei dir, um Details, Preis und Lieferzeit zu besprechen.</p>
+                @else
+                    <p style="{{ $p }}">vielen Dank für deine Bestellung! Wir haben sie erhalten und melden uns, sobald die Zahlung eingegangen ist und wir mit deinem Messer loslegen.</p>
+                @endif
+                @break
+            @case('bezahlt')
+                @if ($o->type === 'kurs')
+                    <p style="{{ $p }}">deine Zahlung ist eingegangen – dein Kurstag ist damit fest gebucht. Wir freuen uns auf dich an der Esse!</p>
+                @elseif ($o->type === 'gutschein')
+                    <p style="{{ $p }}">deine Zahlung ist eingegangen, vielen Dank! Den Gutschein mit persönlichem Code bekommst du in einer eigenen E-Mail.</p>
+                @else
+                    <p style="{{ $p }}">deine Zahlung ist eingegangen, vielen Dank! {{ $o->isPickup() ? 'Wir melden uns, um einen Abholtermin in der Manufaktur abzustimmen.' : 'Wir melden uns, sobald dein Messer in Arbeit bzw. unterwegs ist.' }}</p>
+                @endif
+                @break
             @case('in_arbeit')
                 <p style="{{ $p }}">gute Nachrichten aus der Werkstatt: Wir haben mit deiner Bestellung begonnen. Ab jetzt wird geschmiedet, geschliffen und von Hand montiert – mit der Sorgfalt, die ein Messer für viele Jahre braucht.</p>
                 @break
@@ -91,6 +113,82 @@
             </tr></table>
         @endif
     </td></tr>
+
+    {{-- Bestellübersicht (Bestell- und Zahlungsbestätigung) --}}
+    @if (in_array($kind, ['eingang', 'bezahlt'], true))
+    @php
+        $eur = fn ($v) => number_format((float) $v, 2, ',', '.').' €';
+        $row = 'padding:9px 0;border-bottom:1px solid '.$line.';font-family:Arial,Helvetica,sans-serif;font-size:14px;';
+        $lbl = $row.'color:'.$muted.';width:42%;vertical-align:top;';
+        $courseDays = $o->type === 'kurs' && $o->course_start
+            ? $o->course_start->locale('de')->isoFormat('dddd, D. MMMM YYYY').($o->course_end && ! $o->course_end->isSameDay($o->course_start) ? ' – '.$o->course_end->locale('de')->isoFormat('dddd, D. MMMM YYYY') : '')
+            : null;
+        $amount = (float) $o->amount;
+        $before = $o->discount_percent ? round($amount / (1 - $o->discount_percent / 100), 2) : null;
+    @endphp
+    <tr><td style="padding:4px 32px 8px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid {{ $night }};">
+            <tr><td style="{{ $lbl }}">Vorgangsnummer</td><td style="{{ $row }}font-family:Menlo,Consolas,monospace;">{{ $o->number }}</td></tr>
+            <tr><td style="{{ $lbl }}">Datum</td><td style="{{ $row }}">{{ ($o->created_at ?? now())->locale('de')->isoFormat('D. MMMM YYYY') }}</td></tr>
+            @if ($o->type === 'kurs')
+                <tr><td style="{{ $lbl }}">Kurs</td><td style="{{ $row }}"><b>{{ $o->course?->name ?? 'Schmiedekurs' }}</b></td></tr>
+                <tr><td style="{{ $lbl }}">Kurstag</td><td style="{{ $row }}">{{ $courseDays ?? ($o->preferred_date ? 'Wunsch: '.$o->preferred_date : 'wird abgestimmt') }}</td></tr>
+                <tr><td style="{{ $lbl }}">Teilnehmer</td><td style="{{ $row }}">{{ $o->participants }} {{ $o->participants == 1 ? 'Person' : 'Personen' }}</td></tr>
+                <tr><td style="{{ $lbl }}">Ort</td><td style="{{ $row }}">{{ $c['name'] }}, {{ $a['street'] }}, {{ $a['postal_code'] }} {{ $a['locality'] }} ({{ $a['district'] }})</td></tr>
+            @else
+                <tr><td style="{{ $lbl }}">{{ in_array($o->type, ['anfrage', 'service'], true) ? 'Anliegen' : 'Artikel' }}</td><td style="{{ $row }}"><b>{{ $o->item ?? $o->typeLabel() }}</b>@if ($o->quantity > 1) × {{ $o->quantity }}@endif</td></tr>
+            @endif
+            @if ($amount > 0)
+                @if ($before)
+                    <tr><td style="{{ $lbl }}">Preis</td><td style="{{ $row }}">{{ $eur($before) }}</td></tr>
+                    <tr><td style="{{ $lbl }}">Rabatt {{ $o->discount_percent }} %@if ($o->discount_code) ({{ $o->discount_code }})@endif</td><td style="{{ $row }}">− {{ $eur($before - $amount) }}</td></tr>
+                @else
+                    <tr><td style="{{ $lbl }}">Preis</td><td style="{{ $row }}">{{ $eur($amount) }}</td></tr>
+                @endif
+                @if ((float) $o->shipping_amount > 0)
+                    <tr><td style="{{ $lbl }}">Versand</td><td style="{{ $row }}">{{ $eur($o->shipping_amount) }}</td></tr>
+                @endif
+                @if ((float) $o->voucher_amount > 0)
+                    <tr><td style="{{ $lbl }}">Gutschein</td><td style="{{ $row }}">− {{ $eur($o->voucher_amount) }}</td></tr>
+                @endif
+                <tr><td style="{{ $row }}font-weight:bold;color:{{ $ink }};">{{ $kind === 'bezahlt' ? 'Bezahlt' : 'Gesamt' }}</td><td style="{{ $row }}font-size:18px;font-weight:bold;">{{ $eur($o->totalDue()) }}</td></tr>
+            @endif
+            @if (! in_array($o->type, ['kurs', 'anfrage', 'service'], true) && $o->shipping_method)
+                <tr><td style="{{ $lbl }}">Lieferung</td><td style="{{ $row }}">
+                    @if ($o->isPickup()) Abholung in der Manufaktur ({{ $a['district'] }}), Termin nach Absprache
+                    @else Versand an: {{ $o->name }}@if ($o->street), {{ $o->street }}, {{ $o->postal_code }} {{ $o->city }}@if ($o->country && ! in_array(mb_strtolower($o->country), ['de', 'deutschland', 'germany'], true)), {{ $o->country }}@endif @endif
+                    @endif
+                </td></tr>
+            @endif
+            @if ($kind === 'bezahlt' && $o->payment_method)
+                <tr><td style="{{ $lbl }}">Zahlart</td><td style="{{ $row }}">{{ ['stripe' => 'Online (Karte & Co.)', 'ueberweisung' => 'Überweisung', 'bar' => 'Bar', 'karte' => 'Karte vor Ort', 'gutschein' => 'Gutschein', 'rabatt' => '–'][$o->payment_method] ?? $o->payment_method }}</td></tr>
+            @endif
+        </table>
+        @if ($amount > 0)
+            <div style="margin-top:6px;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:{{ $muted }};">Preise wie auf der Website angegeben.</div>
+        @endif
+    </td></tr>
+
+    {{-- Zahlung per Überweisung --}}
+    @if ($kind === 'eingang' && $o->totalDue() > 0 && $o->payment_method !== 'stripe' && ! in_array($o->type, ['anfrage', 'service'], true))
+    <tr><td style="padding:16px 32px 4px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2px dashed {{ $gold }};border-radius:6px;">
+            <tr><td style="padding:18px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.7;">
+                <div style="font-family:Menlo,Consolas,monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:{{ $goldDark }};margin-bottom:6px;">Zahlung per Überweisung</div>
+                @if (! empty($bank['iban']))
+                    Kontoinhaber: <b>{{ $bank['holder'] ?? $c['owner'] }}</b><br>
+                    IBAN: <span style="font-family:Menlo,Consolas,monospace;font-size:15px;letter-spacing:1px;">{{ trim(chunk_split(str_replace(' ', '', $bank['iban']), 4, ' ')) }}</span><br>
+                    @if (! empty($bank['bic']))BIC: {{ $bank['bic'] }}@if (! empty($bank['name'])) · {{ $bank['name'] }}@endif<br>@endif
+                    Betrag: <b>{{ number_format($o->totalDue(), 2, ',', '.') }} €</b><br>
+                    Verwendungszweck: <b style="font-family:Menlo,Consolas,monospace;">{{ $o->number }}</b>
+                @else
+                    Die Zahlungsdaten schicken wir dir in Kürze per E-Mail. Betrag: <b>{{ number_format($o->totalDue(), 2, ',', '.') }} €</b>, Verwendungszweck: <b style="font-family:Menlo,Consolas,monospace;">{{ $o->number }}</b>.
+                @endif
+            </td></tr>
+        </table>
+    </td></tr>
+    @endif
+    @endif
 
     {{-- Infokasten --}}
     @if ($kind === 'in_arbeit' && $o->production_time || $kind === 'versendet' || in_array($kind, ['zugestellt', 'abholbereit'], true))
@@ -157,7 +255,8 @@
     <tr><td style="padding:20px 32px;background:{{ $night }};font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.7;color:#9aa0aa;">
         {{ $c['name'] }} · {{ $c['owner'] }} · {{ $a['street'] }} · {{ $a['postal_code'] }} {{ $a['locality'] }}<br>
         Telefon {{ $c['phone']['display'] }} · <a href="mailto:{{ $c['email'] }}" style="color:#9aa0aa;">{{ $c['email'] }}</a> · <a href="{{ $site }}/" style="color:{{ $gold }};text-decoration:none;">messermanufaktur-ulbrich.de</a><br>
-        <a href="{{ $site }}/impressum/" style="color:#9aa0aa;">Impressum</a> · <a href="{{ $site }}/datenschutz/" style="color:#9aa0aa;">Datenschutz</a><br>
+        <a href="{{ $site }}/impressum/" style="color:#9aa0aa;">Impressum</a> · <a href="{{ $site }}/datenschutz/" style="color:#9aa0aa;">Datenschutz</a>
+        @if (in_array($kind, ['eingang', 'bezahlt'], true)) · <a href="{{ $site }}/agb/" style="color:#9aa0aa;">AGB</a> · <a href="{{ $site }}/widerruf/" style="color:#9aa0aa;">Widerrufsbelehrung</a>@if ($o->type === 'kurs') · <a href="{{ $site }}/kursbedingungen/" style="color:#9aa0aa;">Kursbedingungen</a>@endif @endif<br>
         <span style="color:#6f7580;">Diese E-Mail gehört zu deiner Bestellung bzw. Buchung {{ $o->number }}.@if ($reviewUrl) Die Bitte um eine Bewertung bekommst du, weil du bei der Bestellung zugestimmt hast; keine weiteren Anfragen gewünscht? Antworte einfach auf diese E-Mail.@endif</span>
     </td></tr>
 </table>
