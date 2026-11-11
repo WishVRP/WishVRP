@@ -74,13 +74,7 @@ export function startXmasGame(root) {
     const form = $('[data-xmas-form]'), errorEl = $('[data-xmas-error]');
     const headline = $('[data-xmas-headline]'), prize = $('[data-xmas-prize]'), codeEl = $('[data-xmas-code]'), note = $('[data-xmas-note]');
     const csrf = form.querySelector('[name=_token]').value;
-    let token = null, practice = false;
-    const practiceBtn = $('[data-xmas-practice]'), practiceOut = $('[data-xmas-practice-result]');
-    practiceBtn.addEventListener('click', () => {
-        practice = true; token = null;
-        reset(); state = 'play'; startBox.hidden = true; endBox.hidden = true; root.focus({ preventScroll: true });
-        last = performance.now(); requestAnimationFrame(loop);
-    });
+    let token = null;
 
     async function post(url, data) {
         const res = await fetch(url, { method: 'POST', headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json' }, body: data, credentials: 'same-origin' });
@@ -110,7 +104,7 @@ export function startXmasGame(root) {
         try {
             const r = await post(root.dataset.start, new FormData(form));
             if (r.status === 'played') { showResult(r, true); return; }
-            token = r.token; practice = false;
+            token = r.token;
             reset(); state = 'play'; startBox.hidden = true; endBox.hidden = true; root.focus({ preventScroll: true });
             last = performance.now(); requestAnimationFrame(loop);
         } catch (e) {
@@ -120,12 +114,6 @@ export function startXmasGame(root) {
 
     async function end() {
         state = 'over';
-        if (practice) {
-            practiceOut.textContent = `Übungsrunde: ${score} Treffer. Bereit? Jetzt mit deiner E-Mail um den Rabatt spielen – das geht nur einmal.`;
-            practiceOut.hidden = false; startBox.hidden = false;
-            practiceBtn.textContent = 'Nochmal üben';
-            return;
-        }
         if (score > store.get()) store.set(score);
         bestEl.textContent = store.get() || '–';
         headline.textContent = 'Auswertung …'; prize.textContent = '…'; codeEl.hidden = true; note.textContent = '';

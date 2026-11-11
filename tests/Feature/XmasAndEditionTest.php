@@ -144,7 +144,8 @@ class XmasAndEditionTest extends TestCase
         $this->assertStringContainsString('Jede Person kann nur einmal teilnehmen.', $html);
         $this->assertStringContainsString('höchstens 10 %', $html);
         $this->assertStringContainsString('Gültig bis 31. Dezember 2026', $html);
-        $this->assertStringContainsString('data-xmas-practice', $html);
+        $this->assertStringNotContainsString('data-xmas-practice', $html, 'keine Übungsrunde');
+        $this->assertStringContainsString('Es gibt keine Probe- oder Übungsrunde.', $html);
         $this->assertStringContainsString('href="/weihnachtsaktion/"', $this->get('/')->getContent());
         $this->assertStringContainsString('name="discount_code"', $this->get('/klappmesser/')->getContent());
 

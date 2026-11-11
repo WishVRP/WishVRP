@@ -46,7 +46,7 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
 
 ## Weihnachtsaktion „Schneeballschlacht“
 - Seite `/weihnachtsaktion/`, Banner auf der Startseite und auf `/geschenke/weihnachten/`. Spielbar bis 24.12.2026 (`ulbrich.xmas.ends_on`), **Codes einlösbar bis 31.12.2026** (`valid_until`).
-- **Anspruchsvoll:** langsame Schneebälle (vorhalten), wechselnder Wind mit Anzeige, Wolken fangen Bälle ab und verstecken den Weihnachtsmann. Er weicht aus, wechselt unvorhersehbar Richtung und Höhe und wird schneller. Nachladezeit 0,45 s, höchstens 2 Bälle gleichzeitig. **Übungsrunden ohne Rabatt sind beliebig oft möglich.**
+- **Anspruchsvoll:** langsame Schneebälle (vorhalten), wechselnder Wind mit Anzeige, Wolken fangen Bälle ab und verstecken den Weihnachtsmann. Er weicht aus, wechselt unvorhersehbar Richtung und Höhe und wird schneller. Nachladezeit 0,45 s, höchstens 2 Bälle gleichzeitig. **Keine Übungsrunde:** Es gibt genau einen Versuch.
 - **Kalibrierung:** Automatische Testspieler mit pixelgenauem Zielen schafften 5–6 Treffer pro Runde.
 - **Ablauf:** E-Mail eingeben und Teilnahmebedingungen bestätigen → 30 Sekunden spielen → Treffer werden gezählt → Rabatt und persönlicher Code erscheinen und kommen per E-Mail.
 - **Rabattstufen (`config/ulbrich.php → xmas.tiers`):** 0–3 Treffer = kein Rabatt, 4–9 Treffer = **5 %**, ab 10 Treffern = **10 %**. **Höchstens 10 %** ist fest eingebaut (`max_percent`).

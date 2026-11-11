@@ -6,7 +6,7 @@
 @endphp
 <x-layouts.site :meta="$meta" :schema="$schema" :current="$path">
     <x-page.hero :meta="$meta" title="Schneeballschlacht mit dem Weihnachtsmann" kicker="Weihnachtsaktion" tone="blue"
-        lead="Der Weihnachtsmann fliegt über die Werkstatt – und er ist flink. Triff ihn in {{ $x['seconds'] }} Sekunden so oft du kannst: Wind, Wolken und Ausweichmanöver machen es dir nicht leicht. Je mehr Treffer, desto mehr Rabatt, bis zu {{ $x['max_percent'] }} %. Üben darfst du beliebig oft, um den Rabatt spielen nur einmal." />
+        lead="Der Weihnachtsmann fliegt über die Werkstatt – und er ist flink. Triff ihn in {{ $x['seconds'] }} Sekunden so oft du kannst: Wind, Wolken und Ausweichmanöver machen es dir nicht leicht. Je mehr Treffer, desto mehr Rabatt, bis zu {{ $x['max_percent'] }} %. Du hast genau einen Versuch – ohne Probelauf." />
 
     <section class="block xmas" aria-labelledby="xmas-h">
         <div class="container">
@@ -34,9 +34,7 @@
                             <p class="xmas__error" data-xmas-error role="alert" hidden></p>
                             <button type="submit" class="btn btn--primary btn--lg">Um den Rabatt spielen – {{ $x['seconds'] }} Sekunden</button>
                         </form>
-                        <p class="xmas__practice" data-xmas-practice-result hidden></p>
-                        <button type="button" class="btn btn--secondary" data-xmas-practice>Erst üben (ohne Rabatt, beliebig oft)</button>
-                        <p class="xmas__hint">Die Schneebälle fliegen langsam – wirf dorthin, wo der Weihnachtsmann gleich sein wird. Achte auf den Wind, Wolken fangen Bälle ab. Tastatur: ← → zielen, Leertaste werfen. Mit dem Start der Rabatt-Runde zählt deine Teilnahme.</p>
+                        <p class="xmas__hint">Die Schneebälle fliegen langsam – wirf dorthin, wo der Weihnachtsmann gleich sein wird. Achte auf den Wind, Wolken fangen Bälle ab. Tastatur: ← → zielen, Leertaste werfen. Es gibt nur diesen einen Versuch – mit dem Start zählt deine Teilnahme.</p>
                     </div>
                     <div class="xmas__overlay" data-xmas-end hidden>
                         <p class="xmas__title" data-xmas-headline>Ho ho ho!</p>
@@ -70,7 +68,7 @@
                 <h2 id="teilnahmebedingungen">Teilnahmebedingungen</h2>
                 <ul>
                     <li><b>Jede Person kann nur einmal teilnehmen.</b> Die Teilnahme ist an deine E-Mail-Adresse gebunden; mit dem Start des Spiels zählt sie, auch wenn du das Spiel abbrichst oder die Seite neu lädst. Mehrfachteilnahmen, etwa mit weiteren E-Mail-Adressen, sind nicht erlaubt; so erzielte Codes können wir ablehnen.</li>
-                    <li>Das Spiel dauert {{ $x['seconds'] }} Sekunden. Gewertet wird die Zahl der Treffer. Übungsrunden sind beliebig oft möglich und zählen nicht.</li>
+                    <li>Das Spiel dauert {{ $x['seconds'] }} Sekunden. Gewertet wird die Zahl der Treffer. Es gibt keine Probe- oder Übungsrunde.</li>
                     <li>Der Rabatt beträgt je nach Treffern {{ $tiers->pluck('percent')->unique()->implode(' oder ') }} %, <b>höchstens {{ $x['max_percent'] }} %</b>.</li>
                     <li>Du bekommst einen persönlichen Code, der <b>einmal</b> bei einer Bestellung oder Kursbuchung über diese Website eingelöst werden kann – einfach im Formular ins Feld „Rabattcode“ eintragen. Gültig bis {{ $until }}.</li>
                     <li>Der Rabatt gilt auf den Preis der Bestellung bzw. Buchung ohne Versandkosten, ist nicht mit anderen Rabatten kombinierbar und wird nicht bar ausgezahlt.</li>
