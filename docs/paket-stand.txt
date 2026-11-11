@@ -1,0 +1,3 @@
+# Stand der an die Testumgebung gelieferten Pakete (Commit, Datum, Datei).
+# Letzte Zeile = Basis für das nächste Update-Paket (scripts/update-paket.sh).
+6189a0e9c68360bf1b1237a658565d69d117af43 2026-11-11 ulbrich-test.zip (Vollpaket)
