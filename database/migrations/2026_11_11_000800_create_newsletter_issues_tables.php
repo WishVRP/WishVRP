@@ -52,7 +52,7 @@ return new class extends Migration
             $table->foreignId('discount_code_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamp('sent_at')->nullable();
             $table->timestamps();
-            $table->unique(['newsletter_issue_id', 'newsletter_subscriber_id']);
+            $table->unique(['newsletter_issue_id', 'newsletter_subscriber_id'], 'nl_deliveries_issue_subscriber_unique');   // kurzer Name: MySQL erlaubt max. 64 Zeichen
         });
     }
 

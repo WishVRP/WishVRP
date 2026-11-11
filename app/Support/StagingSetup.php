@@ -5,21 +5,24 @@ namespace App\Support;
 use Illuminate\Support\Facades\Artisan;
 
 /**
- * Testumgebung ohne SSH: Datenbank anlegen bzw. auf den neuesten Stand bringen.
- * Läuft nur bei APP_ENV=staging und nur, wenn sich die Migrationsdateien geändert haben
- * (Merker in storage/app/.migrated). Bestehende Daten (Admin-Konto, Bestellungen) bleiben erhalten.
+ * Hosting ohne SSH (z. B. IONOS Webhosting per FTP): Datenbank anlegen bzw. auf den neuesten Stand bringen.
+ * Aktiv in der Testumgebung (APP_ENV=staging) und in Produktion mit AUTO_SETUP=true.
+ * Läuft nur, wenn sich die Migrationsdateien geändert haben (Merker in storage/app/.migrated) oder die
+ * Datenbank leer ist. Bestehende Daten (Admin-Konten, Bestellungen) bleiben erhalten – Migrationen ergänzen nur.
+ * Funktioniert mit SQLite (Datei) und MySQL/MariaDB (z. B. IONOS-Datenbank).
  */
 class StagingSetup
 {
     public static function run(): void
     {
-        if (! app()->environment('staging') || app()->runningInConsole()) {
+        if (! config('ulbrich_admin.auto_setup') || app()->runningInConsole()) {
             return;
         }
         $hash = md5(implode('|', array_map('basename', glob(database_path('migrations/*.php')) ?: [])));
         $marker = storage_path('app/.migrated');
         $db = config('database.default') === 'sqlite' ? config('database.connections.sqlite.database') : null;
-        $dbEmpty = $db && (! is_file($db) || filesize($db) === 0);   // fehlt oder wurde durch eine leere Datei ersetzt
+        $dbEmpty = $db ? (! is_file($db) || filesize($db) === 0)   // SQLite: fehlt oder wurde durch eine leere Datei ersetzt
+            : ! self::hasMigrationsTable();                         // MySQL: noch keine Tabellen
         if (! $dbEmpty && is_file($marker) && trim((string) file_get_contents($marker)) === $hash) {
             return;
         }
@@ -41,6 +44,15 @@ class StagingSetup
             file_put_contents($marker, $hash);   // kein erneuter Versuch bei jeder Anfrage
             flock($lock, LOCK_UN);
             fclose($lock);
+        }
+    }
+
+    private static function hasMigrationsTable(): bool
+    {
+        try {
+            return \Illuminate\Support\Facades\Schema::hasTable('migrations');
+        } catch (\Throwable) {
+            return true;   // Datenbank nicht erreichbar: nichts versuchen, Fehler zeigt die Seite selbst
         }
     }
 }

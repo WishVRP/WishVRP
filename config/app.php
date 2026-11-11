@@ -98,8 +98,9 @@ return [
     'cipher' => 'AES-256-CBC',
 
     // Testumgebung ohne SSH: fehlt APP_KEY, wird einmalig ein Schlüssel in storage/app/.app-key erzeugt.
-    // In Produktion nie – dort muss APP_KEY in der .env stehen.
-    'key' => env('APP_KEY') ?: (env('APP_ENV') === 'staging' ? (function () {
+    // In Produktion ohne AUTO_SETUP nie – dort muss APP_KEY in der .env stehen.
+    // Gilt für die Testumgebung und für Produktion mit AUTO_SETUP=true (Hosting ohne SSH).
+    'key' => env('APP_KEY') ?: (env('APP_ENV') === 'staging' || env('AUTO_SETUP') ? (function () {
         $file = storage_path('app/.app-key');
         if (! is_file($file)) {
             @file_put_contents($file, 'base64:'.base64_encode(random_bytes(32)));

@@ -33,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->path(config('ulbrich_admin.path'))
             ->brandName('Ulbrich Verwaltung')
             ->login()
-            // Testumgebung ohne SSH: Das allererste Admin-Konto wird über /verwaltung/register angelegt.
+            // Ohne SSH: Das allererste Admin-Konto wird über /{ADMIN_PATH}/register angelegt (Testumgebung bzw. ADMIN_SETUP_OPEN).
             // Sobald ein Konto existiert (und in Produktion immer), ist die Registrierung aus.
             ->registration($this->firstSetup() ? \Filament\Auth\Pages\Register::class : null)
             // 2FA per Authenticator-App ist Pflicht; ohne Einrichtung kein Zugriff.
@@ -77,7 +77,8 @@ class AdminPanelProvider extends PanelProvider
 
     private function firstSetup(): bool
     {
-        if (! app()->environment('staging')) {
+        // Testumgebung, oder Produktion mit ADMIN_SETUP_OPEN=true (einmalig fürs erste Konto ohne SSH).
+        if (! app()->environment('staging') && ! config('ulbrich_admin.setup_open')) {
             return false;
         }
         try {
