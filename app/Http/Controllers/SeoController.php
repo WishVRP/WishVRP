@@ -11,7 +11,14 @@ class SeoController extends Controller
     public function robots(): Response
     {
         $lines = config('seo.indexable')
-            ? ['User-agent: *', 'Allow: /', '', 'Sitemap: '.PageMeta::absolute('/sitemap.xml')]
+            ? [
+                'User-agent: *', 'Allow: /', '',
+                // KI-Suche und -Assistenten ausdrücklich zulassen (GEO): sie sollen die Fakten korrekt zitieren können.
+                '# KI-Crawler', 'User-agent: GPTBot', 'User-agent: OAI-SearchBot', 'User-agent: ChatGPT-User',
+                'User-agent: ClaudeBot', 'User-agent: Claude-SearchBot', 'User-agent: PerplexityBot',
+                'User-agent: Google-Extended', 'User-agent: Applebot-Extended', 'User-agent: CCBot', 'Allow: /', '',
+                'Sitemap: '.PageMeta::absolute('/sitemap.xml'),
+            ]
             // Staging/Vorschau: komplett gesperrt (zusätzlich X-Robots-Tag noindex).
             : ['User-agent: *', 'Disallow: /'];
 

@@ -51,6 +51,7 @@ final class Schema
             ],
             'openingHoursSpecification' => $hours,
             'founder' => ['@id' => self::personId()],
+            'disambiguatingDescription' => "Messerschmiede mit Schmiedekursen in {$c['address']['district']}, {$c['address']['locality']} (Landkreis Heilbronn, Baden-Württemberg), Inhaber {$c['owner']}.",
             'description' => "Schmiedekurse und handgefertigte Messer von {$c['owner_role']} {$c['owner']} – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie, heute in {$c['heritage']['generation']}. Generation.",
             'knowsAbout' => ['Messerschmieden', 'Damaststahl', 'Klappmesser', 'Schmiedekurse'],
             'sameAs' => $c['same_as'] ?: null,

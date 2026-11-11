@@ -62,4 +62,21 @@ class SeoQualityTest extends TestCase
         $this->assertStringContainsString('href="/schmiedekurse/"', $html);
         $this->assertSame(1, substr_count($html, '<h1'));
     }
+
+    public function test_ai_crawlers_allowed_and_entity_is_unambiguous(): void
+    {
+        config(['seo.indexable' => true]);
+        $robots = $this->get('/robots.txt')->getContent();
+        foreach (['GPTBot', 'ClaudeBot', 'PerplexityBot', 'Google-Extended'] as $bot) {
+            $this->assertStringContainsString("User-agent: {$bot}", $robots);
+        }
+        $this->assertStringNotContainsString('Disallow: /', $robots);
+
+        $home = $this->get('/')->getContent();
+        $this->assertStringContainsString('"disambiguatingDescription"', $home);
+
+        $profile = $this->get('/manufaktur/')->getContent();
+        $this->assertStringContainsString('Die Messermanufaktur Ulbrich auf einen Blick', $profile);
+        $this->assertStringContainsString('Schmiedehandwerk seit 1934', $profile);
+    }
 }

@@ -36,6 +36,8 @@
         </div>
     </x-page.section>
 
+    @include('pages.partials.fact-profile')
+
     @include('pages.home.04-finder')
 
     <x-page.cta title="Termin in der Werkstatt?" />

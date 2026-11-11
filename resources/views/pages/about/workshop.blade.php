@@ -27,6 +27,8 @@
         </div>
     </x-page.section>
 
+    @include('pages.partials.fact-profile')
+
     @include('pages.home.10-process')
 
     <x-page.section title="Mehr über die Manufaktur" kicker="Weiterlesen">

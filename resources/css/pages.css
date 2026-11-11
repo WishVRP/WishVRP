@@ -641,3 +641,9 @@ a.path-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px r
 .article__grid { grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 64rem) { .article__grid { grid-template-columns: 16rem minmax(0, 1fr); } }
 .article__grid > * { min-width: 0; }
+
+/* ---------- Kurzprofil ---------- */
+.fact-profile { display: grid; gap: var(--space-6); align-items: start; }
+@media (min-width: 60rem) { .fact-profile { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-8); } }
+.fact-profile__list dd { overflow-wrap: anywhere; }
+.heritage { overflow: hidden; }
