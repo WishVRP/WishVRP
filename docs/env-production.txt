@@ -1,0 +1,62 @@
+# ============================================================
+# Echte Website (IONOS) – Werte direkt auf dem Server eintragen,
+# NIE in Chat, E-Mail oder Git. Leere Zeilen = optional.
+# ============================================================
+
+APP_URL=https://messermanufaktur-ulbrich.de
+
+# --- IONOS-Datenbank (IONOS → Hosting → Datenbanken → Datenbank anklicken) ---
+DB_CONNECTION=mysql
+DB_HOST=            # z. B. db5012345678.hosting-data.io
+DB_PORT=3306
+DB_DATABASE=        # z. B. dbs12345678
+DB_USERNAME=        # z. B. dbu1234567
+DB_PASSWORD=
+
+# --- E-Mail-Versand über das IONOS-Postfach info@ ---
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.ionos.de
+MAIL_PORT=587
+MAIL_SCHEME=smtp           # 587 mit STARTTLS
+MAIL_USERNAME=info@messermanufaktur-ulbrich.de
+MAIL_PASSWORD=
+MAIL_FROM_ADDRESS=info@messermanufaktur-ulbrich.de
+MAIL_FROM_NAME="Messermanufaktur Ulbrich"
+
+# --- Bankverbindung für die Bestellbestätigung ---
+BANK_HOLDER=
+BANK_IBAN=
+BANK_BIC=
+BANK_NAME=
+
+# --- Verwaltung ---
+ADMIN_PATH=verwaltung      # besser: eigenes, nicht erratbares Wort
+ADMIN_SETUP_OPEN=true      # nur für das erste Konto; danach auf false setzen
+
+# --- Optional (später) ---
+STRIPE_SECRET=
+STRIPE_WEBHOOK_SECRET=
+GOOGLE_PLACES_KEY=
+GOOGLE_REVIEW_URL=
+DHL_API_KEY=
+NEWSLETTER_AUTO=false      # true, sobald die Datenschutzerklärung steht
+
+# --- Ab hier nichts ändern ---
+APP_NAME="Messermanufaktur Ulbrich"
+APP_ENV=production
+APP_KEY=
+APP_DEBUG=false
+APP_LOCALE=de
+APP_FALLBACK_LOCALE=de
+AUTO_SETUP=true
+SEO_INDEXABLE=true
+LOG_CHANNEL=single
+LOG_LEVEL=warning
+SESSION_DRIVER=database
+SESSION_SECURE_COOKIE=true
+QUEUE_CONNECTION=sync
+CACHE_STORE=database
+FILESYSTEM_DISK=local
+PUBLIC_STORAGE_IN_PUBLIC=true
+XMAS_VERIFICATION=email
+ADMIN_MFA_REQUIRED=true

@@ -1,0 +1,30 @@
+# Testumgebung – nur diese Zeilen anpassen:
+APP_URL=https://tv.messermanufaktur-ulbrich.de
+STAGING_PASSWORD=
+
+# Optional: Google-Bewertungen automatisch
+GOOGLE_PLACES_KEY=
+
+# Ab hier nichts ändern
+STAGING_USER=ulbrich
+APP_NAME="Messermanufaktur Ulbrich"
+APP_ENV=staging
+APP_KEY=
+APP_DEBUG=false
+APP_LOCALE=de
+APP_FALLBACK_LOCALE=de
+LOG_CHANNEL=single
+LOG_LEVEL=warning
+DB_CONNECTION=sqlite
+SESSION_DRIVER=database
+SESSION_SECURE_COOKIE=true
+QUEUE_CONNECTION=sync
+CACHE_STORE=database
+FILESYSTEM_DISK=local
+PUBLIC_STORAGE_IN_PUBLIC=true
+MAIL_MAILER=log
+MAIL_FROM_ADDRESS=info@messermanufaktur-ulbrich.de
+MAIL_FROM_NAME="Messermanufaktur Ulbrich"
+XMAS_VERIFICATION=email
+NEWSLETTER_AUTO=false
+ADMIN_MFA_REQUIRED=true
