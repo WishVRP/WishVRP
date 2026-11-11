@@ -14,13 +14,11 @@
         <span class="field__label">Telefon</span>
         <input type="tel" name="phone" maxlength="40" autocomplete="tel" value="{{ old('phone') }}">
     </label>
-    @if (now()->lte(\App\Models\XmasEntry::validUntil()) && config('ulbrich.xmas.enabled'))
-        <label class="field">
-            <span class="field__label">Rabattcode (Weihnachtsaktion, optional)</span>
-            <input type="text" name="discount_code" maxlength="20" autocomplete="off" value="{{ old('discount_code') }}" placeholder="XMAS-…">
-            @error('discount_code')<span class="field__error" role="alert">{{ $message }}</span>@enderror
-        </label>
-    @endif
+    <label class="field">
+        <span class="field__label">Rabattcode (optional)</span>
+        <input type="text" name="discount_code" maxlength="20" autocomplete="off" value="{{ old('discount_code') }}" placeholder="z. B. aus Newsletter oder Weihnachtsaktion">
+        @error('discount_code')<span class="field__error" role="alert">{{ $message }}</span>@enderror
+    </label>
     <label class="field field--wide">
         <span class="field__label">Nachricht</span>
         <textarea name="message" rows="4" maxlength="3000">{{ old('message') }}</textarea>

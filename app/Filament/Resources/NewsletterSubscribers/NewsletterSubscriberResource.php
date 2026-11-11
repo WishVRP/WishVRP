@@ -50,6 +50,7 @@ class NewsletterSubscriberResource extends Resource
                 TextColumn::make('source')->label('Quelle'),
                 TextColumn::make('consented_at')->label('Eingewilligt')->dateTime('d.m.Y H:i')->sortable(),
                 TextColumn::make('confirmed_at')->label('Bestätigt')->dateTime('d.m.Y H:i')->placeholder('–')->sortable(),
+                TextColumn::make('deliveries_count')->label('Newsletter erhalten')->counts('deliveries')->sortable(),
                 TextColumn::make('unsubscribed_at')->label('Abgemeldet')->dateTime('d.m.Y H:i')->placeholder('–')->toggleable(),
             ])
             ->filters([

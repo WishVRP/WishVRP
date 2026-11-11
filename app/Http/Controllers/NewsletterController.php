@@ -22,6 +22,15 @@ class NewsletterController extends Controller
         return redirect('/newsletter/bestaetigen/')->with('newsletter', $sub ? 'confirmed' : 'invalid');
     }
 
+    /** One-Click-Abmeldung aus dem E-Mail-Programm (List-Unsubscribe-Post, RFC 8058). */
+    public function oneClick(Request $request): \Illuminate\Http\Response
+    {
+        NewsletterSubscriber::query()->where('unsubscribe_token', (string) $request->query('t', $request->input('t')))
+            ->whereNull('unsubscribed_at')->update(['unsubscribed_at' => now()]);
+
+        return response('Abgemeldet.', 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
+    }
+
     public function unsubscribe(Request $request): RedirectResponse
     {
         $sub = NewsletterSubscriber::query()->where('unsubscribe_token', (string) $request->input('t'))->first();

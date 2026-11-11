@@ -40,6 +40,7 @@
 
     <h2>Newsletter</h2>
     <p>Wenn du dem Newsletter freiwillig zustimmst, schicken wir dir an deine E-Mail-Adresse Neuigkeiten, Kurstermine, Angebote und Aktionen der Messermanufaktur Ulbrich. Die Anmeldung wird erst wirksam, wenn du sie über den Link in unserer Bestätigungs-E-Mail bestätigst (Double-Opt-in). Zum Nachweis speichern wir Zeitpunkt, Quelle und Wortlaut deiner Einwilligung sowie den Zeitpunkt der Bestätigung. Du kannst die Einwilligung jederzeit über den Abmeldelink in jeder E-Mail oder formlos per E-Mail widerrufen; danach bekommst du keine Newsletter mehr. Die Teilnahme an Aktionen hängt nicht von der Newsletter-Anmeldung ab.</p>
+    <p>Wir protokollieren, welche Newsletter-Ausgabe wann an deine Adresse verschickt wurde und welcher persönliche Rabattcode darin enthalten war, damit wir Codes zuordnen und Einlösungen prüfen können. Ob du eine E-Mail öffnest oder Links anklickst, messen wir nicht.</p>
     <p><x-ui.missing>Rechtsgrundlage, Versanddienst (falls genutzt) und Speicherdauer des Newsletters anwaltlich prüfen</x-ui.missing></p>
 
     <h2>Deine Rechte</h2>

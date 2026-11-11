@@ -162,6 +162,21 @@ return [
     ],
 
     /*
+    | Newsletter-Automatik (Inhaber, 11.11.2026): wöchentlich an bestätigte Empfänger,
+    | alle 3 Monate mit persönlichem Rabattcode (höchstens 10 %). Inhalt der Auto-Ausgabe
+    | nur aus echten Daten (Kurstermine, Edition-Nummern, Ratgeber) – nichts erfunden.
+    */
+    'newsletter' => [
+        'auto_weekly' => env('NEWSLETTER_AUTO', true),
+        'weekday' => 2,                 // 1 = Montag … 7 = Sonntag (Dienstag)
+        'time' => '18:30',
+        'discount_every_days' => 90,    // alle 3 Monate
+        'discount_percent' => 10,
+        'discount_valid_days' => 30,
+        'max_percent' => 10,
+    ],
+
+    /*
     | Garantie – laut Inhaber (Chat 11.11.2026). Freiwillige Herstellergarantie,
     | zusätzlich zur gesetzlichen Gewährleistung. Formulierung vor Go-live
     | anwaltlich prüfen lassen (Garantieerklärung, § 479 BGB).

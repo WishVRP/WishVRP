@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseDate;
+use App\Models\DiscountCode;
 use App\Models\EditionPiece;
 use App\Models\Order;
 use App\Models\SiteEvent;
@@ -23,7 +24,7 @@ class OrderController extends Controller
     private const CONTACT = [
         'name' => ['required', 'string', 'max:120'],
         'email' => ['required', 'email', 'max:190'],
-        'phone' => ['nullable', 'required_with:discount_code', 'string', 'max:40'],
+        'phone' => ['nullable', 'string', 'max:40'],
         'message' => ['nullable', 'string', 'max:3000'],
         'consent' => ['accepted'],
         'discount_code' => ['nullable', 'string', 'max:20'],
@@ -35,16 +36,32 @@ class OrderController extends Controller
         'bedingungen.accepted' => 'Bitte bestätige die Kursbedingungen.',
     ];
 
-    /** Rabattcode der Weihnachtsaktion prüfen (einmalig, gültig). */
+    /**
+     * Rabattcode prüfen: Weihnachtsaktion (einmal je Person/Haushalt) oder Newsletter (persönlich, einmalig, befristet).
+     *
+     * @return array{0: XmasEntry|DiscountCode|null, 1: int|null}
+     */
     private function discount(array $data): array
     {
         if (blank($data['discount_code'] ?? null)) {
             return [null, null];
         }
         $fail = fn (string $msg) => throw \Illuminate\Validation\ValidationException::withMessages(['discount_code' => $msg]);
+
+        if ($news = DiscountCode::redeemable($data['discount_code'])) {
+            if ($news->email_key !== XmasEntry::emailKey($data['email'] ?? '')) {
+                $fail('Dieser Rabattcode gilt nur zusammen mit der E-Mail-Adresse, an die er geschickt wurde.');
+            }
+
+            return [$news, $news->percent];
+        }
+
         $entry = XmasEntry::redeemable($data['discount_code']);
         if (! $entry) {
             $fail('Dieser Rabattcode ist ungültig, abgelaufen oder wurde schon eingelöst.');
+        }
+        if (blank($data['phone'] ?? null)) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['phone' => 'Für den Weihnachtsrabatt brauchen wir deine Telefonnummer (ein Rabatt pro Person/Haushalt).']);
         }
         if ($entry->email_key !== XmasEntry::emailKey($data['email'] ?? '')) {
             $fail('Der Rabattcode gilt nur zusammen mit der E-Mail-Adresse, mit der gespielt wurde.');
@@ -52,12 +69,13 @@ class OrderController extends Controller
         if ($entry->phone_key && $entry->phone_key !== XmasEntry::mobileE164($data['phone'] ?? '')) {
             $fail('Der Rabattcode gilt nur zusammen mit der Handynummer, mit der gespielt wurde.');
         }
-        // Ein Weihnachtsrabatt je Person bzw. Haushalt: gleiche Telefonnummer oder gleicher Name + PLZ
+        // Ein Weihnachtsrabatt je Person bzw. Haushalt: gleiche Telefonnummer, Name + PLZ oder Straße + PLZ
         $phone = XmasEntry::phoneKey($data['phone'] ?? null);
         $name = mb_strtolower(trim($data['name'] ?? ''));
         $postal = trim($data['postal_code'] ?? '');
         $street = Order::streetKey($data['street'] ?? null);
-        $used = Order::query()->whereNotNull('discount_code')->where('status', '!=', 'storniert')
+        $xmasCodes = XmasEntry::query()->whereNotNull('code')->pluck('code');
+        $used = Order::query()->whereIn('discount_code', $xmasCodes)->where('status', '!=', 'storniert')
             ->get(['phone', 'name', 'postal_code', 'street'])
             ->contains(fn (Order $o) => ($phone && XmasEntry::phoneKey($o->phone) === $phone)
                 || ($postal !== '' && $o->postal_code === $postal && mb_strtolower(trim($o->name)) === $name)
@@ -69,7 +87,7 @@ class OrderController extends Controller
         return [$entry, $entry->percent];
     }
 
-    private function applyDiscount(?Order $order, ?XmasEntry $entry): void
+    private function applyDiscount(?Order $order, XmasEntry|DiscountCode|null $entry): void
     {
         if (! $order || ! $entry) {
             return;

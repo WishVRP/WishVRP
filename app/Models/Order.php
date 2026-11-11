@@ -139,14 +139,15 @@ class Order extends Model
      */
     public function discountWarnings(): array
     {
-        if (! $this->discount_code) {
-            return [];
+        $xmas = XmasEntry::query()->whereNotNull('code')->pluck('code');
+        if (! $this->discount_code || ! $xmas->contains($this->discount_code)) {
+            return [];   // Warnung nur für Weihnachtsrabatte (ein Rabatt je Haushalt)
         }
         $name = mb_strtolower(trim($this->name));
         $street = self::streetKey($this->street);
         $phone = XmasEntry::phoneKey($this->phone);
 
-        return static::query()->whereNotNull('discount_code')->whereKeyNot($this->id)->where('status', '!=', 'storniert')->get()
+        return static::query()->whereIn('discount_code', $xmas)->whereKeyNot($this->id)->where('status', '!=', 'storniert')->get()
             ->filter(fn (Order $o) => mb_strtolower(trim($o->name)) === $name
                 || ($street && self::streetKey($o->street) === $street)
                 || ($phone && XmasEntry::phoneKey($o->phone) === $phone))

@@ -32,6 +32,20 @@ Route::post('/weihnachtsaktion/start/', [XmasController::class, 'start'])->middl
 Route::post('/weihnachtsaktion/ergebnis/', [XmasController::class, 'finish'])->middleware('throttle:xmas')->name('xmas.finish');
 Route::post('/newsletter/bestaetigen/', [NewsletterController::class, 'confirm'])->middleware('throttle:forms')->name('newsletter.confirm');
 Route::post('/newsletter/abmelden/', [NewsletterController::class, 'unsubscribe'])->middleware('throttle:forms')->name('newsletter.unsubscribe');
+Route::post('/newsletter/abmelden/sofort/', [NewsletterController::class, 'oneClick'])->middleware('throttle:events')
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('newsletter.oneclick');
+// E-Mail-Vorschau für die Verwaltung (nur angemeldet; eigene CSP, weil E-Mails Inline-Styles brauchen)
+Route::get('/'.trim(config('ulbrich_admin.path'), '/').'/newsletter-vorschau/{issue}', function (\App\Models\NewsletterIssue $issue) {
+    abort_unless(auth()->check(), 403);
+    $sub = new \App\Models\NewsletterSubscriber(['email' => 'vorschau@example.org', 'unsubscribe_token' => str_repeat('x', 48)]);
+    $sub->confirmed_at = now();
+    $code = $issue->discount() ? new \App\Models\DiscountCode(['code' => 'NEWS-BEISPIEL', 'percent' => $issue->discount(), 'valid_until' => now()->addDays($issue->discount_valid_days ?: 30)]) : null;
+
+    return response((new \App\Mail\NewsletterMail($issue, $sub, $code))->render())
+        ->header('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'self'")
+        ->header('X-Robots-Tag', 'noindex, nofollow');
+})->middleware('web')->name('newsletter.preview');
+
 Route::post('/e/', EventController::class)->middleware('throttle:events')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('event');
 
 /*

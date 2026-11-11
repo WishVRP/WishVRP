@@ -51,6 +51,10 @@ class OverviewStats extends StatsOverviewWidget
                 ->description(\App\Models\NewsletterSubscriber::query()->whereNull('confirmed_at')->whereNull('unsubscribed_at')->count().' warten auf Bestätigung')
                 ->icon(Heroicon::OutlinedEnvelopeOpen)
                 ->url(\App\Filament\Resources\NewsletterSubscribers\NewsletterSubscriberResource::getUrl('index')),
+            Stat::make('Newsletter-Ausgaben (30 Tage)', (string) \App\Models\NewsletterIssue::query()->where('sent_at', '>=', now()->subDays(30))->count())
+                ->description(($next = \App\Models\NewsletterIssue::query()->where('status', 'geplant')->orderBy('scheduled_at')->first()) ? 'nächste: '.$next->scheduled_at->format('d.m. H:i') : 'nächste: automatisch nach Plan')
+                ->icon(Heroicon::OutlinedPaperAirplane)
+                ->url(\App\Filament\Resources\NewsletterIssues\NewsletterIssueResource::getUrl('index')),
             Stat::make('Offene Notizen', (string) Note::query()->open()->count())
                 ->description('für alle sichtbar')
                 ->icon(Heroicon::OutlinedChatBubbleLeftRight)

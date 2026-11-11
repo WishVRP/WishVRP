@@ -38,7 +38,8 @@ class SecurityHeaders
         ]);
 
         // Vite-Dev-Server (npm run dev) liefert von einem anderen Port aus.
-        if (! Vite::isRunningHot()) {
+        // Eine Antwort darf eine eigene CSP mitbringen (z. B. E-Mail-Vorschau in der Verwaltung).
+        if (! Vite::isRunningHot() && ! $response->headers->has('Content-Security-Policy')) {
             $response->headers->set('Content-Security-Policy', $csp);
         }
 

@@ -243,7 +243,7 @@ class XmasAndEditionTest extends TestCase
         config(['ulbrich.xmas.ends_on' => now()->subDay()->toDateString(), 'ulbrich.xmas.valid_until' => now()->subDay()->toDateString()]);
         $this->assertStringContainsString('Die Weihnachtsaktion ist vorbei', $this->get('/weihnachtsaktion/')->getContent());
         $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'spaet@example.org', 'conditions' => '1'])->assertStatus(410);
-        $this->assertStringNotContainsString('name="discount_code"', $this->get('/klappmesser/')->getContent());
+        $this->assertStringContainsString('name="discount_code"', $this->get('/klappmesser/')->getContent(), 'Feld bleibt für Newsletter-Codes');
     }
 }
 

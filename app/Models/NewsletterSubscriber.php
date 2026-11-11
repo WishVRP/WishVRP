@@ -21,6 +21,16 @@ class NewsletterSubscriber extends Model
         return ['consented_at' => 'datetime', 'confirmed_at' => 'datetime', 'unsubscribed_at' => 'datetime'];
     }
 
+    public function deliveries(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(NewsletterDelivery::class);
+    }
+
+    public function oneClickUrl(): string
+    {
+        return rtrim(url('/'), '/').'/newsletter/abmelden/sofort/?t='.$this->unsubscribe_token;
+    }
+
     public function scopeActive(Builder $query): void
     {
         $query->whereNotNull('confirmed_at')->whereNull('unsubscribed_at');
