@@ -54,6 +54,11 @@ class SubpagesTest extends TestCase
                 if (str_starts_with($href, '/build/') || str_starts_with($href, '/images/') || preg_match('/\.(ico|svg|png|webmanifest)$/', $href)) {
                     continue;
                 }
+                if (str_starts_with($href, '/downloads/')) {
+                    $this->assertFileExists(public_path(ltrim($href, '/')), "Download fehlt: {$href} auf {$path}");
+
+                    continue;
+                }
                 $this->assertContains($href, $known, "Toter interner Link {$href} auf {$path}");
             }
         }

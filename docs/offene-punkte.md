@@ -136,7 +136,8 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
   - Gültigkeit bestätigen (vorläufig 3 Jahre zum Jahresende)
   - Sind Teileinlösungen möglich?
 - [x] Kunst- & Handwerkermarkt: Online-Standplan mit Bewerbung (wie auf der alten Seite) – umgesetzt
-- [ ] Markt: **Termin und Uhrzeiten** eintragen (Verwaltung → Markt-Bewerbungen → „Markt-Einstellungen“), **Marktordnung und Standmietvertrag** als PDF liefern
+- [ ] Markt: **Termin** eintragen (Verwaltung → Markt-Bewerbungen → „Markt-Einstellungen“: Text **und** erster/letzter Markttag – dann erscheint der Markt bei Google als Veranstaltung) sowie **Öffnungszeiten** der Markttage
+- [ ] Markt-PDFs: Die Marktordnung enthält unten den Kasten „Wichtiger Hinweis … vor Veröffentlichung prüfen“, der Standmietvertrag einen Muster-Hinweis – vor dem Go-live rechtlich prüfen lassen und diese Hinweise in der Endfassung entfernen; Vertrag: Feld „Veranstalter“ vorausfüllen
 - [ ] Datenschutzerklärung: Abschnitt Markt-Bewerbungen (Kontaktdaten, Fotos, Speicherdauer)
 - [ ] Partner: welche Kooperationen gibt es konkret?
 

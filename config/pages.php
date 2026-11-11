@@ -120,8 +120,8 @@ return [
     ],
     '/kunsthandwerkermarkt/' => [
         'title' => 'Kunsthandwerkermarkt', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.market',
-        'meta_title' => 'Kunst- & Handwerkermarkt in Stein am Kocher',
-        'description' => 'Kunst- & Handwerkermarkt der Messermanufaktur in Stein am Kocher: 18 Stände für echtes Handwerk, Standgebühr ab 70 € für zwei Tage – Infos für Aussteller.',
+        'meta_title' => 'Kunsthandwerkermarkt bei Heilbronn: Stand mieten',
+        'description' => 'Kunst- & Handwerkermarkt in Stein am Kocher (Landkreis Heilbronn): 18 Stände nur für Selbstgemachtes. Online-Standplan, Stand ab 70 € – jetzt bewerben.',
     ],
 
     '/impressum/' => [

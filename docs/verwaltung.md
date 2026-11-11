@@ -210,7 +210,7 @@ Dann gilt: Für Länder **ohne Tabellenpreis** holt die Seite den Live-Preis von
 
 ## Kunst- & Handwerkermarkt (Online-Standplan)
 
-Seite `/kunsthandwerkermarkt/`: Plan mit **18 Ständen** (Halle innen 1–8, außen 9–18).
+Seite `/kunsthandwerkermarkt/`: **Geländeplan nach eurem Standplan-PDF**: Halle (1–8) mit Haupteingang und Rettungsweg, Außenplatz (9–18) an der Wannenstraße mit Wurst- und Getränkestand und Eingang. Rechts zeigt die Leiste „Dein Stand“ Größe, Verkaufsseite, Preis und Countdown. Downloads: Marktordnung, Standplan, Standmietvertrag (`public/downloads/`).
 
 **So läuft es für Aussteller**
 - Freien Stand antippen. Er ist dann **15 Minuten** für die Person reserviert, mit Countdown.
@@ -222,11 +222,12 @@ Seite `/kunsthandwerkermarkt/`: Plan mit **18 Ständen** (Halle innen 1–8, au�
 **In der Verwaltung → Markt-Bewerbungen**
 - Oben stehen der Stand der Dinge (freie und vergebene Stände) und die **Markt-Einstellungen**:
   - **Markt (Jahr):** Ein neuer Wert startet einen neuen Markt mit leerem Plan. Alte Bewerbungen bleiben über den Filter „Markt“ erreichbar.
-  - **Termin:** wird so auf der Website und in den Mails angezeigt
+  - **Termin (Text):** wird so auf der Website und in den Mails angezeigt
+  - **Erster und letzter Markttag:** Damit erscheint der Markt bei Google als Veranstaltung (Event). Ohne Datum gibt es bewusst keine Event-Daten.
   - **Bewerbungen annehmen:** ein/aus
 - **Öffnen** zeigt alle Angaben und die **Fotos**. Die Fotos sind privat gespeichert und nur angemeldet abrufbar.
 - **Status ändern**, jeweils mit optionaler persönlicher Nachricht:
-  - **Annehmen** → Mail mit Gebühr, Bankdaten und Verwendungszweck (= Code)
+  - **Annehmen** → Mail mit Gebühr, Bankdaten, Verwendungszweck (= Code) und **Standmietvertrag, Marktordnung und Standplan als PDF-Anhang**. Der Aussteller schickt den Vertrag unterschrieben zurück.
   - **Zahlung erhalten** → Mail „Dein Stand ist fest gebucht“, Stand wird grau
   - **Ablehnen** → freundliche Absage, Stand wird wieder frei
   - **Stornieren** → ohne Mail, Stand wird frei

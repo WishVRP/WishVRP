@@ -117,6 +117,10 @@ class SeoController extends Controller
             '- English pages: '.PageMeta::absolute('/en/'),
             ...(($products = \App\Models\Product::query()->where('status', 'aktiv')->get())->isNotEmpty() ? ['', '## Messer im Shop', ...$products->map(fn ($p) => '- ['.$p->name.']('.PageMeta::absolute($p->url()).'): '.number_format((float) $p->price, 2, ',', '.').' €')->all()] : []),
             '', '## Buchung', '- Schmiedekurse: jeder Tag bis 5 Jahre im Voraus buchbar, ein Kurs pro Tag, freie Tage im Kalender: '.PageMeta::absolute('/schmiedekurse/buchen/'),
+            '', '## Kunst- & Handwerkermarkt',
+            '- '.$c['market']['name'].' in der '.$c['market']['venue'].', '.$c['market']['place'].' (Landkreis Heilbronn): '.$c['market']['days'].', 18 Stände (8 in der Halle, 10 außen), nur selbst hergestellte Waren',
+            '- Termin: '.(\App\Support\Market::settings()['date'] ?: 'wird bekannt gegeben'),
+            '- Aussteller: Stand ab '.min(array_column($c['market']['stands'], 'price')).' € für beide Tage, Bewerbung über den Online-Standplan: '.PageMeta::absolute('/kunsthandwerkermarkt/'),
             '', '## Seiten',
         ];
         foreach (config('pages') as $path => $page) {

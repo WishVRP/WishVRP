@@ -421,4 +421,28 @@ final class Schema
 
         return $data;
     }
+
+    /** Kunst- & Handwerkermarkt als Event – nur, wenn Start- und Enddatum in der Verwaltung eingetragen sind. */
+    public static function marketEvent(string $url): ?array
+    {
+        $s = Market::settings();
+        if (empty($s['start'])) {
+            return null;
+        }
+        $m = config('ulbrich.market');
+
+        return [
+            '@type' => 'Event',
+            'name' => $m['name'].' in Stein am Kocher',
+            'description' => 'Kunst- und Handwerkermarkt mit 18 Ständen für ausschließlich selbst hergestellte Waren in der '.$m['venue'].'.',
+            'startDate' => $s['start'],
+            'endDate' => $s['end'] ?: $s['start'],
+            'eventStatus' => 'https://schema.org/EventScheduled',
+            'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+            'location' => self::place() + ['name' => $m['venue']],
+            'organizer' => self::businessRef(),
+            'image' => [PageMeta::absolute(config('seo.default_og_image'))],
+            'url' => $url,
+        ];
+    }
 }

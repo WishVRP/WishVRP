@@ -226,42 +226,69 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
     load();
 });
 
-/* ---------- Kunst- & Handwerkermarkt: Stand antippen → 15 Minuten reservieren ---------- */
+/* ---------- Kunst- & Handwerkermarkt: Geländeplan – Stand antippen → 15 Minuten reservieren ---------- */
 const market = document.querySelector('[data-market]');
-if (market && !market.hasAttribute('data-closed')) {
+if (market) {
+    const closed = market.hasAttribute('data-closed');
     const form = document.querySelector('[data-market-form]');
     const input = form?.querySelector('[data-market-stand-input]');
     const chosen = form?.querySelector('[data-market-chosen]');
     const sum = form?.querySelector('[data-market-sum]');
     const light = form?.querySelector('[data-market-light]');
+    const tables = form?.querySelector('[data-market-tables]');
     const msg = market.querySelector('[data-market-msg]');
-    const csrf = document.querySelector('meta[name="csrf-token"]')?.content || form?.querySelector('input[name="_token"]')?.value;
-    const label = { frei: 'frei', reserviert: 'reserviert', belegt: 'belegt', mein: 'deiner' };
-    let timer = 0; let until = 0; let price = 0;
+    const freeOut = document.querySelector('[data-market-free]');
+    const q = (sel) => market.querySelector(sel);
+    const panel = { no: q('[data-panel-no]'), meta: q('[data-panel-meta]'), size: q('[data-panel-size]'), side: q('[data-panel-side]'), price: q('[data-panel-price]'), timer: q('[data-panel-timer]'), cta: q('[data-panel-cta]') };
+    const csrf = form?.querySelector('input[name="_token"]')?.value || document.querySelector('input[name="_token"]')?.value;
+    const label = { frei: 'frei', reserviert: 'reserviert', belegt: 'vergeben', mein: 'deiner' };
     const fees = { ad: Number(market.dataset.feeAd) || 0, light: Number(market.dataset.feeLight) || 0 };
-    const paint = (map) => market.querySelectorAll('[data-stand]').forEach((b) => {
-        const st = map[b.dataset.stand] || 'belegt';
-        b.className = `market-stand is-${st}`;
-        b.disabled = !(st === 'frei' || st === 'mein');
-        b.querySelector('.market-stand__state').textContent = label[st];
-        b.setAttribute('aria-label', `Stand ${b.dataset.stand}, ${label[st]}`);
-    });
+    let timer = 0; let until = 0; let selected = null;
+
+    const show = (btn, state) => {
+        if (!btn) return;
+        panel.no.textContent = btn.dataset.stand;
+        panel.meta.textContent = `${btn.dataset.label} · ${state || label[[...btn.classList].find((c) => c.startsWith('is-'))?.slice(3)] || ''}`;
+        panel.size.textContent = btn.dataset.size;
+        panel.side.textContent = btn.dataset.side;
+        panel.price.textContent = `${btn.dataset.price} €`;
+    };
+    const paint = (map) => {
+        let free = 0;
+        market.querySelectorAll('[data-stand]').forEach((b) => {
+            const st = map[b.dataset.stand] || 'belegt';
+            if (st === 'frei') free += 1;
+            b.classList.remove('is-frei', 'is-mein', 'is-reserviert', 'is-belegt');
+            b.classList.add(`is-${st}`);
+            b.disabled = closed || !(st === 'frei' || st === 'mein');
+            b.querySelector('.market-stand__state').textContent = label[st];
+            b.setAttribute('aria-label', `Stand ${b.dataset.stand}, ${b.dataset.label} ${b.dataset.size}, ${label[st]}`);
+        });
+        if (freeOut) freeOut.textContent = String(free);
+    };
     const showSum = () => {
-        if (!sum || !price) return;
+        if (!sum || !selected) return;
+        const price = Number(selected.dataset.price) || 0;
         const total = price + fees.ad + (light?.checked ? fees.light : 0);
         sum.textContent = `Standgebühr ${price} € + Werbepauschale ${fees.ad} €${light?.checked ? ` + Beleuchtung ${fees.light} €` : ''} = ${total} € für beide Tage`;
     };
     const tick = () => {
         const left = Math.max(0, Math.round((until - Date.now()) / 1000));
-        if (!chosen || !input?.value) return;
-        chosen.textContent = left > 0
-            ? `Gewählter Stand: Nr. ${input.value} – für dich reserviert noch ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')} Min.`
-            : `Die Reservierung für Stand ${input.value} ist abgelaufen – bitte den Stand erneut antippen.`;
+        const t = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+        if (panel.timer) panel.timer.textContent = left > 0 ? `Für dich reserviert: noch ${t} Min.` : 'Reservierung abgelaufen – bitte Stand erneut antippen.';
+        if (chosen && input?.value) {
+            chosen.textContent = left > 0 ? `Gewählter Stand: Nr. ${input.value} – für dich reserviert noch ${t} Min.` : `Die Reservierung für Stand ${input.value} ist abgelaufen – bitte den Stand erneut antippen.`;
+        }
         if (left <= 0) clearInterval(timer);
     };
+
+    // Vorschau beim Überfahren/Fokussieren (Desktop) – ohne Auswahl zu ändern
+    market.addEventListener('pointerover', (e) => { const b = e.target.closest('[data-stand]'); if (b && !selected) show(b); });
+    market.addEventListener('focusin', (e) => { const b = e.target.closest('[data-stand]'); if (b && !selected) show(b); });
+
     market.addEventListener('click', async (e) => {
         const btn = e.target.closest('[data-stand]');
-        if (!btn || btn.disabled) return;
+        if (!btn || btn.disabled || closed) return;
         msg.textContent = '';
         try {
             const r = await fetch(market.dataset.reserveUrl, {
@@ -271,21 +298,28 @@ if (market && !market.hasAttribute('data-closed')) {
             const d = await r.json();
             if (d.stands) paint(d.stands);
             if (!d.ok) { msg.textContent = d.message || 'Dieser Stand ist nicht frei.'; return; }
+            selected = btn;
+            show(btn, 'für dich reserviert');
             if (input) input.value = d.stand;
-            price = Number(btn.dataset.price) || 0;
+            if (tables) tables.hidden = !btn.classList.contains('market-stand--innen');
+            if (panel.cta) panel.cta.hidden = false;
             until = Date.now() + d.minutes * 60000;
             clearInterval(timer); timer = setInterval(tick, 1000); tick(); showSum();
-            msg.textContent = `Stand ${d.stand} ist für ${d.minutes} Minuten für dich reserviert. Jetzt unten die Bewerbung ausfüllen.`;
-            form?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+            msg.textContent = `Stand ${d.stand} gehört für ${d.minutes} Minuten dir – jetzt unten bewerben.`;
         } catch (err) {
             msg.textContent = 'Das hat nicht geklappt – bitte noch einmal versuchen.';
         }
     });
     light?.addEventListener('change', showSum);
-    // Belegung alle 30 Sekunden auffrischen, damit niemand einen gerade vergebenen Stand wählt
+    // Bei erneutem Laden mit Fehlermeldung: vorher gewählten Stand wieder markieren
+    if (input?.value) {
+        const prev = market.querySelector(`[data-stand="${input.value}"]`);
+        if (prev && tables) tables.hidden = !prev.classList.contains('market-stand--innen');
+    }
+    // Belegung alle 30 Sekunden auffrischen
     setInterval(async () => {
         if (document.hidden) return;
-        try { const d = await (await fetch(market.dataset.standsUrl, { headers: { Accept: 'application/json' } })).json(); paint(d.stands); } catch (e) { /* still */ }
+        try { const d = await (await fetch(market.dataset.standsUrl, { headers: { Accept: 'application/json' } })).json(); paint(d.stands); } catch (err) { /* still */ }
     }, 30000);
 }
 

@@ -33,7 +33,8 @@
                 <p style="{{ $p }}">Bitte beachte: Die Bewerbung ist noch keine Zusage. Verbindlich wird dein Stand erst nach Prüfung, Vertrag und bestätigtem Zahlungseingang.</p>
                 @break
             @case('angenommen')
-                <p style="{{ $p }}">wir freuen uns: Deine Bewerbung passt zu unserem Markt – <b>du bist dabei!</b> Damit dein Stand fest für dich gebucht ist, überweise bitte die Standgebühr. Nach Zahlungseingang bekommst du die Bestätigung.</p>
+                <p style="{{ $p }}">wir freuen uns: Deine Bewerbung passt zu unserem Markt – <b>du bist dabei!</b></p>
+                <p style="{{ $p }}">Im Anhang findest du den <b>Standmietvertrag</b>, die <b>Marktordnung</b> und den <b>Standplan</b>. Bitte schick uns den Vertrag ausgefüllt und unterschrieben zurück (als Antwort auf diese E-Mail genügt ein Scan oder Foto) und überweise die Standgebühr. Mit Vertrag und Zahlungseingang ist dein Stand fest gebucht.</p>
                 @break
             @case('abgelehnt')
                 <p style="{{ $p }}">danke für dein Interesse und deine Bewerbung. Leider können wir dir für diesen Markt keinen Stand anbieten. Der Stand ist damit wieder frei.</p>
@@ -54,6 +55,8 @@
             <tr><td style="{{ $lbl }}">Termin</td><td style="{{ $row }}">{{ $date ?: 'wird noch bekannt gegeben' }} · Samstag und Sonntag</td></tr>
             <tr><td style="{{ $lbl }}">Ort</td><td style="{{ $row }}">{{ $m['place'] }}</td></tr>
             <tr><td style="{{ $lbl }}">Sortiment</td><td style="{{ $row }}">{{ $a->category }}</td></tr>
+            @if ($a->tables)<tr><td style="{{ $lbl }}">Ausstattung</td><td style="{{ $row }}">{{ $a->tables }} {{ $a->tables > 1 ? 'Biertische' : 'Biertisch' }} (laut Buchung)</td></tr>@endif
+            @if ($a->food || $a->demo)<tr><td style="{{ $lbl }}">Angemeldet</td><td style="{{ $row }}">{{ implode(' · ', array_filter([$a->food ? 'Lebensmittel / Getränke' : null, $a->demo ? 'Vorführung' : null])) }} – Freigabe durch uns</td></tr>@endif
             <tr><td style="{{ $lbl }}">Gebühr</td><td style="{{ $row }}">Stand {{ $eur($stand['price'] ?? 0) }} + Werbepauschale {{ $eur($m['fees'][0]['price']) }}@if ($a->lighting) + Beleuchtung {{ $eur($m['fees'][1]['price']) }}@endif = <b style="font-size:16px;">{{ $eur($a->amount) }}</b></td></tr>
         </table>
     </td></tr>

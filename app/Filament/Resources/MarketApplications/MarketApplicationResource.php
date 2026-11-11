@@ -63,6 +63,10 @@ class MarketApplicationResource extends Resource
             Select::make('category')->label('Sortiment')->options(array_combine(config('ulbrich.market.categories'), config('ulbrich.market.categories'))),
             Select::make('stand')->label('Stand')->options(collect(Market::stands())->mapWithKeys(fn ($s) => [$s['number'] => 'Nr. '.$s['number'].' · '.$s['label']])),
             Textarea::make('description')->label('Beschreibung des Handwerks')->rows(5)->columnSpanFull(),
+            Select::make('tables')->label('Biertische (innen)')->options([1 => '1 Biertisch', 2 => '2 Biertische'])->placeholder('– (Außenstand)'),
+            \Filament\Forms\Components\Toggle::make('lighting')->label('Beleuchtung gewünscht'),
+            \Filament\Forms\Components\Toggle::make('food')->label('Lebensmittel / Getränke (Freigabe nötig)'),
+            \Filament\Forms\Components\Toggle::make('demo')->label('Vorführung (Freigabe nötig)'),
             TextInput::make('amount')->label('Gebühr (€)')->numeric()->step(0.01),
             Select::make('status')->label('Status')->options(MarketApplication::STATUSES)->required(),
             Textarea::make('internal_note')->label('Interne Notiz')->rows(2)->columnSpanFull(),
@@ -93,7 +97,8 @@ class MarketApplicationResource extends Resource
                 TextColumn::make('stand')->label('Stand')->sortable()->formatStateUsing(fn ($state) => 'Nr. '.$state)
                     ->description(fn (MarketApplication $r) => Market::stands()[$r->stand]['label'] ?? ''),
                 TextColumn::make('name')->label('Aussteller')->searchable()->description(fn (MarketApplication $r) => $r->company),
-                TextColumn::make('category')->label('Sortiment')->toggleable(),
+                TextColumn::make('category')->label('Sortiment')->toggleable()
+                    ->description(fn (MarketApplication $r) => implode(' · ', array_filter([$r->tables ? $r->tables.' Tisch'.($r->tables > 1 ? 'e' : '') : null, $r->lighting ? 'Licht' : null, $r->food ? '⚠ Lebensmittel' : null, $r->demo ? '⚠ Vorführung' : null]))),
                 TextColumn::make('status')->label('Status')->badge()
                     ->formatStateUsing(fn ($state) => MarketApplication::STATUSES[$state] ?? $state)
                     ->color(fn ($state) => ['eingegangen' => 'warning', 'angenommen' => 'info', 'bezahlt' => 'success', 'abgelehnt' => 'gray', 'storniert' => 'danger'][$state] ?? 'gray'),

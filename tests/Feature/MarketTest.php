@@ -25,7 +25,7 @@ class MarketTest extends TestCase
             'stand' => 3, 'name' => 'Holz Hanna', 'company' => 'Hannas Drechslerei', 'email' => 'hanna@example.org', 'phone' => '0170 123',
             'street' => 'Weg 1', 'postal_code' => '74196', 'city' => 'Neuenstadt', 'category' => 'Holzarbeiten',
             'description' => 'Ich drechsle Schalen und Brettchen aus heimischem Holz, alles in meiner Werkstatt von Hand.',
-            'photos' => [UploadedFile::fake()->image('schale.jpg', 800, 600)], 'handmade' => '1', 'consent' => '1', 'lighting' => '1',
+            'photos' => [UploadedFile::fake()->image('schale.jpg', 800, 600)], 'handmade' => '1', 'consent' => '1', 'rules' => '1', 'lighting' => '1', 'tables' => '2', 'food' => '1',
         ];
     }
 
@@ -120,5 +120,61 @@ class MarketTest extends TestCase
         $this->get('/verwaltung/markt-foto/'.$a->id.'/0')->assertForbidden();
         $this->actingAs(User::factory()->create())->get('/verwaltung/markt-foto/'.$a->id.'/0')->assertOk();
         $this->assertFalse(is_file(public_path('storage/markt/KHM-CCCCCC/1.jpg')));
+    }
+
+    public function test_seo_faq_event_and_downloads(): void
+    {
+        $html = $this->get('/kunsthandwerkermarkt/')->getContent();
+        $this->assertStringContainsString('<title>Kunsthandwerkermarkt bei Heilbronn: Stand mieten', $html);
+        $this->assertStringContainsString('"@type": "FAQPage"', $html);
+        $this->assertStringContainsString('Wann findet der Kunst- &amp; Handwerkermarkt statt?', $html);
+        $this->assertStringNotContainsString('"@type": "Event"', $html);   // ohne festes Datum kein Event-Schema
+        foreach (config('ulbrich.market.downloads') as $d) {
+            $this->assertStringContainsString('href="'.$d['file'].'"', $html);
+            $this->assertFileExists(public_path(ltrim($d['file'], '/')));
+        }
+        $this->assertStringContainsString('Wurst &amp; Getränke', $html);
+
+        Setting::write('market', ['season' => Market::season(), 'date' => '12.–13. September 2027', 'open' => true, 'start' => '2027-09-11', 'end' => '2027-09-12']);
+        $html = $this->get('/kunsthandwerkermarkt/')->getContent();
+        $this->assertStringContainsString('"@type": "Event"', $html);
+        $this->assertStringContainsString('"startDate": "2027-09-11"', $html);
+        $this->assertStringContainsString('"endDate": "2027-09-12"', $html);
+        $this->assertStringContainsString('am 12.–13. September 2027 statt', $html);
+    }
+
+    public function test_application_stores_tables_food_and_requires_market_rules(): void
+    {
+        Storage::fake('local');
+        Mail::fake();
+        $this->post('/kunsthandwerkermarkt/bewerben/', $this->form(['rules' => null]))->assertSessionHasErrors('rules');
+        $this->post('/kunsthandwerkermarkt/bewerben/', $this->form())->assertSessionHasNoErrors();
+        $a = MarketApplication::query()->firstOrFail();
+        $this->assertSame(2, $a->tables);       // Innenstand 3
+        $this->assertTrue($a->food);
+        $this->post('/kunsthandwerkermarkt/bewerben/', $this->form(['stand' => 12, 'email' => 'aussen@example.org']))->assertSessionHasNoErrors();
+        $this->assertNull(MarketApplication::query()->where('stand', 12)->value('tables'));   // Außenstand ohne Tische
+    }
+
+    public function test_acceptance_mail_attaches_contract_rules_and_plan(): void
+    {
+        $a = MarketApplication::create(['code' => 'KHM-DDDDDD', 'season' => Market::season(), 'stand' => 4, 'status' => 'angenommen', 'name' => 'A', 'email' => 'a@example.org', 'category' => 'Keramik', 'description' => 'x', 'amount' => 90, 'tables' => 1]);
+        $mail = new MarketMail($a, 'angenommen');
+        $names = collect($mail->attachments())->map(fn ($att) => $att->as)->all();
+        $this->assertContains('kunsthandwerkermarkt-standmietvertrag.pdf', $names);
+        $this->assertContains('kunsthandwerkermarkt-marktordnung.pdf', $names);
+        $this->assertContains('kunsthandwerkermarkt-standplan.pdf', $names);
+        $this->assertSame([], (new MarketMail($a, 'eingang'))->attachments());
+        $this->assertStringContainsString('Standmietvertrag', $mail->render());
+    }
+
+    public function test_notify_signup_uses_double_opt_in(): void
+    {
+        Mail::fake();
+        $this->post('/kunsthandwerkermarkt/termin/', ['email' => 'fan@example.org', 'newsletter_consent' => '1'])->assertRedirect('/kunsthandwerkermarkt/#termin');
+        $sub = \App\Models\NewsletterSubscriber::query()->where('email', 'fan@example.org')->firstOrFail();
+        $this->assertSame('markt', $sub->source);
+        $this->assertNull($sub->confirmed_at);
+        $this->post('/kunsthandwerkermarkt/termin/', ['email' => 'x@example.org'])->assertSessionHasErrors('newsletter_consent');
     }
 }

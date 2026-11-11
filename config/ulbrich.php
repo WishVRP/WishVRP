@@ -246,25 +246,44 @@ return [
     | Kunst- & Handwerkermarkt – veranstaltet von der Messermanufaktur (laut Live-Seite /kunsthandwerkermarkt/, 11.11.2026).
     */
     'market' => [
+        // Quellen: Live-Seite (11.11.2026), Marktordnung, Standplan und Standmietvertrag (PDF vom Inhaber, 11.11.2026)
         'name' => 'Kunst- & Handwerkermarkt',
-        'date' => null, // „Datum wird noch bekannt gegeben“
+        'date' => null, // Termin wird bekannt gegeben – in der Verwaltung pflegbar (Markt-Einstellungen)
+        'days' => 'Samstag und Sonntag',
         'place' => 'Wannenstraße 33, 74196 Neuenstadt am Kocher (Stein am Kocher)',
+        'venue' => 'Halle und Außengelände der Messermanufaktur Ulbrich',
         'stands' => [
-            ['label' => 'Innenstand', 'size' => '2 × 2,5 m', 'numbers' => '1–8', 'price' => 80, 'text' => 'Standplatz in der verschlossenen Halle für Samstag und Sonntag.'],
-            ['label' => 'Außenstand', 'size' => '3 × 3 m', 'numbers' => '9–18', 'price' => 70, 'text' => 'Außenfläche für Samstag und Sonntag. Eigener wetterfester Aufbau erforderlich.'],
+            ['label' => 'Innenstand', 'size' => '2 × 2,5 m', 'numbers' => '1–8', 'price' => 80, 'text' => 'Abteil in der Halle für Samstag und Sonntag, je nach gebuchter Variante mit ein oder zwei Biertischen. Die Halle wird nachts verschlossen.'],
+            ['label' => 'Außenstand', 'size' => '3 × 3 m', 'numbers' => '9–18', 'price' => 70, 'text' => 'Fläche auf dem Außengelände für Samstag und Sonntag. Eigener, gegen Wind und Wetter gesicherter Pavillon erforderlich.'],
         ],
+        // Lage und Verkaufsseite laut Standplan-PDF (schematisch, nicht maßstabsgerecht)
+        'layout' => [
+            1 => '← links', 2 => '← links', 3 => '← links', 4 => '← links', 5 => null, 6 => null, 7 => '↓ unten', 8 => '→ rechts',
+            9 => '↓ zum Weg', 10 => '↓ zum Weg', 11 => '↓ zum Weg', 12 => '↓ zum Weg', 13 => '↓ zum Weg', 14 => '↓ zum Eingang',
+            15 => '→ zum Weg', 16 => '→ zum Weg', 17 => '→ zum Weg', 18 => '→ zum Weg',
+        ],
+        'catering' => 'Wurst und Getränke gibt es am eigenen Stand des Veranstalters auf dem Außengelände.',
         'fees' => [
             ['label' => 'Werbepauschale (verpflichtend je Stand)', 'price' => 10],
             ['label' => 'Beleuchtung für beide Tage (optional, nach Absprache)', 'price' => 10],
         ],
+        'setup' => 'Aufbau Freitag ab 14:00 Uhr oder Samstagmorgen; Samstag spätestens 9:00 Uhr vollständig aufgebaut.',
+        'teardown' => 'Abbau nach Marktende am Sonntag oder nach Absprache am Montag.',
+        'parking' => 'Parken auf dem Veranstaltungsgelände ist nicht erlaubt – für Besucher und Aussteller. Zufahrt nur zum Be- und Entladen.',
         'rules' => [
-            'Nur Handgemachtes – keine Handels- oder industrielle Massenware.',
-            'Aufbau Freitag ab 14 Uhr, Samstag spätestens 9 Uhr fertig.',
-            'Kein offenes Feuer.',
-            'Die Bewerbung ist noch keine Zusage. Verbindlich wird der Stand erst nach Prüfung, Vertrag und bestätigtem Zahlungseingang.',
-            'Bei einer Absage weniger als 72 Stunden vor Veranstaltungsbeginn besteht grundsätzlich kein Anspruch auf Erstattung der Standgebühr; zwingende gesetzliche Rechte bleiben unberührt.',
+            'Nur selbst hergestellte, gestaltete oder wesentlich handwerklich bearbeitete Waren – keine Handels- oder Massenware.',
+            'Aufbau Freitag ab 14:00 Uhr oder Samstagmorgen; Samstag spätestens um 9:00 Uhr vollständig aufgebaut.',
+            'Kein offenes Feuer, keine Kerzen oder Fackeln; bei brennbaren Stoffen einen geprüften Feuerlöscher bereithalten.',
+            'Lebensmittel, Getränke und Vorführungen mit Maschinen, Hitze oder Lärm nur nach vorheriger Anmeldung und Freigabe.',
+            'Die Bewerbung ist noch keine Zusage. Verbindlich wird der Stand mit dem unterschriebenen Standmietvertrag und der Zahlung.',
+            'Stornierung: bis 30 Tage vor dem ersten Markttag kostenlos, 15–29 Tage vorher 25 %, 8–14 Tage 50 %, ab 7 Tage oder bei Nichterscheinen 100 % der Standgebühr (Nachweis eines geringeren Schadens bleibt möglich).',
         ],
         'categories' => ['Holzarbeiten', 'Metall & Schmuck', 'Keramik', 'Textil & Leder', 'Kunst & Illustration', 'Naturprodukte', 'Selbst hergestellte Lebensmittel', 'Sonstiges Kunsthandwerk'],
+        'downloads' => [
+            ['label' => 'Marktordnung', 'file' => '/downloads/kunsthandwerkermarkt-marktordnung.pdf', 'size' => '4 Seiten'],
+            ['label' => 'Standplan (Halle und Außenplatz)', 'file' => '/downloads/kunsthandwerkermarkt-standplan.pdf', 'size' => '2 Seiten'],
+            ['label' => 'Standmietvertrag (ausfüllbar)', 'file' => '/downloads/kunsthandwerkermarkt-standmietvertrag.pdf', 'size' => '4 Seiten'],
+        ],
     ],
 
     /*

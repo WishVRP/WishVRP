@@ -22,7 +22,7 @@ class MarketApplication extends Model
 
     protected function casts(): array
     {
-        return ['photos' => 'array', 'lighting' => 'boolean', 'amount' => 'decimal:2', 'accepted_at' => 'datetime', 'paid_at' => 'datetime'];
+        return ['photos' => 'array', 'lighting' => 'boolean', 'food' => 'boolean', 'demo' => 'boolean', 'tables' => 'integer', 'amount' => 'decimal:2', 'accepted_at' => 'datetime', 'paid_at' => 'datetime'];
     }
 
     public static function newCode(): string

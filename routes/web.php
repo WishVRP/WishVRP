@@ -30,6 +30,7 @@ Route::post('/gutschein/kaufen/', [OrderController::class, 'voucher'])->middlewa
 Route::get('/versandkosten/', [\App\Http\Controllers\ShippingController::class, 'quote'])->middleware('throttle:events')->name('shipping.quote');
 Route::get('/kunsthandwerkermarkt/staende/', [\App\Http\Controllers\MarketController::class, 'stands'])->middleware('throttle:events')->name('market.stands');
 Route::post('/kunsthandwerkermarkt/reservieren/', [\App\Http\Controllers\MarketController::class, 'reserve'])->middleware('throttle:events')->name('market.reserve');
+Route::post('/kunsthandwerkermarkt/termin/', [\App\Http\Controllers\MarketController::class, 'notify'])->middleware('throttle:forms')->name('market.notify');
 Route::post('/kunsthandwerkermarkt/bewerben/', [\App\Http\Controllers\MarketController::class, 'apply'])->middleware('throttle:forms')->name('market.apply');
 Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:forms')->name('inquiry.store');
 Route::post('/weihnachtsaktion/anmelden/', [XmasController::class, 'register'])->middleware('throttle:xmas')->name('xmas.register');

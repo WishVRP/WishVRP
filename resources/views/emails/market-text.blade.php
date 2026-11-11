@@ -7,7 +7,7 @@ Hallo {{ $firstName }},
 danke für deine Bewerbung! Dein Wunschstand ist vorgemerkt, bis wir deine Bewerbung geprüft haben. Die Bewerbung ist noch keine Zusage.
 @break
 @case('angenommen')
-du bist dabei! Bitte überweise die Standgebühr, damit dein Stand fest gebucht ist.
+du bist dabei! Im Anhang: Standmietvertrag, Marktordnung und Standplan. Bitte schick uns den Vertrag unterschrieben zurück und überweise die Standgebühr – dann ist dein Stand fest gebucht.
 @if (! empty($bank['iban']))
 Kontoinhaber: {{ $bank['holder'] ?? $c['owner'] }} · IBAN: {{ $bank['iban'] }}@if (! empty($bank['bic'])) · BIC: {{ $bank['bic'] }}@endif
 

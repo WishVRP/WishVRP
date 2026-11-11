@@ -32,6 +32,7 @@
                 </dl>
                 @unless ($c['opening_hours_verified'])<x-ui.missing silent>Öffnungszeiten bestätigen</x-ui.missing>@endunless
                 <x-ui.missing silent>Parken, Anfahrt mit ÖPNV</x-ui.missing>
+                <p class="mt-5">Auf dem Gelände findet außerdem unser <a href="/kunsthandwerkermarkt/">Kunst- &amp; Handwerkermarkt</a> statt – zwei Tage, 18 Stände, nur Selbstgemachtes.</p>
             </div>
         </div>
     </x-page.section>

@@ -6,6 +6,7 @@ use App\Models\MarketApplication;
 use App\Support\Market;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 
@@ -38,5 +39,18 @@ class MarketMail extends Mailable
             'date' => Market::settings()['date'], 'bank' => array_filter(config('ulbrich.bank', [])),
             'firstName' => trim(strtok((string) $this->app->name, ' ')) ?: 'du',
         ]);
+    }
+
+    /** Bei Zusage: Standmietvertrag, Marktordnung und Standplan als PDF anhängen. */
+    public function attachments(): array
+    {
+        if ($this->kind !== 'angenommen') {
+            return [];
+        }
+
+        return collect(config('ulbrich.market.downloads', []))
+            ->filter(fn ($d) => is_file(public_path(ltrim($d['file'], '/'))))
+            ->map(fn ($d) => Attachment::fromPath(public_path(ltrim($d['file'], '/')))->as(basename($d['file']))->withMime('application/pdf'))
+            ->values()->all();
     }
 }

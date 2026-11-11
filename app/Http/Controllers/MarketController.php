@@ -67,6 +67,10 @@ class MarketController extends Controller
             'description' => ['required', 'string', 'min:40', 'max:3000'],
             'website' => ['nullable', 'string', 'max:190'],
             'lighting' => ['nullable', 'boolean'],
+            'tables' => ['nullable', 'in:1,2'],
+            'food' => ['nullable', 'boolean'],
+            'demo' => ['nullable', 'boolean'],
+            'rules' => ['accepted'],
             'photos' => ['required', 'array', 'min:1', 'max:5'],
             'photos.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:6144'],
             'handmade' => ['accepted'],
@@ -80,6 +84,7 @@ class MarketController extends Controller
             'photos.*.max' => 'Ein Foto darf höchstens 6 MB groß sein.',
             'handmade.accepted' => 'Bitte bestätige, dass du deine Waren selbst herstellst.',
             'consent.accepted' => 'Bitte bestätige den Datenschutzhinweis.',
+            'rules.accepted' => 'Bitte bestätige, dass du die Marktordnung gelesen hast.',
         ]);
 
         $token = $this->token($request);
@@ -99,18 +104,34 @@ class MarketController extends Controller
             'street' => $data['street'], 'postal_code' => $data['postal_code'], 'city' => $data['city'],
             'category' => $data['category'], 'description' => $data['description'], 'website' => $data['website'] ?? null,
             'lighting' => (bool) ($data['lighting'] ?? false), 'photos' => $photos,
+            'tables' => (Market::stands()[$stand]['type'] ?? '') === 'innen' ? (int) ($data['tables'] ?? 1) : null,
+            'food' => (bool) ($data['food'] ?? false), 'demo' => (bool) ($data['demo'] ?? false),
             'amount' => Market::amount($stand, (bool) ($data['lighting'] ?? false)),
         ]);
         Market::release($token);
 
+        $flags = implode('', [$app->tables ? " · {$app->tables} Biertisch(e)" : '', $app->food ? ' · LEBENSMITTEL (Freigabe nötig)' : '', $app->demo ? ' · VORFÜHRUNG (Freigabe nötig)' : '']);
         try {
             Mail::to($app->email, $app->name)->send(new MarketMail($app, 'eingang'));
-            Mail::raw("Neue Bewerbung Kunst- & Handwerkermarkt {$app->code}\nStand {$app->stand} · {$app->category}\n{$app->name}".($app->company ? " ({$app->company})" : '')."\n{$app->email} · {$app->phone}\n\n{$app->description}\n\nPrüfen in der Verwaltung → Markt-Bewerbungen.",
+            Mail::raw("Neue Bewerbung Kunst- & Handwerkermarkt {$app->code}\nStand {$app->stand} · {$app->category}{$flags}\n{$app->name}".($app->company ? " ({$app->company})" : '')."\n{$app->email} · {$app->phone}\n\n{$app->description}\n\nPrüfen in der Verwaltung → Markt-Bewerbungen.",
                 fn ($m) => $m->to(config('ulbrich.email'))->replyTo($app->email, $app->name)->subject("Markt-Bewerbung {$app->code} · Stand {$app->stand}"));
         } catch (\Throwable $e) {
             report($e);
         }
 
         return redirect('/kunsthandwerkermarkt/#bewerbung')->with('market_code', $app->code);
+    }
+
+    /** „Sag mir Bescheid, wenn der Termin feststeht“ – über den Newsletter mit Double-Opt-in. */
+    public function notify(Request $request): RedirectResponse
+    {
+        if (filled($request->input('website_hp'))) {
+            return back();
+        }
+        $data = $request->validate(['email' => ['required', 'email', 'max:190'], 'newsletter_consent' => ['accepted']],
+            ['newsletter_consent.accepted' => 'Bitte bestätige die Einwilligung.']);
+        \App\Models\NewsletterSubscriber::request($data['email'], 'markt');
+
+        return redirect('/kunsthandwerkermarkt/#termin')->with('market_notify', true);
     }
 }

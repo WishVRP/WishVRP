@@ -22,6 +22,8 @@ final class Market
             'season' => $s['season'] ?? (string) (now()->month >= 10 ? now()->year + 1 : now()->year),
             'date' => $s['date'] ?? config('ulbrich.market.date'),
             'open' => (bool) ($s['open'] ?? true),
+            'start' => $s['start'] ?? null,   // Y-m-d, für Google (Veranstaltung)
+            'end' => $s['end'] ?? null,
         ];
     }
 
@@ -98,5 +100,29 @@ final class Market
     public static function release(string $token): void
     {
         DB::table('market_holds')->where('token', $token)->delete();
+    }
+
+    /** @return array<int, array{q: string, a: string}> sichtbare FAQ = FAQPage-Daten */
+    public static function faqs(): array
+    {
+        $m = config('ulbrich.market');
+        $s = self::settings();
+        $st = $m['stands'];
+        $fees = $m['fees'];
+
+        return [
+            ['q' => 'Wann findet der Kunst- & Handwerkermarkt statt?', 'a' => $s['date']
+                ? 'Der nächste Markt findet am '.$s['date'].' statt – an beiden Tagen ('.$m['days'].').'
+                : 'Der Markt findet an einem Wochenende ('.$m['days'].') statt. Der nächste Termin wird noch bekannt gegeben – trag dich auf dieser Seite ein, dann sagen wir dir per E-Mail Bescheid.'],
+            ['q' => 'Wo ist der Markt?', 'a' => 'In der '.$m['venue'].': '.$m['place'].', im Landkreis Heilbronn. '.$m['parking']],
+            ['q' => 'Was gibt es auf dem Markt?', 'a' => 'Ausschließlich selbst hergestellte Kunst und Handwerk: '.implode(', ', $m['categories']).'. '.$m['catering']],
+            ['q' => 'Wie viele Stände gibt es?', 'a' => '18 Ausstellerstände: '.$st[0]['numbers'].' in der Halle ('.$st[0]['size'].') und '.$st[1]['numbers'].' auf dem Außenplatz ('.$st[1]['size'].').'],
+            ['q' => 'Was kostet ein Stand?', 'a' => $st[0]['label'].' '.$st[0]['price'].' €, '.$st[1]['label'].' '.$st[1]['price'].' € – jeweils für beide Markttage, zuzüglich '.$fees[0]['price'].' € Werbepauschale. Beleuchtung kostet nach Absprache '.$fees[1]['price'].' € für beide Tage.'],
+            ['q' => 'Wie bewerbe ich mich als Aussteller?', 'a' => 'Im Online-Standplan einen freien Stand antippen – er ist dann '.self::HOLD_MINUTES.' Minuten für dich reserviert – und die Bewerbung mit Fotos deines Stands und deiner Arbeiten absenden. Du bekommst sofort deinen Aussteller-Code. Nach der Prüfung erhältst du den Standmietvertrag; verbindlich wird der Stand mit Vertrag und Zahlung.'],
+            ['q' => 'Wann ist Aufbau und Abbau?', 'a' => $m['setup'].' '.$m['teardown']],
+            ['q' => 'Was muss ich als Aussteller mitbringen?', 'a' => 'Aufbau, Verkaufs- und Dekorationsmaterial bringst du selbst mit. In der Halle stehen je nach Variante ein oder zwei Biertische bereit; draußen brauchst du einen eigenen Pavillon, der gegen Wind und Wetter gesichert ist.'],
+            ['q' => 'Darf ich Lebensmittel verkaufen oder vorführen?', 'a' => 'Ja, aber nur nach vorheriger Anmeldung und Freigabe – das kannst du in der Bewerbung angeben. Offenes Feuer, Kerzen und Fackeln sind auf dem gesamten Gelände verboten.'],
+            ['q' => 'Was passiert, wenn ich absagen muss?', 'a' => 'Bis 30 Tage vor dem ersten Markttag ist die Stornierung kostenlos, 15 bis 29 Tage vorher fallen 25 %, 8 bis 14 Tage vorher 50 % und ab 7 Tage vorher oder bei Nichterscheinen 100 % der Standgebühr an. Den Nachweis eines geringeren Schadens kannst du erbringen.'],
+        ];
     }
 }

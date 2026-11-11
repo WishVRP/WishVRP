@@ -65,6 +65,7 @@ class PageController extends Controller
             '/sonderanfertigungen/' => [Schema::service('Messer-Sonderanfertigung', 'Messer nach Kundenwunsch: Klingenform, Länge und Griff werden abgestimmt und das Messer in der Werkstatt von Hand geschmiedet.', $meta->canonical())],
             '/geschenke/schmiedekurs-gutschein/' => [Schema::faq(Faqs::voucher())],
             '/schmiedekurse/heilbronn-region/', '/manufaktur/' => [Schema::localBusiness(), Schema::person()],
+            '/kunsthandwerkermarkt/' => [Schema::marketEvent($meta->canonical()), Schema::faq(\App\Support\Market::faqs())],
             default => [],
             },
         };
