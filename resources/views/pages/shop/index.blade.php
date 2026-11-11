@@ -1,5 +1,5 @@
 <x-layouts.site :meta="$meta" :schema="$schema" :current="$path">
-    <x-page.hero :meta="$meta" title="Shop" kicker="Messer & Gutscheine" tone="brown" foto="klappmesser-offen"
+    <x-page.hero :meta="$meta" title="{{ $page['h1'] ?? 'Shop' }}" kicker="Messer & Gutscheine" tone="brown" foto="klappmesser-offen"
         lead="Handgefertigte Messer aus der Werkstatt von {{ $c['owner'] }}: die nummerierte Edition 100, Unikate, Anfertigungen nach Wunsch – und Gutscheine für Schmiedekurse.">
         <x-slot:actions>
             <x-ui.button href="/klappmesser/" variant="straw" size="lg">Edition 100</x-ui.button>

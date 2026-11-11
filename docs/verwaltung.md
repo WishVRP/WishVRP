@@ -31,6 +31,7 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
 - Abschalten: `ANALYTICS_ENABLED=false`.
 
 ## Vor dem Go-live
+- **Google-Indexierung einschalten:** `APP_ENV=production` und **`SEO_INDEXABLE=true`** in die `.env`. Ohne diese Zeile tragen alle Seiten `noindex` und `robots.txt` sperrt alles. Das ist für die Testumgebung richtig, für die echte Seite fatal. Danach prüfen: `https://messermanufaktur-ulbrich.de/robots.txt` zeigt `Allow: /` und die Sitemap.
 - E-Mail-Versand einrichten (`MAIL_MAILER`, SMTP-Zugang, Absender `MAIL_FROM_ADDRESS` = info@…). Lokal landen Mails nur im Log.
 - Konten anlegen (siehe oben), Authenticator einrichten.
 - Cronjob für den Scheduler.

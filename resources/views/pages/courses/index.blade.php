@@ -1,5 +1,5 @@
 <x-layouts.site :meta="$meta" :schema="$schema" :current="$path">
-    <x-page.hero :meta="$meta" title="Schmiedekurse" kicker="An Esse und Amboss" foto="klappmesser-stehend"
+    <x-page.hero :meta="$meta" title="{{ $page['h1'] ?? 'Schmiedekurse' }}" kicker="An Esse und Amboss" foto="klappmesser-stehend"
         lead="Schmiede dein eigenes Messer – an einem Tag im Grundlagenkurs oder in zwei bis drei Tagen mit Damaststahl. Sechs Kursformate, eine Werkstatt, ein Messerschmied.">
         <x-slot:actions>
             <x-ui.button href="#kursfinder" variant="straw" size="lg">Kurs finden</x-ui.button>

@@ -53,6 +53,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 
 - [ ] Hosting mit PHP 8.3 auswählen, dann Domain und DNS umstellen
 - [ ] `.env` auf dem Server: `APP_ENV=production`, `APP_KEY`, `APP_URL`, `MAIL_*`, `STRIPE_*`, `ADMIN_PATH` (eigenen, nicht erratbaren Admin-Pfad wählen), `NEWSLETTER_AUTO`, `XMAS_VERIFICATION=email`
+- [ ] **`SEO_INDEXABLE=true`** in der `.env` der echten Seite setzen (sonst `noindex` auf allen Seiten). Auf der Test-Subdomain bleibt es aus.
 - [ ] `php artisan migrate --force`, `php artisan storage:link`, `npm run build`
 - [ ] Cron-Job jede Minute: `php artisan schedule:run` (wöchentlicher Newsletter, Rabattcodes, Ablauf von Reservierungen)
 - [ ] Admin-Konten für Andreas und dich: `php artisan make:filament-user`, danach den Authenticator am Handy einrichten. Den Testzugang `test@ulbrich.local` vorher löschen.

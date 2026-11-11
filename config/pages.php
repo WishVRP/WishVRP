@@ -25,6 +25,7 @@ return [
 
     '/schmiedekurse/' => [
         'title' => 'Schmiedekurse', 'status' => 'live', 'gsc_clicks' => 22, 'view' => 'courses.index',
+        'h1' => 'Schmiedekurse: Schmiede dein eigenes Messer',
         'meta_title' => 'Schmiedekurse in Baden-Württemberg | Manufaktur Ulbrich',
         'description' => 'Sechs Schmiedekurse in der Messermanufaktur Ulbrich: vom eintägigen Grundlagenkurs bis zum Damast Premium-Kurs. Preise, Dauer und Gesamtlänge im Überblick.',
     ],
@@ -46,6 +47,7 @@ return [
 
     '/shop/' => [
         'title' => 'Shop', 'status' => 'live', 'gsc_clicks' => 5, 'view' => 'shop.index',
+        'h1' => 'Handgefertigte Messer kaufen',
         'meta_title' => 'Messer kaufen: handgefertigte Kollektion',
         'description' => 'Handgefertigte Messer aus der Messermanufaktur Ulbrich: Damast-Klappmesser der Edition 100, Unikate und Anfertigungen sowie Gutscheine für Schmiedekurse.',
     ],
