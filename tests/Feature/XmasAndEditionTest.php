@@ -81,7 +81,7 @@ class XmasAndEditionTest extends TestCase
 
     public function test_tiers_and_cap(): void
     {
-        $this->assertSame([0, 5, 5, 10, 10], array_map([XmasEntry::class, 'percentFor'], [0, 1, 11, 12, 500]));
+        $this->assertSame([0, 0, 5, 5, 10, 10], array_map([XmasEntry::class, 'percentFor'], [0, 3, 4, 9, 10, 500]));
         config(['ulbrich.xmas.tiers' => [['min' => 1, 'percent' => 25]]]);
         $this->assertSame(10, XmasEntry::percentFor(5), 'nie mehr als 10 %');
     }
@@ -91,15 +91,15 @@ class XmasAndEditionTest extends TestCase
         $r = $this->start('Anna.Test+xmas@GoogleMail.com');
         $this->assertSame('ok', $r['status']);
         $this->travel(31)->seconds();
-        $done = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 14])->assertOk()->json();
-        $this->assertSame([14, 10], [$done['score'], $done['percent']]);
+        $done = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 12])->assertOk()->json();
+        $this->assertSame([12, 10], [$done['score'], $done['percent']]);
         $this->assertMatchesRegularExpression('/^XMAS-[A-Z0-9]{6}$/', $done['code']);
 
         // gleiche Person (andere Schreibweise) → keine zweite Teilnahme, gleicher Code
         $again = $this->start('annatest@gmail.com');
         $this->assertSame(['played', $done['code']], [$again['status'], $again['code']]);
         // Ergebnis kann nicht nachträglich verbessert werden
-        $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 80])->assertJson(['percent' => 10, 'score' => 14]);
+        $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 80])->assertJson(['percent' => 10, 'score' => 12]);
         $this->assertSame(1, XmasEntry::count());
     }
 
@@ -117,14 +117,14 @@ class XmasAndEditionTest extends TestCase
 
         $big = $this->start('viel@example.org');
         $this->travel(31)->seconds();
-        $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $big['token'], 'score' => 999])->assertJson(['score' => 80, 'percent' => 10]);
+        $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $big['token'], 'score' => 999])->assertJson(['score' => 60, 'percent' => 10]);
     }
 
     public function test_code_redeems_once_and_reduces_amount(): void
     {
         $r = $this->start();
         $this->travel(31)->seconds();
-        $code = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 3])->json('code');
+        $code = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 5])->json('code');
 
         $base = ['type' => 'messer', 'item' => config('ulbrich.edition.name'), 'name' => 'A', 'email' => 'a@example.org', 'consent' => '1', 'source' => '/klappmesser/'];
         $this->post('/anfrage/', $base + ['discount_code' => strtolower($code)])->assertSessionHasNoErrors();
@@ -143,6 +143,8 @@ class XmasAndEditionTest extends TestCase
         $this->assertStringContainsString('data-xmas-form', $html);
         $this->assertStringContainsString('Jede Person kann nur einmal teilnehmen.', $html);
         $this->assertStringContainsString('höchstens 10 %', $html);
+        $this->assertStringContainsString('Gültig bis 31. Dezember 2026', $html);
+        $this->assertStringContainsString('data-xmas-practice', $html);
         $this->assertStringContainsString('href="/weihnachtsaktion/"', $this->get('/')->getContent());
         $this->assertStringContainsString('name="discount_code"', $this->get('/klappmesser/')->getContent());
 

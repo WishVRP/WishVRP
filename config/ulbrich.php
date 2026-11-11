@@ -170,18 +170,18 @@ return [
     | Weihnachtsaktion „Schneeballschlacht“ (Inhaber, 11.11.2026): 30 Sekunden,
     | Treffer zählen, Rabatt je nach Treffern, höchstens 10 %, jede Person nur
     | einmal (eine Teilnahme je E-Mail-Adresse, Code einmalig einlösbar).
-    | Stufen und Gültigkeit sind Vorschläge – vom Inhaber bestätigen lassen.
+    | Anspruchsvoll (Wind, Wolken, Ausweichen, Nachladezeit). Codes gültig bis 31.12. (Inhaber).
     */
     'xmas' => [
         'enabled' => true,
         'ends_on' => '2026-12-24',        // letzter Spieltag
-        'valid_until' => '2026-12-24',    // Code einlösbar bis (Vorschlag)
+        'valid_until' => '2026-12-31',    // Code einlösbar bis (laut Inhaber)
         'seconds' => 30,
         'max_percent' => 10,              // Obergrenze laut Inhaber
-        'max_score' => 80,                // Plausibilitätsgrenze gegen Manipulation
-        'tiers' => [                      // ab X Treffern → Y % (aufsteigend)
-            ['min' => 1, 'percent' => 5],
-            ['min' => 12, 'percent' => 10],
+        'max_score' => 60,                // Plausibilitätsgrenze (bei 0,45 s Nachladezeit max. ~66 Würfe)
+        'tiers' => [                      // ab X Treffern → Y % (aufsteigend), kalibriert mit Testspielern: 5–6 Treffer bei pixelgenauem Zielen
+            ['min' => 4, 'percent' => 5],
+            ['min' => 10, 'percent' => 10],
         ],
     ],
 

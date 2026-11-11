@@ -45,11 +45,13 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
 - **Automatik:** Vorgang auf *Zahlung erhalten* oder *Bestätigt* → Nummer **verkauft**, mit Zustimmung **grün mit Namen**. *Storniert* → Nummer wieder **frei**.
 
 ## Weihnachtsaktion „Schneeballschlacht“
-- Seite `/weihnachtsaktion/`, Banner auf der Startseite und auf `/geschenke/weihnachten/`. Spielbar bis 24.12.2026 (`ulbrich.xmas.ends_on`).
+- Seite `/weihnachtsaktion/`, Banner auf der Startseite und auf `/geschenke/weihnachten/`. Spielbar bis 24.12.2026 (`ulbrich.xmas.ends_on`), **Codes einlösbar bis 31.12.2026** (`valid_until`).
+- **Anspruchsvoll:** langsame Schneebälle (vorhalten), wechselnder Wind mit Anzeige, Wolken fangen Bälle ab und verstecken den Weihnachtsmann. Er weicht aus, wechselt unvorhersehbar Richtung und Höhe und wird schneller. Nachladezeit 0,45 s, höchstens 2 Bälle gleichzeitig. **Übungsrunden ohne Rabatt sind beliebig oft möglich.**
+- **Kalibrierung:** Automatische Testspieler mit pixelgenauem Zielen schafften 5–6 Treffer pro Runde.
 - **Ablauf:** E-Mail eingeben und Teilnahmebedingungen bestätigen → 30 Sekunden spielen → Treffer werden gezählt → Rabatt und persönlicher Code erscheinen und kommen per E-Mail.
-- **Rabattstufen (Vorschlag, in `config/ulbrich.php → xmas.tiers` änderbar):** 1–11 Treffer = **5 %**, ab 12 Treffern = **10 %**, 0 Treffer = kein Rabatt. **Höchstens 10 %** ist fest eingebaut (`max_percent`).
+- **Rabattstufen (`config/ulbrich.php → xmas.tiers`):** 0–3 Treffer = kein Rabatt, 4–9 Treffer = **5 %**, ab 10 Treffern = **10 %**. **Höchstens 10 %** ist fest eingebaut (`max_percent`).
 - **Nur einmal pro Person:** Die Teilnahme hängt an der E-Mail-Adresse; Schreibvarianten wie `Anna.Test+x@googlemail.com` = `annatest@gmail.com` zählen als dieselbe. Mit dem Start zählt die Teilnahme, auch bei Abbruch oder Neuladen. Wer erneut startet, sieht nur sein erstes Ergebnis.
-- **Gegen Schummeln:** Die Wertung passiert auf dem Server. Wer vor Ablauf der 30 Sekunden ein Ergebnis schickt, bekommt 0 Treffer; mehr als 80 Treffer werden auf 80 begrenzt. Der Rabatt übersteigt nie 10 %.
-- **Code einlösen:** Feld „Rabattcode“ in allen Bestell- und Buchungsformularen (solange die Codes gelten, bis 24.12.2026, `valid_until`). Jeder Code ist **einmalig**: Danach gilt er als eingelöst und ist dem Vorgang zugeordnet; der Betrag im Vorgang ist schon reduziert.
+- **Gegen Schummeln:** Die Wertung passiert auf dem Server. Wer vor Ablauf der 30 Sekunden ein Ergebnis schickt, bekommt 0 Treffer; mehr als 60 Treffer werden auf 60 begrenzt. Der Rabatt übersteigt nie 10 %.
+- **Code einlösen:** Feld „Rabattcode“ in allen Bestell- und Buchungsformularen (solange die Codes gelten, bis 31.12.2026, `valid_until`). Jeder Code ist **einmalig**: Danach gilt er als eingelöst und ist dem Vorgang zugeordnet; der Betrag im Vorgang ist schon reduziert.
 - **Verwaltung → Weihnachtsaktion:** Teilnahmen, Treffer, Rabatt, Code, eingelöst ja/nein, Vorgang. Einlösung lässt sich manuell setzen oder zurücknehmen, etwa bei telefonischen Bestellungen. Auf dem Dashboard steht die Zahl der Teilnahmen und Codes.
 - **Teilnahmebedingungen** stehen auf der Aktionsseite. Gültigkeitszeitraum und Bedingungen bestätigen und anwaltlich prüfen lassen (intern markiert). Die Datenschutzerklärung hat einen Abschnitt „Weihnachtsaktion“.
