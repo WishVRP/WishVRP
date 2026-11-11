@@ -1,0 +1,82 @@
+{
+ "h1": "Kunst- & Handwerkermarkt",
+ "lead": [
+  "Ein Wochenende für echte Unikate und ehrliches Handwerk. Informationen zum Markt und zur Teilnahme findest du hier."
+ ],
+ "sections": [
+  {
+   "h": "Preise auf einen Blick.",
+   "items": [
+    {
+     "t": "p",
+     "x": "Standplatz in der verschlossenen Halle für Samstag und Sonntag."
+    },
+    {
+     "t": "p",
+     "x": "Außenfläche für Samstag und Sonntag. Eigener wetterfester Aufbau erforderlich."
+    },
+    {
+     "t": "p",
+     "x": "Werbepauschale für die Bewerbung der Veranstaltung."
+    },
+    {
+     "t": "p",
+     "x": "Bereitgestellte Beleuchtung nach vorheriger Absprache."
+    },
+    {
+     "t": "p",
+     "x": "Beispiele: Innenstand inklusive Werbepauschale 90,00 € · Außenstand inklusive Werbepauschale 80,00 € · Mit Beleuchtung jeweils weitere 10,00 €."
+    }
+   ]
+  },
+  {
+   "h": "Wähle deinen Stand.",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein freier Platz wird nach dem Anklicken 15 Minuten für deine Bewerbung reserviert."
+    },
+    {
+     "t": "h3",
+     "x": "Halle innen"
+    },
+    {
+     "t": "h3",
+     "x": "Außenplatz"
+    }
+   ]
+  },
+  {
+   "h": "Zeig uns dein Handwerk.",
+   "items": [
+    {
+     "t": "h3",
+     "x": "Bewerbung eingegangen"
+    },
+    {
+     "t": "p",
+     "x": "Wir prüfen deine Angaben. Dein Aussteller-Code lautet:"
+    },
+    {
+     "t": "p",
+     "x": "Der Code wird dir zusätzlich per E-Mail geschickt."
+    }
+   ]
+  },
+  {
+   "h": "Die Manufaktur hinter dem Markt.",
+   "items": [
+    {
+     "t": "p",
+     "x": "Der Markt gehört zur Messermanufaktur Ulbrich. Entdecke handgefertigte Arbeiten und lerne den Betrieb von Andreas Ulbrich kennen. Wenn du selbst mit Stahl arbeiten möchtest, findest du hier unsere Schmiedekurse. Im Shop für handgeschmiedete Messer kannst du die aktuelle Auswahl ansehen."
+    },
+    {
+     "t": "p",
+     "x": "Fragen zum Markt und zu künftigen Terminen: E-Mail an Andreas oder 0179 / 407 92 18."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/kunsthandwerkermarkt/"
+}

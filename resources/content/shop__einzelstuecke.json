@@ -1,0 +1,86 @@
+{
+ "h1": "Messer mit eigener Handschrift",
+ "lead": [
+  "Messer-Einzelstücke und individuelle Gestaltungen aus der Messermanufaktur Ulbrich ansehen und verfügbare Stücke entdecken. Freigegebene Messer kannst du direkt bestellen. Bei weiteren Werkstücken klären wir Preis und Verfügbarkeit persönlich."
+ ],
+ "sections": [
+  {
+   "h": "",
+   "items": [
+    {
+     "t": "p",
+     "x": "Die limitierte Edition"
+    }
+   ]
+  },
+  {
+   "h": "100 Stück. Deine Nummer.",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Damast-Klappmesser mit eigener Seriennummer. Die gesamte Edition umfasst 100 Unikate: 90 reguläre Exemplare und zehn separat angebotene Sonderstücke."
+    },
+    {
+     "t": "p",
+     "x": "Je regulärem Exemplar. Sonderstücke nach individuellem Angebot."
+    },
+    {
+     "t": "p",
+     "x": "Offene Bestellungen sind bereits vom verfügbaren Bestand abgezogen. Die persönliche Seriennummer wird dem Exemplar vor Versand zugeordnet."
+    },
+    {
+     "t": "p",
+     "x": "Eine bewusste Entscheidung"
+    }
+   ]
+  },
+  {
+   "h": "Dein Messer. Bis ins Detail.",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Messer begleitet dich bei ganz unterschiedlichen Aufgaben. Vergleiche Form, Griff und die beschriebenen Eigenschaften. Die Bilder zeigen die Stücke aus mehreren Perspektiven – bei Fragen hilft dir die Manufaktur persönlich weiter."
+    },
+    {
+     "t": "li",
+     "x": "01 Entdecken & vergleichen Öffne die Detailansicht, vergrößere die Bilder und prüfe die Produktangaben."
+    },
+    {
+     "t": "li",
+     "x": "02 Online verbindlich bestellen Adresse, Versand und Gesamtbetrag stehen vor dem Bestellbutton in deiner Übersicht."
+    },
+    {
+     "t": "li",
+     "x": "03 Überweisen & Kontoprüfung abwarten Nach bestätigtem Zahlungseingang bereiten wir die Lieferung vor."
+    },
+    {
+     "t": "p",
+     "x": "Vor deiner Bestellung"
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Wie funktioniert die Bestellung?",
+   "a": "Bei freigegebenen Messern wählst du die gewünschte Menge und legst sie in den Warenkorb. An der Kasse siehst du deine Lieferdaten, den Versand und den Gesamtbetrag. Nach deiner Bestellung erhältst du die Bankverbindung und einen persönlichen Bestelllink."
+  },
+  {
+   "q": "Wann ist mein Messer reserviert?",
+   "a": "Ein Artikel im Warenkorb ist noch nicht reserviert. Erst eine erfolgreich eingegangene Bestellung sperrt die bestellte Menge. Bei der Edition 100 sinkt der verfügbare Bestand pro Bestellung um ein Exemplar."
+  },
+  {
+   "q": "Wie bezahlt man im Shop?",
+   "a": "Per Banküberweisung. Deine Mitteilung „Überweisung veranlasst“ hilft bei der Zuordnung. Wir bestätigen die Zahlung erst nach Prüfung des tatsächlichen Kontoeingangs. Die konkrete Lieferfrist steht vor dem Kauf in der Bestellübersicht."
+  },
+  {
+   "q": "Kann ich jedes abgebildete Messer sofort kaufen?",
+   "a": "Direkt bestellbare Messer haben einen bestätigten Preis, aktuelle Verfügbarkeit und einen Warenkorb-Button. Bei weiteren Motiven kannst du das gezeigte Werkstück anfragen. Galeriebilder allein sind keine Zusage, dass dieses Exemplar noch verfügbar ist."
+  },
+  {
+   "q": "Kann ich ein Messer nach meinen Vorstellungen anfertigen lassen?",
+   "a": "Beschreibe deine Idee über die Anfrage für Sonderanfertigungen. Du möchtest die Arbeit selbst erleben? Entdecke unsere Schmiedekurse in Neuenstadt-Stein."
+  }
+ ],
+ "source": "https://messermanufaktur-ulbrich.de/shop/einzelstuecke/"
+}

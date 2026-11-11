@@ -24,7 +24,7 @@ class CourseForm
                     ->unique(ignoreRecord: true),
                 TextInput::make('booking_key')->label('Buchungsschlüssel (?kurs=)')->maxLength(60),
                 TextInput::make('duration_label')->label('Dauer (Anzeige)')->placeholder('1 Tag')->maxLength(40),
-                TextInput::make('blade_length_cm')->label('Max. Klingenlänge in cm')->numeric()->minValue(1)->maxValue(99),
+                TextInput::make('total_length_cm')->label('Max. Gesamtlänge in cm (inkl. Griff)')->numeric()->minValue(1)->maxValue(99),
                 TextInput::make('price_from')
                     ->label('„ab“-Preis pro Person in €')
                     ->helperText('Leer lassen = „auf Anfrage“')

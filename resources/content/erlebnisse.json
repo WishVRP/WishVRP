@@ -1,0 +1,88 @@
+{
+ "h1": "Besondere Erlebnisse in Baden-Württemberg",
+ "lead": [
+  "Ein Erlebnis, das du selbst formst.",
+  "Du suchst ein handwerkliches Erlebnis in Baden-Württemberg? Bei Ulbrich kannst du Schmieden kennenlernen, an eigenen Klingen arbeiten oder ein mehrtägiges Damastprojekt planen. Ob das Angebot für dich „in der Nähe“ liegt, hängt von deinem Ausgangsort und dem konkreten Kurstreffpunkt ab. Adresse, Datum und Preis stehen beim freigeschalteten Termin."
+ ],
+ "sections": [
+  {
+   "h": "Welches Erlebnis suchst du?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein erster Tag am Amboss ist etwas anderes als ein ganzes Wochenende für ein Messer. Wähle nach dem, was du erleben und mitnehmen möchtest. Für einen Einstieg ohne Vorwissen ist der Grundlagenkurs gedacht. Der Klingenkurs baut darauf auf. Die Damastkurse lassen mehr Zeit für ein größeres Projekt."
+    },
+    {
+     "t": "h3",
+     "x": "Ein Tag zum Ausprobieren"
+    },
+    {
+     "t": "p",
+     "x": "Der Grundlagenkurs dauert etwa acht Stunden. Das Ziel ist ein selbstgeschmiedetes Werkstück, nicht automatisch ein fertiges Messer."
+    },
+    {
+     "t": "h3",
+     "x": "Ein Wochenende mit einem Projekt"
+    },
+    {
+     "t": "p",
+     "x": "Der Damast-Messerkurs umfasst zwei Tage und ein Messer bis 32 cm Gesamtlänge inklusive Griff. Eine Übernachtung ist im Angebot vorgesehen."
+    }
+   ]
+  },
+  {
+   "h": "Allein, zu zweit oder als Geschenk",
+   "items": [
+    {
+     "t": "p",
+     "x": "Du kannst einen Platz für dich buchen oder bei ausreichender Verfügbarkeit mehrere Teilnehmende für denselben Termin auswählen. Wer jemandem Zeit und Handwerk schenken möchte, findet Kursgutscheine im Shop. Für einen geschlossenen Firmen- oder Freundeskreis stimmen wir zuerst ein passendes Format online ab."
+    }
+   ]
+  },
+  {
+   "h": "So planst du die Anreise",
+   "items": [
+    {
+     "t": "p",
+     "x": "Nutze ausschließlich den Treffpunkt des ausgewählten Termins. Ältere Presseartikel können frühere Werkstätten zeigen. Prüfe die Adresse vor der Reise und plane die gesamte Kursdauer ein. Bei mehrtägigen Formaten beachte die enthaltenen Übernachtungen und die Angaben zur Unterkunft. Ein Kursplatz entsteht erst nach dem beschriebenen Online-Buchungsablauf."
+    },
+    {
+     "t": "p",
+     "x": "Ein eigenes Projekt"
+    }
+   ]
+  },
+  {
+   "h": "Vom Interesse zum Werkstück.",
+   "items": [
+    {
+     "t": "p",
+     "x": "Du schaust genau hin, probierst unter Anleitung aus und siehst dein Projekt Schritt für Schritt entstehen. Das Ergebnis hängt vom gewählten Kurs ab."
+    },
+    {
+     "t": "li",
+     "x": "Ankommen & besprechen Werkstatt, Aufgabe und Hinweise kennenlernen."
+    },
+    {
+     "t": "li",
+     "x": "Am Werkstück arbeiten Ausprobieren, Fragen stellen und Rückmeldung bekommen."
+    },
+    {
+     "t": "li",
+     "x": "Das Ergebnis einordnen Bearbeitung und nächste Schritte gemeinsam besprechen."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Gibt es einen Messerkurs in meiner Nähe?",
+   "a": "Prüfe den Treffpunkt eines freigeschalteten Ulbrich-Termins und deine Anreise. Diese Seite bietet keine bundesweiten Standorte und behauptet keine bestimmte Entfernung zu dir."
+  },
+  {
+   "q": "Kann ich einfach vorbeikommen?",
+   "a": "Kurse finden an vereinbarten Terminen statt. Bitte buche einen verfügbaren Platz online; ein unangemeldeter Besuch ersetzt keine Buchung."
+  }
+ ],
+ "source": "https://messermanufaktur-ulbrich.de/erlebnisse/"
+}

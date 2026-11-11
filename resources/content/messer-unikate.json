@@ -1,0 +1,46 @@
+{
+ "h1": "Messer-Unikate & handgefertigte Einzelstücke",
+ "lead": [
+  "Ein Messer mit eigenem Charakter.",
+  "Ein Messer-Unikat unterscheidet sich durch seine individuelle Gestaltung. Bei Ulbrich findest du vorhandene Einzelstücke im Shop, die auf 100 Exemplare begrenzte Damast-Klappmesser-Edition und die Möglichkeit, eine Sonderanfertigung anzufragen. Welcher Weg passt, hängt von deinem Wunsch, Budget und Zeitrahmen ab."
+ ],
+ "sections": [
+  {
+   "h": "Vorhandene Einzelstücke entdecken",
+   "items": [
+    {
+     "t": "p",
+     "x": "Der Shop ist der Ausgangspunkt, wenn du ein bereits angebotenes Messer suchst. Vergleiche Produktbilder, Angaben zum Material und die jeweilige Verfügbarkeit. Ein Einzelstück wird durch seine konkrete Ausführung beschrieben; der Begriff allein verspricht keine bestimmte technische Eigenschaft."
+    }
+   ]
+  },
+  {
+   "h": "Eine limitierte Edition auswählen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Die Edition 100 umfasst 100 Damast-Klappmesser. Jedes Exemplar hat eine eigene Seriennummer und kostet 699 €. Der Bestandszähler zeigt die aktuell bestellbaren Stücke; offene Bestellungen sind bereits abgezogen. Eine bestimmte Seriennummer oder Wertsteigerung wird nicht zugesagt."
+    },
+    {
+     "t": "h3",
+     "x": "Persönlicher Wert statt Spekulation"
+    },
+    {
+     "t": "p",
+     "x": "Wähle ein Messer, dessen Form und Ausdruck dich ansprechen. Eine kleine Auflage kann für Sammler interessant sein, ist aber keine Zusicherung eines finanziellen Vorteils."
+    }
+   ]
+  },
+  {
+   "h": "Eine eigene Idee besprechen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Für ein besonderes Küchenmesser, einen gestalterischen Wunsch oder ein Geschenk nutze die Anfrage zur Sonderanfertigung. Beschreibe Zweck und Vorstellungen und nenne einen Budget- und Zeitrahmen. Material, Gestaltung und Preis werden vor einer Beauftragung abgestimmt."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/messer-unikate/"
+}

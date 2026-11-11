@@ -1,0 +1,46 @@
+{
+ "h1": "Wie lange dauert ein Messerschmiedekurs?",
+ "lead": [
+  "Ein Tag oder mehrere? Dein Projekt entscheidet.",
+  "Bei Ulbrich reichen die Formate von einem Tag mit etwa acht Stunden bis zu einem dreitägigen Kurs. Grundlagen- und Klingenkurse sind als Tagesformate beschrieben. Der Damast-Messerkurs dauert zwei Tage, der Premium-Kurs zwei bis drei und der Manager-Kurs drei Tage."
+ ],
+ "sections": [
+  {
+   "h": "Was passt in einen Tag?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Tageskurs kann einen Einstieg ins Schmieden oder die Arbeit an Klingen ermöglichen. Der Grundlagenkurs verspricht ein Werkstück. Im regulären Klingenkurs sind zwei Klingen vorgesehen, die Griff-Fertigung kommt bei Bedarf zusätzlich hinzu. Die Dauer allein sagt deshalb nicht, ob du ein vollständiges Messer mit nach Hause nimmst."
+    }
+   ]
+  },
+  {
+   "h": "Warum mehrere Tage einplanen?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein größeres Messerprojekt umfasst mehr Entscheidungen und Arbeiten. Im zweitägigen Damast-Messerkurs gehört der Griff zum vorgesehenen Ergebnis. Beim Premium-Format stehen zwei bis drei Tage zur Verfügung. Die genaue Zeitplanung ergibt sich aus dem Termin und dem vereinbarten Leistungsumfang."
+    },
+    {
+     "t": "h3",
+     "x": "Übernachtungen mitdenken"
+    },
+    {
+     "t": "p",
+     "x": "Der Damast-Messerkurs sieht eine Übernachtung vor, das Premium-Format ein bis zwei. Prüfe die konkrete Unterkunft und plane deine An- und Abreise passend zu den tatsächlichen Kurszeiten."
+    }
+   ]
+  },
+  {
+   "h": "Was passiert, wenn du den Termin ändern musst?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Eine reguläre Umbuchung muss spätestens sieben Kalendertage vor Kursbeginn angefragt werden. Ein Ersatztermin hängt von freien Plätzen ab. Der bisherige Termin bleibt bestehen, bis ein Wechsel bestätigt wurde. Buche deshalb eine Kursdauer, die du vollständig einplanen kannst."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-dauer/"
+}

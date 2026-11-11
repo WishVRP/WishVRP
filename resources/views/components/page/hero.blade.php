@@ -1,6 +1,6 @@
 @props(['meta', 'title', 'lead' => null, 'kicker' => null, 'foto' => null, 'pos' => null, 'tile' => null, 'tileLabel' => null, 'tone' => 'straw'])
 {{-- Kopfbereich jeder Unterseite: Brotkrumen, H1, Einleitung, Aktionen; rechts Foto oder Typo-Kachel --}}
-<section class="page-hero is-dark textured page-hero--{{ $tone }}" aria-labelledby="page-title">
+<section {{ $attributes->class(['page-hero is-dark textured page-hero--'.$tone]) }} aria-labelledby="page-title">
     <div class="container page-hero__grid">
         <div class="page-hero__text">
             <nav class="breadcrumb breadcrumb--dark" aria-label="Brotkrumen">

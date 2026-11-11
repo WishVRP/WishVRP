@@ -1,0 +1,46 @@
+{
+ "h1": "Schmiedekurs vorbereiten: Kleidung, Anreise & Buchung",
+ "lead": [
+  "Gut vorbereitet an die Werkbank.",
+  "Vor einem Schmiedekurs solltest du Ergebnis, Treffpunkt, Zeiten, Kleidung und Zahlungsablauf kennen. Verbindliche Angaben findest du beim ausgewählten Termin und in deiner Buchungsbestätigung. Kläre besondere Teilnahmevoraussetzungen vor der Reservierung; eine allgemeine Kursseite ersetzt diese Abstimmung nicht."
+ ],
+ "sections": [
+  {
+   "h": "Vor dem Kurstag",
+   "items": [
+    {
+     "t": "p",
+     "x": "Lies die Terminbeschreibung vollständig. Vergleiche die Adresse mit deiner Reiseplanung und prüfe bei mehrtägigen Kursen die Angaben zur Unterkunft. Lass dir offene Punkte rechtzeitig telefonisch oder per E-Mail beantworten. Buche nicht auf Grundlage eines alten Veranstaltungsbeitrags oder einer früheren Werkstattadresse."
+    }
+   ]
+  },
+  {
+   "h": "Kleidung und persönliche Voraussetzungen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Eine Schmiede verlangt passende Kleidung und die Beachtung der vor Ort gegebenen Schutz- und Verhaltenshinweise. Frage nach den konkreten Anforderungen deines Kurses, einschließlich Schuhwerk und bereitgestellter Schutzausrüstung. Teile besondere organisatorische Anforderungen vorab mit; sensible medizinische Einzelheiten gehören nicht in ein allgemeines Kontaktformular."
+    },
+    {
+     "t": "h3",
+     "x": "Begleitpersonen und Minderjährige"
+    },
+    {
+     "t": "p",
+     "x": "Ein Kursplatz gilt für die gebuchte teilnehmende Person. Ob Begleitpersonen oder Minderjährige teilnehmen können, muss ausdrücklich geklärt sein. Aus einer Gruppenbuchung ergibt sich keine pauschale Zusage."
+    }
+   ]
+  },
+  {
+   "h": "Die Online-Reservierung vorbereiten",
+   "items": [
+    {
+     "t": "p",
+     "x": "Halte den Zugang zu deinem Onlinebanking bereit. Die 15 Minuten beginnen erst, wenn der Server deine Reservierung bestätigt. Innerhalb dieses Fensters veranlasst du die Überweisung und meldest sie telefonisch oder per E-Mail. Das Geld muss nicht innerhalb von 15 Minuten auf unserem Konto sichtbar sein. Bewahre deinen vertraulichen Buchungslink auf."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-vorbereitung/"
+}

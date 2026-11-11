@@ -24,5 +24,7 @@
 
     @include('pages.home.07b-gallery')
 
+    @include('pages.partials.subpages', ['prefix' => '/shop/', 'title' => 'Messer nach Art', 'kicker' => 'Kategorien', 'sunken' => true])
+
     <x-page.cta title="Frage zu einem Messer?" text="Verfügbarkeit, Details und Bestellung klärst du direkt mit dem Messerschmied." />
 </x-layouts.site>

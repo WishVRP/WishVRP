@@ -9,14 +9,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Course extends Model
 {
     protected $fillable = [
-        'name', 'category', 'path', 'booking_key', 'duration_label', 'blade_length_cm',
+        'name', 'slug', 'category', 'path', 'booking_key', 'duration_label', 'hours_label', 'project', 'inclusions', 'total_length_cm',
         'price_from', 'summary', 'sort', 'is_published',
     ];
 
     protected function casts(): array
     {
         return [
-            'blade_length_cm' => 'integer',
+            'total_length_cm' => 'integer',
+            'inclusions' => 'array',
             'price_from' => 'integer',
             'is_published' => 'boolean',
         ];

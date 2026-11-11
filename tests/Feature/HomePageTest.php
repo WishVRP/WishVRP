@@ -28,7 +28,7 @@ class HomePageTest extends TestCase
         $html = $this->get('/')->getContent();
 
         $this->assertStringContainsString('<link rel="canonical" href="https://messermanufaktur-ulbrich.de/">', $html);
-        $this->assertMatchesRegularExpression('/<title>[^<]+\| Ulbrich<\/title>/', $html);
+        $this->assertMatchesRegularExpression("/<title>[^<]+Ulbrich<\\/title>/", $html);
 
         preg_match('/<meta name="description" content="([^"]+)"/', $html, $m);
         $length = mb_strlen(html_entity_decode($m[1]));
@@ -66,7 +66,8 @@ class HomePageTest extends TestCase
         $business = collect($data['@graph'])->firstWhere('@type', 'LocalBusiness');
         $this->assertSame('Wannenstraße 33', $business['address']['streetAddress']);
         $this->assertSame('+491794079218', $business['telephone']);
-        $this->assertArrayNotHasKey('email', $business, 'E-Mail ist noch nicht festgelegt und darf nicht im Schema stehen.');
+        $this->assertSame(config('ulbrich.email'), $business['email'] ?? null, 'E-Mail im Schema = E-Mail aus der Konfiguration');
+        $this->assertSame(config('ulbrich.same_as'), $business['sameAs'] ?? null);
     }
 
     public function test_faq_schema_matches_visible_questions(): void
@@ -92,9 +93,11 @@ class HomePageTest extends TestCase
     {
         $html = strtolower($this->get('/')->getContent());
 
-        foreach (['type="password"', '/verwaltung', 'admin', 'livewire', 'login'] as $needle) {
+        foreach (['type="password"', '/verwaltung', 'livewire', 'login'] as $needle) {
             $this->assertStringNotContainsString($needle, $html, "Öffentliches HTML enthält „{$needle}“");
         }
+        // „admin“ als eigenes Wort/Pfad – externe Quellen wie „…/fileadmin/…“ (TYPO3) sind kein Admin-Markup
+        $this->assertDoesNotMatchRegularExpression('/(?<![a-z])admin/', $html, 'Öffentliches HTML enthält „admin“');
     }
 
     public function test_security_headers_are_set(): void

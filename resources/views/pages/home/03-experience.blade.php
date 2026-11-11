@@ -15,7 +15,7 @@
             <dl class="figures">
                 <div><dt>Kursformate</dt><dd data-count="{{ $courses->count() }}">{{ $courses->count() }}</dd></div>
                 <div><dt>Tage Kursdauer</dt><dd>1–3</dd></div>
-                <div><dt>cm Klinge im Premium-Kurs</dt><dd data-count="{{ $maxBlade }}">{{ $maxBlade }}</dd></div>
+                <div><dt>cm Messer im Premium-Kurs</dt><dd data-count="{{ $maxBlade }}">{{ $maxBlade }}</dd></div>
             </dl>
             <div class="btn-row">
                 <x-ui.button href="#kursfinder" variant="straw">Kurse vergleichen</x-ui.button>

@@ -1,0 +1,76 @@
+{
+ "h1": "Welches Kochmesser passt zu mir?",
+ "lead": [
+  "Wähle nach dem, was du wirklich schneidest.",
+  "Das passende Kochmesser hängt von deinen Zutaten, deiner Schneidtechnik, der gewünschten Größe und der Pflege ab. Eine schöne Damastzeichnung allein beantwortet diese Fragen nicht. Vergleiche den vorgesehenen Einsatz und die bestätigten Produktangaben, bevor du ein handgefertigtes Küchenmesser kaufst."
+ ],
+ "sections": [
+  {
+   "h": "1. Deine häufigsten Aufgaben bestimmen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Schneidest du meist Gemüse, bereitest du Fleisch zu oder suchst du ein vielseitiges Messer für wechselnde Aufgaben? Schreibe die drei Tätigkeiten auf, für die du das Messer am häufigsten nutzen möchtest. So kannst du gezielt nach geeigneter Form und Größe fragen. Für Knochen, gefrorene Lebensmittel oder das Hebeln ist ein feines Kochmesser ohne ausdrückliche Eignung nicht vorgesehen."
+    }
+   ]
+  },
+  {
+   "h": "2. Klingenform und Bewegung zusammen betrachten",
+   "items": [
+    {
+     "t": "p",
+     "x": "Wer mit einer wiegenden Bewegung arbeitet, stellt andere Anforderungen an die Schneidenform als jemand, der überwiegend gerade schneidet. Auch die Höhe der Klinge und der Platz für die Finger am Brett beeinflussen die Handhabung. Eine pauschale Aussage wie „das beste Kochmesser für alle“ hilft bei der Auswahl wenig."
+    },
+    {
+     "t": "h3",
+     "x": "Größe und Kontrolle"
+    },
+    {
+     "t": "p",
+     "x": "Eine längere Klinge kann große Zutaten bearbeiten, braucht aber auch Platz und sichere Führung. Eine kompaktere Form kann sich bei kleineren Aufgaben leichter kontrollieren lassen. Vergleiche die tatsächliche Klingenlänge und Gesamtlänge des angebotenen Messers."
+    },
+    {
+     "t": "h3",
+     "x": "Griff und Balance"
+    },
+    {
+     "t": "p",
+     "x": "Griffgestaltung, Handgröße und persönliche Vorlieben gehören zusammen. Bilder zeigen Form und Übergänge, ersetzen aber kein Gefühl in der Hand. Bei Unsicherheit helfen konkrete Fragen zu Abmessungen und Handhabung."
+    }
+   ]
+  },
+  {
+   "h": "3. Material und Pflege ehrlich einplanen",
+   "items": [
+    {
+     "t": "p",
+     "x": "„Damast“ beschreibt nicht automatisch eine bestimmte Rostbeständigkeit, Härte oder Pflegeleichtigkeit. Entscheidend sind die beim konkreten Messer bestätigten Materialien und deren Verarbeitung. Frage nach, wenn Stahlbezeichnung oder Pflegehinweise fehlen. Unbestätigte Eigenschaften sollten keine Kaufentscheidung tragen."
+    },
+    {
+     "t": "p",
+     "x": "Reinige ein hochwertiges Messer entsprechend seinen Pflegehinweisen und bewahre die Schneide geschützt auf. Hinweise für Griff und Klinge können sich unterscheiden. Bei Naturmaterialien ist eine angemessene Behandlung besonders wichtig. Die produktspezifische Anleitung hat Vorrang vor allgemeinen Ratschlägen."
+    }
+   ]
+  },
+  {
+   "h": "4. Ein vorhandenes Messer oder eine Sonderanfertigung?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein verfügbares Messer bietet dir konkrete Bilder und feststehende Produktangaben. Bei einer Sonderanfertigung beginnt die Auswahl mit dem gewünschten Einsatz, deinem Budget und den gestalterischen Vorstellungen. Die Machbarkeit, Ausführung, Preis und Zeitplanung werden vor einem Auftrag abgestimmt."
+    }
+   ]
+  },
+  {
+   "h": "Deine kurze Checkliste vor der Bestellung",
+   "items": [
+    {
+     "t": "p",
+     "x": "Kläre Einsatzzweck, Klingen- und Gesamtlänge, Stahl, Griffmaterial, Pflege, Preis und Verfügbarkeit. Wenn eine Angabe fehlt, frage nach. Im Shop kannst du verfügbare Küchenmesser ansehen. Ein Messerpass ergänzt bei entsprechend dokumentierten Stücken später die Angaben zu genau deinem Exemplar."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/ratgeber/welches-kochmesser/"
+}

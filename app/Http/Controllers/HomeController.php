@@ -22,11 +22,11 @@ class HomeController extends Controller
             ->get();
 
         $minPrice = $courses->whereNotNull('price_from')->min('price_from');
-        $maxBlade = $courses->max('blade_length_cm') ?: 40;
+        $maxBlade = $courses->max('total_length_cm') ?: 40;
 
         $meta = new PageMeta(
             // Vor Go-live mit dem aktuellen Live-Title abgleichen (10,15 % CTR nicht gefährden).
-            title: 'Schmiedekurse & Messer aus Neuenstadt am Kocher',
+            title: 'Schmiedekurse & Messer seit 1934 | Messermanufaktur Ulbrich',
             description: 'Schmiedekurse bei Heilbronn: Schmiede dein eigenes Messer bei Messerschmied '.config('ulbrich.owner').' – Schmiedehandwerk seit '.config('ulbrich.heritage.since').' in der Familie, in '.config('ulbrich.heritage.generation').'. Generation.',
             path: '/',
         );

@@ -1,0 +1,55 @@
+{
+ "h1": "Geschenkideen: Schmiedekurse, Messer & Gutscheine",
+ "lead": [
+  "Etwas schenken, das Bedeutung hat.",
+  "Ein Schmiedekurs schenkt Zeit am eigenen Projekt, ein Messer ein ausgewähltes Werkstück und ein Gutschein die spätere Entscheidung. Für Geburtstag, Jubiläum, Hochzeit oder Weihnachten zählt vor allem, was zur beschenkten Person passt. Hier findest du die passenden Wege zu Kursen, Gutscheinen und Messern."
+ ],
+ "sections": [
+  {
+   "h": "Für Menschen, die selbst etwas machen möchten",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Kurs ist passend, wenn die Person gern praktisch arbeitet und Zeit für den Termin einplanen kann. Der Grundlagenkurs bietet einen Einstieg ohne Vorwissen. Wer ausdrücklich ein eigenes Damastmesser gestalten möchte, sollte die mehrtägigen Angebote vergleichen. Schenke keine feste Leistung, die der ausgewählte Kurs nicht enthält."
+    }
+   ]
+  },
+  {
+   "h": "Für Messerliebhaber und Sammler",
+   "items": [
+    {
+     "t": "p",
+     "x": "Bei einem Messer kommt es auf den geplanten Einsatz und den persönlichen Geschmack an. Die Edition 100 ist auf 100 Damast-Klappmesser begrenzt und kostet 699 € pro Stück. Jedes hat eine eigene Seriennummer. Für ein individuelles Projekt gibt es die Anfrage zur Sonderanfertigung."
+    },
+    {
+     "t": "h3",
+     "x": "Ein persönlicher Anlass braucht Vorlauf"
+    },
+    {
+     "t": "p",
+     "x": "Nenne einen gewünschten Übergabetermin frühzeitig. Eine Anfrage ist noch keine Zusage für eine Lieferfrist. Maßanfertigungen, Gravuren oder besondere Verpackungen sind nur enthalten, wenn sie ausdrücklich bestätigt wurden."
+    }
+   ]
+  },
+  {
+   "h": "Wenn Termin oder Modell noch offen sind",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Gutschein lässt die Auswahl später zu. Im Shop findest du die vorhandenen Gutscheinangebote und deren Bedingungen. Prüfe Wert, Verwendungszweck, Format und Lieferzeit. Ein Gutschein ist noch kein reservierter Kursplatz. Bei einem festen Geschenkdatum muss auch die tatsächliche Zustellung geklärt sein."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Welches Geschenk passt ohne feste Terminplanung?",
+   "a": "Ein Gutschein kann passen, wenn die Person Kurs und Datum später selbst wählen möchte. Prüfe die Bedingungen des konkreten Gutscheinangebots."
+  },
+  {
+   "q": "Gibt es einen automatischen Geschenk-Rabatt?",
+   "a": "Ein Preisnachlass gilt nur, wenn er im Angebot ausdrücklich ausgewiesen wird. Die Auswahl eines Geschenkanlasses ändert keinen Preis."
+  }
+ ],
+ "source": "https://messermanufaktur-ulbrich.de/geschenke/"
+}

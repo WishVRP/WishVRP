@@ -54,7 +54,22 @@ Rechtliche Punkte sind Prüfpunkte für Steuerberater/Anwalt, keine Rechtsberatu
 | C3 | Dubletten-URLs (`/index.html`, `/shop.html`, `*.php`-Rechtsseiten) | Erst mit dem Relaunch per 301 umleiten (Map in `config/redirects.php`), nicht vorher einzeln. |
 | C4 | Backups | Vor jeder Änderung: Dateien + Datenbank sichern, Wiederherstellung einmal testen. |
 
+## Neu bestätigt durch Prüfung der öffentlichen Live-Seite (11.11.2026)
+
+Geprüft wurden nur öffentliche, in Sitemap oder Footer verlinkte Seiten. Admin-Pfade wurden **nicht** aufgerufen, und am Server wurde nichts verändert.
+
+| # | Befund (öffentlich sichtbar) | Priorität | Maßnahme |
+| --- | --- | --- | --- |
+| L1 | Die Startseite verlinkt im HTML auf `/kursbuchung/admin.php` und enthält Texte eines Admin-Logins („Admin Login“, „Falsches Passwort“) | **A** | Link und Login-Markup aus öffentlichen Seiten entfernen, Admin nur serverseitig geschützt (siehe A1) |
+| L2 | **Steuer widersprüchlich:** Impressum „Gemäß § 19 UStG wird keine Umsatzsteuer berechnet“, Edition-100-Seite „Gesamtpreise inklusive gesetzlicher Umsatzsteuer“ | **A** | Mit dem Steuerberater klären, dann überall einheitlich (siehe A2) |
+| L3 | **Zwei E-Mail-Adressen:** Impressum info@messermanufaktur-ulbrich.de, Startseite zusätzlich eine gmx-Adresse | B | Eine Adresse festlegen. Die neue Website nutzt info@ |
+| L4 | **Ortsschreibweise uneinheitlich:** „74196 Neuenstadt-Stein“ (Impressum), „74196 Stein am Kocher“ (Markt), „Neuenstadt am Kocher“ (Google/Postanschrift) | B | Eine Schreibweise wählen und überall gleich verwenden (NAP) |
+| L5 | Produktseite `/shop/messer/damast-warm/` zeigt das Bild `messer-anime-gravur.jpg` (Messer mit One-Piece-Motiv) | B | Bild ersetzen, da lizenzpflichtiges Motiv |
+| L6 | Impressum verweist noch auf **§ 5 TMG** und die **EU-OS-Plattform** | B | TMG wurde durch das DDG ersetzt. Die OS-Plattform wurde 2025 eingestellt, der Link ist entbehrlich. Anwaltlich prüfen |
+| L7 | Datenschutz nennt **Google Fonts** (IP-Übertragung an Google) und **Formspree (USA)** | B | Schriften lokal einbinden (die neue Website tut das), Formulardienst prüfen |
+| L8 | Viele Meta-Descriptions sind nach 155 Zeichen **mitten im Satz abgeschnitten**, einige Titles sind sehr kurz („Ein Zeichen für euch. | Ulbrich“) | C | Mit dem Relaunch gelöst (eigene Titles/Descriptions, Tests) |
+
 ## Was ich für A1–A4 von dir brauche
 
-- Lesezugriff auf den aktuellen Quellcode (Export per SFTP/ZIP, ohne Zugangsdaten-Dateien) **oder** die Freigabe der Domain im Netzwerk dieser Entwicklungsumgebung, damit ich das öffentliche HTML prüfen kann.
+- ~~Freigabe der Domain~~ erledigt (11.11.2026). Für A1/A4 (serverseitige Prüfung) weiterhin: Quellcode-Export ohne Zugangsdaten.
 - Deine ausdrückliche Freigabe, bevor irgendetwas am Server geändert wird.

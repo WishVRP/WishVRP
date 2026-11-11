@@ -1,0 +1,54 @@
+{
+ "h1": "Wie funktioniert Messerschmieden?",
+ "lead": [
+  "Wie aus einem Werkstoff ein Messer wird.",
+  "Messerschmieden verbindet die Planung einer Klinge mit ihrer Formgebung und der anschließenden Bearbeitung zum Messer. Welche Arbeiten du im Kurs selbst ausführst, hängt vom Format ab. Ein Grundlagenkurs, ein Klingenkurs und ein vollständiges Damastmesser-Projekt verfolgen unterschiedliche Ergebnisse."
+ ],
+ "sections": [
+  {
+   "h": "Zuerst steht das geplante Ergebnis",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Küchenmesser, eine einzelne Klinge und ein Klappmesser haben verschiedene Anforderungen. Deshalb beginnt ein Projekt mit der Frage, wofür das Werkstück gedacht ist. Form, Größe und Griff müssen dazu passen. Im Kurs wird außerdem berücksichtigt, wie viel Zeit und Erfahrung vorhanden sind."
+    }
+   ]
+  },
+  {
+   "h": "Der Weg durch die Werkstatt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Der Überblick lässt sich in mehrere Phasen gliedern. Die konkrete Ausführung gehört unter fachkundige Anleitung und richtet sich nach Werkstoff und Projekt."
+    },
+    {
+     "t": "h3",
+     "x": "Planung und Formgebung"
+    },
+    {
+     "t": "p",
+     "x": "Zunächst wird das Werkstück besprochen. Beim Schmieden wird erwärmtes Material bearbeitet und schrittweise in eine geplante Form gebracht."
+    },
+    {
+     "t": "h3",
+     "x": "Bearbeitung und Fertigstellung"
+    },
+    {
+     "t": "p",
+     "x": "Weitere Bearbeitung, eine zum Material passende Wärmebehandlung und der Schliff beeinflussen das spätere Messer. Bei einem vollständigen Messerprojekt kommen Griff und Endbearbeitung hinzu. Nicht jeder Kurs enthält alle diese Phasen."
+    }
+   ]
+  },
+  {
+   "h": "Welcher Kurs zeigt welchen Teil?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Der Grundlagenkurs führt an die Arbeit mit Feuer, Hammer und Stahl heran. Der Klingenkurs konzentriert sich auf zwei Klingen; die Griff-Fertigung kostet zusätzlich. Im Damast-Messerkurs ist ein Messer inklusive Griff vorgesehen. Wenn du deinen ersten Kurs suchst, vergleiche daher nicht nur die Dauer, sondern vor allem das ausdrücklich versprochene Ergebnis."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/ratgeber/messerschmieden-ablauf/"
+}

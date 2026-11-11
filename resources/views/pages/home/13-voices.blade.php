@@ -44,9 +44,9 @@
                     </div>
                     @if (count($press))
                         <ul class="press__list" role="list">
-                            @foreach (array_slice($press, 0, 4) as $item)
+                            @foreach (collect($press)->where('craft', true)->sortByDesc('date')->take(4) as $item)
                                 <li>
-                                    <span class="tech">{{ \Illuminate\Support\Carbon::parse($item['date'])->format('d.m.Y') }}</span>
+                                    <span class="tech">{{ $item['date_label'] ?? \Illuminate\Support\Carbon::parse($item['date'])->format('d.m.Y') }}</span>
                                     <span><b>{{ $item['outlet'] }}</b> – {{ $item['title'] }}</span>
                                     <a class="link-arrow" href="{{ $item['url'] }}" rel="noopener" target="_blank">Artikel <span aria-hidden="true">↗</span></a>
                                 </li>

@@ -28,5 +28,9 @@
 
     <div id="teams">@include('pages.home.12-teams')</div>
 
+    @include('pages.partials.subpages', ['prefix' => '/erlebnisse/', 'title' => 'Erlebnisse im Detail', 'kicker' => 'Erlebnisse'])
+
+    @include('pages.partials.content-sections', ['key' => 'erlebnisse', 'label' => 'Erlebnisse in Baden-Württemberg'])
+
     <x-page.cta />
 </x-layouts.site>

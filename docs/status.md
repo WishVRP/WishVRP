@@ -16,6 +16,24 @@
 - `php artisan ulbrich:audit` listet alle fehlenden Daten, Bildplätze und Foto-Prüfpunkte.
 - Geprüft in Chromium (Playwright): 1440 px und 375 px ohne horizontales Scrollen, keine Konsolenfehler.
 
+## Version 6: Live-Seite übernommen (11.11.2026)
+
+Die Domain wurde freigegeben, alle 59 öffentlichen Live-URLs sind abgeglichen (Test `LiveSitemapTest`).
+- **51 Seiten** im Register: Neu sind die **6 Kursseiten unter den Live-Pfaden** (Dauer, Projekt, Gesamtlänge, Leistungen, FAQ, Course-Schema mit Offer), Kurserfahrungen, Schmieden zu zweit, Teamevent, Geburtstag, Weihnachten, Sonderstücke, Projekt Edition 100, Messer als Handwerkskunst, 4 Shop-Kategorien, Ringe und 8 Ratgeber (Live-Pfade). Die eigenen Ratgeber liegen jetzt auf `/ratgeber/damastmesser/` und `/ratgeber/messer-pflege/`.
+- **15 Live-URLs per 301:** 11 Einzelprodukte auf ihre Kategorie, dazu `/shop/einblicke/`, `/shop/gutscheine/` und `/shop/sonderanfertigung/` (Begründung in `docs/redirects.md`).
+- **Fakten übernommen:**
+  - E-Mail info@, Instagram, Facebook
+  - 11 Presseberichte mit Links
+  - Großvater als 1. Generation, Eröffnung der Manufaktur am 1. März 2024, frühere Werkstatt in Aalen
+  - Buch mit Jeremy Monka
+  - Edition: Versand 7,99 €, Lieferzeit, Überweisung, Sonderstücke
+  - Kunst- & Handwerkermarkt (von der Manufaktur veranstaltet, Standgebühren)
+- **Korrigiert:** Die Kurslängen sind **Gesamtlängen inkl. Griff**, keine Klingenlängen. Der Markt ist eine eigene Veranstaltung der Manufaktur, kein Ausstellerauftritt.
+- **Presse:** „Presse & Erwähnungen“-Leiste unter dem Hero, Presseseite mit Einordnung, Zitat „Schmieden können ist für mich ein Privileg.“
+- **Titles** der Bestandsseiten an die Live-Titles angelehnt (CTR-Schutz). Descriptions neu, weil die Live-Descriptions oft abgeschnitten sind.
+- **Test:** Jede Seite ist von der Startseite in höchstens 3 Klicks erreichbar.
+- **Steuerstatus bleibt „offen“:** Die Live-Seite widerspricht sich selbst (§ 19 vs. „inkl. USt“).
+
 ## Version 5: Emotion, Tradition, Weg zur Buchung (10.11.2026)
 
 - **Familientradition** laut Auftraggeber: Schmiedehandwerk seit 1934, Andreas Ulbrich in 3. Generation. Steht als eine Quelle in `config/ulbrich.php` → `heritage`.

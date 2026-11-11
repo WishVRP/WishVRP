@@ -5,7 +5,7 @@
                 <x-ui.kicker>Kurs-Finder</x-ui.kicker>
                 <h2 id="finder-title" class="h-section">Welcher Schmiedekurs passt zu dir?</h2>
             </div>
-            <p class="block-head__intro">Dauer, Klingenlänge und Einstiegspreis aller Kursformate. Ablauf, Ergebnis und Voraussetzungen stehen auf der jeweiligen Kursseite.</p>
+            <p class="block-head__intro">Dauer, Gesamtlänge und Einstiegspreis aller Kursformate. Ablauf, Ergebnis und Voraussetzungen stehen auf der jeweiligen Kursseite.</p>
         </div>
 
         <fieldset class="finder__filters" data-finder-filters>
@@ -28,8 +28,8 @@
                             <dt>Dauer</dt>
                             <dd>@if($course->duration_label){{ $course->duration_label }}@else<x-ui.missing>Dauer {{ $course->name }}</x-ui.missing>@endif</dd>
                         </div>
-                        @if ($course->blade_length_cm)
-                            <div><dt>Klinge</dt><dd><x-ui.dimension :cm="$course->blade_length_cm" :max="$maxBlade" /></dd></div>
+                        @if ($course->total_length_cm)
+                            <div><dt>Gesamtlänge</dt><dd><x-ui.dimension :cm="$course->total_length_cm" :max="$maxBlade" /></dd></div>
                         @endif
                     </dl>
                     <p class="course__price">

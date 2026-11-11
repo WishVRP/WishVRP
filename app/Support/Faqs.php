@@ -28,7 +28,7 @@ final class Faqs
             $cheapest = $priced->firstWhere('price_from', $min);
             $faqs[] = [
                 'q' => 'Was kostet ein Schmiedekurs?',
-                'a' => "Die Kurse beginnen bei {$fmt($min)} pro Person für den {$cheapest->name} ({$cheapest->duration_label}). Der Damast Premium-Kurs mit bis zu 40 cm Klinge kostet ab {$fmt($max)} pro Person. Der Manager-Schmiedekurs wird auf Anfrage kalkuliert.",
+                'a' => "Die Kurse beginnen bei {$fmt($min)} pro Person für den {$cheapest->name} ({$cheapest->duration_label}). Der Damast Premium-Kurs für ein Damastmesser bis 40 cm Gesamtlänge kostet ab {$fmt($max)} pro Person. Der Manager-Schmiedekurs wird auf Anfrage kalkuliert.",
             ];
         }
 

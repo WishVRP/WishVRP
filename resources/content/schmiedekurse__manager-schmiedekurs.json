@@ -1,0 +1,110 @@
+{
+ "h1": "Manager-Schmiedekurs: drei Tage Handwerk",
+ "lead": [
+  "Drei Tage. Ein anderes Arbeitsmaterial.",
+  "Der Manager-Schmiedekurs ist ein exklusives dreitägiges Format mit einem Damastmesser bis 40 cm Gesamtlänge und vorgesehenen Übernachtungen. Der Preis wird individuell angefragt. Es geht um praktische Arbeit am eigenen Projekt. Eine Anfrage reserviert noch keinen Platz; verbindliche Termine und Preise werden anschließend online bereitgestellt."
+ ],
+ "sections": [
+  {
+   "h": "",
+   "items": [
+    {
+     "t": "p",
+     "x": "Verbindlicher Preis, Leistungen und Treffpunkt beim ausgewählten Termin."
+    }
+   ]
+  },
+  {
+   "h": "Das ist vorgesehen.",
+   "items": [
+    {
+     "t": "li",
+     "x": "Drei Kurstage mit jeweils etwa acht Stunden"
+    },
+    {
+     "t": "li",
+     "x": "Damastprojekt bis 40 cm Gesamtlänge"
+    },
+    {
+     "t": "li",
+     "x": "Übernachtungen nach individuellem Angebot"
+    }
+   ]
+  },
+  {
+   "h": "So erlebst du den Kurs",
+   "items": [
+    {
+     "t": "p",
+     "x": "Hier wechselst du vom gewohnten Arbeitsalltag an ein handwerkliches Projekt. Die Konzentration auf Material, Form und Arbeitsschritte kann eine andere Perspektive auf den eigenen Tag eröffnen. Das Angebot ist ein Schmiedekurs und macht keine medizinischen oder therapeutischen Versprechen."
+    },
+    {
+     "t": "h3",
+     "x": "Arbeiten statt nur zuschauen"
+    },
+    {
+     "t": "p",
+     "x": "Du beschäftigst dich mit einem konkreten Werkstück. Einführung, praktische Arbeit und Rückfragen gehören zusammen. Der genaue Tagesablauf richtet sich nach dem ausgeschriebenen Kurs und dem Fortschritt am Projekt."
+    }
+   ]
+  },
+  {
+   "h": "Passt dieses Angebot zu dir?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Für die Planung helfen dein gewünschter Zeitraum, die Teilnehmerzahl und die Frage, ob du allein oder mit Kolleginnen und Kollegen kommen möchtest. Gruppengröße, Betreuung und Unterbringung werden konkret vereinbart. Für einen Betriebsausflug oder eine größere Gruppe nutze die Seite für Teamveranstaltungen. Eine Exklusivbuchung entsteht erst durch eine ausdrückliche Bestätigung."
+    }
+   ]
+  },
+  {
+   "h": "Vor deiner Buchung",
+   "items": [
+    {
+     "t": "p",
+     "x": "Vergleiche Ergebnis, Zeit und enthaltene Leistungen. Wähle anschließend einen freigeschalteten Termin. Dort stehen Preis, freie Plätze, Treffpunkt und gegebenenfalls die Unterkunft. Wenn du gesundheitliche oder organisatorische Fragen hast, kläre sie vorher telefonisch oder per E-Mail."
+    },
+    {
+     "t": "p",
+     "x": "Reserviere erst, wenn du die Überweisung veranlassen kannst: Ab der Reservierung hast du 15 Minuten für Überweisung und Zahlungsmitteilung. Danach prüfen wir den tatsächlichen Kontoeingang. Dein Platz bleibt während dieser Prüfung gesperrt. Die verbindliche Bestätigung folgt per E-Mail."
+    },
+    {
+     "t": "p",
+     "x": "Ein eigenes Projekt"
+    }
+   ]
+  },
+  {
+   "h": "Vom Interesse zum Werkstück.",
+   "items": [
+    {
+     "t": "p",
+     "x": "Du schaust genau hin, probierst unter Anleitung aus und siehst dein Projekt Schritt für Schritt entstehen. Das Ergebnis hängt vom gewählten Kurs ab."
+    },
+    {
+     "t": "li",
+     "x": "Ankommen & besprechen Werkstatt, Aufgabe und Hinweise kennenlernen."
+    },
+    {
+     "t": "li",
+     "x": "Am Werkstück arbeiten Ausprobieren, Fragen stellen und Rückmeldung bekommen."
+    },
+    {
+     "t": "li",
+     "x": "Das Ergebnis einordnen Bearbeitung und nächste Schritte gemeinsam besprechen."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Was kostet das Format?",
+   "a": "Der Preis wird individuell kalkuliert. Bevor du einen Termin verbindlich buchst, müssen Leistungsumfang und Gesamtpreis feststehen."
+  },
+  {
+   "q": "Ist das auch als Teamevent möglich?",
+   "a": "Du kannst ein gemeinsames Format online anfragen. Eine bestimmte Gruppengröße oder exklusive Nutzung wird dabei noch nicht zugesagt."
+  }
+ ],
+ "source": "https://messermanufaktur-ulbrich.de/schmiedekurse/manager-schmiedekurs/"
+}

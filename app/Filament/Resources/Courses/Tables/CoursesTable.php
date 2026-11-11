@@ -23,7 +23,7 @@ class CoursesTable
                     ->searchable(),
                 TextColumn::make('duration_label')
                     ->searchable(),
-                TextColumn::make('blade_length_cm')
+                TextColumn::make('total_length_cm')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('price_from')

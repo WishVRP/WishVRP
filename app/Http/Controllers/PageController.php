@@ -35,18 +35,26 @@ class PageController extends Controller
         $dates = CourseDate::query()->with('course')->upcoming()->get();
         $faqs = Faqs::courses($courses);
 
-        $extra = match ($path) {
+        $course = isset($page['course']) ? $courses->firstWhere('slug', $page['course']) : null;
+        abort_if(isset($page['course']) && ! $course, 404);
+        $content = isset($page['content']) ? json_decode(file_get_contents(resource_path('content/'.$page['content'].'.json')), true) : null;
+
+        $extra = match (true) {
+            $course !== null => [Schema::course($course), ($cf = json_decode(file_get_contents(resource_path('content/schmiedekurse__'.$course->slug.'.json')), true)['faq']) ? Schema::faq($cf) : null],
+            ! empty($page['article']) => [Schema::article($page['h1'] ?? $content['h1'], $meta->canonical(), $page['description']), $content['faq'] ? Schema::faq($content['faq']) : null],
+            $content !== null && ! empty($content['faq']) => [Schema::faq($content['faq'])],
+            default => match ($path) {
             '/schmiedekurse/', '/schmiedekurse/vergleich/' => [Schema::courseList($courses), Schema::faq($faqs)],
             '/klappmesser/' => [Schema::product($c['edition'])],
             '/ratgeber/' => [
                 Schema::article('Was kostet ein Schmiedekurs?', $meta->canonical().'#kosten', 'Preise aller Schmiedekurse der Messermanufaktur Ulbrich pro Person, vom Grundlagenkurs bis zum Damast Premium-Kurs.'),
                 Schema::faq($faqs),
             ],
-            '/ratgeber/damaststahl/' => [
+            '/ratgeber/damastmesser/' => [
                 Schema::article('Damaststahl erklärt: Herstellung, Muster und Pflege', $meta->canonical(), $page['description']),
                 Schema::faq(Faqs::damascus()),
             ],
-            '/ratgeber/messer-pflegen/' => [
+            '/ratgeber/messer-pflege/' => [
                 Schema::article('Messer pflegen: reinigen, schärfen, richtig lagern', $meta->canonical(), $page['description']),
                 Schema::faq(Faqs::care()),
             ],
@@ -54,16 +62,17 @@ class PageController extends Controller
             '/geschenke/schmiedekurs-gutschein/' => [Schema::faq(Faqs::voucher())],
             '/schmiedekurse/heilbronn-region/', '/manufaktur/' => [Schema::localBusiness(), Schema::person()],
             default => [],
+            },
         };
 
         $schema = Schema::graph([Schema::webPage($meta), Schema::breadcrumb($meta), ...$extra]);
 
         return view('pages.'.$page['view'], [
-            ...compact('meta', 'schema', 'page', 'path', 'c', 'courses', 'dates', 'faqs'),
+            ...compact('meta', 'schema', 'page', 'path', 'c', 'courses', 'dates', 'faqs', 'course'),
             'e' => $c['edition'],
             'rating' => $c['google_rating'],
             'minPrice' => $courses->whereNotNull('price_from')->min('price_from'),
-            'maxBlade' => $courses->max('blade_length_cm') ?: 40,
+            'maxBlade' => $courses->max('total_length_cm') ?: 40,
         ]);
     }
 

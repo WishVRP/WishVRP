@@ -18,5 +18,9 @@
 
     @include('pages.home.07b-gallery')
 
+    @include('pages.partials.subpages', ['prefix' => '/messerprojekte/', 'title' => 'Projekte im Detail', 'kicker' => 'Messerprojekt'])
+
+    @include('pages.partials.content-sections', ['key' => 'messerprojekte', 'skip' => ['Dokumentierte Messerprojekte'], 'label' => 'Über die Projekte'])
+
     <x-page.cta title="Selbst ein Projekt im Kopf?" />
 </x-layouts.site>

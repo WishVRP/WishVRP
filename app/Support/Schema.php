@@ -154,11 +154,35 @@ final class Schema
                     '@type' => 'Course',
                     'name' => $course->name,
                     'description' => trim($course->name.' – '.collect([$course->categoryLabel(), $course->duration_label])->filter()->implode(', ')),
-                    'url' => PageMeta::absolute('/schmiedekurse/').'#'.\Illuminate\Support\Str::slug($course->name),
+                    'url' => PageMeta::absolute($course->url()),
                     'provider' => ['@id' => self::businessId()],
                 ]),
             ])->all(),
         ];
+    }
+
+    /**
+     * Einzelner Kurs (nur sichtbare Angaben). Angebot mit Preis „ab“ als Offer; ohne Termine kein CourseInstance.
+     *
+     * @return array<string, mixed>
+     */
+    public static function course(\App\Models\Course $course): array
+    {
+        return self::clean([
+            '@type' => 'Course',
+            'name' => $course->name,
+            'description' => $course->project.' – '.$course->duration_label.($course->hours_label ? ', '.$course->hours_label : ''),
+            'url' => PageMeta::absolute($course->url()),
+            'provider' => ['@id' => self::businessId()],
+            'inLanguage' => 'de-DE',
+            'offers' => $course->price_from ? [
+                '@type' => 'Offer',
+                'price' => (string) $course->price_from,
+                'priceCurrency' => 'EUR',
+                'category' => 'ab-Preis pro Person',
+                'url' => PageMeta::absolute($course->bookingUrl()),
+            ] : null,
+        ]);
     }
 
     /**

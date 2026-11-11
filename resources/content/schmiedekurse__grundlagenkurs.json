@@ -1,0 +1,110 @@
+{
+ "h1": "Schmiedekurs für Anfänger: Grundlagenkurs",
+ "lead": [
+  "Ein Tag am Feuer. Dein erstes Werkstück.",
+  "Der Grundlagenkurs ist der Einstieg ins Schmiedehandwerk: ein Tag mit Feuer, Hammer und Stahl, ohne erforderliches Vorwissen. Du arbeitest an einem eigenen Werkstück. Der Angebotspreis beginnt bei 300 € pro Person; Getränke vor Ort gehören dazu. Ein vollständig fertiggestelltes Messer ist bei diesem Einstieg nicht pauschal enthalten."
+ ],
+ "sections": [
+  {
+   "h": "",
+   "items": [
+    {
+     "t": "p",
+     "x": "Verbindlicher Preis, Leistungen und Treffpunkt beim ausgewählten Termin."
+    }
+   ]
+  },
+  {
+   "h": "Das ist vorgesehen.",
+   "items": [
+    {
+     "t": "li",
+     "x": "Einführung in den Umgang mit Werkstatt und Werkzeug"
+    },
+    {
+     "t": "li",
+     "x": "Arbeit am eigenen Werkstück unter Anleitung"
+    },
+    {
+     "t": "li",
+     "x": "Getränke vor Ort"
+    }
+   ]
+  },
+  {
+   "h": "So erlebst du den Kurs",
+   "items": [
+    {
+     "t": "p",
+     "x": "Hier geht es darum, ein Gefühl für das Material und den Arbeitsablauf zu bekommen. Du lernst die Werkstatt kennen, besprichst dein Werkstück und arbeitest unter Anleitung. Beobachten, ausprobieren und Rückmeldung gehören zusammen. Du musst nicht schon wissen, wie man einen Hammer richtig führt."
+    },
+    {
+     "t": "h3",
+     "x": "Arbeiten statt nur zuschauen"
+    },
+    {
+     "t": "p",
+     "x": "Du beschäftigst dich mit einem konkreten Werkstück. Einführung, praktische Arbeit und Rückfragen gehören zusammen. Der genaue Tagesablauf richtet sich nach dem ausgeschriebenen Kurs und dem Fortschritt am Projekt."
+    }
+   ]
+  },
+  {
+   "h": "Passt dieses Angebot zu dir?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Du willst zunächst herausfinden, ob dir die Arbeit am Amboss liegt? Dann ist dieser Kurs ein passender Anfang. Wenn dein ausdrückliches Ziel zwei Klingen sind, vergleiche den Klingenkurs. Für ein Damastmesser inklusive Griff ist der zweitägige Damast-Messerkurs das genauer passende Angebot."
+    }
+   ]
+  },
+  {
+   "h": "Vor deiner Buchung",
+   "items": [
+    {
+     "t": "p",
+     "x": "Vergleiche Ergebnis, Zeit und enthaltene Leistungen. Wähle anschließend einen freigeschalteten Termin. Dort stehen Preis, freie Plätze, Treffpunkt und gegebenenfalls die Unterkunft. Wenn du gesundheitliche oder organisatorische Fragen hast, kläre sie vorher telefonisch oder per E-Mail."
+    },
+    {
+     "t": "p",
+     "x": "Reserviere erst, wenn du die Überweisung veranlassen kannst: Ab der Reservierung hast du 15 Minuten für Überweisung und Zahlungsmitteilung. Danach prüfen wir den tatsächlichen Kontoeingang. Dein Platz bleibt während dieser Prüfung gesperrt. Die verbindliche Bestätigung folgt per E-Mail."
+    },
+    {
+     "t": "p",
+     "x": "Ein eigenes Projekt"
+    }
+   ]
+  },
+  {
+   "h": "Vom Interesse zum Werkstück.",
+   "items": [
+    {
+     "t": "p",
+     "x": "Du schaust genau hin, probierst unter Anleitung aus und siehst dein Projekt Schritt für Schritt entstehen. Das Ergebnis hängt vom gewählten Kurs ab."
+    },
+    {
+     "t": "li",
+     "x": "Ankommen & besprechen Werkstatt, Aufgabe und Hinweise kennenlernen."
+    },
+    {
+     "t": "li",
+     "x": "Am Werkstück arbeiten Ausprobieren, Fragen stellen und Rückmeldung bekommen."
+    },
+    {
+     "t": "li",
+     "x": "Das Ergebnis einordnen Bearbeitung und nächste Schritte gemeinsam besprechen."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Brauche ich Erfahrung?",
+   "a": "Für den Grundlagenkurs ist kein Vorwissen vorgesehen. Besondere Voraussetzungen und Hinweise stehen zusätzlich beim konkreten Termin."
+  },
+  {
+   "q": "Nehme ich ein fertiges Messer mit?",
+   "a": "Der Grundlagenkurs verspricht ein selbstgeschmiedetes Werkstück. Ein fertiges Messer mit Griff gehört nicht automatisch dazu."
+  }
+ ],
+ "source": "https://messermanufaktur-ulbrich.de/schmiedekurse/grundlagenkurs/"
+}

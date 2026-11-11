@@ -1,0 +1,59 @@
+{
+ "h1": "Messerprojekte aus der Manufaktur",
+ "lead": [
+  "Jedes Projekt hat seine eigene Geschichte.",
+  "Entdecke Messerprojekte der Messermanufaktur Ulbrich: mit echten Bildern, dem Gedanken hinter dem Werkstück und den bestätigten Details. Die Projektgalerie zeigt Arbeiten aus der Manufaktur. Ob ein abgebildetes Messer aktuell angeboten wird, erfährst du im verlinkten Shop oder über eine Anfrage."
+ ],
+ "sections": [
+  {
+   "h": "Von der Idee zur Form",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein Messerprojekt beginnt mit dem vorgesehenen Einsatz und den Wünschen an Gestaltung und Handhabung. Die Form einer Klinge, der Übergang zum Griff und die Oberfläche gehören zusammen. Hier dokumentieren wir ausgewählte Arbeiten und erklären die Entscheidungen, die das einzelne Projekt prägen."
+    }
+   ]
+  },
+  {
+   "h": "Einblick und Kaufangebot unterscheiden",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein gezeigtes Projekt kann bereits vergeben sein oder eine Gestaltungsrichtung veranschaulichen. Ein Projektbericht ist deshalb kein Lagerbestand. Für verfügbare Produkte gelten der aktuelle Preis, die Beschreibung und der Bestellstatus im Shop. Wenn du dich für eine ähnliche Arbeit interessierst, beschreibe uns den Einsatzzweck und dein Budget."
+    }
+   ]
+  },
+  {
+   "h": "Dein Messer nachvollziehbar dokumentieren",
+   "items": [
+    {
+     "t": "p",
+     "x": "Für dokumentierte Einzelstücke kann ein Messerpass die bestätigten Materialangaben, ein Bild, die Seriennummer und Pflegehinweise zusammenführen. Er bezieht sich auf genau dieses Werkstück. Besondere Eigenschaften werden dort nur aufgeführt, wenn sie für das konkrete Messer bestätigt sind."
+    },
+    {
+     "t": "p",
+     "x": "Aus der Werkstatt"
+    }
+   ]
+  },
+  {
+   "h": "Dokumentierte Messerprojekte",
+   "items": [
+    {
+     "t": "p",
+     "x": "Messerprojekt"
+    },
+    {
+     "t": "h3",
+     "x": "Damast-Klappmesser · Edition 100"
+    },
+    {
+     "t": "p",
+     "x": "Eine begrenzte Edition mit eigener Seriennummer: insgesamt 100 individuell gestaltete Klappmesser, davon 90 reguläre Exemplare und zehn separat vorgesehene Sonderstücke."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/messerprojekte/"
+}

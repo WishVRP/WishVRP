@@ -60,12 +60,14 @@ class SeoController extends Controller
             "- Familientradition: seit {$h['since']}, {$h['generation']}. Generation",
             "- Adresse: {$a['street']}, {$a['postal_code']} {$a['locality']} (Ortsteil {$a['district']})",
             "- Telefon: {$c['phone']['display']}",
+            ...($c['email'] ? ["- E-Mail: {$c['email']}"] : []),
+            ...array_map(fn ($u) => "- Profil: {$u}", $c['same_as']),
             "- Buchung: Kurse werden online gebucht; Umbuchen bis 7 Tage vor dem Termin",
             '',
             '## Schmiedekurse',
         ];
         foreach (Course::query()->published()->orderBy('sort')->get() as $course) {
-            $lines[] = '- '.$course->name.': '.collect([$course->duration_label, $course->blade_length_cm ? "Klinge bis {$course->blade_length_cm} cm" : null, $fmt($course->price_from)])->filter()->implode(', ');
+            $lines[] = '- '.$course->name.': '.collect([$course->duration_label, $course->total_length_cm ? "Messer bis {$course->total_length_cm} cm Gesamtlänge" : null, $fmt($course->price_from)])->filter()->implode(', ');
         }
         $e = $c['edition'];
         $lines = [...$lines, '', '## Messer',

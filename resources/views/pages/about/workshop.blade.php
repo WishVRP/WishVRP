@@ -31,6 +31,31 @@
 
     @include('pages.home.10-process')
 
+    @php $quote = collect($c['press'])->firstWhere('quote'); $book = $c['book'] ?? null; @endphp
+    @if ($quote)
+        <section class="block is-dark textured" aria-label="Zitat">
+            <div class="container">
+                <figure class="big-quote reveal">
+                    <blockquote><p>„{{ $quote['quote'] }}“</p></blockquote>
+                    <figcaption>{{ $c['owner'] }} · <a href="{{ $quote['url'] }}" rel="noopener" target="_blank">{{ $quote['outlet'] }}, {{ \Illuminate\Support\Carbon::parse($quote['date'])->format('d.m.Y') }}</a></figcaption>
+                </figure>
+            </div>
+        </section>
+    @endif
+
+    @if ($book)
+        <x-page.section title="Ein gemeinsames Buch" kicker="Auch abseits der Werkbank">
+            <div class="split">
+                <x-ui.type-tile class="book-tile reveal" :title="$book['title']" :label="$book['format']" :meta="$book['authors']" />
+                <div class="reveal reveal-delay-1">
+                    <p class="lead">{{ $book['authors'] }} haben gemeinsam ein Buch veröffentlicht: „{{ $book['title'] }}“.</p>
+                    <p class="mt-4">Buchbeschreibung, aktueller Preis und Leseoptionen stehen bei Amazon.</p>
+                    <div class="btn-row mt-5"><x-ui.button :href="$book['url']" variant="secondary" target="_blank" rel="noopener">Zum Buch auf Amazon</x-ui.button></div>
+                </div>
+            </div>
+        </x-page.section>
+    @endif
+
     <x-page.section title="Mehr über die Manufaktur" kicker="Weiterlesen">
         <div class="link-list">
             <a href="/presse/">Presse <span aria-hidden="true">→</span></a>

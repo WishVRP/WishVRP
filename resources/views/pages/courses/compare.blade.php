@@ -1,6 +1,6 @@
 <x-layouts.site :meta="$meta" :schema="$schema" :current="$path">
     <x-page.hero :meta="$meta" title="Schmiedekurse im Vergleich" kicker="Kursvergleich" tile="1 – 3 Tage" tileLabel="{{ $courses->count() }} Kursformate"
-        lead="Alle Kurse nebeneinander: Dauer, maximale Klingenlänge und Einstiegspreis pro Person. Details zu jedem Kurs findest du in der Kursübersicht.">
+        lead="Alle Kurse nebeneinander: Dauer, maximale Gesamtlänge und Einstiegspreis pro Person. Details zu jedem Kurs findest du in der Kursübersicht.">
         <x-slot:actions>
             <x-ui.button href="/schmiedekurse/buchen/" variant="straw" size="lg">Termin buchen</x-ui.button>
         </x-slot:actions>
@@ -14,7 +14,7 @@
                         <th scope="col">Kurs</th>
                         <th scope="col">Kategorie</th>
                         <th scope="col">Dauer</th>
-                        <th scope="col">Klinge</th>
+                        <th scope="col">Gesamtlänge</th>
                         <th scope="col">Preis</th>
                         <th scope="col"><span class="visually-hidden">Aktion</span></th>
                     </tr>
@@ -22,10 +22,10 @@
                 <tbody>
                     @foreach ($courses as $course)
                         <tr class="course--{{ $course->category }}">
-                            <th scope="row"><a href="/schmiedekurse/#{{ \Illuminate\Support\Str::slug($course->name) }}">{{ $course->name }}</a></th>
+                            <th scope="row"><a href="{{ $course->url() }}">{{ $course->name }}</a></th>
                             <td><span class="compare__cat">{{ $course->categoryLabel() }}</span></td>
                             <td>@if($course->duration_label){{ $course->duration_label }}@else<x-ui.missing>Dauer</x-ui.missing>@endif</td>
-                            <td>@if($course->blade_length_cm)bis {{ $course->blade_length_cm }} cm @else<span class="muted">–</span>@endif</td>
+                            <td>@if($course->total_length_cm)bis {{ $course->total_length_cm }} cm @else<span class="muted">–</span>@endif</td>
                             <td><x-ui.price :amount="$course->price_from" :from="true" /></td>
                             <td>
                                 @if ($course->price_from)
@@ -39,7 +39,7 @@
                 </tbody>
             </table>
         </div>
-        <p class="tech muted mt-4">„ab“-Preise pro Person · <x-ui.tax-note /> · Klingenlänge nur angegeben, wo sie bekannt ist.</p>
+        <p class="tech muted mt-4">„ab“-Preise pro Person · <x-ui.tax-note /> · Gesamtlänge (inkl. Griff) nur angegeben, wo sie bekannt ist.</p>
     </x-page.section>
 
     <x-page.section title="Welcher Kurs für wen?" kicker="Orientierung" sunken>
@@ -51,7 +51,7 @@
                         <p class="path-card__label">{{ $label }}</p>
                         <ul role="list">
                             @foreach ($group as $course)
-                                <li><a href="/schmiedekurse/#{{ \Illuminate\Support\Str::slug($course->name) }}">{{ $course->name }}</a> <span class="muted">{{ $course->duration_label }}</span></li>
+                                <li><a href="{{ $course->url() }}">{{ $course->name }}</a> <span class="muted">{{ $course->duration_label }}</span></li>
                             @endforeach
                         </ul>
                     </div>

@@ -1,0 +1,55 @@
+{
+ "h1": "Schmiedekurs zu zweit: gemeinsam ein Erlebnis buchen",
+ "lead": [
+  "Gemeinsame Zeit. Eigene Werkstücke.",
+  "Ein Schmiedekurs zu zweit verbindet gemeinsame Zeit mit praktischer Arbeit. Wählt denselben freigeschalteten Termin und bucht zwei verfügbare Plätze in einem Vorgang. Jede Person zählt als eigener Kursplatz. Ein privater Zweierkurs oder ein Paarpreis ist damit nicht automatisch verbunden."
+ ],
+ "sections": [
+  {
+   "h": "Für Paare, Freunde und gemeinsame Auszeiten",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein gemeinsames Erlebnis muss nicht für beide dasselbe Ziel haben. Wichtig ist, dass Kursniveau und Zeitplanung zu euch passen. Ohne Schmiedeerfahrung könnt ihr mit den Grundlagen beginnen. Wenn beide ein fertiges Damastmesser anstreben, vergleicht den zweitägigen Damast-Messerkurs und dessen Voraussetzungen."
+    }
+   ]
+  },
+  {
+   "h": "Zwei Plätze gemeinsam auswählen",
+   "items": [
+    {
+     "t": "p",
+     "x": "Die Buchungsseite kann mit zwei Teilnehmenden vorausgewählt geöffnet werden. Sie prüft die tatsächlich freien Plätze für den gewählten Termin. Bei nur einem freien Platz wird eine Zweierbuchung nicht zugelassen. Ihr seht den Gesamtpreis für beide Personen vor Beginn der Reservierung."
+    },
+    {
+     "t": "h3",
+     "x": "Gemeinsamer Termin, klare Kosten"
+    },
+    {
+     "t": "p",
+     "x": "Die Kursangebote nennen Preise pro Person. Zwei Plätze kosten entsprechend zweimal den beim Termin angegebenen Preis; einen Rabatt zeigen wir nur bei einem ausdrücklich angebotenen Preis an."
+    }
+   ]
+  },
+  {
+   "h": "Wenn es eine Überraschung sein soll",
+   "items": [
+    {
+     "t": "p",
+     "x": "Kennt die beschenkte Person den Termin noch nicht, kann ein Gutschein sinnvoller sein als ein fest gebuchtes Datum. Klärt später gemeinsam, welches Format passt. Für einen exklusiven Termin stellt ihr zuerst eine Anfrage per Telefon oder E-Mail. Die Antwort klärt Verfügbarkeit und Preis; sie ist noch keine automatische Reservierung."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Arbeiten wir an einem gemeinsamen Messer?",
+   "a": "Zwei gebuchte Plätze bedeuten zwei Teilnehmende. Ein gemeinsames Sonderprojekt gehört nur dazu, wenn es ausdrücklich vereinbart ist."
+  },
+  {
+   "q": "Ist die Gruppe nur für uns reserviert?",
+   "a": "Nein. Eine reguläre Zweierbuchung ist keine Exklusivbuchung. Ein privates Format könnt ihr separat anfragen."
+  }
+ ],
+ "source": "https://messermanufaktur-ulbrich.de/erlebnisse/schmieden-zu-zweit/"
+}

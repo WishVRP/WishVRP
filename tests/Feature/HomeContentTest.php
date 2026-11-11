@@ -17,13 +17,28 @@ class HomeContentTest extends TestCase
         return $this->get('/')->assertOk()->getContent();
     }
 
-    /** Jede inhaltliche Bestands-URL ist von der Startseite aus verlinkt – kein Bereich geht verloren. */
-    public function test_every_inventory_url_is_linked_from_home(): void
+    /** Keine verwaiste Seite: jede Bestands-URL ist von der Startseite aus in höchstens 3 Klicks erreichbar. */
+    public function test_every_inventory_url_is_reachable_from_home_within_three_clicks(): void
     {
-        $html = $this->html();
-
-        foreach (config('pages') as $path => $page) {
-            $this->assertStringContainsString('href="'.$path.'"', $html, "Startseite verlinkt {$path} nicht");
+        $this->seed(CourseSeeder::class);
+        $known = config('pages');
+        $depth = ['/' => 0];
+        $queue = ['/'];
+        while ($queue) {
+            $path = array_shift($queue);
+            if ($depth[$path] >= 3) {
+                continue;
+            }
+            preg_match_all('/href="(\/[^"#?]*)/', $this->get($path)->getContent(), $m);
+            foreach (array_unique($m[1]) as $href) {
+                if (isset($known[$href]) && ! isset($depth[$href])) {
+                    $depth[$href] = $depth[$path] + 1;
+                    $queue[] = $href;
+                }
+            }
+        }
+        foreach (array_keys($known) as $path) {
+            $this->assertArrayHasKey($path, $depth, "Verwaist oder tiefer als 3 Klicks: {$path}");
         }
     }
 

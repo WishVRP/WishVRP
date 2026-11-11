@@ -21,10 +21,14 @@
                 <dl class="spec">
                     <div class="spec__row"><dt>Auflage</dt><dd>{{ $e['total'] }} Stück ({{ $e['regular'] }} + {{ $e['special'] }})</dd></div>
                     <div class="spec__row"><dt>Preis</dt><dd>{{ number_format($e['price'], 0, ',', '.') }} € (reguläre Stücke)</dd></div>
-                    <div class="spec__row"><dt>Sonderstücke</dt><dd><x-ui.missing>Preis Sonderstücke</x-ui.missing></dd></div>
+                    <div class="spec__row"><dt>Sonderstücke</dt><dd>{{ $e['special_note'] }} <a href="/klappmesser/sonderedition/">Mehr</a></dd></div>
                     <div class="spec__row"><dt>Klinge</dt><dd>Damaststahl @if($e['steel'])· {{ $e['steel'] }}@else<x-ui.missing silent>Stahlsorte/Lagen</x-ui.missing>@endif</dd></div>
                     <div class="spec__row"><dt>Maße</dt><dd>@if($e['dimensions']){{ $e['dimensions'] }}@else<x-ui.missing>Klingen-/Gesamtlänge, Gewicht</x-ui.missing>@endif</dd></div>
                     <div class="spec__row"><dt>Griff</dt><dd>@if($e['handle']){{ $e['handle'] }}@else<x-ui.missing>Griffmaterial</x-ui.missing>@endif</dd></div>
+                    <div class="spec__row"><dt>Seriennummer</dt><dd>{{ $e['serial_note'] }}</dd></div>
+                    <div class="spec__row"><dt>Versand</dt><dd>{{ $e['shipping'] }}</dd></div>
+                    <div class="spec__row"><dt>Lieferzeit</dt><dd>{{ $e['delivery'] }}</dd></div>
+                    <div class="spec__row"><dt>Zahlung</dt><dd>{{ $e['payment'] }}</dd></div>
                     <div class="spec__row"><dt>Hersteller</dt><dd>{{ $c['name'] }}, {{ $c['owner'] }}</dd></div>
                 </dl>
                 <x-page.note class="mt-5" title="Bestellung">
@@ -46,6 +50,8 @@
             </div>
         </div>
     </section>
+
+    @include('pages.partials.subpages', ['prefix' => '/klappmesser/', 'title' => 'Die zehn Sonderstücke', 'kicker' => 'Edition 100'])
 
     <x-page.cta title="Eines der hundert Messer sichern?" text="Verfügbare Nummern und Sonderstücke erfährst du direkt bei {{ $c['owner'] }}." />
 </x-layouts.site>

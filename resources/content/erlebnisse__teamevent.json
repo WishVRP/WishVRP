@@ -1,0 +1,55 @@
+{
+ "h1": "Schmieden als Teamevent: Firmen & Gruppen",
+ "lead": [
+  "Ein Team. Ein gemeinsamer Werkstatttag.",
+  "Ein Schmiede-Teamevent wird nach Gruppengröße, Zeitrahmen und gewünschtem Ergebnis geplant. Beschreibt euer Vorhaben telefonisch oder per E-Mail. Ihr erhaltet eine Rückmeldung zum möglichen Format und Preis. Die Anfrage ist unverbindlich und reserviert noch keinen Termin."
+ ],
+ "sections": [
+  {
+   "h": "Was ihr gemeinsam erleben möchtet",
+   "items": [
+    {
+     "t": "p",
+     "x": "Für ein Unternehmen kann ein Werkstatttag ein Anlass sein, sich außerhalb des gewohnten Arbeitsumfelds zu begegnen. Im Mittelpunkt steht ein handwerkliches Projekt. Ob ein Einstieg, ein Klingenformat oder ein mehrtägiges Angebot geeignet ist, hängt von euren Zielen und Voraussetzungen ab. Wir versprechen keine pauschalen Teambuilding-Effekte."
+    }
+   ]
+  },
+  {
+   "h": "Diese Angaben helfen bei der Planung",
+   "items": [
+    {
+     "t": "p",
+     "x": "Nennt die voraussichtliche Personenzahl, zwei oder drei mögliche Zeiträume und eure gewünschte Dauer. Teilt mit, ob alle ohne Erfahrung starten und ob Übernachtungen benötigt werden. Ein Budgetrahmen kann helfen, ein passendes Format vorzuschlagen. Bitte übermittelt im ersten Schritt keine vertraulichen Gesundheitsdaten."
+    },
+    {
+     "t": "h3",
+     "x": "Gruppengröße und Betreuung"
+    },
+    {
+     "t": "p",
+     "x": "Eine maximale Gruppengröße und exklusive Nutzung werden erst im konkreten Angebot zugesagt. Freie Plätze in einem öffentlichen Termin bedeuten nicht automatisch, dass sich eine ganze Gruppe dort unterbringen lässt."
+    }
+   ]
+  },
+  {
+   "h": "Von der Anfrage zur Buchung",
+   "items": [
+    {
+     "t": "p",
+     "x": "Nach der Abstimmung braucht ihr eine klare Leistungsbeschreibung mit Termin, Ort, Teilnehmerzahl und Preis. Die verbindliche Buchung und Zahlung erfolgen telefonisch oder per E-Mail. Telefonische Absprachen ersetzen diesen Abschluss nicht. Für einzelne Plätze in einem regulären Kurs könnt ihr direkt die veröffentlichten Termine nutzen."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Können wir als Firma exklusiv buchen?",
+   "a": "Ein exklusives Format kann angefragt werden. Verfügbarkeit, Gruppengröße, Betreuung und Preis müssen ausdrücklich vereinbart werden."
+  },
+  {
+   "q": "Sind Essen und Übernachtung immer enthalten?",
+   "a": "Nein. Es gilt der schriftlich vereinbarte Leistungsumfang. Getränke und Übernachtungen unterscheiden sich je nach Kursformat."
+  }
+ ],
+ "source": "https://messermanufaktur-ulbrich.de/erlebnisse/teamevent/"
+}

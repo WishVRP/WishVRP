@@ -38,6 +38,8 @@
                     <li><a href="/schmiedekurse/buchen/">Termin buchen</a></li>
                     <li><a href="/geschenke/schmiedekurs-gutschein/">Kurs-Gutschein</a></li>
                     <li><a href="/erlebnisse/">Erlebnisse</a></li>
+                    <li><a href="/erlebnisse/teamevent/">Firmen &amp; Gruppen</a></li>
+                    <li><a href="/schmiedekurse/erfahrungen/">Kurserfahrungen</a></li>
                 </ul>
             </nav>
             <nav aria-labelledby="footer-messer">
@@ -48,6 +50,8 @@
                     <li><a href="/sonderanfertigungen/">Messer anfertigen lassen</a></li>
                     <li><a href="/messer-unikate/">Messer-Unikate</a></li>
                     <li><a href="/messerprojekte/">Messerprojekte</a></li>
+                    <li><a href="/messer-kunst/">Messer als Handwerkskunst</a></li>
+                    <li><a href="/shop/ringe/">Ringe</a></li>
                 </ul>
             </nav>
             <nav aria-labelledby="footer-manufaktur">

@@ -58,7 +58,7 @@
 
                 <h2 id="griff">Griff und Klappmesser</h2>
                 <p>Holzgriffe freuen sich über gelegentliches Einölen mit einem lebensmittelechten Öl. Bei <a href="/klappmesser/">Klappmessern</a> gehört Schmutz nicht ins Gelenk: nach dem Gebrauch abwischen, trocknen und die Achse bei Bedarf mit einem Tropfen Öl gangbar halten.</p>
-                <p>Mehr über Klingen mit Muster erfährst du im Ratgeber <a href="/ratgeber/damaststahl/">Damaststahl erklärt</a>.</p>
+                <p>Mehr über Klingen mit Muster erfährst du im Ratgeber <a href="/ratgeber/damastmesser/">Damaststahl erklärt</a>.</p>
 
                 <h2 id="faq">Häufige Fragen zur Messerpflege</h2>
                 @include('pages.partials.faq', ['faqs' => $faqsCare])

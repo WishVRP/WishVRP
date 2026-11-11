@@ -25,17 +25,17 @@ return [
 
     '/schmiedekurse/' => [
         'title' => 'Schmiedekurse', 'status' => 'live', 'gsc_clicks' => 22, 'view' => 'courses.index',
-        'meta_title' => 'Schmiedekurse bei Heilbronn – Messer schmieden',
-        'description' => 'Sechs Schmiedekurse in der Messermanufaktur Ulbrich: vom eintägigen Grundlagenkurs bis zum Damast Premium-Kurs. Preise, Dauer und Klingenlänge im Überblick.',
+        'meta_title' => 'Schmiedekurse in Baden-Württemberg | Manufaktur Ulbrich',
+        'description' => 'Sechs Schmiedekurse in der Messermanufaktur Ulbrich: vom eintägigen Grundlagenkurs bis zum Damast Premium-Kurs. Preise, Dauer und Gesamtlänge im Überblick.',
     ],
     '/schmiedekurse/vergleich/' => [
         'title' => 'Schmiedekurse im Vergleich', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.compare',
-        'meta_title' => 'Schmiedekurse im Vergleich – Dauer, Klinge, Preis',
-        'description' => 'Alle Schmiedekurse der Messermanufaktur Ulbrich nebeneinander: Dauer, maximale Klingenlänge und Einstiegspreis. So findest du den Kurs, der zu dir passt.',
+        'meta_title' => 'Schmiedekurse vergleichen: Dauer, Ergebnis & Preis',
+        'description' => 'Alle Schmiedekurse der Messermanufaktur Ulbrich nebeneinander: Dauer, maximale Gesamtlänge und Einstiegspreis. So findest du den Kurs, der zu dir passt.',
     ],
     '/schmiedekurse/heilbronn-region/' => [
         'title' => 'Schmiedekurs Region Heilbronn', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.region',
-        'meta_title' => 'Schmiedekurs Region Heilbronn: Werkstatt, Anfahrt',
+        'meta_title' => 'Schmiedekurse im Raum Heilbronn & Neuenstadt',
         'description' => 'Schmiedekurs im Landkreis Heilbronn: Die Werkstatt der Messermanufaktur Ulbrich liegt in Stein am Kocher bei Neuenstadt. Kurse, Anfahrt und Kontakt.',
     ],
     '/schmiedekurse/buchen/' => [
@@ -46,22 +46,22 @@ return [
 
     '/shop/' => [
         'title' => 'Shop', 'status' => 'live', 'gsc_clicks' => 5, 'view' => 'shop.index',
-        'meta_title' => 'Shop – handgefertigte Messer und Gutscheine',
+        'meta_title' => 'Messer kaufen: handgefertigte Kollektion',
         'description' => 'Handgefertigte Messer aus der Messermanufaktur Ulbrich: Damast-Klappmesser der Edition 100, Unikate und Anfertigungen sowie Gutscheine für Schmiedekurse.',
     ],
     '/klappmesser/' => [
         'title' => 'Damast-Klappmesser Edition 100', 'status' => 'live', 'gsc_clicks' => 1, 'view' => 'shop.edition',
-        'meta_title' => 'Damast-Klappmesser Edition 100 – limitiert',
+        'meta_title' => 'Damast-Klappmesser · Edition 100, regulär 699 €',
         'description' => 'Damast-Klappmesser der Edition 100: limitiert auf 100 nummerierte Stücke, 90 reguläre Messer zu je 699 € und 10 Sonderstücke. Handgefertigt von Andreas Ulbrich.',
     ],
     '/sonderanfertigungen/' => [
         'title' => 'Messer anfertigen lassen', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'shop.custom',
-        'meta_title' => 'Messer anfertigen lassen – Sonderanfertigung',
+        'meta_title' => 'Messer schmieden lassen | Sonderanfertigungen – Ulbrich',
         'description' => 'Ein Messer nach deinen Vorstellungen: Messerschmied Andreas Ulbrich fertigt Klingenform, Länge und Griff auf Anfrage. So läuft eine Sonderanfertigung ab.',
     ],
     '/messer-unikate/' => [
         'title' => 'Messer-Unikate', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'shop.unique',
-        'meta_title' => 'Messer-Unikate – Einzelstücke aus der Werkstatt',
+        'meta_title' => 'Messer-Unikate & handgefertigte Einzelstücke',
         'description' => 'Messer-Unikate der Messermanufaktur Ulbrich: handgefertigte Einzelstücke mit Damastklinge und eigenem Griff. Verfügbare Stücke und Preise gibt es auf Anfrage.',
     ],
     '/messerprojekte/' => [
@@ -72,33 +72,33 @@ return [
 
     '/geschenke/' => [
         'title' => 'Geschenke', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'gifts.index',
-        'meta_title' => 'Geschenke für Messerfreunde und Selbermacher',
+        'meta_title' => 'Geschenkideen: Schmiedekurse, Messer & Gutscheine',
         'description' => 'Geschenkideen aus der Messermanufaktur Ulbrich: ein Schmiedekurs-Gutschein zum Selberschmieden oder ein nummeriertes Damast-Klappmesser der Edition 100.',
     ],
     '/geschenke/schmiedekurs-gutschein/' => [
         'title' => 'Schmiedekurs-Gutschein', 'status' => 'live', 'gsc_clicks' => 1, 'view' => 'gifts.voucher',
-        'meta_title' => 'Schmiedekurs-Gutschein – Messer selbst schmieden',
+        'meta_title' => 'Schmiedekurs-Gutschein verschenken | Manufaktur Ulbrich',
         'description' => 'Einen Schmiedekurs verschenken: Mit dem Gutschein der Messermanufaktur Ulbrich wählt die beschenkte Person Kurs und Termin später selbst und bucht online.',
     ],
     '/erlebnisse/' => [
         'title' => 'Erlebnisse', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'gifts.experiences',
-        'meta_title' => 'Schmiede-Erlebnisse für dich, Freunde und Teams',
+        'meta_title' => 'Besondere Erlebnisse in Baden-Württemberg',
         'description' => 'Ein Tag an Esse und Amboss: Schmiedekurse als Erlebnis für dich, als Geschenk oder als dreitägiger Manager-Schmiedekurs für Teams und Gruppen bei Heilbronn.',
     ],
 
     '/ratgeber/' => [
         'title' => 'Ratgeber', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.guides',
-        'meta_title' => 'Ratgeber Schmiedekurs – Kosten und Vorbereitung',
+        'meta_title' => 'Ratgeber: Messerschmieden, Kurse & Messerkauf',
         'description' => 'Was kostet ein Schmiedekurs und wie bereitest du dich vor? Antworten und Preisübersicht aus der Messermanufaktur Ulbrich – vom Grundlagenkurs bis Damast.',
     ],
-    '/ratgeber/damaststahl/' => [
-        'title' => 'Damaststahl erklärt', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.guide-damascus',
-        'meta_title' => 'Damaststahl erklärt: Herstellung, Muster, Pflege',
-        'description' => 'Was ist Damaststahl, wie entsteht das Muster und wie pflegst du eine Damastklinge? Verständlich erklärt vom Handwerk aus – mit Tipps zum eigenen Damastmesser.',
+    '/ratgeber/damastmesser/' => [
+        'title' => 'Damastmesser & Damaststahl', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.guide-damascus',
+        'meta_title' => 'Was ist ein Damastmesser? Damaststahl erklärt',
+        'description' => 'Was ist ein Damastmesser? Wie Damaststahl entsteht, woher das Muster kommt, worin er sich unterscheidet und wie du eine Damastklinge richtig pflegst.',
     ],
-    '/ratgeber/messer-pflegen/' => [
+    '/ratgeber/messer-pflege/' => [
         'title' => 'Messer pflegen', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.guide-care',
-        'meta_title' => 'Messer pflegen: Reinigen, Schärfen, richtig lagern',
+        'meta_title' => 'Handgefertigte Messer pflegen, schärfen, lagern',
         'description' => 'So bleibt ein handgefertigtes Messer lange scharf: richtig reinigen, das passende Schneidbrett wählen, schärfen und lagern. Die wichtigsten Regeln im Überblick.',
     ],
     '/manufaktur/' => [
@@ -112,14 +112,14 @@ return [
         'description' => 'Pressespiegel der Messermanufaktur Ulbrich: Berichte über Messerschmied Andreas Ulbrich, seine Schmiedekurse und die Werkstatt in Stein am Kocher.',
     ],
     '/partner/' => [
-        'title' => 'Partner', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.partners',
-        'meta_title' => 'Partner & Kooperationen der Messermanufaktur Ulbrich',
-        'description' => 'Partner der Messermanufaktur Ulbrich: Betriebe und Initiativen, mit denen Messerschmied Andreas Ulbrich in der Region Heilbronn zusammenarbeitet.',
+        'title' => 'Partner', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'partner', 'kicker' => 'Gastgeber · Region · Handwerk', 'tile' => 'Gästen ein besonderes Handwerk zeigen', 'tile_label' => 'Kooperationen', 'h1' => 'Regionale Kooperationen: Handwerk & Erlebnisse', 'actions' => [['Kooperation vorschlagen', 'mailto:info@messermanufaktur-ulbrich.de?subject=Kooperation'], ['Schmiedekurse', '/schmiedekurse/']],
+        'meta_title' => 'Regionale Kooperationen: Handwerk für eure Gäste',
+        'description' => 'Kooperation mit der Messermanufaktur Ulbrich: Schmiedekurse und Messerprojekte für Hotels, Gastgeber und touristische Einrichtungen in der Region Heilbronn.',
     ],
     '/kunsthandwerkermarkt/' => [
         'title' => 'Kunsthandwerkermarkt', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.market',
-        'meta_title' => 'Kunsthandwerkermarkt: Messer von Messermanufaktur Ulbrich',
-        'description' => 'Die Messermanufaktur Ulbrich auf dem Kunsthandwerkermarkt: Messer, Handwerk und Gespräche mit Messerschmied Andreas Ulbrich. Termine und Infos auf dieser Seite.',
+        'meta_title' => 'Kunst- & Handwerkermarkt in Stein am Kocher',
+        'description' => 'Kunst- & Handwerkermarkt der Messermanufaktur in Stein am Kocher: 18 Stände für echtes Handwerk, Standgebühr ab 70 € für zwei Tage – Infos für Aussteller.',
     ],
 
     '/impressum/' => [
@@ -142,4 +142,32 @@ return [
         'title' => 'Kursbedingungen', 'status' => 'live', 'gsc_clicks' => null, 'index' => false, 'view' => 'legal.course-terms',
         'description' => 'Kursbedingungen der Messermanufaktur Ulbrich: Buchung, Umbuchung bis 7 Tage vor dem Termin und Einlösung von Gutscheinen für alle Schmiedekurse.',
     ],
+
+    /* --- Übernommen von der Live-Sitemap (11.11.2026) --- */
+    '/schmiedekurse/grundlagenkurs/' => ['title' => 'Grundlagenkurs', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.show', 'course' => 'grundlagenkurs', 'meta_title' => 'Schmiedekurs für Anfänger: Grundlagenkurs (1 Tag)', 'description' => 'Grundlagenkurs bei Messerschmied Andreas Ulbrich: ein Tag am Feuer, etwa acht Stunden, ohne Vorwissen, eigenes Werkstück – ab 300 € pro Person inkl. Getränke.'],
+    '/schmiedekurse/klingenkurs/' => ['title' => 'Klingenkurs', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.show', 'course' => 'klingenkurs', 'meta_title' => 'Klingenkurs: zwei eigene Klingen schmieden (1 Tag)', 'description' => 'Klingenkurs bei der Messermanufaktur Ulbrich: ein Tag mit etwa acht Stunden, zwei selbstgeschmiedete Klingen, ab 440 € pro Person. Griff gegen Aufpreis.'],
+    '/schmiedekurse/klingenkurs-alternativ/' => ['title' => 'Klingenkurs „Alternativ“', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.show', 'course' => 'klingenkurs-alternativ', 'meta_title' => 'Klingenkurs „Alternativ“: eigenes Tagesformat', 'description' => 'Der Klingenkurs „Alternativ“ ist ein eigenes Tagesformat ab 500 € pro Person. Werkstück, Material und Griffumfang stehen beim jeweiligen Termin – vorher prüfen.'],
+    '/schmiedekurse/damast-messerkurs/' => ['title' => 'Damast-Messerkurs', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.show', 'course' => 'damast-messerkurs', 'meta_title' => 'Damastmesser selber schmieden: 2-Tage-Kurs', 'description' => 'Im Damast-Messerkurs schmiedest du an zwei Tagen dein Damastmesser bis 32 cm Gesamtlänge inklusive Griff – mit Übernachtung, ab 1.100 € pro Person.'],
+    '/schmiedekurse/damast-premium-kurs/' => ['title' => 'Damast Premium-Kurs', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.show', 'course' => 'damast-premium-kurs', 'meta_title' => 'Damast Premium-Kurs: 2 bis 3 Tage Damastschmieden', 'description' => 'Damast Premium-Kurs: zwei bis drei Tage für ein Damastmesser bis 40 cm Gesamtlänge, ein bis zwei Übernachtungen und Getränke, ab 1.300 € pro Person.'],
+    '/schmiedekurse/manager-schmiedekurs/' => ['title' => 'Manager-Schmiedekurs', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.show', 'course' => 'manager-schmiedekurs', 'meta_title' => 'Manager-Schmiedekurs: drei Tage Damast-Handwerk', 'description' => 'Manager-Schmiedekurs: drei Tage mit je etwa acht Stunden an einem Damastmesser bis 40 cm Gesamtlänge, Übernachtungen nach Angebot. Preis auf Anfrage.'],
+    '/schmiedekurse/erfahrungen/' => ['title' => 'Erfahrungen', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'schmiedekurse__erfahrungen', 'kicker' => 'Erfahrungen & Ergebnisse', 'tile' => 'Was entsteht?', 'tile_label' => 'Kursergebnisse', 'meta_title' => 'Schmiedekurs-Erfahrungen: Ergebnisse je Kursformat', 'description' => 'Was entsteht im Schmiedekurs? Die Ergebnisse der Kursformate im Vergleich – vom ersten Werkstück bis zum Damastmesser mit Griff – und worauf du achten kannst.', 'actions' => [['Kurse vergleichen', '/schmiedekurse/vergleich/'], ['Termin buchen', '/schmiedekurse/buchen/']]],
+    '/erlebnisse/schmieden-zu-zweit/' => ['title' => 'Schmieden zu zweit', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'erlebnisse__schmieden-zu-zweit', 'kicker' => 'Erlebnis zu zweit', 'foto' => 'klappmesser-hell-detail', 'meta_title' => 'Schmiedekurs zu zweit: gemeinsam am Amboss stehen', 'description' => 'Schmiedekurs zu zweit: Bucht zwei Plätze im selben Termin und erlebt Feuer, Hammer und Stahl gemeinsam – als Paar, mit Freunden oder als Überraschung.', 'actions' => [['Zwei Plätze buchen', '/schmiedekurse/buchen/?teilnehmer=2'], ['Als Gutschein', '/geschenke/schmiedekurs-gutschein/']]],
+    '/erlebnisse/teamevent/' => ['title' => 'Teamevent', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'erlebnisse__teamevent', 'kicker' => 'Firmen & Gruppen', 'tile' => 'Ein Team. Ein Werkstatttag.', 'tile_label' => 'Teamevent', 'meta_title' => 'Schmieden als Teamevent für Firmen und Gruppen', 'description' => 'Schmiede-Teamevent bei Heilbronn: Format, Zeitrahmen und Ergebnis werden nach Gruppengröße geplant. Unverbindlich anfragen – telefonisch oder per E-Mail.', 'actions' => [['Teamevent anfragen', 'tel:+491794079218'], ['Manager-Schmiedekurs', '/schmiedekurse/manager-schmiedekurs/']]],
+    '/geschenke/schmiedekurs-geburtstag/' => ['title' => 'Schmiedekurs zum Geburtstag', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'geschenke__schmiedekurs-geburtstag', 'kicker' => 'Geschenkidee', 'tone' => 'violet', 'foto' => 'klappmesser-zebrano', 'meta_title' => 'Schmiedekurs zum Geburtstag verschenken: so geht’s', 'description' => 'Ein Schmiedekurs zum Geburtstag: Kursformat nach Interesse wählen, Termin direkt buchen oder einen Gutschein anfragen – und das Geschenk persönlich überreichen.', 'actions' => [['Gutschein ansehen', '/geschenke/schmiedekurs-gutschein/'], ['Kurse ansehen', '/schmiedekurse/']]],
+    '/geschenke/weihnachten/' => ['title' => 'Weihnachten', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'geschenke__weihnachten', 'kicker' => 'Weihnachtsgeschenke', 'tone' => 'violet', 'foto' => 'edition-messer', 'meta_title' => 'Weihnachtsgeschenke: Messer & Schmiedekurse | Ulbrich', 'description' => 'Weihnachtsgeschenke aus der Messermanufaktur Ulbrich: ein handgefertigtes Messer, ein gemeinsames Schmiedeerlebnis oder ein Gutschein – rechtzeitig geplant.', 'actions' => [['Gutschein ansehen', '/geschenke/schmiedekurs-gutschein/'], ['Edition 100', '/klappmesser/']]],
+    '/klappmesser/sonderedition/' => ['title' => 'Sonderstücke', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'klappmesser__sonderedition', 'kicker' => 'Edition 100', 'tone' => 'brown', 'foto' => 'punze-detail', 'meta_title' => 'Edition 100: die zehn Sonderstücke im Überblick', 'description' => 'Zehn der 100 Damast-Klappmesser sind für Sonderausführungen reserviert. Ausführung, höherer Preis und Verfügbarkeit werden persönlich vereinbart.', 'actions' => [['Sonderstück anfragen', 'tel:+491794079218'], ['Reguläre Edition', '/klappmesser/']]],
+    '/messerprojekte/damast-klappmesser-edition-100/' => ['title' => 'Projekt Edition 100', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'messerprojekte__damast-klappmesser-edition-100', 'kicker' => 'Messerprojekt', 'tone' => 'brown', 'foto' => 'klappmesser-stehend', 'meta_title' => 'Messerprojekt: Damast-Klappmesser Edition 100 | Ulbrich', 'description' => 'Das Projekt hinter der Edition 100: ein Damast-Klappmesser in begrenzter Auflage von 100 Stück mit Seriennummer – 90 reguläre Exemplare und zehn Sonderstücke.', 'actions' => [['Zur Edition 100', '/klappmesser/'], ['Alle Projekte', '/messerprojekte/']]],
+    '/messer-kunst/' => ['title' => 'Messer als Handwerkskunst', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'messer-kunst', 'kicker' => 'Handwerkskunst', 'tone' => 'brown', 'foto' => 'damast-detail', 'meta_title' => 'Messer als Handwerkskunst: Andreas Ulbrich | Ulbrich', 'description' => 'Messer als Handwerkskunst: Für Andreas Ulbrich gehören Klinge und Griff zu einer Gesamtgestaltung. Werkstücke, Edition 100 und Berichte über seine Arbeit.', 'actions' => [['Messerprojekte', '/messerprojekte/'], ['Presse', '/presse/']]],
+    '/shop/damastmesser/' => ['title' => 'Damastmesser', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'shop.category', 'category' => 'damast', 'tone' => 'brown', 'meta_title' => 'Damastmesser kaufen: handgefertigt von Andreas Ulbrich', 'description' => 'Damastmesser aus der Messermanufaktur Ulbrich: handgefertigte Klingen mit sichtbarer Damastzeichnung. Preis und Verfügbarkeit einzelner Stücke auf Anfrage.'],
+    '/shop/kuechenmesser/' => ['title' => 'Küchenmesser', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'shop.category', 'category' => 'kueche', 'tone' => 'brown', 'meta_title' => 'Küchenmesser & Kochmesser aus der Manufaktur Ulbrich', 'description' => 'Handgefertigte Küchen- und Kochmesser der Messermanufaktur Ulbrich: Formen vergleichen, Verwendung klären und Preis sowie Verfügbarkeit persönlich anfragen.'],
+    '/shop/jagdmesser/' => ['title' => 'Jagdmesser', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'shop.category', 'category' => 'jagd', 'tone' => 'brown', 'meta_title' => 'Jagdmesser handgefertigt: Messermanufaktur Ulbrich', 'description' => 'Jagdmesser aus der Messermanufaktur Ulbrich: Eigenschaften, Eignung und Verfügbarkeit vor dem Kauf persönlich klären – oder ein Jagdmesser anfertigen lassen.'],
+    '/shop/einzelstuecke/' => ['title' => 'Einzelstücke', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'shop.category', 'category' => 'einzel', 'tone' => 'brown', 'meta_title' => 'Messer-Einzelstücke mit eigener Handschrift | Ulbrich', 'description' => 'Messer-Einzelstücke aus der Messermanufaktur Ulbrich: individuelle Gestaltung von Klinge und Griff, jedes Stück nur einmal. Verfügbarkeit und Preis auf Anfrage.'],
+    '/shop/ringe/' => ['title' => 'Ringe', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'shop__ringe', 'kicker' => 'Ringe', 'tone' => 'brown', 'tile' => 'Ein Zeichen für euch.', 'tile_label' => 'Ringpaar', 'h1' => 'Individuell gestaltete Ringe anfragen', 'lead' => 'Du interessierst dich für ein individuell gestaltetes Ringpaar aus der Messermanufaktur Ulbrich? Beschreibe deine Vorstellungen – für Ringe gelten gesonderte Absprachen zu Ausführung, Größe und Preis.', 'meta_title' => 'Ringe aus der Messermanufaktur Ulbrich anfragen', 'description' => 'Individuell gestaltete Ringe aus der Messermanufaktur Ulbrich: Ringpaar anfragen und Ausführung, Größe sowie Preis persönlich mit Andreas Ulbrich abstimmen.', 'actions' => [['Ringe anfragen', 'tel:+491794079218'], ['Sonderanfertigungen', '/sonderanfertigungen/']]],
+    '/ratgeber/messerschmieden-ablauf/' => ['title' => 'Wie funktioniert Messerschmieden?', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'ratgeber__messerschmieden-ablauf', 'kicker' => 'Ratgeber · Ablauf', 'tile' => 'Wie aus Stahl ein Messer wird', 'tile_label' => 'Ratgeber', 'article' => true, 'meta_title' => 'Wie funktioniert Messerschmieden? Ablauf erklärt', 'description' => 'Wie wird aus einem Werkstoff ein Messer? Planung, Formgebung und Bearbeitung erklärt – und welcher Schmiedekurs welchen Teil des Ablaufs selbst erlebbar macht.'],
+    '/ratgeber/schmiedekurs-anfaenger/' => ['title' => 'Schmiedekurs für Anfänger', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'ratgeber__schmiedekurs-anfaenger', 'kicker' => 'Ratgeber · Einstieg', 'tile' => 'Kein Vorwissen nötig', 'tile_label' => 'Ratgeber', 'article' => true, 'meta_title' => 'Welcher Schmiedekurs ist für Anfänger geeignet?', 'description' => 'Schmiedekurs ohne Vorwissen: Für den Einstieg ist der Grundlagenkurs vorgesehen – ein Tag, ab 300 € pro Person, eigenes Werkstück. So wählst du nach Ziel.'],
+    '/ratgeber/schmiedekurs-dauer/' => ['title' => 'Wie lange dauert ein Schmiedekurs?', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'ratgeber__schmiedekurs-dauer', 'kicker' => 'Ratgeber · Dauer', 'tile' => '1 bis 3 Tage', 'tile_label' => 'Ratgeber', 'article' => true, 'meta_title' => 'Wie lange dauert ein Messerschmiedekurs? Überblick', 'description' => 'Wie lange dauert ein Schmiedekurs? Von einem Tag mit etwa acht Stunden bis zu drei Tagen: Was in einen Tag passt und wann mehrere Kurstage sinnvoll sind.'],
+    '/ratgeber/schmiedekurs-kosten/' => ['title' => 'Was kostet ein Schmiedekurs?', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'ratgeber__schmiedekurs-kosten', 'kicker' => 'Ratgeber · Kosten', 'tile' => 'ab 300 € p. P.', 'tile_label' => 'Ratgeber', 'article' => true, 'meta_title' => 'Was kostet ein Schmiedekurs? Preise im Vergleich', 'description' => 'Was kostet ein Schmiedekurs? Preise von 300 € bis 1.300 € pro Person, mögliche Zusatzkosten wie Griff-Fertigung und wie die Bezahlung per Überweisung abläuft.', 'outro_view' => 'pages.partials.price-table'],
+    '/ratgeber/schmiedekurs-vorbereitung/' => ['title' => 'Schmiedekurs vorbereiten', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'ratgeber__schmiedekurs-vorbereitung', 'kicker' => 'Ratgeber · Vorbereitung', 'tile' => 'Gut vorbereitet an die Werkbank', 'tile_label' => 'Ratgeber', 'article' => true, 'meta_title' => 'Schmiedekurs vorbereiten: Kleidung und Anreise', 'description' => 'Schmiedekurs vorbereiten: Was du über Treffpunkt, Zeiten, Kleidung und den Zahlungsablauf wissen solltest, bevor du deinen Platz online reservierst.'],
+    '/ratgeber/messer-kaufen/' => ['title' => 'Handgefertigtes Messer kaufen', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'ratgeber__messer-kaufen', 'kicker' => 'Ratgeber · Messerkauf', 'tile' => 'Worauf achten?', 'tile_label' => 'Ratgeber', 'article' => true, 'meta_title' => 'Handgefertigtes Messer kaufen: worauf achten?', 'description' => 'Handgefertigtes Messer kaufen: Beginne beim Verwendungszweck und vergleiche Form, Maße, Material, Griff, Pflege und Preis. Drei Wege zum eigenen Messer.'],
+    '/ratgeber/welches-kochmesser/' => ['title' => 'Welches Kochmesser passt zu mir?', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'generic', 'content' => 'ratgeber__welches-kochmesser', 'kicker' => 'Ratgeber · Kochmesser', 'tile' => 'Nach dem wählen, was du schneidest', 'tile_label' => 'Ratgeber', 'article' => true, 'meta_title' => 'Welches Kochmesser passt zu mir? Checkliste', 'description' => 'Welches Kochmesser passt zu dir? Wähle nach Zutaten, Schneidtechnik, Größe und Pflege – mit Checkliste vor dem Kauf eines handgefertigten Küchenmessers.'],
 ];

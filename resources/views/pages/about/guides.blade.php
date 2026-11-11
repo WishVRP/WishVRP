@@ -6,8 +6,8 @@
     <x-page.section title="Alle Artikel" kicker="Ratgeber">
         <div class="path-cards path-cards--three">
             <a class="path-card course--einstieg reveal" href="#kosten"><p class="path-card__label">Kosten</p><h3>Was kostet ein Schmiedekurs?</h3><p>Alle Kurspreise pro Person im Überblick.</p><span class="link-arrow">Lesen <span aria-hidden="true">→</span></span></a>
-            <a class="path-card course--damast reveal reveal-delay-1" href="/ratgeber/damaststahl/"><p class="path-card__label">Material</p><h3>Damaststahl erklärt</h3><p>Herstellung, Muster und Pflege einer Damastklinge.</p><span class="link-arrow">Lesen <span aria-hidden="true">→</span></span></a>
-            <a class="path-card course--klinge reveal reveal-delay-2" href="/ratgeber/messer-pflegen/"><p class="path-card__label">Pflege</p><h3>Messer pflegen</h3><p>Reinigen, schärfen und richtig lagern.</p><span class="link-arrow">Lesen <span aria-hidden="true">→</span></span></a>
+            <a class="path-card course--damast reveal reveal-delay-1" href="/ratgeber/damastmesser/"><p class="path-card__label">Material</p><h3>Damaststahl erklärt</h3><p>Herstellung, Muster und Pflege einer Damastklinge.</p><span class="link-arrow">Lesen <span aria-hidden="true">→</span></span></a>
+            <a class="path-card course--klinge reveal reveal-delay-2" href="/ratgeber/messer-pflege/"><p class="path-card__label">Pflege</p><h3>Messer pflegen</h3><p>Reinigen, schärfen und richtig lagern.</p><span class="link-arrow">Lesen <span aria-hidden="true">→</span></span></a>
         </div>
     </x-page.section>
 
@@ -17,7 +17,7 @@
                 <x-ui.kicker>Kosten</x-ui.kicker>
                 <h2 id="kosten-h" class="h-section">Was kostet ein Schmiedekurs?</h2>
                 <p class="lead">Die Preise der Messermanufaktur Ulbrich hängen vom Kursformat ab: von {{ number_format($priced->min('price_from'), 0, ',', '.') }} € für den eintägigen Grundlagenkurs bis {{ number_format($priced->max('price_from'), 0, ',', '.') }} € für den Damast Premium-Kurs, jeweils pro Person.</p>
-                <p>Damastkurse dauern länger und es entstehen größere Klingen – der Damast Premium-Kurs erlaubt bis zu {{ $maxBlade }} cm Klingenlänge. Den Manager-Schmiedekurs für Teams kalkuliert {{ $c['owner'] }} auf Anfrage.</p>
+                <p>Damastkurse dauern länger und es entstehen größere Messer – der Damast Premium-Kurs ermöglicht ein Messer bis {{ $maxBlade }} cm Gesamtlänge. Den Manager-Schmiedekurs für Teams kalkuliert {{ $c['owner'] }} auf Anfrage.</p>
             </div>
             <div class="table-scroll" tabindex="0" role="region" aria-label="Preisübersicht">
                 <table class="compare compare--compact">
@@ -45,6 +45,8 @@
     <x-page.section title="Häufige Fragen" kicker="FAQ">
         @include('pages.partials.faq')
     </x-page.section>
+
+    @include('pages.partials.subpages', ['prefix' => '/ratgeber/', 'title' => 'Alle Ratgeber-Artikel', 'kicker' => 'Ratgeber', 'sunken' => true])
 
     <x-page.cta />
 </x-layouts.site>

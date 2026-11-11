@@ -1,0 +1,46 @@
+{
+ "h1": "Welcher Schmiedekurs ist für Anfänger geeignet?",
+ "lead": [
+  "Dein erster Kurs braucht kein Vorwissen.",
+  "Für den Einstieg ohne Schmiedeerfahrung ist bei Ulbrich der Grundlagenkurs vorgesehen. Er dauert etwa einen Tag und beginnt bei 300 € pro Person. Das Ziel ist ein eigenes Werkstück. Wer sofort ein fertiges Messer erwartet, sollte vor der Buchung die Ergebnisse der verschiedenen Kursformate vergleichen."
+ ],
+ "sections": [
+  {
+   "h": "Was du mitbringen solltest",
+   "items": [
+    {
+     "t": "p",
+     "x": "Neugier, Zeit für einen ganzen Kurstag und die Bereitschaft, Hinweise aufmerksam umzusetzen, sind ein guter Anfang. Eine Werkstatt ist kein reiner Zuschauerraum: Die Tätigkeit wird praktisch und kann körperlich fordern. Wenn du Zweifel hast, ob die Arbeit zu deinen Möglichkeiten passt, kläre diese vorher individuell."
+    }
+   ]
+  },
+  {
+   "h": "Wähle nach deinem Ziel",
+   "items": [
+    {
+     "t": "p",
+     "x": "Du möchtest das Handwerk erst kennenlernen? Beginne mit den Grundlagen. Du hast bereits Erfahrung und möchtest Klingen bearbeiten? Prüfe den Aufbaukurs. Du planst mehrere Tage für ein Damastmesser inklusive Griff? Lies die Beschreibung des Damast-Messerkurses und kläre die Voraussetzungen."
+    },
+    {
+     "t": "h3",
+     "x": "Werkstück, Klinge oder Messer"
+    },
+    {
+     "t": "p",
+     "x": "Diese drei Begriffe sind nicht austauschbar. Eine Klinge ohne Griff ist noch kein vollständig fertiggestelltes Messer. Ein Einstiegskurs kann ein anderes Werkstück zum Ziel haben."
+    }
+   ]
+  },
+  {
+   "h": "Was du vor der Reservierung wissen musst",
+   "items": [
+    {
+     "t": "p",
+     "x": "Prüfe Datum, Treffpunkt, Dauer, Preis und Leistungen. Hinweise zu Kleidung, Schutz und Teilnahme werden für den Kurs geklärt. Für Minderjährige, Begleitpersonen oder besondere Anforderungen gibt es keine pauschale Zusage auf dieser Seite. Stelle deine Fragen online, bevor du einen kostenpflichtigen Termin abschließt."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-anfaenger/"
+}

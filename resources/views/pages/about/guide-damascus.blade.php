@@ -69,17 +69,17 @@
                     <li>Die Klinge gelegentlich <strong>dünn einölen</strong>, vor allem vor längerer Lagerung.</li>
                     <li>Auf Holz oder Kunststoff schneiden, nicht auf Glas oder Stein.</li>
                 </ul>
-                <p>Mehr dazu im Ratgeber <a href="/ratgeber/messer-pflegen/">Messer pflegen: reinigen, schärfen, lagern</a>.</p>
+                <p>Mehr dazu im Ratgeber <a href="/ratgeber/messer-pflege/">Messer pflegen: reinigen, schärfen, lagern</a>.</p>
 
                 <h2 id="selbst-schmieden">Damast selbst schmieden</h2>
                 <p>Am eindrucksvollsten versteht man Damast, wenn man ihn selbst an Esse und Amboss erlebt. In der Messermanufaktur Ulbrich – Schmiedehandwerk seit {{ $c['heritage']['since'] }}, heute in {{ $c['heritage']['generation'] }}. Generation – gibt es dafür zwei Kursformate:</p>
                 <ul>
                     @foreach ($damast as $course)
-                        <li><a href="/schmiedekurse/#{{ \Illuminate\Support\Str::slug($course->name) }}">{{ $course->name }}</a>: {{ $course->duration_label }}@if($course->blade_length_cm), Klinge bis {{ $course->blade_length_cm }} cm @endif, ab {{ number_format($course->price_from, 0, ',', '.') }} € pro Person</li>
+                        <li><a href="{{ $course->url() }}">{{ $course->name }}</a>: {{ $course->duration_label }}@if($course->total_length_cm), Messer bis {{ $course->total_length_cm }} cm Gesamtlänge @endif, ab {{ number_format($course->price_from, 0, ',', '.') }} € pro Person</li>
                     @endforeach
                 </ul>
                 <div class="btn-row mt-5">
-                    <x-ui.button href="/schmiedekurse/buchen/?kurs=damast-messerkurs" variant="straw">Damast-Kurs buchen</x-ui.button>
+                    <x-ui.button href="/schmiedekurse/buchen/?kurs=Damast-Messerkurs" variant="straw">Damast-Kurs buchen</x-ui.button>
                     <x-ui.button href="/schmiedekurse/vergleich/" variant="secondary">Alle Kurse vergleichen</x-ui.button>
                 </div>
 

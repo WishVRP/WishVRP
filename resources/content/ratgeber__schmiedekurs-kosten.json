@@ -1,0 +1,46 @@
+{
+ "h1": "Was kostet ein Schmiedekurs? Preise vergleichen",
+ "lead": [
+  "Preis, Leistungen und Ergebnis vergleichen.",
+  "Die Ulbrich-Angebote beginnen beim Grundlagenkurs ab 300 € pro Person. Der Klingenkurs startet ab 440 €, das alternative Format ab 500 €, der Damast-Messerkurs ab 1.100 € und der Premium-Kurs ab 1.300 €. Der Manager-Kurs wird individuell angeboten. Verbindlich ist der Gesamtpreis des ausgewählten Termins."
+ ],
+ "sections": [
+  {
+   "h": "Was die Kursformate unterscheidet",
+   "items": [
+    {
+     "t": "p",
+     "x": "Ein eintägiger Einstieg und ein mehrtägiges Damastprojekt sind nicht dieselbe Leistung. Unterschiede bestehen bei Dauer, Werkstück, Griff-Fertigung und vorgesehenen Übernachtungen. Vergleiche diese Angaben zusammen. Ein günstigerer Grundkurs ist keine Zusage für dasselbe Ergebnis wie ein vollständiger Messerkurs."
+    }
+   ]
+  },
+  {
+   "h": "Welche Zusatzkosten solltest du prüfen?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Beim Klingenkurs ist die Griff-Fertigung gegen Aufpreis vorgesehen. Reise und zusätzliche Übernachtungen gehören nur dann zum Angebot, wenn sie ausdrücklich genannt werden. Getränke vor Ort sind bei den entsprechend beschriebenen Kursen enthalten. Individuelle Wünsche werden vorab geklärt."
+    },
+    {
+     "t": "h3",
+     "x": "Preis pro Person und Gesamtpreis"
+    },
+    {
+     "t": "p",
+     "x": "Die Angebote nennen Preise pro Person. Wenn du zwei Plätze buchst, zeigt die Buchung den Gesamtpreis für beide. Ein Gruppenrabatt wird nicht automatisch unterstellt."
+    }
+   ]
+  },
+  {
+   "h": "Wie funktioniert die Bezahlung?",
+   "items": [
+    {
+     "t": "p",
+     "x": "Die Zahlung erfolgt per Banküberweisung. Vor dem Reservieren zeigt die Website den jetzt fälligen Betrag. Je nach freigeschaltetem Angebot ist das die vollständige Vorkasse oder eine ausdrücklich ausgewiesene Anzahlung. Eine Überweisungsmitteilung ist noch kein Zahlungseingang. Erst nach der Kontoprüfung bestätigen wir den Kurs verbindlich."
+    }
+   ]
+  }
+ ],
+ "faq": [],
+ "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-kosten/"
+}

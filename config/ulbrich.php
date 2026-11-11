@@ -35,9 +35,11 @@ return [
         'since' => 1934,
         'generation' => 3,
         'generations' => [
-            ['no' => 1, 'year' => 1934, 'name' => null, 'text' => 'Das Schmiedehandwerk kommt in die Familie.'],
+            // Großvater: laut Live-Seite „prägte den Zugang zum Schmieden“ (Werkstattporträt Schwäbische Post, 12.04.2021)
+            ['no' => 1, 'year' => 1934, 'name' => 'Der Großvater', 'text' => 'Mit ihm kommt das Schmiedehandwerk in die Familie – er prägt Andreas’ Zugang zum Schmieden.'],
             ['no' => 2, 'year' => null, 'name' => null, 'text' => 'Die zweite Generation führt das Handwerk fort.'],
-            ['no' => 3, 'year' => null, 'name' => 'Andreas Ulbrich', 'text' => 'Messerschmied, Messermanufaktur und Schmiedekurse in Stein am Kocher.'],
+            // Eröffnung laut HGV Möckmühl „Von uns zu Euch“ 2/2024, S. 3; frühere Werkstatt in Aalen (Schwäbische Post 2021)
+            ['no' => 3, 'year' => 2024, 'name' => 'Andreas Ulbrich', 'text' => 'Nach seiner Werkstatt in Aalen eröffnet er am 1. März 2024 die Messermanufaktur in Stein am Kocher – mit Schmiedekursen und handgefertigten Messern.'],
         ],
     ],
 
@@ -62,7 +64,8 @@ return [
     ],
 
     // info@… oder gmx-Adresse – noch nicht entschieden.
-    'email' => null,
+    // laut Live-Impressum (11.11.2026). Achtung: Live-Startseite nennt zusätzlich eine gmx-Adresse → dort vereinheitlichen.
+    'email' => 'info@messermanufaktur-ulbrich.de',
 
     // Öffnungszeiten laut Google-Unternehmensprofil (Stand 10.11.2026).
     // Mit Andreas abgleichen, ob das Werkstatt-/Telefonzeiten sind.
@@ -82,8 +85,22 @@ return [
         'profile_url' => null, // [FEHLT] Link zum Google-Profil
     ],
 
+    // Öffentliche Profile laut Live-Website (11.11.2026)
     'same_as' => [
-        // 'https://www.instagram.com/…'  [FEHLT] Instagram-URL
+        'https://www.instagram.com/messermanufaktur_ulbrich_/',
+        'https://www.facebook.com/100084188314538',
+    ],
+    'social' => [
+        'instagram' => 'https://www.instagram.com/messermanufaktur_ulbrich_/',
+        'facebook' => 'https://www.facebook.com/100084188314538',
+    ],
+
+    // Buch (laut Live-Seite /manufaktur/)
+    'book' => [
+        'title' => 'Die Staatsanwaltschaft macht keine Fehler',
+        'authors' => 'Andreas Ulbrich und Jeremy Monka',
+        'format' => 'Kindle-eBook',
+        'url' => 'https://www.amazon.de/Die-Staatsanwaltschaft-macht-keine-Fehler/dp/B0GXS7W5P5',
     ],
 
     /*
@@ -109,9 +126,40 @@ return [
         'regular' => 90,
         'special' => 10,
         'price' => 699,
-        'steel' => null,    // [FEHLT]
+        'steel' => null,    // [FEHLT] (Live-Seite nennt nur „Damastklinge“)
         'dimensions' => null, // [FEHLT]
         'handle' => null,   // [FEHLT]
+        // laut Live-Seite /klappmesser/ (11.11.2026)
+        'special_note' => 'Die ersten zehn Stücke der Edition sind für Sonderanfertigungen reserviert; Ausführung und höherer Preis werden persönlich vereinbart.',
+        'shipping' => '7,99 € Versand innerhalb Deutschlands',
+        'delivery' => 'voraussichtlich 7–14 Werktage ab Bestellung bei zeitnaher Zahlung (5–10 Werktage Bearbeitung, 2–4 Werktage Versand)',
+        'payment' => 'Banküberweisung; Auftragsbestätigung nach geprüftem Zahlungseingang',
+        'serial_note' => 'Eine bestimmte Seriennummer wird nicht zugesagt; sie wird vor dem Versand zugeordnet.',
+    ],
+
+    /*
+    | Kunst- & Handwerkermarkt – veranstaltet von der Messermanufaktur (laut Live-Seite /kunsthandwerkermarkt/, 11.11.2026).
+    */
+    'market' => [
+        'name' => 'Kunst- & Handwerkermarkt',
+        'date' => null, // „Datum wird noch bekannt gegeben“
+        'place' => 'Wannenstraße 33, 74196 Neuenstadt am Kocher (Stein am Kocher)',
+        'stands' => [
+            ['label' => 'Innenstand', 'size' => '2 × 2,5 m', 'numbers' => '1–8', 'price' => 80, 'text' => 'Standplatz in der verschlossenen Halle für Samstag und Sonntag.'],
+            ['label' => 'Außenstand', 'size' => '3 × 3 m', 'numbers' => '9–18', 'price' => 70, 'text' => 'Außenfläche für Samstag und Sonntag. Eigener wetterfester Aufbau erforderlich.'],
+        ],
+        'fees' => [
+            ['label' => 'Werbepauschale (verpflichtend je Stand)', 'price' => 10],
+            ['label' => 'Beleuchtung für beide Tage (optional, nach Absprache)', 'price' => 10],
+        ],
+        'rules' => [
+            'Nur Handgemachtes – keine Handels- oder industrielle Massenware.',
+            'Aufbau Freitag ab 14 Uhr, Samstag spätestens 9 Uhr fertig.',
+            'Kein offenes Feuer.',
+            'Die Bewerbung ist noch keine Zusage. Verbindlich wird der Stand erst nach Prüfung, Vertrag und bestätigtem Zahlungseingang.',
+            'Bei einer Absage weniger als 72 Stunden vor Veranstaltungsbeginn besteht grundsätzlich kein Anspruch auf Erstattung der Standgebühr; zwingende gesetzliche Rechte bleiben unberührt.',
+        ],
+        'categories' => ['Holzarbeiten', 'Metall & Schmuck', 'Keramik', 'Textil & Leder', 'Kunst & Illustration', 'Naturprodukte', 'Selbst hergestellte Lebensmittel', 'Sonstiges Kunsthandwerk'],
     ],
 
     /*
@@ -126,7 +174,19 @@ return [
     | Format: ['outlet' => 'Heilbronner Stimme', 'title' => '…', 'date' => '2025-03-14', 'url' => 'https://…']
     | Leer = in der Vorschau gestaltete Platzhalter, in Produktion nur der Link.
     */
-    'press' => [],
+    'press' => [
+        ['outlet' => 'Schwäbische Post', 'kind' => 'Werkstattporträt', 'craft' => true, 'date' => '2021-04-12', 'title' => 'In der Tofa glüht der Stahl', 'url' => 'https://www.schwaebische-post.de/ostalb/aalen/stadt-aalen/in-der-tofa-glueht-der-stahl-90419043.html', 'summary' => 'Porträt von Andreas Ulbrich und seiner damaligen Werkstatt in Aalen: individuell gestaltete Messer und der Einfluss seines Großvaters auf das Handwerk.', 'quote' => 'Schmieden können ist für mich ein Privileg.'],
+        ['outlet' => 'Schwäbische Post', 'kind' => 'Veranstaltungsbericht', 'craft' => true, 'date' => '2026-09-06', 'title' => 'Handwerkskunst beim Kunsthandwerkermarkt Untergröningen', 'url' => 'https://www.schwaebische-post.de/ostalb/kochertal/untergroeningen/kunsthandwerkermarkt-untergroeningen-begeistert-mit-unikaten-94477610.html', 'summary' => 'Bericht über den Kunsthandwerkermarkt; Andreas Ulbrich wird mit einem dort gezeigten handgefertigten Schwert erwähnt.'],
+        ['outlet' => 'Schwäbische Post', 'kind' => 'Erwähnung', 'craft' => true, 'date' => '2024-09-23', 'title' => 'Fürstenzug und Kunsthandwerk in Untergröningen', 'url' => 'https://www.schwaebische-post.de/ostalb/kochertal/untergroeningen/in-untergroeningen-lebt-das-erbe-der-fuerstin-weiter-93315026.html', 'summary' => 'Im Bericht zum historischen Fürstenzug und zum begleitenden Markt wird die Messermanufaktur Ulbrich als Aussteller genannt.'],
+        ['outlet' => 'SWR Aktuell', 'kind' => 'Interview', 'craft' => false, 'date' => '2026-03-03', 'title' => 'Andreas Ulbrich über Zivilcourage und Ersthilfe', 'url' => 'https://www.swr.de/swraktuell/baden-wuerttemberg/heilbronn/zivilcourage-rettet-menschenleben-ersthelfer-unfall-wolpertshausen-a6-100.html', 'summary' => 'Andreas Ulbrich kommt als ausgebildeter Rettungsassistent und Ersthelfer zu Wort – über das Helfen bei einem Unfall.'],
+        ['outlet' => 'BILD', 'kind' => 'Archiv', 'craft' => false, 'date' => '2020-10-28', 'title' => 'BILD berichtet über Andreas Ulbrich und seine Messer', 'url' => 'https://www.bild.de/regional/stuttgart/stuttgart-aktuell/sie-wollen-seine-messer-ex-soldat-verklagt-sekte-aus-heilbronn-73637654.bild.html', 'summary' => 'Bericht über einen damaligen Rechtsstreit um Messer und Werkstattausrüstung; dokumentiert den Stand von 2020, nicht den heutigen Stand des Verfahrens.'],
+        ['outlet' => 'Campus Founders', 'kind' => 'Projektbericht', 'craft' => true, 'date' => '2020-05-06', 'title' => 'Erfolgsgeschichte »Gemeinsam für Morgen«', 'url' => 'https://campusfounders.de/de/community-de/erfolgsgeschichte-gemeinsam-fuer-morgen/', 'summary' => 'Projektbericht über digitale Unterstützung regionaler Unternehmen; nennt die damalige Arbeit am Online-Auftritt der Manufaktur.'],
+        ['outlet' => 'HGV Möckmühl / Heimatkundlicher Arbeitskreis', 'kind' => 'Regionale Mitteilung (PDF)', 'craft' => true, 'date' => '2024-03-16', 'title' => 'VON UNS ZU EUCH · Ausgabe 2/2024', 'url' => 'https://www.hgv-moeckmuehl.de/fileadmin/user_upload/blaetterkatalog/catalogs/Von_uns_zu_Euch_2024-02/pdf/complete.pdf#page=3', 'summary' => 'Seite 3: Bericht über die Unterstützung bei der Eröffnung der Manufaktur am 1. März 2024.'],
+        ['outlet' => 'Insel Mainau', 'kind' => 'Ausstellerverzeichnis (PDF)', 'craft' => true, 'date' => '2025-10-02', 'date_label' => '02.–05.10.2025', 'title' => 'Gräfliches Schlossfest · Kunsthandwerk auf Schloss Mainau', 'url' => 'https://www.mainau.de/sites/default/files/2025-09/2025-flyer-graefliches-schlossfest.pdf', 'summary' => 'Der offizielle Veranstalterflyer führt die Messermanufaktur Ulbrich im Ausstellerverzeichnis auf.'],
+        ['outlet' => 'Stadt Möckmühl', 'kind' => 'Bildergalerie', 'craft' => true, 'date' => '2018-11-01', 'date_label' => '2018', 'title' => 'Schmiedehandwerk beim Martinimarkt 2018', 'url' => 'https://www.moeckmuehl.de/unsere-stadt/infothek/bildergalerie/14/martinimarkt-2018', 'summary' => 'Die städtische Rückschau nennt Andy Ulbrich bei der Vorstellung seines Schmiedehandwerks.'],
+        ['outlet' => 'HGV Möckmühl', 'kind' => 'Veranstaltungsbericht', 'craft' => true, 'date' => '2024-11-03', 'date_label' => '2024', 'title' => 'Die Manufaktur beim Möckmühler Martinimarkt', 'url' => 'https://www.hgv-moeckmuehl.de/aktuelles/mama2022-1-1/', 'summary' => 'Rückblick zum verkaufsoffenen Sonntag am 3. November; die Messermanufaktur Ulbrich ist unter den teilnehmenden Betrieben.'],
+        ['outlet' => 'Stadt Öhringen', 'kind' => 'Ausstellerverzeichnis (PDF)', 'craft' => true, 'date' => '2025-11-01', 'date_label' => '2025', 'title' => 'Handgeschmiedete Messer auf dem Öhringer Weihnachtsmarkt', 'url' => 'https://www.oehringen.de/fileadmin/Dateien/Cross7/Startseite/Freizeit_%26_Tourismus/Unsere_Veranstaltungen/Ohringer_Weihnachtsmarkt/Ausstellerliste-1762257379.pdf', 'summary' => 'Die offizielle Ausstellerliste nennt Andreas Ulbrich und die Messermanufaktur mit handgeschmiedeten Messern.'],
+    ],
 
     /*
     | Ratgeber-Artikel, die es auf der Live-Seite gibt (laut Projektskill:
@@ -134,8 +194,8 @@ return [
     */
     'guides' => [
         ['title' => 'Was kostet ein Schmiedekurs?', 'topic' => 'Kosten', 'path' => '/ratgeber/'],
-        ['title' => 'Damaststahl erklärt: Herstellung, Muster, Pflege', 'topic' => 'Damaststahl', 'path' => '/ratgeber/damaststahl/'],
-        ['title' => 'Messer pflegen: reinigen, schärfen, lagern', 'topic' => 'Messerpflege', 'path' => '/ratgeber/messer-pflegen/'],
+        ['title' => 'Damaststahl erklärt: Herstellung, Muster, Pflege', 'topic' => 'Damaststahl', 'path' => '/ratgeber/damastmesser/'],
+        ['title' => 'Messer pflegen: reinigen, schärfen, lagern', 'topic' => 'Messerpflege', 'path' => '/ratgeber/messer-pflege/'],
     ],
 
     /*

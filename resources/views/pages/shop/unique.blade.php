@@ -19,5 +19,7 @@
         <x-ui.missing silent>Aktuell verfügbare Unikate mit Preis und Daten</x-ui.missing>
     </x-page.section>
 
+    @include('pages.partials.content-sections', ['key' => 'messer-unikate', 'label' => 'Drei Wege zum Unikat'])
+
     <x-page.cta title="Ein Unikat gefunden?" />
 </x-layouts.site>

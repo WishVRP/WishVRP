@@ -26,5 +26,9 @@
         <p class="mt-6"><a class="link-arrow" href="/erlebnisse/">Schmieden als Erlebnis – auch für Teams <span aria-hidden="true">→</span></a></p>
     </x-page.section>
 
+    @include('pages.partials.subpages', ['prefix' => '/geschenke/', 'title' => 'Geschenkideen nach Anlass', 'kicker' => 'Anlässe', 'sunken' => true])
+
+    @include('pages.partials.content-sections', ['key' => 'geschenke', 'label' => 'Geschenkideen'])
+
     <x-page.cta title="Hilfe bei der Geschenkwahl?" />
 </x-layouts.site>
