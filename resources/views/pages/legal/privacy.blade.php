@@ -38,6 +38,10 @@
     <p> Damit jede Person nur einmal teilnimmt, begrenzen wir die Anmeldungen je Internetanschluss: Dafür wird aus deiner IP-Adresse ein nicht zurückrechenbarer Prüfwert gebildet und höchstens 24 Stunden im Zwischenspeicher gehalten, nicht in der Datenbank. Beim Einlösen eines Codes vergleichen wir Telefonnummer bzw. Name und Postleitzahl mit früheren Einlösungen, damit pro Person bzw. Haushalt nur ein Weihnachtsrabatt gewährt wird. Die Daten werden nach Ende der Aktion und Ablauf der Einlösefrist gelöscht, soweit keine Aufbewahrungspflicht besteht.</p>
     <p><x-ui.missing>Rechtsgrundlage, Löschfrist und SMS-Dienstleister (Name, Sitz, Auftragsverarbeitungsvertrag) der Weihnachtsaktion anwaltlich prüfen</x-ui.missing></p>
 
+    <h2>Newsletter</h2>
+    <p>Wenn du dem Newsletter freiwillig zustimmst, schicken wir dir an deine E-Mail-Adresse Neuigkeiten, Kurstermine, Angebote und Aktionen der Messermanufaktur Ulbrich. Die Anmeldung wird erst wirksam, wenn du sie über den Link in unserer Bestätigungs-E-Mail bestätigst (Double-Opt-in). Zum Nachweis speichern wir Zeitpunkt, Quelle und Wortlaut deiner Einwilligung sowie den Zeitpunkt der Bestätigung. Du kannst die Einwilligung jederzeit über den Abmeldelink in jeder E-Mail oder formlos per E-Mail widerrufen; danach bekommst du keine Newsletter mehr. Die Teilnahme an Aktionen hängt nicht von der Newsletter-Anmeldung ab.</p>
+    <p><x-ui.missing>Rechtsgrundlage, Versanddienst (falls genutzt) und Speicherdauer des Newsletters anwaltlich prüfen</x-ui.missing></p>
+
     <h2>Deine Rechte</h2>
     <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.</p>
 

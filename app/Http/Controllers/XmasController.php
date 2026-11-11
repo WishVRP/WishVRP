@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NewsletterSubscriber;
 use App\Models\XmasEntry;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -37,12 +38,14 @@ class XmasController extends Controller
             'email' => ['required', 'email', 'max:190'],
             'phone' => ['required', 'string', 'max:40'],
             'conditions' => ['accepted'],
+            'newsletter' => ['nullable', 'boolean'],
         ], ['conditions.accepted' => 'Bitte bestätige die Teilnahmebedingungen und den Datenschutzhinweis.', 'email.required' => 'Bitte gib deine E-Mail-Adresse ein.',
             'email.email' => 'Bitte gib eine gültige E-Mail-Adresse ein.', 'phone.required' => 'Bitte gib deine Handynummer ein.']);
 
         if (XmasEntry::isDisposable($data['email'])) {
             return $this->fail('Bitte verwende deine eigene, dauerhafte E-Mail-Adresse – Wegwerf-Adressen sind ausgeschlossen.');
         }
+        $this->newsletter($data);
         $phone = XmasEntry::mobileE164($data['phone']);
         if (! $phone) {
             return $this->fail('Bitte gib eine gültige Handynummer an (z. B. 0171 1234567) – an Festnetznummern können wir keine SMS schicken.');
@@ -101,11 +104,13 @@ class XmasController extends Controller
         $data = $request->validate([
             'email' => ['required', 'email', 'max:190'],
             'conditions' => ['accepted'],
+            'newsletter' => ['nullable', 'boolean'],
         ], ['conditions.accepted' => 'Bitte bestätige die Teilnahmebedingungen und den Datenschutzhinweis.', 'email.required' => 'Bitte gib deine E-Mail-Adresse ein.', 'email.email' => 'Bitte gib eine gültige E-Mail-Adresse ein.']);
 
         if (XmasEntry::isDisposable($data['email'])) {
             return $this->fail('Bitte verwende deine eigene, dauerhafte E-Mail-Adresse – Wegwerf-Adressen sind ausgeschlossen.');
         }
+        $this->newsletter($data);
         $key = XmasEntry::emailKey($data['email']);
         $entry = XmasEntry::query()->where('email_key', $key)->first();
         if ($entry?->started_at) {
@@ -189,6 +194,14 @@ class XmasController extends Controller
         $entry->update(['started_at' => now()]);
 
         return response()->json(['status' => 'ok', 'token' => $entry->token, 'seconds' => (int) config('ulbrich.xmas.seconds')]);
+    }
+
+    /** Freiwilliges Newsletter-Häkchen → Double-Opt-in-Mail (unabhängig vom Spiel). */
+    private function newsletter(array $data): void
+    {
+        if (! empty($data['newsletter'])) {
+            NewsletterSubscriber::request($data['email'], 'weihnachtsaktion');
+        }
     }
 
     private function fail(string $message, int $status = 422): JsonResponse

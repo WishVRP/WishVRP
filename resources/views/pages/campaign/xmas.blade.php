@@ -47,6 +47,10 @@
                                     <input type="checkbox" name="conditions" value="1" required>
                                     <span>Ich akzeptiere die <a href="#teilnahmebedingungen">Teilnahmebedingungen</a> (nur eine Teilnahme pro Person) und den <a href="/datenschutz/">Datenschutzhinweis</a>.</span>
                                 </label>
+                                <label class="check">
+                                    <input type="checkbox" name="newsletter" value="1">
+                                    <span>{{ \App\Models\NewsletterSubscriber::CONSENT }}</span>
+                                </label>
                                 <button type="submit" class="btn btn--primary btn--lg">{{ $sms ? 'SMS-Code anfordern' : 'Spiel-Link anfordern' }}</button>
                             </form>
                         </div>

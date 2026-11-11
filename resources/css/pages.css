@@ -731,8 +731,8 @@ a.path-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px r
 .xmas__form input[type=email] { color: #111; }
 .xmas__error { color: #ffb4a8; font-size: var(--text-sm); }
 .xmas__hint { font-size: var(--text-sm); color: #c9d6e8; }
-@media (max-width: 40rem) {
-    /* Auf dem Handy ist das Spielfeld flach: Start/Ergebnis unter dem Spielfeld statt darüber */
+@media (max-width: 60rem) {
+    /* Bei schmalem Spielfeld: Start/Ergebnis unter dem Spielfeld statt darüber */
     .xmas__overlay { position: static; padding: var(--space-5) var(--space-4); background: #0b1830; }
     .xmas__hud { font-size: 0.75rem; }
 }
@@ -743,3 +743,4 @@ a.path-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px r
 .xmas__link { background: none; border: 0; padding: 0; color: var(--temper-straw); text-decoration: underline; cursor: pointer; font: inherit; }
 .xmas__overlay [data-xmas-step] { display: grid; gap: var(--space-3); justify-items: center; }
 .xmas__overlay [data-xmas-step][hidden] { display: none; }
+.xmas__overlay .check { font-size: 0.875rem; line-height: 1.45; }

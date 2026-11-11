@@ -47,6 +47,10 @@ class OverviewStats extends StatsOverviewWidget
                 ->description(\App\Models\XmasEntry::query()->whereNotNull('code')->count().' Codes · '.\App\Models\XmasEntry::query()->whereNotNull('redeemed_at')->count().' eingelöst')
                 ->icon(Heroicon::OutlinedGift)
                 ->url(\App\Filament\Resources\XmasEntries\XmasEntryResource::getUrl('index')),
+            Stat::make('Newsletter', (string) \App\Models\NewsletterSubscriber::query()->active()->count())
+                ->description(\App\Models\NewsletterSubscriber::query()->whereNull('confirmed_at')->whereNull('unsubscribed_at')->count().' warten auf Bestätigung')
+                ->icon(Heroicon::OutlinedEnvelopeOpen)
+                ->url(\App\Filament\Resources\NewsletterSubscribers\NewsletterSubscriberResource::getUrl('index')),
             Stat::make('Offene Notizen', (string) Note::query()->open()->count())
                 ->description('für alle sichtbar')
                 ->icon(Heroicon::OutlinedChatBubbleLeftRight)

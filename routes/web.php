@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PendingPageController;
@@ -29,6 +30,8 @@ Route::post('/weihnachtsaktion/anmelden/', [XmasController::class, 'register'])-
 Route::post('/weihnachtsaktion/code/', [XmasController::class, 'verify'])->middleware('throttle:xmas')->name('xmas.verify');
 Route::post('/weihnachtsaktion/start/', [XmasController::class, 'start'])->middleware('throttle:xmas')->name('xmas.start');
 Route::post('/weihnachtsaktion/ergebnis/', [XmasController::class, 'finish'])->middleware('throttle:xmas')->name('xmas.finish');
+Route::post('/newsletter/bestaetigen/', [NewsletterController::class, 'confirm'])->middleware('throttle:forms')->name('newsletter.confirm');
+Route::post('/newsletter/abmelden/', [NewsletterController::class, 'unsubscribe'])->middleware('throttle:forms')->name('newsletter.unsubscribe');
 Route::post('/e/', EventController::class)->middleware('throttle:events')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('event');
 
 /*

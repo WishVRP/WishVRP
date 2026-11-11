@@ -21,7 +21,8 @@ class HomeContentTest extends TestCase
     public function test_every_inventory_url_is_reachable_from_home_within_three_clicks(): void
     {
         $this->seed(CourseSeeder::class);
-        $known = config('pages');
+        // Seiten, die nur über Links in E-Mails erreicht werden (Newsletter bestätigen/abmelden), sind ausgenommen.
+        $known = array_filter(config('pages'), fn (array $p) => empty($p['email_only']));
         $depth = ['/' => 0];
         $queue = ['/'];
         while ($queue) {
