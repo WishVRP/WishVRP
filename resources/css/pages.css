@@ -791,3 +791,30 @@ a.path-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px r
 .shipping-box__quote small { display: block; margin-top: var(--space-1); color: var(--color-text-muted); }
 .shipping-box.is-pickup [data-ship-address],
 .shipping-box.is-pickup [data-ship-quote] { display: none; }
+
+/* Kunst- & Handwerkermarkt: Online-Standplan */
+.market-plan { display: grid; gap: var(--space-6); margin-top: var(--space-5); }
+.market-plan__area h3 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
+.market-plan__area h3 .muted { font-family: var(--font-tech); font-size: var(--text-xs); }
+.market-plan__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2); }
+.market-plan__area--aussen .market-plan__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.market-plan__area--innen .market-plan__grid { padding: var(--space-3); border: 2px solid var(--steel-300); border-radius: var(--radius-2); background: var(--steel-100); }
+.market-stand { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 4.25rem; padding: var(--space-2); border: 2px solid transparent; border-radius: var(--radius-1); font: inherit; cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.market-stand__no { font-family: var(--font-display, inherit); font-size: 1.35rem; line-height: 1; }
+.market-stand__state { font-family: var(--font-tech); font-size: 0.6875rem; margin-top: 0.2rem; }
+.market-stand.is-frei { background: #e6f2e6; border-color: #7fb07f; color: #1f4d1f; }
+.market-stand.is-frei:hover, .market-stand.is-frei:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 14px -8px rgb(0 0 0 / 0.4); }
+.market-stand.is-mein { background: var(--temper-straw); border-color: #8a6a1c; color: #241a05; }
+.market-stand.is-reserviert { background: repeating-linear-gradient(135deg, #f1e7cf 0 6px, #e8dcbc 6px 12px); border-color: #c8b37a; color: #6a5520; cursor: not-allowed; }
+.market-stand.is-belegt { background: #e9e9ea; border-color: #c9c9cc; color: #7a7d84; cursor: not-allowed; }
+.market-plan__legend { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); font-size: var(--text-sm); }
+.market-plan__legend li { display: flex; align-items: center; gap: var(--space-2); }
+.market-plan__legend .market-stand { display: inline-block; min-height: 0; width: 1.1rem; height: 1.1rem; padding: 0; cursor: default; }
+.market-plan__msg { min-height: 1.5em; font-weight: 600; }
+.market-form__stand { padding: var(--space-3) var(--space-4); border-left: 3px solid var(--temper-straw); background: var(--steel-0); font-weight: 600; }
+.market-form__sum { margin-top: var(--space-3); font-family: var(--font-tech); font-size: var(--text-sm); }
+.note--ok { border-left: 4px solid #3f8f3f; padding: var(--space-5); background: #eef6ee; }
+.note--ok h3 { margin-bottom: var(--space-2); }
+@media (max-width: 40rem) {
+    .market-plan__grid, .market-plan__area--aussen .market-plan__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

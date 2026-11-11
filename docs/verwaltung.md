@@ -207,3 +207,27 @@ Menü **Versandkosten**: Ländergruppen mit den **DHL-Preisen je Gewichtsstufe**
 Für normale DHL-Pakete bietet DHL **keine** Live-Preisabfrage an. Live-Preise gibt es nur über **DHL Express** (MyDHL API). Dafür braucht ihr ein DHL-Express-Geschäftskonto (Kundennummer) und einen Zugang auf developer.dhl.com. Danach in der `.env`: `DHL_EXPRESS_KEY`, `DHL_EXPRESS_SECRET`, `DHL_EXPRESS_ACCOUNT`.
 
 Dann gilt: Für Länder **ohne Tabellenpreis** holt die Seite den Live-Preis von DHL Express (günstigstes Produkt), rundet auf ,99 und speichert ihn 6 Stunden zwischen. DHL Express ist deutlich teurer als DHL Paket. Für häufige Länder lohnt sich deshalb ein Tabellenpreis.
+
+## Kunst- & Handwerkermarkt (Online-Standplan)
+
+Seite `/kunsthandwerkermarkt/`: Plan mit **18 Ständen** (Halle innen 1–8, außen 9–18).
+
+**So läuft es für Aussteller**
+- Freien Stand antippen. Er ist dann **15 Minuten** für die Person reserviert, mit Countdown.
+- Bewerbung ausfüllen: Kontakt, Sortiment, Beschreibung, 1–5 Fotos, optional Beleuchtung.
+- Die Person bekommt sofort den **Aussteller-Code** (`KHM-…`) auf der Seite und per E-Mail. Der Stand steht dann auf „in Prüfung“.
+
+**Farben im Plan:** grün = frei · gold = von dir gewählt · schraffiert = reserviert oder in Prüfung · grau = vergeben
+
+**In der Verwaltung → Markt-Bewerbungen**
+- Oben stehen der Stand der Dinge (freie und vergebene Stände) und die **Markt-Einstellungen**:
+  - **Markt (Jahr):** Ein neuer Wert startet einen neuen Markt mit leerem Plan. Alte Bewerbungen bleiben über den Filter „Markt“ erreichbar.
+  - **Termin:** wird so auf der Website und in den Mails angezeigt
+  - **Bewerbungen annehmen:** ein/aus
+- **Öffnen** zeigt alle Angaben und die **Fotos**. Die Fotos sind privat gespeichert und nur angemeldet abrufbar.
+- **Status ändern**, jeweils mit optionaler persönlicher Nachricht:
+  - **Annehmen** → Mail mit Gebühr, Bankdaten und Verwendungszweck (= Code)
+  - **Zahlung erhalten** → Mail „Dein Stand ist fest gebucht“, Stand wird grau
+  - **Ablehnen** → freundliche Absage, Stand wird wieder frei
+  - **Stornieren** → ohne Mail, Stand wird frei
+- **Gebühr:** Standpreis + Werbepauschale (+ Beleuchtung), automatisch aus `config/ulbrich.php` → `market`.

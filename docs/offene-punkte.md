@@ -135,7 +135,9 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 - [ ] Gutscheine:
   - Gültigkeit bestätigen (vorläufig 3 Jahre zum Jahresende)
   - Sind Teileinlösungen möglich?
-- [ ] Markt/Event: Datum, Uhrzeiten, Standplan bzw. Anmeldung für Aussteller
+- [x] Kunst- & Handwerkermarkt: Online-Standplan mit Bewerbung (wie auf der alten Seite) – umgesetzt
+- [ ] Markt: **Termin und Uhrzeiten** eintragen (Verwaltung → Markt-Bewerbungen → „Markt-Einstellungen“), **Marktordnung und Standmietvertrag** als PDF liefern
+- [ ] Datenschutzerklärung: Abschnitt Markt-Bewerbungen (Kontaktdaten, Fotos, Speicherdauer)
 - [ ] Partner: welche Kooperationen gibt es konkret?
 
 ### Bewertungen, Fotos, Referenzen

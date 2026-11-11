@@ -226,6 +226,69 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
     load();
 });
 
+/* ---------- Kunst- & Handwerkermarkt: Stand antippen → 15 Minuten reservieren ---------- */
+const market = document.querySelector('[data-market]');
+if (market && !market.hasAttribute('data-closed')) {
+    const form = document.querySelector('[data-market-form]');
+    const input = form?.querySelector('[data-market-stand-input]');
+    const chosen = form?.querySelector('[data-market-chosen]');
+    const sum = form?.querySelector('[data-market-sum]');
+    const light = form?.querySelector('[data-market-light]');
+    const msg = market.querySelector('[data-market-msg]');
+    const csrf = document.querySelector('meta[name="csrf-token"]')?.content || form?.querySelector('input[name="_token"]')?.value;
+    const label = { frei: 'frei', reserviert: 'reserviert', belegt: 'belegt', mein: 'deiner' };
+    let timer = 0; let until = 0; let price = 0;
+    const fees = { ad: Number(market.dataset.feeAd) || 0, light: Number(market.dataset.feeLight) || 0 };
+    const paint = (map) => market.querySelectorAll('[data-stand]').forEach((b) => {
+        const st = map[b.dataset.stand] || 'belegt';
+        b.className = `market-stand is-${st}`;
+        b.disabled = !(st === 'frei' || st === 'mein');
+        b.querySelector('.market-stand__state').textContent = label[st];
+        b.setAttribute('aria-label', `Stand ${b.dataset.stand}, ${label[st]}`);
+    });
+    const showSum = () => {
+        if (!sum || !price) return;
+        const total = price + fees.ad + (light?.checked ? fees.light : 0);
+        sum.textContent = `Standgebühr ${price} € + Werbepauschale ${fees.ad} €${light?.checked ? ` + Beleuchtung ${fees.light} €` : ''} = ${total} € für beide Tage`;
+    };
+    const tick = () => {
+        const left = Math.max(0, Math.round((until - Date.now()) / 1000));
+        if (!chosen || !input?.value) return;
+        chosen.textContent = left > 0
+            ? `Gewählter Stand: Nr. ${input.value} – für dich reserviert noch ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')} Min.`
+            : `Die Reservierung für Stand ${input.value} ist abgelaufen – bitte den Stand erneut antippen.`;
+        if (left <= 0) clearInterval(timer);
+    };
+    market.addEventListener('click', async (e) => {
+        const btn = e.target.closest('[data-stand]');
+        if (!btn || btn.disabled) return;
+        msg.textContent = '';
+        try {
+            const r = await fetch(market.dataset.reserveUrl, {
+                method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrf || '' },
+                body: JSON.stringify({ stand: Number(btn.dataset.stand) }),
+            });
+            const d = await r.json();
+            if (d.stands) paint(d.stands);
+            if (!d.ok) { msg.textContent = d.message || 'Dieser Stand ist nicht frei.'; return; }
+            if (input) input.value = d.stand;
+            price = Number(btn.dataset.price) || 0;
+            until = Date.now() + d.minutes * 60000;
+            clearInterval(timer); timer = setInterval(tick, 1000); tick(); showSum();
+            msg.textContent = `Stand ${d.stand} ist für ${d.minutes} Minuten für dich reserviert. Jetzt unten die Bewerbung ausfüllen.`;
+            form?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        } catch (err) {
+            msg.textContent = 'Das hat nicht geklappt – bitte noch einmal versuchen.';
+        }
+    });
+    light?.addEventListener('change', showSum);
+    // Belegung alle 30 Sekunden auffrischen, damit niemand einen gerade vergebenen Stand wählt
+    setInterval(async () => {
+        if (document.hidden) return;
+        try { const d = await (await fetch(market.dataset.standsUrl, { headers: { Accept: 'application/json' } })).json(); paint(d.stands); } catch (e) { /* still */ }
+    }, 30000);
+}
+
 /* ---------- Buchung: Kurs, Kalender (ein Kurs pro Tag), Personen, Gesamtpreis ---------- */
 const euro = (n) => `${new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 }).format(n)} €`;
 const booking = document.querySelector('[data-booking]');

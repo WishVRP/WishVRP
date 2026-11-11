@@ -28,6 +28,9 @@ Route::get('/schmiedekurse/verfuegbarkeit/', [OrderController::class, 'availabil
 Route::post('/schmiedekurse/buchen/', [OrderController::class, 'booking'])->middleware('throttle:forms')->name('booking.store');
 Route::post('/gutschein/kaufen/', [OrderController::class, 'voucher'])->middleware('throttle:forms')->name('voucher.buy');
 Route::get('/versandkosten/', [\App\Http\Controllers\ShippingController::class, 'quote'])->middleware('throttle:events')->name('shipping.quote');
+Route::get('/kunsthandwerkermarkt/staende/', [\App\Http\Controllers\MarketController::class, 'stands'])->middleware('throttle:events')->name('market.stands');
+Route::post('/kunsthandwerkermarkt/reservieren/', [\App\Http\Controllers\MarketController::class, 'reserve'])->middleware('throttle:events')->name('market.reserve');
+Route::post('/kunsthandwerkermarkt/bewerben/', [\App\Http\Controllers\MarketController::class, 'apply'])->middleware('throttle:forms')->name('market.apply');
 Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:forms')->name('inquiry.store');
 Route::post('/weihnachtsaktion/anmelden/', [XmasController::class, 'register'])->middleware('throttle:xmas')->name('xmas.register');
 Route::post('/weihnachtsaktion/code/', [XmasController::class, 'verify'])->middleware('throttle:xmas')->name('xmas.verify');
@@ -37,6 +40,15 @@ Route::post('/newsletter/bestaetigen/', [NewsletterController::class, 'confirm']
 Route::post('/newsletter/abmelden/', [NewsletterController::class, 'unsubscribe'])->middleware('throttle:forms')->name('newsletter.unsubscribe');
 Route::post('/newsletter/abmelden/sofort/', [NewsletterController::class, 'oneClick'])->middleware('throttle:events')
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('newsletter.oneclick');
+// Fotos aus Markt-Bewerbungen (privat gespeichert, nur für angemeldete Verwaltung)
+Route::get('/'.trim(config('ulbrich_admin.path'), '/').'/markt-foto/{application}/{index}', function (\App\Models\MarketApplication $application, int $index) {
+    abort_unless(auth()->check(), 403);
+    $path = $application->photos[$index] ?? null;
+    abort_unless($path && \Illuminate\Support\Facades\Storage::disk('local')->exists($path), 404);
+
+    return \Illuminate\Support\Facades\Storage::disk('local')->response($path, null, ['X-Robots-Tag' => 'noindex', 'Cache-Control' => 'private, no-store']);
+})->middleware('web')->whereNumber('index')->name('market.photo');
+
 // Vorschau der Kunden-E-Mails zu einem Vorgang (nur angemeldet; nichts wird verschickt)
 Route::get('/'.trim(config('ulbrich_admin.path'), '/').'/mail-vorschau/{order}/{kind}', function (\App\Models\Order $order, string $kind) {
     abort_unless(auth()->check(), 403);
