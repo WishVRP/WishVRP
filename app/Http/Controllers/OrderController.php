@@ -18,18 +18,18 @@ use Illuminate\Validation\Rule;
  */
 class OrderController extends Controller
 {
-    private function contact(Request $request): array
-    {
-        return $request->validate([
-            'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'max:190'],
-            'phone' => ['nullable', 'string', 'max:40'],
-            'message' => ['nullable', 'string', 'max:3000'],
-            'consent' => ['accepted'],
-        ], [
-            'consent.accepted' => 'Bitte bestätige die Datenschutzhinweise.',
-        ]);
-    }
+    private const CONTACT = [
+        'name' => ['required', 'string', 'max:120'],
+        'email' => ['required', 'email', 'max:190'],
+        'phone' => ['nullable', 'string', 'max:40'],
+        'message' => ['nullable', 'string', 'max:3000'],
+        'consent' => ['accepted'],
+    ];
+
+    private const MESSAGES = [
+        'consent.accepted' => 'Bitte bestätige die Datenschutzhinweise.',
+        'bedingungen.accepted' => 'Bitte bestätige die Kursbedingungen.',
+    ];
 
     private function isSpam(Request $request): bool
     {
@@ -41,13 +41,13 @@ class OrderController extends Controller
         if ($this->isSpam($request)) {
             return back()->with('order_ok', 'U0000-0000');
         }
-        $data = $this->contact($request) + $request->validate([
+        $data = $request->validate(self::CONTACT + [
             'kurs' => ['required', 'string'],
             'teilnehmer' => ['required', 'integer', 'min:1', 'max:12'],
             'termin' => ['nullable', 'integer'],
             'wunschtermin' => ['nullable', 'string', 'max:120'],
             'bedingungen' => ['accepted'],
-        ], ['bedingungen.accepted' => 'Bitte bestätige die Kursbedingungen.']);
+        ], self::MESSAGES);
 
         $course = Course::query()->published()->get()->first(fn ($c) => Str::slug($c->name) === $data['kurs']);
         if (! $course) {
@@ -85,7 +85,7 @@ class OrderController extends Controller
         if ($this->isSpam($request)) {
             return back()->with('order_ok', 'U0000-0000');
         }
-        $data = $this->contact($request) + $request->validate([
+        $data = $request->validate(self::CONTACT + [
             'type' => ['required', Rule::in(['gutschein', 'messer', 'service', 'anfrage'])],
             'item' => ['nullable', 'string', 'max:190'],
             'kurs' => ['nullable', 'string'],
@@ -95,7 +95,7 @@ class OrderController extends Controller
             'city' => ['nullable', 'string', 'max:120'],
             'country' => ['nullable', 'string', 'max:80'],
             'source' => ['nullable', 'string', 'max:190'],
-        ]);
+        ], self::MESSAGES);
         $quantity = $data['quantity'] ?? 1;
         $item = $data['item'] ?? null;
         $amount = null;

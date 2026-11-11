@@ -18,7 +18,15 @@ class CourseDateResource extends Resource
 {
     protected static ?string $model = CourseDate::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
+
+    protected static ?string $navigationLabel = 'Kurstermine';
+
+    protected static ?string $modelLabel = 'Kurstermin';
+
+    protected static ?string $pluralModelLabel = 'Kurstermine';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

@@ -51,6 +51,10 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
             ])
+            ->databaseNotifications(false)
+            ->sidebarCollapsibleOnDesktop()
+            ->defaultAvatarProvider(\App\Filament\Support\InitialsAvatar::class)
+            ->renderHook(\Filament\View\PanelsRenderHook::HEAD_END, fn () => new \Illuminate\Support\HtmlString('<link rel="stylesheet" href="/verwaltung-widgets.css">'))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

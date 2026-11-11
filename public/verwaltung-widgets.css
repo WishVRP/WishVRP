@@ -1,0 +1,17 @@
+/* Eigene Styles der Verwaltungs-Widgets (Filament liefert nur eigene Klassen aus). */
+.uw-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+.uw-list { list-style: none; margin: 0; padding: 0; }
+.uw-row { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; font-size: .875rem; }
+.uw-row__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.uw-row__num { font-weight: 600; font-variant-numeric: tabular-nums; }
+.uw-bar { display: block; width: 100%; height: .375rem; margin: .25rem 0 .75rem; appearance: none; border: 0; border-radius: 9999px; background: rgba(148,163,184,.25); overflow: hidden; }
+.uw-bar::-webkit-progress-bar { background: rgba(148,163,184,.25); border-radius: 9999px; }
+.uw-bar::-webkit-progress-value { background: #2d5f93; border-radius: 9999px; }
+.uw-bar::-moz-progress-bar { background: #2d5f93; border-radius: 9999px; }
+.uw-item { display: block; padding: .6rem 0; border-bottom: 1px solid rgba(148,163,184,.2); font-size: .875rem; color: inherit; text-decoration: none; }
+.uw-item:last-child { border-bottom: 0; }
+a.uw-item:hover { background: rgba(148,163,184,.08); }
+.uw-item__head { display: flex; justify-content: space-between; gap: .5rem; align-items: center; font-weight: 600; }
+.uw-muted { color: rgb(107,114,128); font-size: .8125rem; margin-top: .15rem; }
+.uw-empty { color: rgb(107,114,128); font-size: .875rem; }
+.uw-item__head > :last-child { flex: none; }

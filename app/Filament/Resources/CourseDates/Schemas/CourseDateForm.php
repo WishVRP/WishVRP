@@ -14,21 +14,15 @@ class CourseDateForm
     {
         return $schema
             ->components([
-                Select::make('course_id')
+                Select::make('course_id')->label('Kurs')
                     ->relationship('course', 'name')
                     ->required(),
-                DatePicker::make('starts_on')
-                    ->required(),
-                DatePicker::make('ends_on'),
-                TextInput::make('seats_total')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('seats_booked')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Toggle::make('is_published')
-                    ->required(),
-            ]);
+                DatePicker::make('starts_on')->label('Beginn')->required(),
+                DatePicker::make('ends_on')->label('Ende (bei mehrtägigen Kursen)')->afterOrEqual('starts_on'),
+                TextInput::make('seats_total')->label('Plätze gesamt')->required()->numeric()->minValue(1)->default(6),
+                TextInput::make('seats_booked')->label('Plätze vergeben')->required()->numeric()->minValue(0)->default(0)
+                    ->helperText('Bestätigte Buchungen aus der Verwaltung zählen automatisch hoch.'),
+                Toggle::make('is_published')->label('Freigeschaltet (auf der Website sichtbar)')->default(false),
+]);
     }
 }

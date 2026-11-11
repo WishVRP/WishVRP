@@ -18,7 +18,15 @@ class CourseResource extends Resource
 {
     protected static ?string $model = Course::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFire;
+
+    protected static ?string $navigationLabel = 'Kurse';
+
+    protected static ?string $modelLabel = 'Kurs';
+
+    protected static ?string $pluralModelLabel = 'Kurse';
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Schema $schema): Schema
     {
