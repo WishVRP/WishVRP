@@ -36,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             // 2FA per Authenticator-App ist Pflicht; ohne Einrichtung kein Zugriff.
             ->multiFactorAuthentication(
                 [AppAuthentication::make()->recoverable()],
-                isRequired: true,
+                isRequired: config('ulbrich_admin.mfa_required'),
             )
             ->colors([
                 'primary' => Color::hex('#2d5f93'), // Anlassblau
