@@ -1,6 +1,7 @@
 {{-- Startseite: 15 Abschnitte, je eine Datei in pages/home/ --}}
 <x-layouts.site :meta="$meta" :schema="$schema" current="/">
     @include('pages.home.01-hero')
+    @include('pages.partials.xmas-teaser')
     @include('pages.home.01a-press-strip')
     @include('pages.home.01b-heritage')
     @include('pages.home.02-intro')

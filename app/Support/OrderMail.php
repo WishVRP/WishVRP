@@ -20,6 +20,7 @@ final class OrderMail
             "E-Mail: {$order->email}",
             $order->phone ? "Telefon: {$order->phone}" : null,
             $order->street ? "Adresse: {$order->street}, {$order->postal_code} {$order->city}, {$order->country}" : null,
+            $order->public_name ? "Anzeigename im Edition-Raster (Zustimmung erteilt): {$order->public_name}" : null,
             $order->message ? "\nNachricht:\n{$order->message}" : null,
             '',
             'Bearbeiten in der Verwaltung → Bestellungen & Buchungen.',

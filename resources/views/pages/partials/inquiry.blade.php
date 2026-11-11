@@ -44,6 +44,18 @@
                     @endif
                 </div>
                 @include('pages.partials.contact-fields')
+                @if (! empty($publicName))
+                    <fieldset class="inquiry__public">
+                        <label class="check">
+                            <input type="checkbox" name="show_name" value="1" @checked(old('show_name')) data-public-toggle>
+                            <span>Mein Name darf im Raster der Edition 100 bei meiner Nummer erscheinen (freiwillig, jederzeit widerrufbar).</span>
+                        </label>
+                        <label class="field mt-3">
+                            <span class="field__label">So soll der Name erscheinen</span>
+                            <input type="text" name="public_name" maxlength="80" value="{{ old('public_name') }}" placeholder="z. B. Erika M.">
+                        </label>
+                    </fieldset>
+                @endif
                 @if (! empty($shipping))
                     <details class="inquiry__shipping">
                         <summary>Lieferadresse angeben (optional)</summary>

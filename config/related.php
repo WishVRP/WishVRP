@@ -68,4 +68,5 @@ return [
     '/en/shipping/' => ['/en/knives/', '/en/folding-knife/', '/en/custom-knives/'],
     '/garantie/' => ['/ratgeber/messer-pflege/', '/versand/', '/messer-reparieren-lassen/'],
     '/en/warranty/' => ['/en/knives/', '/en/shipping/', '/en/custom-knives/'],
+    '/weihnachtsaktion/' => ['/geschenke/weihnachten/', '/geschenke/schmiedekurs-gutschein/', '/klappmesser/'],
 ];

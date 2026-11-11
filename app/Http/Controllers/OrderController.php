@@ -95,6 +95,8 @@ class OrderController extends Controller
             'city' => ['nullable', 'string', 'max:120'],
             'country' => ['nullable', 'string', 'max:80'],
             'source' => ['nullable', 'string', 'max:190'],
+            'show_name' => ['nullable', 'boolean'],
+            'public_name' => ['nullable', 'string', 'max:80'],
         ], self::MESSAGES);
         $quantity = $data['quantity'] ?? 1;
         $item = $data['item'] ?? null;
@@ -121,6 +123,8 @@ class OrderController extends Controller
             'street' => $data['street'] ?? null, 'postal_code' => $data['postal_code'] ?? null,
             'city' => $data['city'] ?? null, 'country' => $data['country'] ?? null,
             'source_path' => isset(config('pages')[$data['source'] ?? '']) ? $data['source'] : null,
+            // Anzeigename nur speichern, wenn der Veröffentlichung zugestimmt wurde
+            'public_name' => ! empty($data['show_name']) ? (trim($data['public_name'] ?? '') ?: null) : null,
         ]);
         SiteEvent::create(['name' => 'anfrage', 'path' => $order->source_path, 'occurred_on' => now()->toDateString()]);
         OrderMail::received($order);

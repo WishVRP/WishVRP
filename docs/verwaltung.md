@@ -36,3 +36,15 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
 - Cronjob für den Scheduler.
 - Zahlungsdaten (IBAN) für die Bestätigungsmail festlegen. Bisher steht dort „Die Zahlungsdaten bekommst du von uns“.
 - Prüfen, ob der Ablauf „Anfrage → Zahlungsdaten → Zahlung → Bestätigung“ so passt.
+
+## Edition 100 (Raster mit Käufernamen)
+- Menü **Edition 100**: je Seriennummer Status (offen / reserviert / vergeben), Anzeigename (z. B. „Erika M.“), Schalter **Name öffentlich**, Bezug zum Vorgang. Mehrere Nummern lassen sich auf einmal als vergeben markieren.
+- Auf der Website (Startseite und `/klappmesser/`) zeigt jedes Feld beim Überfahren oder Antippen „Nr. 17 · gehört Erika M.“, ohne Zustimmung nur „Nr. 17 · vergeben“, reservierte Felder „reserviert“. Offene Nummern zeigen nur die Nummer; „frei“ wird nicht behauptet, solange nicht alle Verkäufe erfasst sind.
+- Im Bestellformular der Edition gibt es ein freiwilliges Häkchen „Mein Name darf im Raster erscheinen“ und das Feld für den Anzeigenamen. Den Namen speichern wir nur mit Häkchen. Er steht im Vorgang und in der Benachrichtigungsmail.
+- **Wichtig:** Bereits verkaufte Nummern einmal nachtragen. Namen nur mit Zustimmung der Käufer veröffentlichen.
+
+## Weihnachtsaktion „Schneeballschlacht“
+- Seite `/weihnachtsaktion/`, Hinweisbanner auf der Startseite und auf `/geschenke/weihnachten/`. Läuft bis `ulbrich.xmas.ends_on` (24.12.2026), danach automatisch „Aktion vorbei“, und das Banner verschwindet.
+- Spiel: 30 Sekunden, den Weihnachtsmann mit Schneebällen treffen. Mit jedem Treffer wird er schneller. Der eigene Rekord bleibt im Browser gespeichert. Steuerung per Maus, Touch oder Tastatur (← → zielen, Leertaste werfen).
+- **Überraschung festlegen** in `config/ulbrich.php → xmas.surprise` (Titel, Text, optional Code). Bis dahin steht dort „Die Überraschung wird bald verraten“, intern als fehlend markiert. Codes nur eintragen, wenn sie wirklich gelten.
+- Gespielte Runden zählen im Dashboard unter Klicks als „Weihnachtsspiel gespielt“, ohne personenbezogene Daten.

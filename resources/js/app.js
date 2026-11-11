@@ -340,3 +340,20 @@ if (story && 'IntersectionObserver' in window) {
         navigator.sendBeacon('/e/', data);
     }, { capture: true });
 })();
+
+
+/* ---------- Edition-Raster: angetipptes Feld unter dem Raster anzeigen (Handy) ---------- */
+document.querySelectorAll('[data-serials]').forEach((box) => {
+    const out = box.querySelector('[data-serial-out]');
+    const show = (event) => { const b = event.target.closest('.serial'); if (b && out) out.textContent = b.dataset.tip; };
+    box.addEventListener('click', show);
+    box.addEventListener('focusin', show);
+    box.addEventListener('mouseover', show);
+});
+
+
+/* ---------- Weihnachtsaktion (lädt das Spiel nur auf der Aktionsseite) ---------- */
+const xmasRoot = document.querySelector('[data-xmas-game]');
+if (xmasRoot) {
+    import('./xmas-game.js').then(({ startXmasGame }) => startXmasGame(xmasRoot));
+}

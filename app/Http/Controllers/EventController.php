@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 /** Klick-Zählung per sendBeacon (Telefon, E-Mail, Buchen, Gutschein, extern). */
 class EventController extends Controller
 {
-    private const CLICKS = ['telefon', 'email', 'buchen', 'gutschein', 'extern'];
+    private const CLICKS = ['telefon', 'email', 'buchen', 'gutschein', 'extern', 'spiel'];
 
     public function __invoke(Request $request): Response
     {

@@ -45,6 +45,7 @@ class OrderForm
                     TextInput::make('item')->label('Artikel / Leistung')->maxLength(190),
                     TextInput::make('quantity')->label('Menge')->numeric()->minValue(1)->default(1),
                     TextInput::make('amount')->label('Betrag (€, ohne Versand)')->numeric()->step(0.01),
+                    TextInput::make('public_name')->label('Anzeigename im Edition-Raster (mit Zustimmung)')->maxLength(80),
                     Textarea::make('message')->label('Nachricht der Kundschaft')->rows(4)->columnSpanFull(),
                 ]),
                 Section::make('Verlauf')->columns(4)->collapsed()->schema([

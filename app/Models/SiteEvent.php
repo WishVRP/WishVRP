@@ -20,6 +20,7 @@ class SiteEvent extends Model
         'extern' => 'Klick Instagram/Facebook/extern',
         'buchung' => 'Buchungsanfrage gesendet',
         'anfrage' => 'Anfrage/Bestellung gesendet',
+        'spiel' => 'Weihnachtsspiel gespielt',
     ];
 
     protected $fillable = ['name', 'path', 'target', 'occurred_on'];

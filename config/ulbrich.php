@@ -166,6 +166,22 @@ return [
     | zusätzlich zur gesetzlichen Gewährleistung. Formulierung vor Go-live
     | anwaltlich prüfen lassen (Garantieerklärung, § 479 BGB).
     */
+    /*
+    | Weihnachtsaktion „Schneeballschlacht“ (Wunsch Inhaber, 11.11.2026).
+    | Die Überraschung ist noch nicht festgelegt → title/text null = wird als
+    | „Angabe folgt“ markiert. Kein Rabatt/Code erfinden.
+    */
+    'xmas' => [
+        'enabled' => true,
+        'ends_on' => '2026-12-24',
+        'seconds' => 30,
+        'surprise' => [
+            'title' => null,   // z. B. „Gratis Pflegeset zu jeder Bestellung“ – vom Inhaber festlegen
+            'text' => null,
+            'code' => null,    // optionaler Gutscheincode, nur wenn wirklich gültig
+        ],
+    ],
+
     'warranty' => [
         'years' => 2,
         'condition' => 'bei Pflege nach den mitgelieferten Pflegehinweisen',
