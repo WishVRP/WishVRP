@@ -34,6 +34,11 @@ if git diff --name-only "$BASE" "$HEAD" | grep -qE '^composer\.lock$'; then
     echo "composer.lock geändert – vendor wird mitgeliefert."
     composer install --no-dev --optimize-autoloader --no-interaction -q --working-dir="$TMP/ulbrich-test" 2>/dev/null || true
 fi
+# Dateien der Verwaltung (Filament) mitgeben, wenn Filament aktualisiert wurde oder FILAMENT_ASSETS=1
+if git diff --name-only "$BASE" "$HEAD" | grep -qE '^composer\.lock$' || [[ "${FILAMENT_ASSETS:-0}" == 1 ]]; then
+    for d in css js fonts; do [[ -d public/$d/filament ]] && { mkdir -p "$TMP/ulbrich-test/public/$d"; cp -r "public/$d/filament" "$TMP/ulbrich-test/public/$d/"; }; done
+fi
+
 # Neue Klassen in app/ brauchen keinen neuen Autoloader: Composer findet sie über PSR-4 (App\\ → app/).
 
 [[ -n "$DELETED" ]] && echo "$DELETED" | sed 's#^#ulbrich-test/#' > "$TMP/LOESCHEN.txt"
@@ -42,7 +47,7 @@ fi
     echo "Den Ordner ulbrich-test per FTP über den bestehenden Ordner laden (Dateien überschreiben)."
     echo "Die .env auf dem Server bleibt unverändert. Die Datenbank aktualisiert sich beim nächsten Aufruf selbst."
     [[ -n "$DELETED" ]] && echo "Zusätzlich die Dateien aus LOESCHEN.txt auf dem Server löschen."
-    echo; echo "Enthaltene Dateien:"; (cd "$TMP" && find ulbrich-test -type f | sort | grep -v '^ulbrich-test/vendor/'; if [[ -d ulbrich-test/vendor ]]; then echo "ulbrich-test/vendor/… (komplett)"; fi)
+    echo; echo "Enthaltene Dateien:"; (cd "$TMP" && find ulbrich-test -type f | sort | grep -vE '^ulbrich-test/(vendor|public/(css|js|fonts)/filament)/'; [[ -d ulbrich-test/public/js/filament ]] && echo "ulbrich-test/public/{css,js,fonts}/filament/… (Dateien der Verwaltung, komplett)"; if [[ -d ulbrich-test/vendor ]]; then echo "ulbrich-test/vendor/… (komplett)"; fi)
 } > "$TMP/LIESMICH.txt"
 
 NAME="ulbrich-update-$(date +%Y-%m-%d-%H%M)${2:+-sammel}.zip"

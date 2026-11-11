@@ -47,24 +47,34 @@ Details zu jedem Punkt: `docs/offene-punkte.md` und `docs/verwaltung.md`.
 
 ## Phase 2 – Technischer Umzug (Claude bereitet vor, ihr führt aus, nach Freigabe)
 
+### Datenbank bei IONOS (geprüft am 11.11.2026)
+- Die Website läuft mit der **IONOS-Datenbank (MySQL/MariaDB)**. Geprüft wurde:
+  - alle 134 automatischen Tests auf MariaDB 10.11
+  - ein kompletter Erststart auf einer leeren Datenbank: Tabellen anlegen, Kurse anlegen, erstes Admin-Konto, 2-Faktor-Pflicht
+- In IONOS unter **Hosting → Datenbanken** eine MySQL-Datenbank anlegen (falls noch keine frei ist). Von dort braucht ihr **Host, Datenbankname, Benutzer und Passwort**. Diese Werte kommen nur in die `.env` auf dem Server.
+- **Ohne SSH:** Mit `AUTO_SETUP=true` legt die Seite beim ersten Aufruf alle Tabellen selbst an und ergänzt sie bei späteren Updates. Vorhandene Daten bleiben erhalten.
+- **Sicherung:** IONOS sichert Datenbanken automatisch. Zusätzlich lässt sich in IONOS über phpMyAdmin ein Export ziehen, z. B. monatlich.
+- Vorlage für die `.env`: `docs/env-production.txt` (mit Erklärung zu jeder Zeile).
+
 ### 4. Vorbereitung durch Claude
 - [ ] **Produktionspaket** bauen (Vollpaket, ohne Testzugang und Testdaten)
-- [ ] **Produktionsmodus für FTP-Hosting**: Datenbank-Updates und Schlüssel ohne SSH, aber abgesichert. Bisher gibt es das nur für die Testumgebung.
+- [x] **Produktionsmodus für FTP-Hosting** (erledigt): Datenbank-Updates und Schlüssel ohne SSH (`AUTO_SETUP=true`), erstes Admin-Konto über `ADMIN_SETUP_OPEN`, weitere Konten unter Verwaltung → Zugänge
 - [ ] **Weiterleitungen** der alten URLs ein letztes Mal gegen die Live-Sitemap prüfen (`config/redirects.php`)
 - [ ] Eingegangene Rechtstexte und Fakten einbauen, Tests, abschließender SEO-Check
 
 ### 5. Umzug (ihr, Schritt für Schritt mit Anleitung)
 1. [ ] **Sicherung der alten Website** komplett herunterladen (Dateien und ggf. Datenbank). Das ist euer Rückweg.
 2. [ ] Produktionspaket in einen **neuen Ordner** hochladen, z. B. `ulbrich-live`. Die alte Seite läuft währenddessen weiter.
-3. [ ] **`.env`** für die echte Seite anlegen (Vorlage kommt von Claude). Einträge:
+3. [ ] **`.env`** für die echte Seite aus der Vorlage `docs/env-production.txt` anlegen. Einträge:
    - `APP_ENV=production`, `APP_URL=https://messermanufaktur-ulbrich.de`
    - **`SEO_INDEXABLE=true`**, sonst bleibt die Seite für Google unsichtbar
-   - `MAIL_*` (SMTP), `BANK_*`
+   - `DB_*` (IONOS-Datenbank), `MAIL_*` (IONOS-Postfach: smtp.ionos.de, Port 587), `BANK_*`
    - `ADMIN_PATH=` eigener, nicht erratbarer Pfad
    - optional: `STRIPE_*`, `GOOGLE_PLACES_KEY`, `DHL_API_KEY`
 4. [ ] Beim Hoster das **Zielverzeichnis der Hauptdomain** auf `ulbrich-live/public` umstellen. Das ist der eigentliche Wechsel und dauert Sekunden. Rückweg: Verzeichnis wieder auf die alte Seite stellen.
-5. [ ] **Cron-Job** anlegen: `php artisan schedule:run` jede Minute
-6. [ ] **Admin-Konten** für Andreas und dich anlegen, **Authenticator** einrichten. Den Testzugang gibt es auf der echten Seite nicht.
+5. [ ] **Cron-Job** in IONOS anlegen, je nach Tarif unter Hosting → Cronjobs: jede Minute `php artisan schedule:run` im Projektordner. Den genauen PHP-Pfad zeigt IONOS dort an, Claude hilft beim Eintragen.
+6. [ ] **Erstes Admin-Konto:** `https://messermanufaktur-ulbrich.de/{ADMIN_PATH}/register` öffnen, Konto anlegen, Authenticator einrichten. Danach in der `.env` **`ADMIN_SETUP_OPEN=false`** setzen.
+7. [ ] **Weitere Konten** (z. B. Andreas): Verwaltung → **Zugänge** → „Zugang anlegen“. Jede Person richtet beim ersten Login ihre Authenticator-App ein.
 
 ### 6. Abnahme direkt nach dem Wechsel (ca. 30 Minuten)
 - [ ] Startseite, Kurse, Shop, Gutschein, Edition 100 und Weihnachtsaktion öffnen, auch am Handy
