@@ -138,6 +138,19 @@ return [
     ],
 
     /*
+    | Verkaufsgebiet – laut Inhaber (Chat 11.11.2026): Versand deutschlandweit
+    | und weltweit, Selbstabholung vor Ort. Auslandsversand: Länder, Kosten,
+    | Zoll und Laufzeit noch [FEHLT] – nicht schätzen.
+    */
+    'sales' => [
+        'area_served' => ['Deutschland', 'weltweit'],
+        'pickup' => true,
+        'pickup_note' => 'Selbstabholung in der Manufaktur in Stein am Kocher nach Absprache',
+        'shipping_de_eur' => 7.99,
+        'international' => null, // [FEHLT] Länder, Versandkosten, Zoll, Laufzeit
+    ],
+
+    /*
     | Kunst- & Handwerkermarkt – veranstaltet von der Messermanufaktur (laut Live-Seite /kunsthandwerkermarkt/, 11.11.2026).
     */
     'market' => [

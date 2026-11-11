@@ -54,6 +54,7 @@ final class Schema
             'disambiguatingDescription' => "Messerschmiede mit Schmiedekursen in {$c['address']['district']}, {$c['address']['locality']} (Landkreis Heilbronn, Baden-Württemberg), Inhaber {$c['owner']}.",
             'description' => "Schmiedekurse und handgefertigte Messer von {$c['owner_role']} {$c['owner']} – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie, heute in {$c['heritage']['generation']}. Generation.",
             'knowsAbout' => ['Messerschmieden', 'Damaststahl', 'Klappmesser', 'Schmiedekurse'],
+            'areaServed' => $c['sales']['area_served'] ?? null,
             'sameAs' => $c['same_as'] ?: null,
         ]);
     }
@@ -72,6 +73,7 @@ final class Schema
             'memberOf' => ['@type' => 'Organization', 'name' => $c['chamber']],
             'description' => "{$c['owner_role']} in {$c['heritage']['generation']}. Generation – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie.",
             'knowsAbout' => ['Messerschmieden', 'Damaststahl', 'Klappmesser', 'Schmiedekurse'],
+            'areaServed' => $c['sales']['area_served'] ?? null,
         ];
     }
 
@@ -206,6 +208,16 @@ final class Schema
                 'priceCurrency' => 'EUR',
                 'url' => PageMeta::absolute($e['url']),
                 'seller' => ['@id' => self::businessId()],
+                'availableDeliveryMethod' => array_values(array_filter([
+                    'http://purl.org/goodrelations/v1#DeliveryModeParcelService',
+                    config('ulbrich.sales.pickup') ? 'http://purl.org/goodrelations/v1#DeliveryModePickUp' : null,
+                ])),
+                // Nur Deutschland: Auslandskosten sind noch nicht bekannt.
+                'shippingDetails' => config('ulbrich.sales.shipping_de_eur') ? [
+                    '@type' => 'OfferShippingDetails',
+                    'shippingRate' => ['@type' => 'MonetaryAmount', 'value' => (string) config('ulbrich.sales.shipping_de_eur'), 'currency' => 'EUR'],
+                    'shippingDestination' => ['@type' => 'DefinedRegion', 'addressCountry' => 'DE'],
+                ] : null,
             ],
         ]);
     }
