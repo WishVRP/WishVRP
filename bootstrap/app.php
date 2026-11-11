@@ -3,6 +3,7 @@
 use App\Http\Middleware\EnsureTrailingSlash;
 use App\Http\Middleware\LegacyRedirects;
 use App\Http\Middleware\SecurityHeaders;
+use App\Http\Middleware\StagingPassword;
 use App\Http\Middleware\TrackPageView;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -18,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Reihenfolge wichtig: erst Alt-URL → Ziel (ein Sprung), dann Slash-Normalisierung.
         $middleware->prepend([
+            StagingPassword::class,
             LegacyRedirects::class,
             EnsureTrailingSlash::class,
         ]);

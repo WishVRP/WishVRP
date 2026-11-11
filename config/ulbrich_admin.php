@@ -5,6 +5,10 @@ return [
     // (das würde ihn verraten), per X-Robots-Tag noindex. Login nur mit 2FA.
     'path' => env('ADMIN_PATH', 'verwaltung'),
 
+    // Testumgebung: Passwortschutz für die ganze Seite (leer = aus; in Produktion immer aus).
+    'staging_user' => env('STAGING_USER', 'ulbrich'),
+    'staging_password' => env('STAGING_PASSWORD', ''),
+
     // 2FA-Pflicht. Nur für lokale Vorschauen abschaltbar (ADMIN_MFA_REQUIRED=false); in Produktion immer an.
     'mfa_required' => env('APP_ENV') === 'production' ? true : (bool) env('ADMIN_MFA_REQUIRED', true),
 ];
