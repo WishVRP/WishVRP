@@ -34,8 +34,10 @@ class StagingSetup
             if (\App\Models\Course::query()->doesntExist()) {
                 Artisan::call('db:seed', ['--class' => \Database\Seeders\CourseSeeder::class, '--force' => true]);
             }
-            file_put_contents($marker, $hash);
+        } catch (\Throwable $e) {
+            report($e);   // Seite läuft weiter; Fehler steht in storage/logs/laravel.log
         } finally {
+            file_put_contents($marker, $hash);   // kein erneuter Versuch bei jeder Anfrage
             flock($lock, LOCK_UN);
             fclose($lock);
         }
