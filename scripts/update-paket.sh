@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Update-Paket für die Testumgebung (FTP): nur neue und geänderte Dateien seit dem letzten gelieferten Stand.
-# Aufruf: bash scripts/update-paket.sh [ZIELORDNER]
+# Aufruf: bash scripts/update-paket.sh [ZIELORDNER] [BASIS-COMMIT]
+#   Mit BASIS-COMMIT: Sammelpaket ab diesem Stand (z. B. mehrere Updates zusammen); der Paketstand bleibt unverändert.
 #   Basis = Commit in docs/paket-stand.txt (letztes geliefertes Paket). Danach wird der Stand fortgeschrieben.
 # Ergebnis: ulbrich-update-JJJJ-MM-TT-HHMM.zip mit
 #   ulbrich-test/…            → per FTP über den bestehenden Ordner laden (überschreiben)
@@ -9,7 +10,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p "${1:-.}"; OUT=$(cd "${1:-.}" && pwd)
-BASE=$(grep -oE '^[0-9a-f]{40}' docs/paket-stand.txt | tail -1)
+BASE=${2:-$(grep -oE '^[0-9a-f]{40}' docs/paket-stand.txt | tail -1)}
+BASE=$(git rev-parse "$BASE")
 HEAD=$(git rev-parse HEAD)
 [[ "$BASE" == "$HEAD" ]] && { echo "Keine Änderungen seit dem letzten Paket."; exit 0; }
 
@@ -43,7 +45,7 @@ fi
     echo; echo "Enthaltene Dateien:"; (cd "$TMP" && find ulbrich-test -type f | sort | grep -v '^ulbrich-test/vendor/'; if [[ -d ulbrich-test/vendor ]]; then echo "ulbrich-test/vendor/… (komplett)"; fi)
 } > "$TMP/LIESMICH.txt"
 
-NAME="ulbrich-update-$(date +%Y-%m-%d-%H%M).zip"
+NAME="ulbrich-update-$(date +%Y-%m-%d-%H%M)${2:+-sammel}.zip"
 (cd "$TMP" && zip -qr9 "$OUT/$NAME" .)
-echo "$HEAD $(date +%Y-%m-%d) $NAME" >> docs/paket-stand.txt
+[[ -z "${2:-}" ]] && echo "$HEAD $(date +%Y-%m-%d) $NAME" >> docs/paket-stand.txt
 echo "Erstellt: $OUT/$NAME ($(echo "$CHANGED" | grep -c . || true) Dateien geändert, $(echo "$DELETED" | grep -c . || true) gelöscht)"
