@@ -33,6 +33,9 @@ class AdminPanelProvider extends PanelProvider
             ->path(config('ulbrich_admin.path'))
             ->brandName('Ulbrich Verwaltung')
             ->login()
+            // Testumgebung ohne SSH: Das allererste Admin-Konto wird über /verwaltung/register angelegt.
+            // Sobald ein Konto existiert (und in Produktion immer), ist die Registrierung aus.
+            ->registration($this->firstSetup() ? \Filament\Auth\Pages\Register::class : null)
             // 2FA per Authenticator-App ist Pflicht; ohne Einrichtung kein Zugriff.
             ->multiFactorAuthentication(
                 [AppAuthentication::make()->recoverable()],
@@ -70,5 +73,17 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    private function firstSetup(): bool
+    {
+        if (! app()->environment('staging')) {
+            return false;
+        }
+        try {
+            return ! \App\Models\User::query()->exists();
+        } catch (\Throwable) {
+            return false;
+        }
     }
 }

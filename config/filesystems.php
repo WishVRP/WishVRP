@@ -40,7 +40,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            // Hosting ohne Symlink (nur FTP): Uploads direkt nach public/storage.
+            'root' => env('PUBLIC_STORAGE_IN_PUBLIC', false) ? public_path('storage') : storage_path('app/public'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,

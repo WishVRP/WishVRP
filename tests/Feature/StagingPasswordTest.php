@@ -39,4 +39,12 @@ class StagingPasswordTest extends TestCase
 
         $this->assertNotSame(401, $this->get('/')->getStatusCode());
     }
+
+    public function test_staging_without_password_stays_closed(): void
+    {
+        config(['ulbrich_admin.staging_password' => '']);
+        $this->app->detectEnvironment(fn () => 'staging');
+
+        $this->get('/')->assertStatus(503);
+    }
 }

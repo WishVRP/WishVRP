@@ -15,6 +15,10 @@ class StagingPassword
     public function handle(Request $request, Closure $next): Response
     {
         $password = (string) config('ulbrich_admin.staging_password');
+        // Sicherung: Testumgebung ohne gesetztes Passwort bleibt komplett zu.
+        if ($password === '' && app()->environment('staging') && ! $request->is('up')) {
+            return response('Testumgebung: Bitte STAGING_PASSWORD in der .env setzen.', 503, ['X-Robots-Tag' => 'noindex, nofollow']);
+        }
         if ($password === '' || app()->isProduction() || $request->is('stripe/webhook', 'stripe/webhook/', 'up')) {
             return $next($request);
         }
