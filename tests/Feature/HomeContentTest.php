@@ -35,7 +35,7 @@ class HomeContentTest extends TestCase
 
         foreach (array_unique($m[1]) as $href) {
             $path = strtok($href, '?');
-            if (str_starts_with($path, '/build/') || in_array($path, ['/favicon.ico', '/favicon.svg', '/apple-touch-icon.png', '/site.webmanifest'], true)) {
+            if (str_starts_with($path, '/build/') || in_array($path, ['/favicon.ico', '/favicon.svg', '/favicon-16.png', '/favicon-32.png', '/apple-touch-icon.png', '/site.webmanifest'], true)) {
                 continue;
             }
             $this->assertContains($path, $known, "Unbekanntes Linkziel: {$href}");

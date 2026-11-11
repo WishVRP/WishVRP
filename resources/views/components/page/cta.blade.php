@@ -1,5 +1,6 @@
 @props(['title' => 'Fragen? Ruf einfach an.', 'text' => null])
 @php $c = config('ulbrich'); @endphp
+<x-page.related />
 <section class="page-cta is-dark textured" aria-label="Kontakt">
     <div class="container page-cta__inner">
         <div>

@@ -39,4 +39,13 @@ final class Faqs
             ['q' => 'Wie buche ich einen Kurs?', 'a' => 'Kurse werden ausschließlich online gebucht. Im Buchungskalender wählst du Kurs, Termin und Teilnehmerzahl.'],
         ];
     }
+
+    /** @return array<int, array{q: string, a: string}> */
+    public static function voucher(): array
+    {
+        return [
+            ['q' => 'Reserviert der Gutschein schon einen Kurstermin?', 'a' => 'Nein. Der Gutschein reserviert noch keinen Kursplatz – die beschenkte Person wählt Kurs und Termin später selbst und bucht online.'],
+            ['q' => 'Kann der Kurstermin später noch verschoben werden?', 'a' => 'Ja, Umbuchen ist bis 7 Tage vor dem Kurstermin möglich.'],
+        ];
+    }
 }

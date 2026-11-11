@@ -12,10 +12,12 @@
     @php
         $base = '/images/fotos/'.$foto.'-';
         $set = fn (string $ext) => collect($img['widths'])->map(fn ($w) => $base.$w.'.'.$ext.' '.$w.'w')->implode(', ');
+        $hasAvif = is_file(public_path('images/fotos/'.$foto.'-'.$img['widths'][0].'.avif'));
         $fallback = $base.(collect($img['widths'])->first(fn ($w) => $w >= 800) ?? last($img['widths'])).'.jpg';
     @endphp
     <figure {{ $attributes->class(['media', 'media--photo', 'media--'.$tone, 'media--'.$format => $format, 'media--pos-'.$pos => $pos]) }}>
         <picture>
+            @if ($hasAvif)<source type="image/avif" srcset="{{ $set('avif') }}" sizes="{{ $sizes }}">@endif
             <source type="image/webp" srcset="{{ $set('webp') }}" sizes="{{ $sizes }}">
             <img src="{{ $fallback }}" srcset="{{ $set('jpg') }}" sizes="{{ $sizes }}"
                  width="{{ $img['w'] }}" height="{{ $img['h'] }}"

@@ -64,5 +64,9 @@
         </ol>
     </x-page.section>
 
+    <x-page.section title="Fragen zum Gutschein" kicker="FAQ" kicker-color="violet">
+        @include('pages.partials.faq', ['faqs' => \App\Support\Faqs::voucher()])
+    </x-page.section>
+
     <x-page.cta title="Gutschein telefonisch bestellen" />
 </x-layouts.site>

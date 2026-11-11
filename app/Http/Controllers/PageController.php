@@ -38,6 +38,12 @@ class PageController extends Controller
         $extra = match ($path) {
             '/schmiedekurse/', '/schmiedekurse/vergleich/' => [Schema::courseList($courses), Schema::faq($faqs)],
             '/klappmesser/' => [Schema::product($c['edition'])],
+            '/ratgeber/' => [
+                Schema::article('Was kostet ein Schmiedekurs?', $meta->canonical().'#kosten', 'Preise aller Schmiedekurse der Messermanufaktur Ulbrich pro Person, vom Grundlagenkurs bis zum Damast Premium-Kurs.'),
+                Schema::faq($faqs),
+            ],
+            '/sonderanfertigungen/' => [Schema::service('Messer-Sonderanfertigung', 'Messer nach Kundenwunsch: Klingenform, Länge und Griff werden abgestimmt und das Messer in der Werkstatt von Hand geschmiedet.', $meta->canonical())],
+            '/geschenke/schmiedekurs-gutschein/' => [Schema::faq(Faqs::voucher())],
             '/schmiedekurse/heilbronn-region/', '/manufaktur/' => [Schema::localBusiness(), Schema::person()],
             default => [],
         };

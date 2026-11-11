@@ -186,6 +186,38 @@ final class Schema
     }
 
     /**
+     * Ratgeber-Artikel. Kein Datum, solange keins bekannt ist (nichts erfinden).
+     *
+     * @return array<string, mixed>
+     */
+    public static function article(string $headline, string $url, string $description): array
+    {
+        return [
+            '@type' => 'Article',
+            'headline' => $headline,
+            'description' => $description,
+            'url' => $url,
+            'inLanguage' => 'de-DE',
+            'author' => ['@id' => self::personId()],
+            'publisher' => ['@id' => self::businessId()],
+            'image' => PageMeta::absolute(config('seo.default_og_image')),
+        ];
+    }
+
+    /** @return array<string, mixed> */
+    public static function service(string $name, string $description, string $url): array
+    {
+        return [
+            '@type' => 'Service',
+            'name' => $name,
+            'description' => $description,
+            'url' => $url,
+            'serviceType' => $name,
+            'provider' => ['@id' => self::businessId()],
+        ];
+    }
+
+    /**
      * @param  array<int, array<string, mixed>|null>  $nodes
      */
     public static function graph(array $nodes): string

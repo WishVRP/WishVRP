@@ -25,7 +25,7 @@ return [
 
     '/schmiedekurse/' => [
         'title' => 'Schmiedekurse', 'status' => 'live', 'gsc_clicks' => 22, 'view' => 'courses.index',
-        'meta_title' => 'Schmiedekurse bei Heilbronn – Messer selbst schmieden',
+        'meta_title' => 'Schmiedekurse bei Heilbronn – Messer schmieden',
         'description' => 'Sechs Schmiedekurse in der Messermanufaktur Ulbrich: vom eintägigen Grundlagenkurs bis zum Damast Premium-Kurs. Preise, Dauer und Klingenlänge im Überblick.',
     ],
     '/schmiedekurse/vergleich/' => [
@@ -35,7 +35,7 @@ return [
     ],
     '/schmiedekurse/heilbronn-region/' => [
         'title' => 'Schmiedekurs Region Heilbronn', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'courses.region',
-        'meta_title' => 'Schmiedekurs in der Region Heilbronn',
+        'meta_title' => 'Schmiedekurs Region Heilbronn: Werkstatt, Anfahrt',
         'description' => 'Schmiedekurs im Landkreis Heilbronn: Die Werkstatt der Messermanufaktur Ulbrich liegt in Stein am Kocher bei Neuenstadt. Kurse, Anfahrt und Kontakt.',
     ],
     '/schmiedekurse/buchen/' => [
@@ -51,7 +51,7 @@ return [
     ],
     '/klappmesser/' => [
         'title' => 'Damast-Klappmesser Edition 100', 'status' => 'live', 'gsc_clicks' => 1, 'view' => 'shop.edition',
-        'meta_title' => 'Damast-Klappmesser Edition 100 – limitiert auf 100 Stück',
+        'meta_title' => 'Damast-Klappmesser Edition 100 – limitiert',
         'description' => 'Damast-Klappmesser der Edition 100: limitiert auf 100 nummerierte Stücke, 90 reguläre Messer zu je 699 € und 10 Sonderstücke. Handgefertigt von Andreas Ulbrich.',
     ],
     '/sonderanfertigungen/' => [
@@ -77,7 +77,7 @@ return [
     ],
     '/geschenke/schmiedekurs-gutschein/' => [
         'title' => 'Schmiedekurs-Gutschein', 'status' => 'live', 'gsc_clicks' => 1, 'view' => 'gifts.voucher',
-        'meta_title' => 'Schmiedekurs-Gutschein verschenken',
+        'meta_title' => 'Schmiedekurs-Gutschein – Messer selbst schmieden',
         'description' => 'Einen Schmiedekurs verschenken: Mit dem Gutschein der Messermanufaktur Ulbrich wählt die beschenkte Person Kurs und Termin später selbst und bucht online.',
     ],
     '/erlebnisse/' => [
@@ -93,22 +93,22 @@ return [
     ],
     '/manufaktur/' => [
         'title' => 'Manufaktur', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.workshop',
-        'meta_title' => 'Die Manufaktur – Messerschmied Andreas Ulbrich',
+        'meta_title' => 'Manufaktur seit 1934 – Messerschmied Andreas Ulbrich',
         'description' => 'Die Messermanufaktur Ulbrich in Stein am Kocher: Messerschmied Andreas Ulbrich, Mitglied der Handwerkskammer Heilbronn-Franken, und seine Werkstatt.',
     ],
     '/presse/' => [
         'title' => 'Presse', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.press',
-        'meta_title' => 'Presse über die Messermanufaktur Ulbrich',
+        'meta_title' => 'Presse & Berichte über die Messermanufaktur Ulbrich',
         'description' => 'Pressespiegel der Messermanufaktur Ulbrich: Berichte über Messerschmied Andreas Ulbrich, seine Schmiedekurse und die Werkstatt in Stein am Kocher.',
     ],
     '/partner/' => [
         'title' => 'Partner', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.partners',
-        'meta_title' => 'Partner der Messermanufaktur Ulbrich',
+        'meta_title' => 'Partner & Kooperationen der Messermanufaktur Ulbrich',
         'description' => 'Partner der Messermanufaktur Ulbrich: Betriebe und Initiativen, mit denen Messerschmied Andreas Ulbrich in der Region Heilbronn zusammenarbeitet.',
     ],
     '/kunsthandwerkermarkt/' => [
         'title' => 'Kunsthandwerkermarkt', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.market',
-        'meta_title' => 'Kunsthandwerkermarkt – Messermanufaktur Ulbrich',
+        'meta_title' => 'Kunsthandwerkermarkt: Messer von Messermanufaktur Ulbrich',
         'description' => 'Die Messermanufaktur Ulbrich auf dem Kunsthandwerkermarkt: Messer, Handwerk und Gespräche mit Messerschmied Andreas Ulbrich. Termine und Infos auf dieser Seite.',
     ],
 

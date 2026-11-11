@@ -33,7 +33,7 @@ def rewrite_main(html, path):
     m = re.search(r'<main[^>]*>(.*)</main>', html, re.S)
     body = m.group(1)
     # Bilder: WebP 800 (oder größte vorhandene), einmal eingebettet
-    body = re.sub(r'<source type="image/webp"[^>]*>', '', body)
+    body = re.sub(r'<source type="image/(webp|avif)"[^>]*>', '', body)
     def img(mm):
         tag = mm.group(0)
         srcset = re.search(r'srcset="([^"]+)"', tag).group(1)

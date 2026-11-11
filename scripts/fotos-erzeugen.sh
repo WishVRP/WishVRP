@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Erzeugt aus resources/fotos/original/ die Web-Fassungen in public/images/fotos/
-# (Zuschnitt, WebP + JPEG in mehreren Breiten, ohne Metadaten).
+# (Zuschnitt, AVIF + WebP + JPEG in mehreren Breiten, ohne Metadaten).
 # Voraussetzung: ImageMagick 6.9+/7 mit WebP-Unterstützung.
-# AVIF folgt, sobald auf dem Build-Rechner ein AVIF-Encoder vorhanden ist (hier nicht installiert).
+# AVIF zusätzlich, wenn avifenc vorhanden ist (apt-get install libavif-bin).
 # Aufruf: bash scripts/fotos-erzeugen.sh   — danach config/fotos.php prüfen (Breiten/Maße).
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -63,6 +63,10 @@ for f in "$TMP"/*.png; do
     for size in $sizes; do
         convert "$f" -strip -resize "${size}x" -quality 80 "$OUT/$name-$size.jpg"
         convert "$f" -strip -resize "${size}x" -quality 78 "$OUT/$name-$size.webp"
+        if command -v avifenc >/dev/null; then
+            convert "$f" -strip -resize "${size}x" "$TMP/avif-src.png"
+            avifenc -q 55 -s 6 --jobs all "$TMP/avif-src.png" "$OUT/$name-$size.avif" >/dev/null
+        fi
     done
     echo "$name: $(identify -format '%wx%h' "$f")"
 done
