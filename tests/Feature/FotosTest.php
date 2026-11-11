@@ -16,7 +16,7 @@ class FotosTest extends TestCase
             $this->assertNotEmpty($foto['alt'], "Alt-Text fehlt: {$key}");
             foreach ($foto['widths'] as $w) {
                 foreach (['jpg', 'webp'] as $ext) {
-                    $this->assertFileExists(public_path("images/fotos/{$key}-{$w}.{$ext}"));
+                    $this->assertFileExists(public_path(ltrim(\App\Support\Foto::url($key, $w, $ext), '/')));
                 }
             }
         }

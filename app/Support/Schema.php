@@ -85,7 +85,7 @@ final class Schema
             '@id' => self::personId(),
             'name' => $c['owner'],
             'jobTitle' => $c['owner_role'],
-            'image' => PageMeta::absolute('/images/fotos/andreas-esse-1200.jpg'),
+            'image' => PageMeta::absolute(Foto::url('andreas-esse', 1200)),
             'worksFor' => ['@id' => self::businessId()],
             'memberOf' => ['@type' => 'Organization', 'name' => $c['chamber']],
             'description' => "{$c['owner_role']} in {$c['heritage']['generation']}. Generation – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie.",
@@ -296,7 +296,7 @@ final class Schema
             'material' => $english ? 'Damascus steel' : 'Damaststahl',
             'brand' => ['@type' => 'Brand', 'name' => config('ulbrich.name')],
             'manufacturer' => self::businessRef(),
-            'image' => PageMeta::absolute('/images/fotos/klappmesser-offen-1200.jpg'),
+            'image' => PageMeta::absolute(Foto::url('klappmesser-offen', 1200)),
             'offers' => [
                 '@type' => 'Offer',
                 'price' => (string) $e['price'],

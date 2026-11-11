@@ -22,7 +22,7 @@
             <div class="product__grid">
                 <div class="product__gallery" data-gallery-product>
                     @forelse ($images as $i => $img)
-                        <img src="{{ $img['url'] }}" width="{{ $img['w'] }}" height="{{ $img['h'] }}" alt="{{ $product->name }}{{ $i ? ' – Ansicht '.($i + 1) : '' }}"
+                        <img src="{{ $img['url'] }}" width="{{ $img['w'] }}" height="{{ $img['h'] }}" alt="{{ $product->imageAlt($i) }}"
                              @class(['product__img', 'product__img--main' => $i === 0]) loading="{{ $i ? 'lazy' : 'eager' }}" decoding="async">
                     @empty
                         <x-ui.type-tile class="product__img product__img--main" :title="$product->name" :label="$product->categoryName()" />

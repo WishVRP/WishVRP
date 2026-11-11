@@ -29,3 +29,18 @@ Originale liegen in `resources/fotos/original/`. Die Web-Fassungen erzeugt `bash
 - Für ein Porträt von Andreas oder Bilder aus den Kursen gilt dieselbe Regel: nur verwenden, wenn ausdrücklich gewünscht.
 - Regel für neue Bilder: Die KI darf den Hintergrund verändern. Messer, Damastmuster, Griff und Proportionen müssen dem Original entsprechen.
 - Bewusst nicht verwendet: Text im Bild (Banner), der Freisteller in zu geringer Auflösung (653 px) und das Logo aus der Collage (ersetzt kein SVG-Logo).
+
+## Bilder-SEO (Stand 11.11.2026)
+
+- **Dateinamen:** sprechend, klein, ohne Umlaute, Marke am Ende, z. B. `handgeschmiedetes-damast-klappmesser-offen-messermanufaktur-ulbrich-1200.jpg`. Festgelegt in `config/fotos.php` (`datei`). Das Skript erzeugt die Dateien unter diesem Namen.
+- **Alttexte:** beschreiben sachlich, was zu sehen ist, plus Marke, 40–125 Zeichen, ohne Keyword-Stapeln. Jedes Foto trägt seinen Alttext, auch in Karten.
+- **Bild-Sitemap:** `sitemap.xml` enthält `<image:image>` für alle Manufaktur-Fotos (Startseite) und alle Produktfotos.
+- **Shop-Fotos aus der Verwaltung:** werden beim Hochladen automatisch umbenannt in `produktname-messermanufaktur-ulbrich-xxxxxx.jpg`. Der Alttext entsteht aus Produktname und Kategorie („… – Damastmesser der Messermanufaktur Ulbrich“). Bilder mit Kameranamen wie `IMG_1234.jpg` landen also nie so im Shop.
+- Abgesichert durch `tests/Feature/ImageSeoTest.php`.
+
+## Neue Fotos – so liefern
+
+- Originale in voller Auflösung, direkt von Kamera oder Handy (keine Screenshots, keine WhatsApp-Kopien, die sind verkleinert).
+- Zu jedem Bild kurz notieren, was zu sehen ist: Messertyp, Stahl, Griffholz. Nur echte Angaben, daraus entsteht der Alttext.
+- Querformat und Hochformat jeweils, wenn möglich. Ruhiger Hintergrund, Tageslicht oder Studiolicht.
+- Regel KI: Nur der Hintergrund darf verändert werden. Messer, Damastmuster, Griff und Proportionen bleiben original.

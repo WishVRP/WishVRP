@@ -69,4 +69,19 @@ class Product extends Model
     {
         return collect($this->images ?? [])->map(fn ($p) => '/storage/'.ltrim($p, '/'))->all();
     }
+
+    /** Dateiname für hochgeladene Produktfotos (SEO, sicher: nur a–z, 0–9, Bindestrich, feste Endung). */
+    public static function imageFileName(string $name, string $mime): string
+    {
+        $ext = ['image/png' => 'png', 'image/webp' => 'webp'][$mime] ?? 'jpg';
+        $slug = \Illuminate\Support\Str::limit(\Illuminate\Support\Str::slug($name) ?: 'messer', 70, '');
+
+        return trim($slug, '-').'-messermanufaktur-ulbrich-'.\Illuminate\Support\Str::lower(\Illuminate\Support\Str::random(6)).'.'.$ext;
+    }
+
+    /** Alttext für Produktfotos. */
+    public function imageAlt(int $index = 0): string
+    {
+        return $this->name.' – '.$this->categoryName().' der Messermanufaktur Ulbrich'.($index ? ', Ansicht '.($index + 1) : '');
+    }
 }

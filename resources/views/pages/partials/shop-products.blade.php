@@ -7,7 +7,7 @@
                 @foreach ($products as $p)
                     <a class="shop-card" href="{{ $p->url() }}">
                         @if ($img = $p->imageUrls()[0] ?? null)
-                            <img class="shop-card__img" src="{{ $img }}" alt="{{ $p->name }}" width="600" height="600" loading="lazy" decoding="async">
+                            <img class="shop-card__img" src="{{ $img }}" alt="{{ $p->imageAlt() }}" width="600" height="600" loading="lazy" decoding="async">
                         @else
                             <x-ui.type-tile class="shop-card__img" :title="$p->name" :label="$p->categoryName()" />
                         @endif

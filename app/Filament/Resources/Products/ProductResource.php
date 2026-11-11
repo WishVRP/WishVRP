@@ -57,6 +57,9 @@ class ProductResource extends Resource
             Section::make('Bilder')->columnSpanFull()->schema([
                 FileUpload::make('images')->label('Fotos (erstes Bild = Titelbild)')->multiple()->reorderable()->maxFiles(8)
                     ->image()->disk('public')->directory('products')->visibility('public')
+                    // Sprechender Dateiname für die Google-Bildersuche: produktname-messermanufaktur-ulbrich-xxxxxx.jpg
+                    // (nur a–z, 0–9, Bindestrich; Endung aus dem geprüften Bildtyp – nie aus dem Originalnamen)
+                    ->getUploadedFileNameForStorageUsing(fn (\Livewire\Features\SupportFileUploads\TemporaryUploadedFile $file, \Filament\Schemas\Components\Utilities\Get $get): string => Product::imageFileName((string) $get('name'), (string) $file->getMimeType()))
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(8192)
                     ->imageResizeMode('contain')->imageResizeTargetWidth('1600')->imageResizeTargetHeight('1600')
                     ->helperText('Mindestens 1 Foto, ideal 3–5 aus verschiedenen Perspektiven. Werden automatisch auf max. 1600 px verkleinert.'),

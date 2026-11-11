@@ -132,6 +132,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 - [ ] Freigegebene Bewertungstexte (z. B. aus Google) und Link zum Google-Profil. Erfundene Bewertungen gibt es keine.
 - [ ] Freigegebene Kursfotos und Projektbeschreibungen
 - [ ] Zebrano- und Rotholz-Bilder: KI-Hintergrund oder echt? Falls KI, besser durch echte Fotos ersetzen.
+- [ ] **Neue Fotos** für die Website liefern (Wunsch: Bilder überarbeiten). So geht's: `docs/fotos.md` → „Neue Fotos – so liefern“. Dateinamen, Alttexte und Bild-Sitemap werden dann automatisch passend angelegt.
 - [ ] Echte Produkte im Admin anlegen: Fotos, Beschreibung, Preis, Bestand, Kategorie
 
 ### Einheitliche Schreibweisen (wichtig für Google und KI)

@@ -28,11 +28,14 @@ class SeoController extends Controller
     /** Nur umgesetzte, indexierbare Seiten – keine Weiterleitungen, keine Platzhalter. */
     public function sitemap(): Response
     {
+        // Bild-Sitemap: Fotos je Seite (Google-Bildersuche). Startseite zeigt alle Manufaktur-Fotos.
+        $photos = collect(config('fotos'))->keys()->map(fn (string $k) => PageMeta::absolute(\App\Support\Foto::largest($k)))->all();
         $urls = collect(config('pages'))
             ->filter(fn (array $p) => $p['status'] === 'live' && ($p['index'] ?? true))
-            ->keys()
-            ->merge(\App\Models\Product::query()->visible()->get()->map->url())
-            ->map(fn (string $path) => PageMeta::absolute($path));
+            ->mapWithKeys(fn (array $p, string $path) => [PageMeta::absolute($path) => $path === '/' ? $photos : []])
+            ->merge(\App\Models\Product::query()->visible()->get()->mapWithKeys(fn ($p) => [
+                PageMeta::absolute($p->url()) => array_map(fn ($i) => PageMeta::absolute($i), $p->imageUrls()),
+            ]));
 
         return response()
             ->view('seo.sitemap', ['urls' => $urls])

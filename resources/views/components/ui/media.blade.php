@@ -1,6 +1,7 @@
 @props(['motif' => null, 'tone' => 'forge', 'format' => null, 'tag' => true, 'foto' => null, 'pos' => null, 'eager' => false, 'sizes' => '(min-width: 64rem) 50vw, 100vw', 'decorative' => false])
 {{--
     Bildfläche.
+    Jedes Foto trägt seinen Alttext (auch in Karten mit decorative): wichtig für die Google-Bildersuche.
     Mit foto="key" (config/fotos.php): echtes Foto als <picture> (WebP + JPEG, srcset, width/height, lazy).
     Ohne foto: gestaltete Fläche (Damast-Textur + Anlassfarben-Licht) mit dezentem Etikett „Bildplatz · Motiv“,
     bis ein Foto vorliegt. Keine Stock-Fotos.
@@ -10,9 +11,9 @@
 @php $img = $foto ? config('fotos.'.$foto) : null; @endphp
 @if ($img)
     @php
-        $base = '/images/fotos/'.$foto.'-';
+        $base = '/images/fotos/'.\App\Support\Foto::file($foto).'-';
         $set = fn (string $ext) => collect($img['widths'])->map(fn ($w) => $base.$w.'.'.$ext.' '.$w.'w')->implode(', ');
-        $hasAvif = is_file(public_path('images/fotos/'.$foto.'-'.$img['widths'][0].'.avif'));
+        $hasAvif = is_file(public_path(ltrim(\App\Support\Foto::url($foto, $img['widths'][0], 'avif'), '/')));
         $fallback = $base.(collect($img['widths'])->first(fn ($w) => $w >= 800) ?? last($img['widths'])).'.jpg';
     @endphp
     <figure {{ $attributes->class(['media', 'media--photo', 'media--'.$tone, 'media--'.$format => $format, 'media--pos-'.$pos => $pos]) }}>
@@ -21,7 +22,7 @@
             <source type="image/webp" srcset="{{ $set('webp') }}" sizes="{{ $sizes }}">
             <img src="{{ $fallback }}" srcset="{{ $set('jpg') }}" sizes="{{ $sizes }}"
                  width="{{ $img['w'] }}" height="{{ $img['h'] }}"
-                 alt="{{ $decorative ? '' : $img['alt'] }}"
+                 alt="{{ $img['alt'] }}"
                  @if($eager) fetchpriority="high" @else loading="lazy" @endif decoding="async">
         </picture>
     </figure>

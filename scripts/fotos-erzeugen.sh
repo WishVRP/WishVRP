@@ -55,17 +55,19 @@ crop andreas-portrait        andreas-esse-screenshot.jpg  werkstatt 960x1200+60+
 
 for f in "$TMP"/*.png; do
     name=$(basename "$f" .png)
+    # Sprechender Dateiname aus config/fotos.php ('datei'), sonst der Schlüssel
+    out=$(php -r '$c = require "config/fotos.php"; echo $c[$argv[1]]["datei"] ?? $argv[1];' "$name")
     w=$(identify -format '%w' "$f")
     sizes=""
     for size in 480 800 1200 1600; do (( size <= w )) && sizes+=" $size"; done
     (( w < 1200 && w > 480 && w != 800 )) && sizes+=" $w"
     [[ -z $sizes ]] && sizes=$w
     for size in $sizes; do
-        convert "$f" -strip -resize "${size}x" -quality 80 "$OUT/$name-$size.jpg"
-        convert "$f" -strip -resize "${size}x" -quality 78 "$OUT/$name-$size.webp"
+        convert "$f" -strip -resize "${size}x" -quality 80 "$OUT/$out-$size.jpg"
+        convert "$f" -strip -resize "${size}x" -quality 78 "$OUT/$out-$size.webp"
         if command -v avifenc >/dev/null; then
             convert "$f" -strip -resize "${size}x" "$TMP/avif-src.png"
-            avifenc -q 55 -s 6 --jobs all "$TMP/avif-src.png" "$OUT/$name-$size.avif" >/dev/null
+            avifenc -q 55 -s 6 --jobs all "$TMP/avif-src.png" "$OUT/$out-$size.avif" >/dev/null
         fi
     done
     echo "$name: $(identify -format '%wx%h' "$f")"
