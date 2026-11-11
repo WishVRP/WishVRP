@@ -5,7 +5,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Ein Unikat gibt es genau einmal. Bei einem handgeschmiedeten Messer zeigt sich das in vielen Details: in der Zeichnung der Damastklinge, im Holz des Griffs, in den Proportionen. Selbst zwei Messer derselben Form unterscheiden sich, weil jedes von Hand entsteht."
+     "x": "Ein Unikat gibt es genau einmal. Bei einem handgeschmiedeten Messer zeigt sich das in vielen Details: in der Zeichnung der [Damastklinge](/shop/damastmesser/), im Holz des Griffs, in den Proportionen. Selbst zwei Messer derselben Form unterscheiden sich, weil jedes von Hand entsteht."
     },
     {
      "t": "p",
@@ -30,7 +30,7 @@
     },
     {
      "t": "li",
-     "x": "Passt kein vorhandenes Stück, ist eine Sonderanfertigung möglich"
+     "x": "Passt kein vorhandenes Stück, ist eine [Sonderanfertigung](/sonderanfertigungen/) möglich"
     }
    ]
   },
@@ -39,11 +39,11 @@
    "items": [
     {
      "t": "p",
-     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
+     "x": "Innerhalb Deutschlands kostet der Versand [7,99 € pro Artikel](/versand/). Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
     },
     {
      "t": "p",
-     "x": "Zu jedem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+     "x": "Zu jedem Messer bekommst du [Pflegehinweise](/ratgeber/messer-pflege/) als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt [2 Jahre Garantie](/garantie/)."
     }
    ]
   }

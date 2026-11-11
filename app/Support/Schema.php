@@ -154,7 +154,7 @@ final class Schema
             'mainEntity' => array_map(fn (array $f) => [
                 '@type' => 'Question',
                 'name' => $f['q'],
-                'acceptedAnswer' => ['@type' => 'Answer', 'text' => strip_tags($f['a'])],
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => Inline::plain(strip_tags($f['a']))],
             ], $faqs),
         ];
     }

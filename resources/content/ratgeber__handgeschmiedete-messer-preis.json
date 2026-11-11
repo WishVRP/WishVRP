@@ -18,7 +18,7 @@
     },
     {
      "t": "li",
-     "x": "Härten und anlassen – hier entscheidet sich, wie die Klinge schneidet und wie lange sie scharf bleibt"
+     "x": "[Härten](/ratgeber/messerschmieden-ablauf/) und anlassen – hier entscheidet sich, wie die Klinge schneidet und wie lange sie scharf bleibt"
     },
     {
      "t": "li",
@@ -43,7 +43,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Damaststahl besteht aus mehreren Stahlsorten. Dazu kommen Griffmaterialien wie Holz und bei Klappmessern die Teile der Mechanik. Ausgesuchte Hölzer und gute Stähle kosten mehr als Massenware."
+     "x": "[Damaststahl](/ratgeber/damastmesser/) besteht aus mehreren Stahlsorten. Dazu kommen Griffmaterialien wie Holz und bei Klappmessern die Teile der Mechanik. Ausgesuchte Hölzer und gute Stähle kosten mehr als Massenware."
     }
    ]
   },
@@ -78,7 +78,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Ein reguläres Damast-Klappmesser der Edition 100 kostet 699 €. Unikate und Sonderanfertigungen werden nach Ausführung kalkuliert; den Preis bekommst du auf Anfrage. Wer sein Messer selbst schmieden möchte: Die Schmiedekurse beginnen bei 300 € pro Person."
+     "x": "Ein reguläres Damast-Klappmesser der [Edition 100](/klappmesser/) kostet 699 €. [Unikate](/messer-unikate/) und [Sonderanfertigungen](/sonderanfertigungen/) werden nach Ausführung kalkuliert; den Preis bekommst du auf Anfrage. Wer sein Messer selbst schmieden möchte: Die Schmiedekurse beginnen bei 300 € pro Person."
     }
    ]
   }
@@ -94,7 +94,7 @@
   },
   {
    "q": "Gibt es eine günstigere Alternative?",
-   "a": "Im Grundlagenkurs schmiedest du ab 300 € pro Person selbst ein Werkstück und lernst, was in einem Messer steckt."
+   "a": "Im [Grundlagenkurs](/schmiedekurse/grundlagenkurs/) schmiedest du ab 300 € pro Person selbst ein Werkstück und lernst, was in einem Messer steckt."
   }
  ],
  "source": "Allgemeines Handwerkswissen; Preise laut config/ulbrich.php und Kursdatenbank"

@@ -10,7 +10,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Im Shop findest du vorhandene Messer und Einzelstücke. Die Edition 100 bietet eine fest begrenzte Reihe von Damast-Klappmessern für 699 € pro Stück. Eine Sonderanfertigung beginnt mit deinem Wunsch und einer individuellen Abstimmung. Diese Wege unterscheiden sich bei Auswahl, Preis und Lieferzeit."
+     "x": "Im Shop findest du vorhandene Messer und [Einzelstücke](/shop/einzelstuecke/). Die [Edition 100](/klappmesser/) bietet eine fest begrenzte Reihe von Damast-Klappmessern für 699 € pro Stück. Eine [Sonderanfertigung](/sonderanfertigungen/) beginnt mit deinem Wunsch und einer individuellen Abstimmung. Diese Wege unterscheiden sich bei Auswahl, Preis und Lieferzeit."
     }
    ]
   },
@@ -19,7 +19,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Prüfe die tatsächlichen Produktangaben und den Gesamtpreis einschließlich ausgewiesener Versandkosten. Fotos helfen, Form und Gestaltung zu beurteilen. Bei einem Unikat kann die Zeichnung vom Beispielbild abweichen. Frage nach, wenn eine entscheidende Angabe zu deinem vorgesehenen Einsatz fehlt."
+     "x": "Prüfe die tatsächlichen Produktangaben und den Gesamtpreis einschließlich ausgewiesener Versandkosten. Fotos helfen, Form und Gestaltung zu beurteilen. Bei einem [Unikat](/messer-unikate/) kann die Zeichnung vom Beispielbild abweichen. Frage nach, wenn eine entscheidende Angabe zu deinem vorgesehenen Einsatz fehlt."
     },
     {
      "t": "h3",
@@ -45,7 +45,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Bevor du auf Stahl und Muster schaust, überleg dir, was du schneiden willst. Für die Küche sind Kochmesser, Gyuto oder Santoku Allrounder, das Nakiri ist für Gemüse gemacht. Draußen brauchst du eher ein Jagd- oder Klappmesser. Der Ratgeber zu den Messerformen hilft dir bei der Auswahl."
+     "x": "Bevor du auf Stahl und Muster schaust, überleg dir, was du schneiden willst. Für die Küche sind Kochmesser, Gyuto oder Santoku Allrounder, das Nakiri ist für Gemüse gemacht. Draußen brauchst du eher ein Jagd- oder Klappmesser. Der Ratgeber zu den [Messerformen](/ratgeber/messerformen/) hilft dir bei der Auswahl."
     }
    ]
   },
@@ -54,7 +54,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Viele Messer werden als „Damast“ verkauft, obwohl das Muster nur aufgebracht ist. Bei echtem Damast zeigt sich das Muster auch am Klingenrücken und an der Schneidenfase. Seriöse Anbieter nennen Stahl und Aufbau."
+     "x": "Viele Messer werden als „Damast“ verkauft, obwohl das Muster nur aufgebracht ist. Bei [echtem Damast](/ratgeber/echtes-damastmesser-erkennen/) zeigt sich das Muster auch am Klingenrücken und an der Schneidenfase. Seriöse Anbieter nennen Stahl und Aufbau."
     }
    ]
   },
@@ -63,7 +63,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Frag nach Garantie und Pflege. Bei der Messermanufaktur Ulbrich gibt es 2 Jahre Garantie bei Pflege nach den mitgelieferten Hinweisen; Pflegeheft und Pflegemittel sind kostenlos dabei. Und wenn das Messer später stumpf wird oder beschädigt ist: Schärfen, Reparatur und neue Griffe gehören zum Service."
+     "x": "Frag nach Garantie und Pflege. Bei der Messermanufaktur Ulbrich gibt es [2 Jahre Garantie](/garantie/) bei Pflege nach den mitgelieferten Hinweisen; Pflegeheft und Pflegemittel sind kostenlos dabei. Und wenn das Messer später stumpf wird oder beschädigt ist: Schärfen, [Reparatur](/messer-reparieren-lassen/) und neue Griffe gehören zum Service."
     }
    ]
   },

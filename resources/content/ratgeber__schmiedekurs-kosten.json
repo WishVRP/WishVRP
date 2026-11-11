@@ -19,7 +19,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Beim Klingenkurs ist die Griff-Fertigung gegen Aufpreis vorgesehen. Reise und zusätzliche Übernachtungen gehören nur dann zum Angebot, wenn sie ausdrücklich genannt werden. Getränke vor Ort sind bei den entsprechend beschriebenen Kursen enthalten. Individuelle Wünsche werden vorab geklärt."
+     "x": "Beim [Klingenkurs](/schmiedekurse/klingenkurs/) ist die Griff-Fertigung gegen Aufpreis vorgesehen. Reise und zusätzliche Übernachtungen gehören nur dann zum Angebot, wenn sie ausdrücklich genannt werden. Getränke vor Ort sind bei den entsprechend beschriebenen Kursen enthalten. Individuelle Wünsche werden vorab geklärt."
     },
     {
      "t": "h3",
@@ -27,7 +27,7 @@
     },
     {
      "t": "p",
-     "x": "Die Angebote nennen Preise pro Person. Wenn du zwei Plätze buchst, zeigt die Buchung den Gesamtpreis für beide. Ein Gruppenrabatt wird nicht automatisch unterstellt."
+     "x": "Die Angebote nennen Preise pro Person. Wenn du [zwei Plätze](/erlebnisse/schmieden-zu-zweit/) buchst, zeigt die Buchung den Gesamtpreis für beide. Ein Gruppenrabatt wird nicht automatisch unterstellt."
     }
    ]
   },
@@ -45,7 +45,7 @@
    "items": [
     {
      "t": "li",
-     "x": "Grundlagenkurs, ab 300 €: ein Tag, Einführung, eigenes Werkstück, Getränke"
+     "x": "[Grundlagenkurs](/schmiedekurse/grundlagenkurs/), ab 300 €: ein Tag, Einführung, eigenes Werkstück, Getränke"
     },
     {
      "t": "li",
@@ -57,15 +57,15 @@
     },
     {
      "t": "li",
-     "x": "Damast-Messerkurs, ab 1.100 €: zwei Tage, Damastmesser bis 32 cm inklusive Griff, eine Übernachtung, Getränke"
+     "x": "[Damast-Messerkurs](/schmiedekurse/damast-messerkurs/), ab 1.100 €: zwei Tage, Damastmesser bis 32 cm inklusive Griff, eine Übernachtung, Getränke"
     },
     {
      "t": "li",
-     "x": "Damast Premium-Kurs, ab 1.300 €: zwei bis drei Tage, Damastmesser bis 40 cm, ein bis zwei Übernachtungen, Getränke"
+     "x": "[Damast Premium-Kurs](/schmiedekurse/damast-premium-kurs/), ab 1.300 €: zwei bis drei Tage, Damastmesser bis 40 cm, ein bis zwei Übernachtungen, Getränke"
     },
     {
      "t": "li",
-     "x": "Manager-Schmiedekurs: drei Tage, Damastprojekt bis 40 cm, Preis nach Angebot"
+     "x": "[Manager-Schmiedekurs](/schmiedekurse/manager-schmiedekurs/): drei Tage, Damastprojekt bis 40 cm, Preis nach Angebot"
     },
     {
      "t": "p",

@@ -10,7 +10,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Ein Tageskurs kann einen Einstieg ins Schmieden oder die Arbeit an Klingen ermöglichen. Der Grundlagenkurs verspricht ein Werkstück. Im regulären Klingenkurs sind zwei Klingen vorgesehen, die Griff-Fertigung kommt bei Bedarf zusätzlich hinzu. Die Dauer allein sagt deshalb nicht, ob du ein vollständiges Messer mit nach Hause nimmst."
+     "x": "Ein Tageskurs kann einen Einstieg ins Schmieden oder die Arbeit an Klingen ermöglichen. Der [Grundlagenkurs](/schmiedekurse/grundlagenkurs/) verspricht ein Werkstück. Im regulären [Klingenkurs](/schmiedekurse/klingenkurs/) sind zwei Klingen vorgesehen, die Griff-Fertigung kommt bei Bedarf zusätzlich hinzu. Die Dauer allein sagt deshalb nicht, ob du ein vollständiges Messer mit nach Hause nimmst."
     }
    ]
   },
@@ -19,7 +19,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Ein größeres Messerprojekt umfasst mehr Entscheidungen und Arbeiten. Im zweitägigen Damast-Messerkurs gehört der Griff zum vorgesehenen Ergebnis. Beim Premium-Format stehen zwei bis drei Tage zur Verfügung. Die genaue Zeitplanung ergibt sich aus dem Termin und dem vereinbarten Leistungsumfang."
+     "x": "Ein größeres Messerprojekt umfasst mehr Entscheidungen und Arbeiten. Im zweitägigen [Damast-Messerkurs](/schmiedekurse/damast-messerkurs/) gehört der Griff zum vorgesehenen Ergebnis. Beim Premium-Format stehen zwei bis drei Tage zur Verfügung. Die genaue Zeitplanung ergibt sich aus dem Termin und dem vereinbarten Leistungsumfang."
     },
     {
      "t": "h3",
@@ -61,11 +61,11 @@
     },
     {
      "t": "li",
-     "x": "Damast Premium-Kurs: 2–3 Tage, mit ein bis zwei Übernachtungen"
+     "x": "[Damast Premium-Kurs](/schmiedekurse/damast-premium-kurs/): 2–3 Tage, mit ein bis zwei Übernachtungen"
     },
     {
      "t": "li",
-     "x": "Manager-Schmiedekurs: 3 Tage, jeweils etwa 8 Stunden"
+     "x": "[Manager-Schmiedekurs](/schmiedekurse/manager-schmiedekurs/): 3 Tage, jeweils etwa 8 Stunden"
     }
    ]
   },
@@ -74,7 +74,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Für Damast werden zuerst mehrere Stahlsorten zu einem Paket verschweißt und geschmiedet, bevor daraus eine Klinge entsteht. Dazu kommen Härten, Schleifen, Ätzen und der Griff. Deshalb dauern die Damastkurse zwei bis drei Tage."
+     "x": "Für Damast werden zuerst mehrere Stahlsorten zu einem Paket verschweißt und geschmiedet, bevor daraus eine Klinge entsteht. Dazu kommen [Härten](/ratgeber/messerschmieden-ablauf/), Schleifen, Ätzen und der Griff. Deshalb dauern die Damastkurse zwei bis drei Tage."
     }
    ]
   }

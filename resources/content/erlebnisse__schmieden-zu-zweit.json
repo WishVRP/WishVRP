@@ -10,7 +10,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Ein gemeinsames Erlebnis muss nicht für beide dasselbe Ziel haben. Wichtig ist, dass Kursniveau und Zeitplanung zu euch passen. Ohne Schmiedeerfahrung könnt ihr mit den Grundlagen beginnen. Wenn beide ein fertiges Damastmesser anstreben, vergleicht den zweitägigen Damast-Messerkurs und dessen Voraussetzungen."
+     "x": "Ein gemeinsames Erlebnis muss nicht für beide dasselbe Ziel haben. Wichtig ist, dass Kursniveau und Zeitplanung zu euch passen. Ohne Schmiedeerfahrung könnt ihr mit den Grundlagen beginnen. Wenn beide ein fertiges Damastmesser anstreben, vergleicht den zweitägigen [Damast-Messerkurs](/schmiedekurse/damast-messerkurs/) und dessen Voraussetzungen."
     }
    ]
   },
@@ -45,11 +45,11 @@
    "items": [
     {
      "t": "li",
-     "x": "Grundlagenkurs, 1 Tag, ab 300 € pro Person – der entspannte Einstieg für zwei"
+     "x": "[Grundlagenkurs](/schmiedekurse/grundlagenkurs/), 1 Tag, ab 300 € pro Person – der entspannte Einstieg für zwei"
     },
     {
      "t": "li",
-     "x": "Klingenkurs, 1 Tag, ab 440 € pro Person – für zwei, die schon Erfahrung haben"
+     "x": "[Klingenkurs](/schmiedekurse/klingenkurs/), 1 Tag, ab 440 € pro Person – für zwei, die schon Erfahrung haben"
     },
     {
      "t": "li",
@@ -62,7 +62,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Am Ende des Kurses hält jeder etwas in der Hand, das er selbst geschmiedet hat. Für Paare kann daraus eine Erinnerung an einen besonderen Tag werden – auf Wunsch später ergänzt durch eine Gravur mit euren Namen."
+     "x": "Am Ende des Kurses hält jeder etwas in der Hand, das er selbst geschmiedet hat. Für Paare kann daraus eine Erinnerung an einen besonderen Tag werden – auf Wunsch später ergänzt durch eine [Gravur](/messer-gravur/) mit euren Namen."
     }
    ]
   }
@@ -78,7 +78,7 @@
   },
   {
    "q": "Gibt es einen Paarpreis?",
-   "a": "Die Kurspreise gelten pro Person; für zwei Personen bucht ihr zwei Plätze im selben Termin."
+   "a": "Die [Kurspreise](/ratgeber/schmiedekurs-kosten/) gelten pro Person; für zwei Personen bucht ihr zwei Plätze im selben Termin."
   }
  ],
  "source": "https://messermanufaktur-ulbrich.de/erlebnisse/schmieden-zu-zweit/"

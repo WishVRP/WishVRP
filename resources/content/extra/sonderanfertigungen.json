@@ -9,11 +9,11 @@
     },
     {
      "t": "li",
-     "x": "Küchenmesser: Kochmesser, Gyuto, Santoku, Nakiri, Officemesser, Brot-, Filetier- und Ausbeinmesser"
+     "x": "[Küchenmesser](/shop/kuechenmesser/): Kochmesser, Gyuto, Santoku, Nakiri, Officemesser, Brot-, Filetier- und Ausbeinmesser"
     },
     {
      "t": "li",
-     "x": "Jagdmesser, etwa mit Drop-Point- oder Skinner-Klinge"
+     "x": "[Jagdmesser](/shop/jagdmesser/), etwa mit Drop-Point- oder Skinner-Klinge"
     },
     {
      "t": "li",
@@ -21,15 +21,15 @@
     },
     {
      "t": "li",
-     "x": "Messer mit Damastklinge"
+     "x": "Messer mit [Damastklinge](/shop/damastmesser/)"
     },
     {
      "t": "li",
-     "x": "Messer mit Gravur – Name, Datum oder Logo"
+     "x": "Messer mit [Gravur](/messer-gravur/) – Name, Datum oder Logo"
     },
     {
      "t": "p",
-     "x": "Auch individuell gestaltete Ringpaare gehören zum Angebot der Manufaktur."
+     "x": "Auch individuell gestaltete [Ringpaare](/shop/ringe/) gehören zum Angebot der Manufaktur."
     }
    ]
   },
@@ -66,7 +66,7 @@
     },
     {
      "t": "p",
-     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
+     "x": "Innerhalb Deutschlands kostet der Versand [7,99 € pro Artikel](/versand/). Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
     }
    ]
   },
@@ -97,7 +97,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Zu jedem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+     "x": "Zu jedem Messer bekommst du [Pflegehinweise](/ratgeber/messer-pflege/) als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt [2 Jahre Garantie](/garantie/)."
     }
    ]
   }

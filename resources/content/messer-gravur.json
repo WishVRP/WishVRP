@@ -40,7 +40,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Ein graviertes Messer ist ein Geschenk, das bleibt: zur Hochzeit, zum Ruhestand, zum runden Geburtstag oder als Dank. Wenn du zu einem bestimmten Termin schenken möchtest, nenne ihn bei der Anfrage; ein Wunschdatum gilt erst, wenn es bestätigt ist."
+     "x": "Ein graviertes Messer ist ein Geschenk, das bleibt: zur Hochzeit, zum Ruhestand, zum [runden Geburtstag](/geschenke/schmiedekurs-geburtstag/) oder als Dank. Wenn du zu einem bestimmten Termin schenken möchtest, nenne ihn bei der Anfrage; ein Wunschdatum gilt erst, wenn es bestätigt ist."
     }
    ]
   },
@@ -49,7 +49,7 @@
    "items": [
     {
      "t": "li",
-     "x": "Messer auswählen oder Sonderanfertigung anfragen"
+     "x": "Messer auswählen oder [Sonderanfertigung](/sonderanfertigungen/) anfragen"
     },
     {
      "t": "li",
@@ -102,7 +102,7 @@
   },
   {
    "q": "Kann ich ein Firmenlogo gravieren lassen?",
-   "a": "Ja. Für Firmengeschenke mit Logo gibt es eine eigene Seite zu Firmengeschenken."
+   "a": "Ja. Für [Firmengeschenke](/firmengeschenke/) mit Logo gibt es eine eigene Seite zu [Firmengeschenken](/firmengeschenke/)."
   },
   {
    "q": "Kann ich ein Messer gravieren lassen, das ich schon habe?",

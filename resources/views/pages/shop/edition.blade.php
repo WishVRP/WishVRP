@@ -21,20 +21,21 @@
                 <dl class="spec">
                     <div class="spec__row"><dt>Auflage</dt><dd>{{ $e['total'] }} Stück ({{ $e['regular'] }} + {{ $e['special'] }})</dd></div>
                     <div class="spec__row"><dt>Preis</dt><dd>{{ number_format($e['price'], 0, ',', '.') }} € (reguläre Stücke)</dd></div>
-                    <div class="spec__row"><dt>Sonderstücke</dt><dd>{{ $e['special_note'] }} <a href="/klappmesser/sonderedition/">Mehr</a></dd></div>
+                    <div class="spec__row"><dt>Sonderstücke</dt><dd>{{ $e['special_note'] }} <a href="/klappmesser/sonderedition/">Zu den Sonderstücken</a></dd></div>
                     <div class="spec__row"><dt>Klinge</dt><dd>Damaststahl @if($e['steel'])· {{ $e['steel'] }}@else<x-ui.missing silent>Stahlsorte/Lagen</x-ui.missing>@endif</dd></div>
                     <div class="spec__row"><dt>Maße</dt><dd>@if($e['dimensions']){{ $e['dimensions'] }}@else<x-ui.missing>Klingen-/Gesamtlänge, Gewicht</x-ui.missing>@endif</dd></div>
                     <div class="spec__row"><dt>Griff</dt><dd>@if($e['handle']){{ $e['handle'] }}@else<x-ui.missing>Griffmaterial</x-ui.missing>@endif</dd></div>
                     <div class="spec__row"><dt>Seriennummer</dt><dd>{{ $e['serial_note'] }}</dd></div>
                     <div class="spec__row"><dt>Versand</dt><dd>{{ $e['shipping'] }}</dd></div>
                     <div class="spec__row"><dt>Abholung</dt><dd>{{ config('ulbrich.sales.pickup_note') }}; vor Ort bar oder mit Karte</dd></div>
-                    <div class="spec__row"><dt>Ausland</dt><dd>{{ config('ulbrich.sales.international') }} {{ config('ulbrich.sales.customs') }} <a href="/versand/">Mehr</a></dd></div>
-                    <div class="spec__row"><dt>Garantie</dt><dd>{{ config('ulbrich.warranty.years') }} Jahre, {{ config('ulbrich.warranty.condition') }} <a href="/garantie/">Mehr</a></dd></div>
+                    <div class="spec__row"><dt>Ausland</dt><dd>{{ config('ulbrich.sales.international') }} {{ config('ulbrich.sales.customs') }} <a href="/versand/">Versand &amp; Abholung</a></dd></div>
+                    <div class="spec__row"><dt>Garantie</dt><dd>{{ config('ulbrich.warranty.years') }} Jahre, {{ config('ulbrich.warranty.condition') }} <a href="/garantie/">Zur Garantie</a></dd></div>
                     <div class="spec__row"><dt>Lieferumfang</dt><dd>Messer, {{ implode(', ', config('ulbrich.warranty.included')) }}</dd></div>
                     <div class="spec__row"><dt>Lieferzeit</dt><dd>{{ $e['delivery'] }}</dd></div>
                     <div class="spec__row"><dt>Zahlung</dt><dd>{{ $e['payment'] }}</dd></div>
                     <div class="spec__row"><dt>Hersteller</dt><dd>{{ $c['name'] }}, {{ $c['owner'] }}</dd></div>
                 </dl>
+                <p class="mt-4"><a class="link-arrow" href="/messerprojekte/damast-klappmesser-edition-100/">Das Messerprojekt hinter der Edition 100</a></p>
                 <x-page.note class="mt-5" title="Bestellung">
                     Online-Bestellung folgt. Bis dahin reservierst du dein Messer telefonisch: <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a>.
                 </x-page.note>

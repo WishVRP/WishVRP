@@ -19,7 +19,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Du möchtest das Handwerk erst kennenlernen? Beginne mit den Grundlagen. Du hast bereits Erfahrung und möchtest Klingen bearbeiten? Prüfe den Aufbaukurs. Du planst mehrere Tage für ein Damastmesser inklusive Griff? Lies die Beschreibung des Damast-Messerkurses und kläre die Voraussetzungen."
+     "x": "Du möchtest das Handwerk erst kennenlernen? Beginne mit den Grundlagen. Du hast bereits Erfahrung und möchtest Klingen bearbeiten? Prüfe den Aufbaukurs. Du planst mehrere Tage für ein Damastmesser inklusive Griff? Lies die Beschreibung des [Damast-Messerkurses](/schmiedekurse/damast-messerkurs/) und kläre die Voraussetzungen."
     },
     {
      "t": "h3",
@@ -66,7 +66,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Nach dem Grundlagenkurs baut der Klingenkurs auf: Du schmiedest zwei eigene Klingen. Wer ein vollständiges Messer mit Griff möchte, wählt den Damast-Messerkurs."
+     "x": "Nach dem [Grundlagenkurs](/schmiedekurse/grundlagenkurs/) baut der [Klingenkurs](/schmiedekurse/klingenkurs/) auf: Du schmiedest zwei eigene Klingen. Wer ein vollständiges Messer mit Griff möchte, wählt den Damast-Messerkurs."
     }
    ]
   }

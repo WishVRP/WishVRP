@@ -48,11 +48,11 @@
                         @if ($item['t'] === 'li')
                             @php $list[] = $item['x']; @endphp
                         @else
-                            @if ($list)<ul>@foreach ($list as $li)<li>{{ $li }}</li>@endforeach</ul>@php $list = []; @endphp @endif
-                            @if ($item['t'] === 'h3')<h3>{{ $item['x'] }}</h3>@else<p>{{ $item['x'] }}</p>@endif
+                            @if ($list)<ul>@foreach ($list as $li)<li>{!! \App\Support\Inline::html($li) !!}</li>@endforeach</ul>@php $list = []; @endphp @endif
+                            @if ($item['t'] === 'h3')<h3>{{ $item['x'] }}</h3>@else<p>{!! \App\Support\Inline::html($item['x']) !!}</p>@endif
                         @endif
                     @endforeach
-                    @if ($list)<ul>@foreach ($list as $li)<li>{{ $li }}</li>@endforeach</ul>@endif
+                    @if ($list)<ul>@foreach ($list as $li)<li>{!! \App\Support\Inline::html($li) !!}</li>@endforeach</ul>@endif
                 @endforeach
 
                 @if (! empty($page['outro_view']))

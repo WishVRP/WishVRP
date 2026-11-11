@@ -35,7 +35,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Wer Feuer gefangen hat, macht mit dem Klingenkurs weiter oder schmiedet im Damast-Messerkurs ein vollständiges Messer mit Griff. Nach dem Kurs hast du einen Ansprechpartner: Andreas Ulbrich schärft und repariert Messer, fertigt auf Wunsch einen Griff oder ein ganzes Messer an – und berät dich, welcher Kurs als nächster Schritt passt."
+     "x": "Wer Feuer gefangen hat, macht mit dem [Klingenkurs](/schmiedekurse/klingenkurs/) weiter oder schmiedet im [Damast-Messerkurs](/schmiedekurse/damast-messerkurs/) ein vollständiges Messer mit Griff. Nach dem Kurs hast du einen Ansprechpartner: Andreas Ulbrich schärft und repariert Messer, fertigt auf Wunsch einen Griff oder ein ganzes Messer an – und berät dich, welcher Kurs als nächster Schritt passt."
     }
    ]
   }
@@ -43,11 +43,11 @@
  "faq": [
   {
    "q": "Brauche ich Vorkenntnisse für den Grundlagenkurs?",
-   "a": "Nein. Der Grundlagenkurs ist für den Einstieg ohne Vorwissen gedacht."
+   "a": "Nein. Der Grundlagenkurs ist für den [Einstieg ohne Vorwissen](/ratgeber/schmiedekurs-anfaenger/) gedacht."
   },
   {
    "q": "Was kostet der Grundlagenkurs?",
-   "a": "Ab 300 € pro Person für einen Tag mit etwa acht Stunden, Getränke vor Ort inklusive."
+   "a": "Ab 300 € pro Person für [einen Tag mit etwa acht Stunden](/ratgeber/schmiedekurs-dauer/), Getränke vor Ort inklusive."
   }
  ]
 }

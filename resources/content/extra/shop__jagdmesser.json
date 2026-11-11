@@ -9,7 +9,7 @@
     },
     {
      "t": "p",
-     "x": "Welche Form für dich sinnvoll ist, besprichst du vor dem Kauf mit Andreas Ulbrich. Passt kein verfügbares Stück, entsteht dein Jagdmesser als Sonderanfertigung – auf Wunsch mit Damastklinge und Gravur."
+     "x": "Welche Form für dich sinnvoll ist, besprichst du vor dem Kauf mit Andreas Ulbrich. Passt kein verfügbares Stück, entsteht dein Jagdmesser als [Sonderanfertigung](/sonderanfertigungen/) – auf Wunsch mit [Damastklinge](/shop/damastmesser/) und [Gravur](/messer-gravur/)."
     }
    ]
   },
@@ -44,11 +44,11 @@
    "items": [
     {
      "t": "p",
-     "x": "Innerhalb Deutschlands kostet der Versand 7,99 € pro Artikel. Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
+     "x": "Innerhalb Deutschlands kostet der Versand [7,99 € pro Artikel](/versand/). Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst; fällt Zoll an, kommt er zum Preis hinzu. Du kannst dein Messer auch nach Absprache in der Manufaktur abholen und vor Ort bar oder mit Karte zahlen."
     },
     {
      "t": "p",
-     "x": "Zu jedem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt 2 Jahre Garantie."
+     "x": "Zu jedem Messer bekommst du [Pflegehinweise](/ratgeber/messer-pflege/) als kleines Heft und ein Pflegemittel kostenlos dazu. Bei Pflege nach diesen Hinweisen gilt [2 Jahre Garantie](/garantie/)."
     }
    ]
   }
@@ -60,7 +60,7 @@
   },
   {
    "q": "Kann ich mein Jagdmesser schärfen oder reparieren lassen?",
-   "a": "Ja. Schärfen, Reparaturen und neue Griffe gehören zum Messerservice der Manufaktur."
+   "a": "Ja. Schärfen, [Reparaturen](/messer-reparieren-lassen/) und neue Griffe gehören zum Messerservice der Manufaktur."
   }
  ]
 }

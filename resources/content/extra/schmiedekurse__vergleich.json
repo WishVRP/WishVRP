@@ -9,7 +9,7 @@
     },
     {
      "t": "p",
-     "x": "Nein: Starte mit dem Grundlagenkurs. Ja: Der Klingenkurs baut auf den Grundlagen auf."
+     "x": "Nein: Starte mit dem [Grundlagenkurs](/schmiedekurse/grundlagenkurs/). Ja: Der [Klingenkurs](/schmiedekurse/klingenkurs/) baut auf den Grundlagen auf."
     },
     {
      "t": "h3",
@@ -17,7 +17,7 @@
     },
     {
      "t": "p",
-     "x": "Ein erstes Werkstück: Grundlagenkurs. Zwei Klingen: Klingenkurs. Ein fertiges Damastmesser mit Griff: Damast-Messerkurs. Ein größeres Damastprojekt bis 40 cm Gesamtlänge: Damast Premium-Kurs."
+     "x": "Ein erstes Werkstück: Grundlagenkurs. Zwei Klingen: Klingenkurs. Ein fertiges Damastmesser mit Griff: [Damast-Messerkurs](/schmiedekurse/damast-messerkurs/). Ein größeres Damastprojekt bis 40 cm Gesamtlänge: [Damast Premium-Kurs](/schmiedekurse/damast-premium-kurs/)."
     },
     {
      "t": "h3",
@@ -25,7 +25,7 @@
     },
     {
      "t": "p",
-     "x": "Ein Tag: Grundlagen- oder Klingenkurs. Zwei Tage: Damast-Messerkurs. Zwei bis drei Tage: Damast Premium-Kurs. Drei Tage: Manager-Schmiedekurs."
+     "x": "Ein Tag: Grundlagen- oder Klingenkurs. Zwei Tage: Damast-Messerkurs. Zwei bis drei Tage: Damast Premium-Kurs. Drei Tage: [Manager-Schmiedekurs](/schmiedekurse/manager-schmiedekurs/)."
     }
    ]
   }
@@ -33,7 +33,7 @@
  "faq": [
   {
    "q": "Welcher Schmiedekurs ist der beliebteste Einstieg?",
-   "a": "Für den Einstieg ohne Vorwissen ist der Grundlagenkurs vorgesehen."
+   "a": "Für den [Einstieg ohne Vorwissen](/ratgeber/schmiedekurs-anfaenger/) ist der Grundlagenkurs vorgesehen."
   },
   {
    "q": "In welchem Kurs entsteht ein Messer mit Griff?",

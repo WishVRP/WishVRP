@@ -10,7 +10,7 @@
             @foreach ($secs as $s)
                 <h2>{{ $s['h'] }}</h2>
                 @foreach ($s['items'] as $item)
-                    @if ($item['t'] === 'h3')<h3>{{ $item['x'] }}</h3>@elseif($item['t'] === 'li')<ul><li>{{ $item['x'] }}</li></ul>@else<p>{{ $item['x'] }}</p>@endif
+                    @if ($item['t'] === 'h3')<h3>{{ $item['x'] }}</h3>@elseif($item['t'] === 'li')<ul><li>{!! \App\Support\Inline::html($item['x']) !!}</li></ul>@else<p>{!! \App\Support\Inline::html($item['x']) !!}</p>@endif
                 @endforeach
             @endforeach
         </div>

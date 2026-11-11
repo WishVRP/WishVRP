@@ -35,7 +35,7 @@
     },
     {
      "t": "p",
-     "x": "Hat die Klinge größere Schäden, besprecht ihr vorher, ob eine Reparatur sinnvoll ist. Mehr dazu auf der Seite „Messer reparieren lassen“."
+     "x": "Hat die Klinge größere Schäden, besprecht ihr vorher, ob eine [Reparatur](/messer-reparieren-lassen/) sinnvoll ist. Mehr dazu auf der Seite „Messer reparieren lassen“."
     }
    ]
   },
@@ -44,7 +44,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Geschärft werden Küchenmesser wie Kochmesser, Santoku oder Nakiri, Damastmesser, Taschen- und Klappmesser sowie Jagdmesser. Beschreib bei deiner Anfrage kurz, um welches Messer es geht und was dir aufgefallen ist."
+     "x": "Geschärft werden [Küchenmesser](/shop/kuechenmesser/) wie Kochmesser, Santoku oder Nakiri, Damastmesser, Taschen- und Klappmesser sowie [Jagdmesser](/shop/jagdmesser/). Beschreib bei deiner Anfrage kurz, um welches Messer es geht und was dir aufgefallen ist."
     }
    ]
   },
@@ -90,7 +90,7 @@
   },
   {
    "q": "Kann ich ein Damastmesser schärfen lassen?",
-   "a": "Ja. Auch Damastklingen werden geschärft; das Muster bleibt auf der Klinge erhalten, an der frisch geschliffenen Schneide kann es heller wirken."
+   "a": "Ja. Auch [Damastklingen](/shop/damastmesser/) werden geschärft; das Muster bleibt auf der Klinge erhalten, an der frisch geschliffenen Schneide kann es heller wirken."
   },
   {
    "q": "Kann ich mein Messer per Post schicken?",

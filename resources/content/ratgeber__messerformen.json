@@ -63,7 +63,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Jagdmesser sind meist feststehende Messer mit kräftiger Klinge. Häufige Formen sind der Drop Point mit abgesenkter Spitze, der zum Aufbrechen und für allgemeine Arbeiten verbreitet ist, und der Skinner mit stark gebogener Schneide zum Abhäuten. Welche Form passt, hängt davon ab, wofür du das Messer im Revier brauchst."
+     "x": "[Jagdmesser](/shop/jagdmesser/) sind meist feststehende Messer mit kräftiger Klinge. Häufige Formen sind der Drop Point mit abgesenkter Spitze, der zum Aufbrechen und für allgemeine Arbeiten verbreitet ist, und der Skinner mit stark gebogener Schneide zum Abhäuten. Welche Form passt, hängt davon ab, wofür du das Messer im Revier brauchst."
     }
    ]
   },
@@ -72,7 +72,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Beim Klappmesser liegt die Klinge geschlossen im Griff. Unterschieden wird unter anderem nach der Mechanik: Manche Messer halten die Klinge nur durch eine Feder in Position, andere verriegeln sie im geöffneten Zustand. Ein Beispiel aus der Manufaktur ist das Damast-Klappmesser der Edition 100."
+     "x": "Beim Klappmesser liegt die Klinge geschlossen im Griff. Unterschieden wird unter anderem nach der Mechanik: Manche Messer halten die Klinge nur durch eine Feder in Position, andere verriegeln sie im geöffneten Zustand. Ein Beispiel aus der Manufaktur ist das Damast-Klappmesser der [Edition 100](/klappmesser/)."
     }
    ]
   },
@@ -117,7 +117,7 @@
   },
   {
    "q": "Kann ich mir eine dieser Formen anfertigen lassen?",
-   "a": "Ja. Messerschmied Andreas Ulbrich fertigt diese Formen auch als Sonderanfertigung, auf Wunsch mit Damastklinge."
+   "a": "Ja. Messerschmied Andreas Ulbrich fertigt diese Formen auch als [Sonderanfertigung](/sonderanfertigungen/), auf Wunsch mit [Damastklinge](/shop/damastmesser/)."
   }
  ],
  "source": "Allgemeines Messerwissen; Angebot laut Inhaber (11.11.2026)"
