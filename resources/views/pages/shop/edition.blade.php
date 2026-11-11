@@ -29,6 +29,8 @@
                     <div class="spec__row"><dt>Versand</dt><dd>{{ $e['shipping'] }}</dd></div>
                     <div class="spec__row"><dt>Abholung</dt><dd>{{ config('ulbrich.sales.pickup_note') }}; vor Ort bar oder mit Karte</dd></div>
                     <div class="spec__row"><dt>Ausland</dt><dd>{{ config('ulbrich.sales.international') }} {{ config('ulbrich.sales.customs') }} <a href="/versand/">Mehr</a></dd></div>
+                    <div class="spec__row"><dt>Garantie</dt><dd>{{ config('ulbrich.warranty.years') }} Jahre, {{ config('ulbrich.warranty.condition') }} <a href="/garantie/">Mehr</a></dd></div>
+                    <div class="spec__row"><dt>Lieferumfang</dt><dd>Messer, {{ implode(', ', config('ulbrich.warranty.included')) }}</dd></div>
                     <div class="spec__row"><dt>Lieferzeit</dt><dd>{{ $e['delivery'] }}</dd></div>
                     <div class="spec__row"><dt>Zahlung</dt><dd>{{ $e['payment'] }}</dd></div>
                     <div class="spec__row"><dt>Hersteller</dt><dd>{{ $c['name'] }}, {{ $c['owner'] }}</dd></div>

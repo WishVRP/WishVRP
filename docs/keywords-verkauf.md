@@ -202,3 +202,14 @@ ulbrich messer, messermanufaktur ulbrich, andreas ulbrich messerschmied, edition
 - Ob Messer zum Schärfen per Post angenommen werden
 - Rückgaberegel, damit Google-Shopping-Einträge möglich sind
 - Altersprüfung beim Versand und Rechtstexte auf Englisch: anwaltlich prüfen lassen
+
+### Nachtrag 11.11.2026 (Angaben des Inhabers)
+- **Garantie:** 2 Jahre bei Pflege nach den Pflegehinweisen. Pflegeheft und Pflegemittel sind kostenlos dabei. Bei einem Defekt trotz richtiger Pflege wird repariert oder erstattet. Rost durch die Spülmaschine ist Eigenverschulden, Kulanz nur im Einzelfall.
+  - Umgesetzt: `/garantie/`, `/en/warranty/`, Garantie-Kasten im Shop, Garantie und Lieferumfang bei der Edition 100, `WarrantyPromise` im Produkt-Schema
+  - **Anwaltlich prüfen:** Formulierung der Garantieerklärung (§ 479 BGB)
+- **Schärfen per Post:** möglich, steht auf `/messer-schaerfen-lassen/` und in llms.txt
+- **Noch offen:**
+  - Preisspannen für Schärfen, Reparatur und Gravur (Inhaber klärt)
+  - Technische Daten der Edition 100 (kommen)
+  - Rückgaberegel für Google Shopping: Gemeint ist das Widerrufs- bzw. Rückgaberecht (z. B. 14 Tage), nicht die Garantie. Erst eintragen, wenn die Widerrufsbelehrung anwaltlich steht.
+  - Rechtstexte auf Englisch (anwaltlich)

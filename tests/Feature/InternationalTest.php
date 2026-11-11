@@ -59,6 +59,18 @@ class InternationalTest extends TestCase
         $this->assertStringContainsString('"paymentAccepted": "Überweisung, Barzahlung (vor Ort), Kartenzahlung (vor Ort)"', $this->get('/')->getContent());
     }
 
+    public function test_warranty_comes_from_config_and_keeps_statutory_rights(): void
+    {
+        $html = $this->get('/garantie/')->assertOk()->getContent();
+        $this->assertStringContainsString('2 Jahre Garantie', $html);
+        $this->assertStringContainsString('Spülmaschine', $html);
+        $this->assertStringContainsString('gesetzlichen Gewährleistungsrechte bleiben davon unberührt', $html);
+
+        $edition = $this->get('/klappmesser/')->getContent();
+        $this->assertStringContainsString('"@type": "WarrantyPromise"', $edition);
+        $this->assertStringContainsString('Pflegemittel, kostenlos', $edition);
+    }
+
     public function test_llms_txt_names_shipping_rules(): void
     {
         $txt = $this->get('/llms.txt')->getContent();

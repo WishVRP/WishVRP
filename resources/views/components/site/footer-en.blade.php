@@ -39,6 +39,7 @@
                 <ul role="list">
                     <li><a href="/en/about/">About the workshop</a></li>
                     <li><a href="/en/shipping/">Shipping, pickup &amp; payment</a></li>
+                    <li><a href="/en/warranty/">2-year warranty</a></li>
                     <li><a href="/en/">English home</a></li>
                 </ul>
             </nav>

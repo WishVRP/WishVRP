@@ -1,0 +1,93 @@
+{
+ "h1": "2 Jahre Garantie auf jedes Messer",
+ "lead": [
+  "Ein Messer aus der Manufaktur soll dich lange begleiten.",
+  "Auf Messer der Messermanufaktur Ulbrich gibt es 2 Jahre Garantie, wenn du sie nach den mitgelieferten Pflegehinweisen behandelst. Pflegehinweise und Pflegemittel bekommst du kostenlos zu deinem Messer dazu."
+ ],
+ "sections": [
+  {
+   "h": "Was bei deinem Messer dabei ist",
+   "items": [
+    {
+     "t": "li",
+     "x": "Pflegehinweise als kleines Heft"
+    },
+    {
+     "t": "li",
+     "x": "Pflegemittel, kostenlos"
+    },
+    {
+     "t": "p",
+     "x": "So weißt du von Anfang an, wie du Klinge und Griff behandelst – und behältst die Garantie."
+    }
+   ]
+  },
+  {
+   "h": "Was die Garantie abdeckt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Geht dein Messer innerhalb von 2 Jahren kaputt, obwohl du es nach den Pflegehinweisen behandelt hast, ist das kein Problem: Wir richten das Messer wieder her oder erstatten dir den Kaufpreis."
+    }
+   ]
+  },
+  {
+   "h": "Was nicht unter die Garantie fällt",
+   "items": [
+    {
+     "t": "p",
+     "x": "Schäden durch falsche Behandlung sind Eigenverschulden. Das typische Beispiel: Ein Messer rostet, weil es in der Spülmaschine war. Solche Schäden sind von der Garantie ausgenommen. Im Einzelfall ist eine Kulanzlösung möglich, im Normalfall aber nicht."
+    },
+    {
+     "t": "p",
+     "x": "Kleine Schäden lassen sich oft trotzdem beheben – dann als normale Reparatur."
+    }
+   ]
+  },
+  {
+   "h": "So meldest du einen Garantiefall",
+   "items": [
+    {
+     "t": "li",
+     "x": "Ruf an oder schreib eine E-Mail – am besten mit Fotos des Schadens"
+    },
+    {
+     "t": "li",
+     "x": "Beschreib kurz, wann und wie der Schaden entstanden ist"
+    },
+    {
+     "t": "li",
+     "x": "Danach besprecht ihr, wie das Messer in die Manufaktur kommt"
+    }
+   ]
+  },
+  {
+   "h": "Deine gesetzlichen Rechte",
+   "items": [
+    {
+     "t": "p",
+     "x": "Die Garantie ist ein freiwilliges Versprechen der Manufaktur. Deine gesetzlichen Gewährleistungsrechte bleiben davon unberührt."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Wie lange gilt die Garantie auf Ulbrich-Messer?",
+   "a": "2 Jahre, wenn du das Messer nach den mitgelieferten Pflegehinweisen behandelst."
+  },
+  {
+   "q": "Gilt die Garantie, wenn mein Messer in der Spülmaschine gerostet ist?",
+   "a": "Nein. Rost durch die Spülmaschine ist Eigenverschulden. Im Einzelfall ist Kulanz möglich, im Normalfall aber nicht."
+  },
+  {
+   "q": "Was passiert im Garantiefall?",
+   "a": "Wir richten das Messer wieder her oder erstatten dir den Kaufpreis."
+  },
+  {
+   "q": "Bekomme ich Pflegemittel dazu?",
+   "a": "Ja. Zu deinem Messer bekommst du Pflegehinweise als kleines Heft und ein Pflegemittel kostenlos dazu."
+  }
+ ],
+ "source": "Angaben des Inhabers (11.11.2026); Formulierung anwaltlich prüfen"
+}

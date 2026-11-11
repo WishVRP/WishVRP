@@ -1,0 +1,64 @@
+{
+ "h1": "A 2-year warranty on every knife",
+ "lead": [
+  "Made to last.",
+  "Knives from Messermanufaktur Ulbrich come with a 2-year warranty when you care for them according to the enclosed care instructions. A care booklet and a care product are included free of charge."
+ ],
+ "sections": [
+  {
+   "h": "Included with your knife",
+   "items": [
+    {
+     "t": "li",
+     "x": "Care instructions in a small booklet"
+    },
+    {
+     "t": "li",
+     "x": "A care product, free of charge"
+    }
+   ]
+  },
+  {
+   "h": "What the warranty covers",
+   "items": [
+    {
+     "t": "p",
+     "x": "If your knife fails within 2 years although you have cared for it as instructed, we repair it or refund the purchase price."
+    }
+   ]
+  },
+  {
+   "h": "What is not covered",
+   "items": [
+    {
+     "t": "p",
+     "x": "Damage caused by improper handling – for example rust after putting the knife in a dishwasher – is not covered. Goodwill may be possible in individual cases, but not as a rule."
+    }
+   ]
+  },
+  {
+   "h": "Making a claim",
+   "items": [
+    {
+     "t": "p",
+     "x": "Email or call us, ideally with photos of the damage and a short description. We will then agree how the knife gets back to the workshop."
+    },
+    {
+     "t": "p",
+     "x": "This warranty is a voluntary promise by the workshop. Your statutory rights remain unaffected."
+    }
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How long is the warranty?",
+   "a": "2 years, provided the knife is cared for according to the enclosed care instructions."
+  },
+  {
+   "q": "Is dishwasher rust covered?",
+   "a": "No. Damage from a dishwasher counts as improper handling. Goodwill may be possible in individual cases, but not as a rule."
+  }
+ ],
+ "source": "owner information (11 Nov 2026)"
+}

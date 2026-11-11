@@ -1,5 +1,8 @@
 {{-- Versand, Abholung, Zahlung – alle Angaben aus config/ulbrich.php → sales --}}
-@php $s = config('ulbrich.sales'); @endphp
+@php
+    $s = config('ulbrich.sales');
+    $w = config('ulbrich.warranty');
+@endphp
 <div class="delivery reveal" aria-label="Versand, Abholung und Zahlung">
     <div class="delivery__item">
         <h3 class="delivery__title">Versand in Deutschland</h3>
@@ -12,6 +15,10 @@
     <div class="delivery__item">
         <h3 class="delivery__title">Weltweit</h3>
         <p>{{ $s['international'] }} {{ $s['customs'] }}</p>
+    </div>
+    <div class="delivery__item">
+        <h3 class="delivery__title">{{ $w['years'] }} Jahre Garantie</h3>
+        <p>{{ ucfirst($w['condition']) }}. Dazu bekommst du {{ implode(' und ', $w['included']) }}. <a href="/garantie/">Zur Garantie</a></p>
     </div>
     <p class="delivery__more"><a href="/versand/">Alles zu Versand, Abholung und Zahlung <span aria-hidden="true">→</span></a></p>
 </div>

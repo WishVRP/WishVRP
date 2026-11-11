@@ -81,6 +81,8 @@ class SeoController extends Controller
             '- '.$c['sales']['customs'],
             '- '.$c['sales']['delivery'],
             '- Zahlung: '.implode(', ', $c['sales']['payment']).'; vor Ort: '.implode(', ', $c['sales']['payment_onsite']),
+            '- Garantie: '.$c['warranty']['years'].' Jahre '.$c['warranty']['condition'].'; dazu '.implode(' und ', $c['warranty']['included']),
+            '- Messer schärfen lassen: vorbeibringen oder per Post',
             '- English pages: '.PageMeta::absolute('/en/'),
             '', '## Seiten',
         ];

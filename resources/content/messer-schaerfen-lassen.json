@@ -49,11 +49,15 @@
    ]
   },
   {
-   "h": "Kosten und Abgabe",
+   "h": "Vorbeibringen oder per Post schicken",
    "items": [
     {
      "t": "p",
-     "x": "Was das Schärfen kostet, hängt vom Messer und seinem Zustand ab. Frag kurz telefonisch oder per E-Mail an. Wie du dein Messer zur Manufaktur bringst – persönlich oder per Post – klärst du bei der Anfrage."
+     "x": "Du kannst dein Messer nach Absprache in der Manufaktur in Stein am Kocher vorbeibringen oder es per Post schicken. Verpacke die Klinge dabei sicher, zum Beispiel mit einem Klingenschutz oder fest in Karton eingewickelt, und leg einen Zettel mit deinem Namen und deiner Telefonnummer bei."
+    },
+    {
+     "t": "p",
+     "x": "Was das Schärfen kostet, hängt vom Messer und seinem Zustand ab. Frag kurz telefonisch oder per E-Mail an, bevor du dein Messer schickst."
     }
    ]
   },
@@ -90,7 +94,7 @@
   },
   {
    "q": "Kann ich mein Messer per Post schicken?",
-   "a": "Wie dein Messer in die Manufaktur kommt, klärst du bei der Anfrage – persönlich vorbeibringen oder per Post."
+   "a": "Ja. Verpacke die Klinge sicher und leg deinen Namen und deine Telefonnummer bei. Frag vorher kurz an, damit klar ist, was gemacht werden soll."
   },
   {
    "q": "Wie oft sollte ich mein Messer schärfen lassen?",

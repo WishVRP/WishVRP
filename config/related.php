@@ -20,7 +20,7 @@ return [
     '/erlebnisse/' => ['/schmiedekurse/', '/geschenke/schmiedekurs-gutschein/', '/schmiedekurse/heilbronn-region/'],
     '/ratgeber/' => ['/ratgeber/damastmesser/', '/ratgeber/messer-pflege/', '/schmiedekurse/heilbronn-region/'],
     '/ratgeber/damastmesser/' => ['/ratgeber/echtes-damastmesser-erkennen/', '/klappmesser/', '/ratgeber/messer-pflege/'],
-    '/ratgeber/messer-pflege/' => ['/messer-schaerfen-lassen/', '/ratgeber/damastmesser/', '/shop/'],
+    '/ratgeber/messer-pflege/' => ['/garantie/', '/messer-schaerfen-lassen/', '/ratgeber/damastmesser/'],
     '/manufaktur/' => ['/presse/', '/partner/', '/schmiedekurse/heilbronn-region/'],
     '/presse/' => ['/manufaktur/', '/partner/', '/kunsthandwerkermarkt/'],
     '/partner/' => ['/manufaktur/', '/presse/', '/ratgeber/'],
@@ -66,4 +66,6 @@ return [
     '/en/custom-knives/' => ['/en/knives/', '/en/about/', '/en/shipping/'],
     '/en/about/' => ['/en/knives/', '/en/custom-knives/', '/en/'],
     '/en/shipping/' => ['/en/knives/', '/en/folding-knife/', '/en/custom-knives/'],
+    '/garantie/' => ['/ratgeber/messer-pflege/', '/versand/', '/messer-reparieren-lassen/'],
+    '/en/warranty/' => ['/en/knives/', '/en/shipping/', '/en/custom-knives/'],
 ];

@@ -155,8 +155,23 @@ return [
         'payment' => ['Überweisung'],
         'payment_onsite' => ['Barzahlung', 'Kartenzahlung'],
         'payment_online' => null, // geplant, noch nicht verfügbar – erst nach Freigabe aktivieren
+        'sharpening_by_post' => true, // laut Inhaber 11.11.2026
         'services' => ['Sonderanfertigung', 'Gravur', 'Messer schärfen', 'Messer reparieren', 'Neuer Griff'],
         'knife_forms' => ['Kochmesser', 'Santoku', 'Gyuto', 'Nakiri', 'Officemesser', 'Brotmesser', 'Filetiermesser', 'Ausbeinmesser', 'Jagdmesser', 'Klappmesser'],
+    ],
+
+    /*
+    | Garantie – laut Inhaber (Chat 11.11.2026). Freiwillige Herstellergarantie,
+    | zusätzlich zur gesetzlichen Gewährleistung. Formulierung vor Go-live
+    | anwaltlich prüfen lassen (Garantieerklärung, § 479 BGB).
+    */
+    'warranty' => [
+        'years' => 2,
+        'condition' => 'bei Pflege nach den mitgelieferten Pflegehinweisen',
+        'remedy' => 'Geht ein Messer trotz Pflege nach den Pflegehinweisen kaputt, richten wir es wieder her oder erstatten den Kaufpreis.',
+        'excluded' => 'Schäden durch falsche Behandlung – zum Beispiel Rost nach dem Spülen in der Spülmaschine – sind Eigenverschulden und von der Garantie ausgenommen; im Einzelfall ist Kulanz möglich.',
+        'included' => ['Pflegehinweise als kleines Heft', 'Pflegemittel, kostenlos'],
+        'statutory_note' => 'Deine gesetzlichen Gewährleistungsrechte bleiben von der Garantie unberührt.',
     ],
 
     /*

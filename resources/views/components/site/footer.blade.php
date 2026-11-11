@@ -57,6 +57,7 @@
                     <li><a href="/messer-schaerfen-lassen/">Messer schärfen lassen</a></li>
                     <li><a href="/messer-reparieren-lassen/">Messer reparieren lassen</a></li>
                     <li><a href="/versand/">Versand &amp; Abholung</a></li>
+                    <li><a href="/garantie/">2 Jahre Garantie</a></li>
                 </ul>
             </nav>
             <nav aria-labelledby="footer-manufaktur">

@@ -215,7 +215,11 @@ final class Schema
                     'http://purl.org/goodrelations/v1#DeliveryModeParcelService',
                     config('ulbrich.sales.pickup') ? 'http://purl.org/goodrelations/v1#DeliveryModePickUp' : null,
                 ])),
-                // Nur Deutschland: Auslandskosten sind noch nicht bekannt.
+                'warranty' => config('ulbrich.warranty.years') ? [
+                    '@type' => 'WarrantyPromise',
+                    'durationOfWarranty' => ['@type' => 'QuantitativeValue', 'value' => config('ulbrich.warranty.years'), 'unitCode' => 'ANN'],
+                ] : null,
+                // Nur Deutschland: Auslandskosten trägt der Kunde und werden einzeln genannt.
                 'shippingDetails' => config('ulbrich.sales.shipping_de_eur') ? [
                     '@type' => 'OfferShippingDetails',
                     'shippingRate' => ['@type' => 'MonetaryAmount', 'value' => (string) config('ulbrich.sales.shipping_de_eur'), 'currency' => 'EUR'],
