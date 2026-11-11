@@ -74,9 +74,21 @@ class XmasAndEditionTest extends TestCase
 
     /* ---------------- Weihnachtsaktion ---------------- */
 
+    /** Anmelden → Link (Token aus der DB) → Spiel starten. */
     private function start(string $email = 'spieler@example.org'): array
     {
-        return $this->postJson('/weihnachtsaktion/start/', ['email' => $email, 'conditions' => '1'])->assertOk()->json();
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => $email, 'conditions' => '1'])->assertOk()->assertJson(['status' => 'sent']);
+        $t = XmasEntry::where('email_key', XmasEntry::emailKey($email))->value('verify_token');
+
+        return $this->postJson('/weihnachtsaktion/start/', ['t' => $t])->assertOk()->json() + ['t' => $t];
+    }
+
+    private function playFor(int $score, string $email = 'spieler@example.org'): array
+    {
+        $r = $this->start($email);
+        $this->travel(31)->seconds();
+
+        return $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => $score])->assertOk()->json();
     }
 
     public function test_tiers_and_cap(): void
@@ -86,54 +98,70 @@ class XmasAndEditionTest extends TestCase
         $this->assertSame(10, XmasEntry::percentFor(5), 'nie mehr als 10 %');
     }
 
+    public function test_game_only_starts_via_personal_email_link(): void
+    {
+        $r = $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'anna@example.org', 'conditions' => '1'])->assertOk()->json();
+        $this->assertStringContainsString('/weihnachtsaktion/?t=', $r['dev_link'], 'Testlink nur außerhalb der Produktion');
+        $this->assertNull(XmasEntry::sole()->started_at);
+
+        $this->postJson('/weihnachtsaktion/start/', ['t' => str_repeat('x', 48)])->assertNotFound();
+        $page = $this->get(parse_url($r['dev_link'], PHP_URL_PATH).'?'.parse_url($r['dev_link'], PHP_URL_QUERY))->getContent();
+        $this->assertStringContainsString('data-xmas-go', $page);
+    }
+
     public function test_full_round_gives_code_and_only_once_per_person(): void
     {
-        $r = $this->start('Anna.Test+xmas@GoogleMail.com');
-        $this->assertSame('ok', $r['status']);
-        $this->travel(31)->seconds();
-        $done = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 12])->assertOk()->json();
+        $done = $this->playFor(12, 'Anna.Test+xmas@GoogleMail.com');
         $this->assertSame([12, 10], [$done['score'], $done['percent']]);
         $this->assertMatchesRegularExpression('/^XMAS-[A-Z0-9]{6}$/', $done['code']);
 
-        // gleiche Person (andere Schreibweise) → keine zweite Teilnahme, gleicher Code
-        $again = $this->start('annatest@gmail.com');
-        $this->assertSame(['played', $done['code']], [$again['status'], $again['code']]);
-        // Ergebnis kann nicht nachträglich verbessert werden
-        $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 80])->assertJson(['percent' => 10, 'score' => 12]);
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'annatest@gmail.com', 'conditions' => '1'])->assertStatus(422);
+        $t = XmasEntry::sole()->verify_token;
+        $this->postJson('/weihnachtsaktion/start/', ['t' => $t])->assertJson(['status' => 'played', 'code' => $done['code']]);
+        $this->assertStringContainsString('Du hast schon gespielt', $this->get('/weihnachtsaktion/?t='.$t)->getContent());
         $this->assertSame(1, XmasEntry::count());
     }
 
-    public function test_aborted_game_counts_as_participation(): void
+    public function test_aborted_game_counts_and_link_works_only_once(): void
     {
-        $this->start('weg@example.org');
-        $again = $this->start('weg@example.org');
-        $this->assertSame(['played', 0, null], [$again['status'], $again['percent'], $again['code']]);
+        $r = $this->start('weg@example.org');
+        $this->postJson('/weihnachtsaktion/start/', ['t' => $r['t']])->assertJson(['status' => 'played', 'percent' => 0, 'code' => null]);
+    }
+
+    public function test_disposable_addresses_and_connection_limit(): void
+    {
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'x@mailinator.com', 'conditions' => '1'])->assertStatus(422);
+        foreach (['a', 'b', 'c'] as $n) {
+            $this->postJson('/weihnachtsaktion/anmelden/', ['email' => "{$n}@example.org", 'conditions' => '1'])->assertOk();
+        }
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'd@example.org', 'conditions' => '1'])->assertStatus(429);
+        $this->assertSame(3, XmasEntry::count());
     }
 
     public function test_cheating_is_capped_or_rejected(): void
     {
         $fast = $this->start('schnell@example.org');
         $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $fast['token'], 'score' => 50])->assertJson(['score' => 0, 'percent' => 0, 'code' => null]);
-
-        $big = $this->start('viel@example.org');
-        $this->travel(31)->seconds();
-        $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $big['token'], 'score' => 999])->assertJson(['score' => 60, 'percent' => 10]);
+        $this->assertSame(60, $this->playFor(999, 'viel@example.org')['score']);
     }
 
-    public function test_code_redeems_once_and_reduces_amount(): void
+    public function test_code_needs_same_email_phone_and_only_one_per_household(): void
     {
-        $r = $this->start();
-        $this->travel(31)->seconds();
-        $code = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 5])->json('code');
+        $code = $this->playFor(5, 'erika@example.org')['code'];
+        $order = ['type' => 'messer', 'item' => config('ulbrich.edition.name'), 'name' => 'Erika Muster', 'consent' => '1', 'source' => '/klappmesser/'];
 
-        $base = ['type' => 'messer', 'item' => config('ulbrich.edition.name'), 'name' => 'A', 'email' => 'a@example.org', 'consent' => '1', 'source' => '/klappmesser/'];
-        $this->post('/anfrage/', $base + ['discount_code' => strtolower($code)])->assertSessionHasNoErrors();
-        $order = Order::sole();
-        $this->assertSame([$code, 5, '664.05'], [$order->discount_code, $order->discount_percent, $order->amount]);
-        $this->assertNotNull(XmasEntry::sole()->redeemed_at);
+        $this->post('/anfrage/', $order + ['email' => 'andere@example.org', 'phone' => '0171 1234567', 'discount_code' => $code])->assertSessionHasErrors('discount_code');
+        $this->post('/anfrage/', $order + ['email' => 'erika@example.org', 'discount_code' => $code])->assertSessionHasErrors('phone');
+        $this->post('/anfrage/', $order + ['email' => 'erika@example.org', 'phone' => '0171 1234567', 'discount_code' => strtolower($code)])->assertSessionHasNoErrors();
+        $this->assertSame(['5', '664.05'], [(string) Order::sole()->discount_percent, Order::sole()->amount]);
+        $this->post('/anfrage/', $order + ['email' => 'erika@example.org', 'phone' => '0171 1234567', 'discount_code' => $code])->assertSessionHasErrors('discount_code');
 
-        $this->post('/anfrage/', $base + ['discount_code' => $code])->assertSessionHasErrors('discount_code');
-        $this->post('/anfrage/', $base + ['discount_code' => 'XMAS-FALSCH'])->assertSessionHasErrors('discount_code');
+        // zweite E-Mail derselben Person (gleiche Telefonnummer) → kein zweiter Rabatt
+        $this->travelBack();
+        RateLimiterReset::clear();
+        $code2 = $this->playFor(5, 'erika.zweit@example.org')['code'];
+        $this->post('/anfrage/', $order + ['email' => 'erika.zweit@example.org', 'phone' => '+49 171 1234567', 'discount_code' => $code2])
+            ->assertSessionHasErrors(['discount_code' => 'Pro Person bzw. Haushalt kann nur ein Weihnachtsrabatt eingelöst werden.']);
         $this->assertSame(1, Order::count());
     }
 
@@ -142,10 +170,10 @@ class XmasAndEditionTest extends TestCase
         $html = $this->get('/weihnachtsaktion/')->assertOk()->getContent();
         $this->assertStringContainsString('data-xmas-form', $html);
         $this->assertStringContainsString('Jede Person kann nur einmal teilnehmen.', $html);
+        $this->assertStringContainsString('Ein Weihnachtsrabatt pro Person bzw. Haushalt.', $html);
         $this->assertStringContainsString('höchstens 10 %', $html);
         $this->assertStringContainsString('Gültig bis 31. Dezember 2026', $html);
         $this->assertStringNotContainsString('data-xmas-practice', $html, 'keine Übungsrunde');
-        $this->assertStringContainsString('Es gibt keine Probe- oder Übungsrunde.', $html);
         $this->assertStringContainsString('href="/weihnachtsaktion/"', $this->get('/')->getContent());
         $this->assertStringContainsString('name="discount_code"', $this->get('/klappmesser/')->getContent());
 
@@ -154,7 +182,16 @@ class XmasAndEditionTest extends TestCase
 
         config(['ulbrich.xmas.ends_on' => now()->subDay()->toDateString(), 'ulbrich.xmas.valid_until' => now()->subDay()->toDateString()]);
         $this->assertStringContainsString('Die Weihnachtsaktion ist vorbei', $this->get('/weihnachtsaktion/')->getContent());
-        $this->postJson('/weihnachtsaktion/start/', ['email' => 'spaet@example.org', 'conditions' => '1'])->assertStatus(410);
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'spaet@example.org', 'conditions' => '1'])->assertStatus(410);
         $this->assertStringNotContainsString('name="discount_code"', $this->get('/klappmesser/')->getContent());
+    }
+}
+
+/** Hilfsklasse: IP-Limit zwischen zwei Teilnahmen im selben Test zurücksetzen. */
+final class RateLimiterReset
+{
+    public static function clear(): void
+    {
+        \Illuminate\Support\Facades\Cache::flush();
     }
 }

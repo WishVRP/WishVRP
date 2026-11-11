@@ -2,6 +2,7 @@
     $x = $c['xmas'];
     $active = \App\Models\XmasEntry::campaignActive();
     $until = \App\Models\XmasEntry::validUntil()->locale('de')->isoFormat('D. MMMM YYYY');
+    $invite = request('t') ? \App\Models\XmasEntry::query()->where('verify_token', (string) request('t'))->first() : null;
     $tiers = collect($x['tiers'])->map(fn ($t) => ['min' => $t['min'], 'percent' => min($t['percent'], $x['max_percent'])]);
 @endphp
 <x-layouts.site :meta="$meta" :schema="$schema" :current="$path">
@@ -12,7 +13,7 @@
         <div class="container">
             <h2 id="xmas-h" class="sr-only">Spiel</h2>
             @if ($active)
-                <div class="xmas__game" data-xmas-game data-seconds="{{ $x['seconds'] }}" data-start="/weihnachtsaktion/start/" data-finish="/weihnachtsaktion/ergebnis/" data-until="{{ $until }}">
+                <div class="xmas__game" data-xmas-game data-seconds="{{ $x['seconds'] }}" data-register="/weihnachtsaktion/anmelden/" data-start="/weihnachtsaktion/start/" data-finish="/weihnachtsaktion/ergebnis/" data-until="{{ $until }}">
                     <canvas class="xmas__canvas" width="960" height="600" aria-label="Spielfeld: Weihnachtsmann mit Schneebällen treffen" role="img"></canvas>
                     <div class="xmas__hud" aria-live="polite">
                         <span>Treffer: <b data-xmas-score>0</b></span>
@@ -20,21 +21,40 @@
                         <span>Rekord: <b data-xmas-best>–</b></span>
                     </div>
                     <div class="xmas__overlay" data-xmas-start>
-                        <p class="xmas__title">Einmal spielen, Rabatt sichern</p>
-                        <form class="xmas__form" data-xmas-form novalidate>
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <label class="field">
-                                <span class="field__label">Deine E-Mail-Adresse (dorthin schicken wir deinen Code)</span>
-                                <input type="email" name="email" required maxlength="190" autocomplete="email">
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" name="conditions" value="1" required>
-                                <span>Ich akzeptiere die <a href="#teilnahmebedingungen">Teilnahmebedingungen</a> (nur eine Teilnahme pro Person) und den <a href="/datenschutz/">Datenschutzhinweis</a>.</span>
-                            </label>
+                        @if ($invite && ! $invite->started_at)
+                            <p class="xmas__title">Bereit für deinen einen Versuch?</p>
+                            <p>{{ $x['seconds'] }} Sekunden, so viele Treffer wie möglich. Die Schneebälle fliegen langsam – wirf dorthin, wo der Weihnachtsmann gleich sein wird. Achte auf den Wind, Wolken fangen Bälle ab.</p>
+                            <input type="hidden" data-xmas-invite value="{{ $invite->verify_token }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" data-xmas-csrf>
                             <p class="xmas__error" data-xmas-error role="alert" hidden></p>
-                            <button type="submit" class="btn btn--primary btn--lg">Um den Rabatt spielen – {{ $x['seconds'] }} Sekunden</button>
-                        </form>
-                        <p class="xmas__hint">Die Schneebälle fliegen langsam – wirf dorthin, wo der Weihnachtsmann gleich sein wird. Achte auf den Wind, Wolken fangen Bälle ab. Tastatur: ← → zielen, Leertaste werfen. Es gibt nur diesen einen Versuch – mit dem Start zählt deine Teilnahme.</p>
+                            <button type="button" class="btn btn--primary btn--lg" data-xmas-go>Jetzt spielen – nur 1 Versuch</button>
+                            <p class="xmas__hint">Mit dem Klick zählt deine Teilnahme. Tastatur: ← → zielen, Leertaste werfen.</p>
+                        @elseif ($invite)
+                            <p class="xmas__title">Du hast schon gespielt</p>
+                            <p>{{ $invite->score ?? 0 }} Treffer{{ $invite->percent ? ' – '.$invite->percent.' % Rabatt, dein Code: '.$invite->code : ' – diesmal ohne Rabatt' }}.</p>
+                            <p class="xmas__hint">Die Aktion gibt es nur einmal pro Person.</p>
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" data-xmas-csrf>
+                        @else
+                            <p class="xmas__title">Einmal spielen, Rabatt sichern</p>
+                            <form class="xmas__form" data-xmas-form novalidate>
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}" data-xmas-csrf>
+                                <label class="field">
+                                    <span class="field__label">Deine E-Mail-Adresse – wir schicken dir deinen persönlichen Spiel-Link</span>
+                                    <input type="email" name="email" required maxlength="190" autocomplete="email">
+                                </label>
+                                <label class="check">
+                                    <input type="checkbox" name="conditions" value="1" required>
+                                    <span>Ich akzeptiere die <a href="#teilnahmebedingungen">Teilnahmebedingungen</a> (nur eine Teilnahme pro Person) und den <a href="/datenschutz/">Datenschutzhinweis</a>.</span>
+                                </label>
+                                <p class="xmas__error" data-xmas-error role="alert" hidden></p>
+                                <button type="submit" class="btn btn--primary btn--lg">Spiel-Link anfordern</button>
+                            </form>
+                            <div class="xmas__sent" data-xmas-sent hidden>
+                                <p class="xmas__prize" data-xmas-sent-text></p>
+                                <p class="xmas__hint">Kein Mail bekommen? Schau im Spam-Ordner nach.</p>
+                                <p data-xmas-dev hidden>Testmodus (nur Entwicklung): <a href="#" data-xmas-dev-link>Spiel-Link öffnen</a></p>
+                            </div>
+                        @endif
                     </div>
                     <div class="xmas__overlay" data-xmas-end hidden>
                         <p class="xmas__title" data-xmas-headline>Ho ho ho!</p>
@@ -67,10 +87,12 @@
 
                 <h2 id="teilnahmebedingungen">Teilnahmebedingungen</h2>
                 <ul>
-                    <li><b>Jede Person kann nur einmal teilnehmen.</b> Die Teilnahme ist an deine E-Mail-Adresse gebunden; mit dem Start des Spiels zählt sie, auch wenn du das Spiel abbrichst oder die Seite neu lädst. Mehrfachteilnahmen, etwa mit weiteren E-Mail-Adressen, sind nicht erlaubt; so erzielte Codes können wir ablehnen.</li>
+                    <li><b>Jede Person kann nur einmal teilnehmen.</b> Gespielt wird über einen persönlichen Link, den du an deine E-Mail-Adresse bekommst; Wegwerf-Adressen sind ausgeschlossen. Mit dem Start des Spiels zählt deine Teilnahme, auch wenn du abbrichst oder die Seite neu lädst.</li>
+                    <li><b>Ein Weihnachtsrabatt pro Person bzw. Haushalt.</b> Der Code ist nur zusammen mit der E-Mail-Adresse einlösbar, mit der gespielt wurde. Beim Einlösen wird geprüft, ob unter derselben Telefonnummer oder demselben Namen mit Postleitzahl schon ein Weihnachtsrabatt eingelöst wurde; dann ist keine weitere Einlösung möglich. Mehrfachteilnahmen sind nicht erlaubt; so erzielte Codes können wir ablehnen.</li>
+                    <li>Je Internetanschluss sind höchstens drei Anmeldungen pro Tag möglich.</li>
                     <li>Das Spiel dauert {{ $x['seconds'] }} Sekunden. Gewertet wird die Zahl der Treffer. Es gibt keine Probe- oder Übungsrunde.</li>
                     <li>Der Rabatt beträgt je nach Treffern {{ $tiers->pluck('percent')->unique()->implode(' oder ') }} %, <b>höchstens {{ $x['max_percent'] }} %</b>.</li>
-                    <li>Du bekommst einen persönlichen Code, der <b>einmal</b> bei einer Bestellung oder Kursbuchung über diese Website eingelöst werden kann – einfach im Formular ins Feld „Rabattcode“ eintragen. Gültig bis {{ $until }}.</li>
+                    <li>Du bekommst einen persönlichen Code, der <b>einmal</b> bei einer Bestellung oder Kursbuchung über diese Website eingelöst werden kann – einfach im Formular ins Feld „Rabattcode“ eintragen. Gültig bis {{ $until }}. Für die Einlösung gibst du deine Telefonnummer an.</li>
                     <li>Der Rabatt gilt auf den Preis der Bestellung bzw. Buchung ohne Versandkosten, ist nicht mit anderen Rabatten kombinierbar und wird nicht bar ausgezahlt.</li>
                     <li>Die Aktion läuft bis zum {{ \Illuminate\Support\Carbon::parse($x['ends_on'])->locale('de')->isoFormat('D. MMMM YYYY') }}. Bei Manipulation oder technischem Missbrauch behalten wir uns vor, Codes nicht anzuerkennen.</li>
                 </ul>

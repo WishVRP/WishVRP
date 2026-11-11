@@ -23,7 +23,7 @@ class OrderController extends Controller
     private const CONTACT = [
         'name' => ['required', 'string', 'max:120'],
         'email' => ['required', 'email', 'max:190'],
-        'phone' => ['nullable', 'string', 'max:40'],
+        'phone' => ['nullable', 'required_with:discount_code', 'string', 'max:40'],
         'message' => ['nullable', 'string', 'max:3000'],
         'consent' => ['accepted'],
         'discount_code' => ['nullable', 'string', 'max:20'],
@@ -31,6 +31,7 @@ class OrderController extends Controller
 
     private const MESSAGES = [
         'consent.accepted' => 'Bitte bestätige die Datenschutzhinweise.',
+        'phone.required_with' => 'Für den Weihnachtsrabatt brauchen wir deine Telefonnummer (ein Rabatt pro Person/Haushalt).',
         'bedingungen.accepted' => 'Bitte bestätige die Kursbedingungen.',
     ];
 
@@ -40,9 +41,24 @@ class OrderController extends Controller
         if (blank($data['discount_code'] ?? null)) {
             return [null, null];
         }
+        $fail = fn (string $msg) => throw \Illuminate\Validation\ValidationException::withMessages(['discount_code' => $msg]);
         $entry = XmasEntry::redeemable($data['discount_code']);
         if (! $entry) {
-            throw \Illuminate\Validation\ValidationException::withMessages(['discount_code' => 'Dieser Rabattcode ist ungültig, abgelaufen oder wurde schon eingelöst.']);
+            $fail('Dieser Rabattcode ist ungültig, abgelaufen oder wurde schon eingelöst.');
+        }
+        if ($entry->email_key !== XmasEntry::emailKey($data['email'] ?? '')) {
+            $fail('Der Rabattcode gilt nur zusammen mit der E-Mail-Adresse, mit der gespielt wurde.');
+        }
+        // Ein Weihnachtsrabatt je Person bzw. Haushalt: gleiche Telefonnummer oder gleicher Name + PLZ
+        $phone = XmasEntry::phoneKey($data['phone'] ?? null);
+        $name = mb_strtolower(trim($data['name'] ?? ''));
+        $postal = trim($data['postal_code'] ?? '');
+        $used = Order::query()->whereNotNull('discount_code')->where('status', '!=', 'storniert')
+            ->get(['phone', 'name', 'postal_code'])
+            ->contains(fn (Order $o) => ($phone && XmasEntry::phoneKey($o->phone) === $phone)
+                || ($postal !== '' && $o->postal_code === $postal && mb_strtolower(trim($o->name)) === $name));
+        if ($used) {
+            $fail('Pro Person bzw. Haushalt kann nur ein Weihnachtsrabatt eingelöst werden.');
         }
 
         return [$entry, $entry->percent];

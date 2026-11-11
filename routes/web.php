@@ -25,6 +25,7 @@ Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
 */
 Route::post('/schmiedekurse/buchen/', [OrderController::class, 'booking'])->middleware('throttle:8,1')->name('booking.store');
 Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:8,1')->name('inquiry.store');
+Route::post('/weihnachtsaktion/anmelden/', [XmasController::class, 'register'])->middleware('throttle:6,1')->name('xmas.register');
 Route::post('/weihnachtsaktion/start/', [XmasController::class, 'start'])->middleware('throttle:10,1')->name('xmas.start');
 Route::post('/weihnachtsaktion/ergebnis/', [XmasController::class, 'finish'])->middleware('throttle:10,1')->name('xmas.finish');
 Route::post('/e/', EventController::class)->middleware('throttle:120,1')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('event');

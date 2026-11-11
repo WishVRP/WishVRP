@@ -71,9 +71,9 @@ export function startXmasGame(root) {
         if (event.key === ' ' || event.key === 'Enter') { throwTo(aimX, 0); event.preventDefault(); }
     });
 
-    const form = $('[data-xmas-form]'), errorEl = $('[data-xmas-error]');
+    const form = $('[data-xmas-form]'), errorEl = $('[data-xmas-error]'), goBtn = $('[data-xmas-go]'), invite = $('[data-xmas-invite]');
     const headline = $('[data-xmas-headline]'), prize = $('[data-xmas-prize]'), codeEl = $('[data-xmas-code]'), note = $('[data-xmas-note]');
-    const csrf = form.querySelector('[name=_token]').value;
+    const csrf = $('[data-xmas-csrf]')?.value;
     let token = null;
 
     async function post(url, data) {
@@ -89,27 +89,43 @@ export function startXmasGame(root) {
         if (r.percent > 0) {
             prize.textContent = `${r.percent} % Rabatt`;
             codeEl.hidden = false; codeEl.querySelector('b').textContent = r.code;
-            note.textContent = `Einmal einlösbar bei einer Bestellung oder Kursbuchung auf dieser Website bis ${root.dataset.until} – Feld „Rabattcode“.` + (already ? '' : ' Wir haben dir den Code auch per E-Mail geschickt.');
+            note.textContent = `Einmal einlösbar bis ${root.dataset.until} bei einer Bestellung oder Kursbuchung auf dieser Website – nur mit der E-Mail-Adresse, mit der du gespielt hast, und einmal pro Person bzw. Haushalt.` + (already ? '' : ' Den Code haben wir dir auch per E-Mail geschickt.');
         } else {
-            prize.textContent = already ? 'Diesmal gab es leider keinen Rabatt.' : 'Leider kein Treffer – diesmal kein Rabatt.';
+            prize.textContent = already ? 'Diesmal gab es leider keinen Rabatt.' : 'Zu wenige Treffer – diesmal kein Rabatt.';
             codeEl.hidden = true;
             note.textContent = (already && r.message) ? r.message : 'Die Aktion gibt es nur einmal pro Person. Danke fürs Mitspielen und frohe Weihnachten!';
         }
     }
 
-    form.addEventListener('submit', async (event) => {
+    // Schritt 1: E-Mail eintragen → persönlicher Link per E-Mail
+    form?.addEventListener('submit', async (event) => {
         event.preventDefault();
         errorEl.hidden = true;
         const button = form.querySelector('button[type=submit]'); button.disabled = true;
         try {
-            const r = await post(root.dataset.start, new FormData(form));
+            const r = await post(root.dataset.register, new FormData(form));
+            form.hidden = true;
+            const sent = $('[data-xmas-sent]'); sent.hidden = false;
+            $('[data-xmas-sent-text]').textContent = r.message;
+            if (r.dev_link) { const dev = $('[data-xmas-dev]'); dev.hidden = false; dev.querySelector('a').href = r.dev_link; }
+        } catch (e) {
+            errorEl.textContent = e.message; errorEl.hidden = false;
+        } finally { button.disabled = false; }
+    });
+
+    // Schritt 2: über den Link → genau ein Spiel
+    goBtn?.addEventListener('click', async () => {
+        errorEl.hidden = true; goBtn.disabled = true;
+        try {
+            const data = new FormData(); data.append('t', invite.value);
+            const r = await post(root.dataset.start, data);
             if (r.status === 'played') { showResult(r, true); return; }
             token = r.token;
             reset(); state = 'play'; startBox.hidden = true; endBox.hidden = true; root.focus({ preventScroll: true });
             last = performance.now(); requestAnimationFrame(loop);
         } catch (e) {
-            errorEl.textContent = e.message; errorEl.hidden = false;
-        } finally { button.disabled = false; }
+            errorEl.textContent = e.message; errorEl.hidden = false; goBtn.disabled = false;
+        }
     });
 
     async function end() {

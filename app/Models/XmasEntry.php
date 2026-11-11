@@ -10,18 +10,43 @@ use Illuminate\Support\Str;
 /** Teilnahme an der Weihnachtsaktion – genau eine je (normalisierter) E-Mail-Adresse. */
 class XmasEntry extends Model
 {
-    protected $fillable = ['email', 'email_key', 'token', 'started_at', 'finished_at', 'score', 'percent', 'code', 'redeemed_at', 'order_id'];
+    protected $fillable = ['email', 'email_key', 'token', 'verify_token', 'verified_at', 'started_at', 'finished_at', 'score', 'percent', 'code', 'redeemed_at', 'order_id'];
 
-    protected $hidden = ['token'];
+    protected $hidden = ['token', 'verify_token'];
 
     protected function casts(): array
     {
-        return ['started_at' => 'datetime', 'finished_at' => 'datetime', 'redeemed_at' => 'datetime'];
+        return ['verified_at' => 'datetime', 'started_at' => 'datetime', 'finished_at' => 'datetime', 'redeemed_at' => 'datetime'];
     }
 
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    /** Bekannte Wegwerf-Adressen (keine Teilnahme). */
+    public const DISPOSABLE = [
+        '10minutemail.com', '10minutemail.de', 'guerrillamail.com', 'guerrillamail.de', 'sharklasers.com', 'mailinator.com',
+        'yopmail.com', 'yopmail.fr', 'temp-mail.org', 'tempmail.com', 'tempmail.de', 'trashmail.com', 'trashmail.de',
+        'wegwerfemail.de', 'wegwerfmail.de', 'einrot.com', 'spambog.com', 'spambog.de', 'throwawaymail.com', 'getnada.com',
+        'dispostable.com', 'maildrop.cc', 'mohmal.com', 'emailondeck.com', 'fakeinbox.com', 'mintemail.com', 'byom.de',
+        'trash-mail.com', 'discard.email', 'mailnesia.com', 'tempr.email', 'emailfake.com', 'moakt.com', 'muellmail.com',
+    ];
+
+    public static function isDisposable(string $email): bool
+    {
+        $domain = strtolower(substr(strrchr($email, '@') ?: '', 1));
+
+        return $domain === '' || in_array($domain, self::DISPOSABLE, true);
+    }
+
+    /** Telefonnummer vergleichbar machen (nur Ziffern, 0049/+49 → 0). */
+    public static function phoneKey(?string $phone): ?string
+    {
+        $d = preg_replace('/\D/', '', (string) $phone);
+        $d = preg_replace('/^(0049|49)/', '0', $d);
+
+        return strlen($d) >= 6 ? $d : null;
     }
 
     /** klein, ohne Leerzeichen, ohne +Zusatz (anna+1@… = anna@…), bei Gmail ohne Punkte. */

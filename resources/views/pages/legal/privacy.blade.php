@@ -30,7 +30,7 @@
     <p><x-ui.missing>Rechtsgrundlage, Aufbewahrungsfristen (handels- und steuerrechtlich), E-Mail-Versanddienst – anwaltlich ergänzen</x-ui.missing></p>
 
     <h2>Weihnachtsaktion</h2>
-    <p>Für die Teilnahme an der Weihnachtsaktion speichern wir deine E-Mail-Adresse, den Zeitpunkt, die Trefferzahl und gegebenenfalls deinen Rabattcode. Damit stellen wir sicher, dass jede Person nur einmal teilnimmt, und schicken dir deinen Code per E-Mail. Die Daten werden nach Ende der Aktion und Ablauf der Einlösefrist gelöscht, soweit keine Aufbewahrungspflicht besteht.</p>
+    <p>Für die Teilnahme an der Weihnachtsaktion speichern wir deine E-Mail-Adresse, den Zeitpunkt, die Trefferzahl und gegebenenfalls deinen Rabattcode. Wir schicken dir einen persönlichen Spiel-Link und deinen Code per E-Mail. Damit jede Person nur einmal teilnimmt, begrenzen wir die Anmeldungen je Internetanschluss: Dafür wird aus deiner IP-Adresse ein nicht zurückrechenbarer Prüfwert gebildet und höchstens 24 Stunden im Zwischenspeicher gehalten, nicht in der Datenbank. Beim Einlösen eines Codes vergleichen wir Telefonnummer bzw. Name und Postleitzahl mit früheren Einlösungen, damit pro Person bzw. Haushalt nur ein Weihnachtsrabatt gewährt wird. Die Daten werden nach Ende der Aktion und Ablauf der Einlösefrist gelöscht, soweit keine Aufbewahrungspflicht besteht.</p>
     <p><x-ui.missing>Rechtsgrundlage und Löschfrist der Weihnachtsaktion anwaltlich prüfen</x-ui.missing></p>
 
     <h2>Deine Rechte</h2>
