@@ -277,6 +277,9 @@
 .block {
     position: relative;
     padding-block: var(--space-section);
+    /* Leistung: Abschnitte außerhalb des Bildschirms werden nicht gerendert (lange Startseite, ~35 Bildschirmhöhen am Handy). */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
 }
 
 .block--tight {

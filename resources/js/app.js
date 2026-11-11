@@ -32,6 +32,10 @@ if (toggle && nav) {
     });
 }
 
+/* Aufwendige Effekte (Einblenden, Hochzählen, Funken) nur auf großen Bildschirmen mit Maus.
+   Handys und Tablets bekommen eine ruhige, sofort sichtbare Seite – flüssiges Scrollen geht vor. */
+const richFx = !reduceMotion && window.matchMedia('(min-width: 64rem) and (hover: hover)').matches;
+
 /* ---------- Kopfzeile: dichter beim Scrollen ---------- */
 const header = document.querySelector('[data-header]');
 if (header) {
@@ -47,7 +51,7 @@ if (header) {
 
 /* ---------- Scroll-Reveal ---------- */
 const revealables = document.querySelectorAll('.reveal');
-if (!reduceMotion && 'IntersectionObserver' in window && revealables.length) {
+if (richFx && 'IntersectionObserver' in window && revealables.length) {
     // Erst jetzt verstecken – lädt das Skript nicht, bleibt alles sichtbar.
     document.documentElement.classList.add('reveal-ready');
     // Sicherheitsnetz: was schon im oder über dem Sichtbereich liegt, sofort zeigen
@@ -92,25 +96,31 @@ if (filters && list) {
     });
 }
 
-/* ---------- Fotos: Aufdecken beim Scrollen ---------- */
-const photos = document.querySelectorAll('.media--photo:not(.hero__media)');
-if (!reduceMotion && 'IntersectionObserver' in window) {
-    document.documentElement.classList.add('photos-animate');
-    const pio = new IntersectionObserver((entries) => {
+/* Fotos: keine Einblend-Animation mehr – sie erscheinen, sobald sie geladen sind (schnelles Scrollen). */
+/* Fotos vorausladen: ca. 3 Bildschirmhöhen vor dem Sichtbereich (Browser-Standard ist knapper),
+   damit beim schnellen Scrollen keine leeren Flächen auftauchen. */
+if ('IntersectionObserver' in window) {
+    // Beobachtet wird der Abschnitt (.block), nicht das Bild: Abschnitte außerhalb des Bildschirms
+    // werden per content-visibility nicht gerendert, ihre Bilder hätten sonst keine Position.
+    const groups = new Map();
+    document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
+        const box = img.closest('.block') || img;
+        if (!groups.has(box)) groups.set(box, []);
+        groups.get(box).push(img);
+    });
+    const pre = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const row = entry.target.closest('[data-gallery]');
-                const items = row ? row.querySelectorAll('.media--photo') : [entry.target];
-                items.forEach((el) => { el.classList.add('is-shown'); pio.unobserve(el); });
-            }
+            if (!entry.isIntersecting) return;
+            groups.get(entry.target)?.forEach((img) => { img.loading = 'eager'; });
+            pre.unobserve(entry.target);
         });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
-    photos.forEach((el) => pio.observe(el));
+    }, { rootMargin: '300% 0px 300% 0px' });
+    groups.forEach((_, box) => pre.observe(box));
 }
 
 /* ---------- Zahlen zählen hoch ---------- */
 const counters = document.querySelectorAll('[data-count]');
-if (!reduceMotion && 'IntersectionObserver' in window) {
+if (richFx && 'IntersectionObserver' in window) {
     const cio = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
@@ -180,7 +190,7 @@ if (track && galleryNav) {
    Auflösung begrenzt, Neuaufbau nur bei Breitenänderung (nicht beim Ein-/Ausblenden der
    Handy-Adressleiste) und Pause während des Scrollens. */
 const sparkCanvas = document.querySelector('[data-sparks]');
-if (sparkCanvas && !reduceMotion) {
+if (sparkCanvas && richFx) {
     const ctx = sparkCanvas.getContext('2d');
     const sparks = [];
     let w = 0; let h = 0; let raf = 0; let lastW = -1;
@@ -382,7 +392,7 @@ if (story && 'IntersectionObserver' in window) {
     const activate = (i) => {
         steps.forEach((s, n) => s.classList.toggle('is-active', n === i));
         imgs.forEach((img, n) => img.classList.toggle('is-active', n === i));
-        if (bar) bar.style.width = `${((i + 1) / steps.length) * 100}%`;
+        if (bar) bar.style.transform = `scaleX(${(i + 1) / steps.length})`;   // transform statt width: kein Neuberechnen des Layouts
     };
     activate(0);
     const sio = new IntersectionObserver((entries) => {
