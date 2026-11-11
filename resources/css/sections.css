@@ -2049,9 +2049,49 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    width: 100%;
-    height: 100%;
+    overflow: hidden;
     pointer-events: none;
+}
+
+.hero__sparks i {
+    display: none;
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff1c9 0%, #ffb347 35%, rgb(255 120 20 / 0) 70%);
+    opacity: 0;
+}
+
+/* Nur große Bildschirme mit Maus und ohne „Bewegung reduzieren“. Mobil: Mündung des Glutnests im oberen Fotoband. */
+@media (min-width: 64rem) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .hero__sparks i {
+        display: block;
+        animation: spark-rise linear infinite;
+    }
+    .hero__sparks i:nth-child(1) { left: 85.5%; top: 59.6%; width: 4.5px; height: 4.5px; --dx: -22px; --dy: -184px; animation-duration: 3.5s; animation-delay: -0.29s; }
+    .hero__sparks i:nth-child(2) { left: 81.0%; top: 68.2%; width: 3.4px; height: 3.4px; --dx: -82px; --dy: -221px; animation-duration: 2.27s; animation-delay: -1.73s; }
+    .hero__sparks i:nth-child(3) { left: 87.2%; top: 75.8%; width: 6.8px; height: 6.8px; --dx: -10px; --dy: -309px; animation-duration: 2.45s; animation-delay: -0.89s; }
+    .hero__sparks i:nth-child(4) { left: 89.8%; top: 65.5%; width: 4.2px; height: 4.2px; --dx: 19px; --dy: -194px; animation-duration: 4.15s; animation-delay: -0.19s; }
+    .hero__sparks i:nth-child(5) { left: 82.5%; top: 58.8%; width: 5.3px; height: 5.3px; --dx: -67px; --dy: -186px; animation-duration: 2.82s; animation-delay: -3.26s; }
+    .hero__sparks i:nth-child(6) { left: 90.9%; top: 64.9%; width: 3.8px; height: 3.8px; --dx: -83px; --dy: -318px; animation-duration: 3.3s; animation-delay: -0.25s; }
+    .hero__sparks i:nth-child(7) { left: 91.6%; top: 66.3%; width: 4.2px; height: 4.2px; --dx: -32px; --dy: -252px; animation-duration: 2.83s; animation-delay: -2.34s; }
+    .hero__sparks i:nth-child(8) { left: 93.5%; top: 72.8%; width: 6.5px; height: 6.5px; --dx: -23px; --dy: -286px; animation-duration: 2.69s; animation-delay: -2.3s; }
+    .hero__sparks i:nth-child(9) { left: 92.4%; top: 62.9%; width: 6.0px; height: 6.0px; --dx: -37px; --dy: -202px; animation-duration: 4.16s; animation-delay: -0.47s; }
+    .hero__sparks i:nth-child(10) { left: 82.6%; top: 67.7%; width: 5.3px; height: 5.3px; --dx: 7px; --dy: -302px; animation-duration: 2.28s; animation-delay: -2.67s; }
+    .hero__sparks i:nth-child(11) { left: 94.9%; top: 63.5%; width: 3.3px; height: 3.3px; --dx: -16px; --dy: -276px; animation-duration: 3.59s; animation-delay: -2.38s; }
+    .hero__sparks i:nth-child(12) { left: 81.6%; top: 62.5%; width: 5.6px; height: 5.6px; --dx: 3px; --dy: -239px; animation-duration: 3.59s; animation-delay: -0.26s; }
+    .hero__sparks i:nth-child(13) { left: 96.9%; top: 75.7%; width: 3.1px; height: 3.1px; --dx: -5px; --dy: -248px; animation-duration: 2.77s; animation-delay: -1.54s; }
+    .hero__sparks i:nth-child(14) { left: 87.8%; top: 60.0%; width: 3.5px; height: 3.5px; --dx: 8px; --dy: -233px; animation-duration: 2.43s; animation-delay: -0.24s; }
+    .hero__sparks i:nth-child(15) { left: 84.2%; top: 65.4%; width: 5.2px; height: 5.2px; --dx: -33px; --dy: -262px; animation-duration: 3.94s; animation-delay: -0.32s; }
+    .hero__sparks i:nth-child(16) { left: 95.0%; top: 75.7%; width: 5.7px; height: 5.7px; --dx: -37px; --dy: -251px; animation-duration: 3.93s; animation-delay: -1.11s; }
+    .hero__sparks i:nth-child(17) { left: 86.5%; top: 61.5%; width: 3.0px; height: 3.0px; --dx: -6px; --dy: -219px; animation-duration: 2.37s; animation-delay: -0.61s; }
+    .hero__sparks i:nth-child(18) { left: 94.1%; top: 60.4%; width: 5.4px; height: 5.4px; --dx: -22px; --dy: -254px; animation-duration: 2.76s; animation-delay: -0.58s; }
+}
+
+@keyframes spark-rise {
+    0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    70% { opacity: 0.7; }
+    100% { transform: translate3d(var(--dx), var(--dy), 0) scale(0.4); opacity: 0; }
 }
 
 .hero__inner {

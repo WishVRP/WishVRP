@@ -1,7 +1,8 @@
 @php $h = $c['heritage']; $years = now()->year - $h['since']; @endphp
 <section class="hero hero--photo hero--story is-dark" aria-labelledby="hero-title">
     <x-ui.media class="hero__media" foto="klappmesser-offen" eager sizes="(min-width: 64rem) 62vw, 100vw" />
-    <canvas class="hero__sparks" data-sparks aria-hidden="true"></canvas>
+    {{-- Funken: reine CSS-Animation (transform/opacity) – läuft auf der Grafikkarte, kostet beim Scrollen nichts --}}
+    <div class="hero__sparks" data-sparks aria-hidden="true">@for ($i = 0; $i < 18; $i++)<i></i>@endfor</div>
     <p class="hero__year" aria-hidden="true">{{ $h['since'] }}</p>
     <div class="container hero__inner">
         <div>
