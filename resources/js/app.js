@@ -346,7 +346,20 @@ if (story && 'IntersectionObserver' in window) {
 document.querySelectorAll('[data-serials]').forEach((box) => {
     const out = box.querySelector('[data-serial-out]');
     const show = (event) => { const b = event.target.closest('.serial'); if (b && out) out.textContent = b.dataset.tip; };
-    box.addEventListener('click', show);
+    const target = box.dataset.selectTarget ? document.querySelector(box.dataset.selectTarget) : null;
+    box.addEventListener('click', (event) => {
+        show(event);
+        const b = event.target.closest('.serial[data-number]');
+        if (!b) return;
+        if (target) {
+            target.value = b.dataset.number;
+            box.querySelectorAll('.is-selected').forEach((li) => li.classList.remove('is-selected'));
+            b.parentElement.classList.add('is-selected');
+            if (out) out.textContent = `Nr. ${b.dataset.number} ausgewählt – unten im Formular reservieren.`;
+        } else {
+            location.href = `/klappmesser/?nummer=${b.dataset.number}#anfrage`;
+        }
+    });
     box.addEventListener('focusin', show);
     box.addEventListener('mouseover', show);
 });

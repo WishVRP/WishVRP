@@ -37,14 +37,19 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
 - Zahlungsdaten (IBAN) für die Bestätigungsmail festlegen. Bisher steht dort „Die Zahlungsdaten bekommst du von uns“.
 - Prüfen, ob der Ablauf „Anfrage → Zahlungsdaten → Zahlung → Bestätigung“ so passt.
 
-## Edition 100 (Raster mit Käufernamen)
-- Menü **Edition 100**: je Seriennummer Status (offen / reserviert / vergeben), Anzeigename (z. B. „Erika M.“), Schalter **Name öffentlich**, Bezug zum Vorgang. Mehrere Nummern lassen sich auf einmal als vergeben markieren.
-- Auf der Website (Startseite und `/klappmesser/`) zeigt jedes Feld beim Überfahren oder Antippen „Nr. 17 · gehört Erika M.“, ohne Zustimmung nur „Nr. 17 · vergeben“, reservierte Felder „reserviert“. Offene Nummern zeigen nur die Nummer; „frei“ wird nicht behauptet, solange nicht alle Verkäufe erfasst sind.
-- Im Bestellformular der Edition gibt es ein freiwilliges Häkchen „Mein Name darf im Raster erscheinen“ und das Feld für den Anzeigenamen. Den Namen speichern wir nur mit Häkchen. Er steht im Vorgang und in der Benachrichtigungsmail.
-- **Wichtig:** Bereits verkaufte Nummern einmal nachtragen. Namen nur mit Zustimmung der Käufer veröffentlichen.
+## Edition 100 (Raster, Wunschnummer, Käufernamen)
+- **Farben im Raster** (Startseite und `/klappmesser/`): **Rot** = verkauft · **Grün** = verkauft und Name freigegeben (antippen zeigt „Nr. 20 · gehört Erika M.“) · **schraffiert** = reserviert · **dunkel** = frei · **Gold** = Sonderstücke 91–100 (nach Absprache).
+- **19 verkaufte Stücke** sind vorläufig als **Nr. 1–19** eingetragen. Welche Nummern es wirklich sind, ist noch offen. Bitte im Menü **Edition 100** korrigieren und, falls bekannt, Namen nur mit Zustimmung eintragen.
+- **Wunschnummer:** Auf `/klappmesser/` ein freies Feld antippen oder im Bestellformular wählen. Auf der Startseite führt das Antippen zur Bestellung mit vorausgewählter Nummer. Die Nummer wird sofort **reserviert**, eine zweite Bestellung derselben Nummer ist nicht möglich.
+- **Name auf der Website:** Häkchen „Mein Name soll auf der Website bei meiner Nummer erscheinen“ plus Anzeigename. Ohne Häkchen speichern wir keinen Namen.
+- **Automatik:** Vorgang auf *Zahlung erhalten* oder *Bestätigt* → Nummer **verkauft**, mit Zustimmung **grün mit Namen**. *Storniert* → Nummer wieder **frei**.
 
 ## Weihnachtsaktion „Schneeballschlacht“
-- Seite `/weihnachtsaktion/`, Hinweisbanner auf der Startseite und auf `/geschenke/weihnachten/`. Läuft bis `ulbrich.xmas.ends_on` (24.12.2026), danach automatisch „Aktion vorbei“, und das Banner verschwindet.
-- Spiel: 30 Sekunden, den Weihnachtsmann mit Schneebällen treffen. Mit jedem Treffer wird er schneller. Der eigene Rekord bleibt im Browser gespeichert. Steuerung per Maus, Touch oder Tastatur (← → zielen, Leertaste werfen).
-- **Überraschung festlegen** in `config/ulbrich.php → xmas.surprise` (Titel, Text, optional Code). Bis dahin steht dort „Die Überraschung wird bald verraten“, intern als fehlend markiert. Codes nur eintragen, wenn sie wirklich gelten.
-- Gespielte Runden zählen im Dashboard unter Klicks als „Weihnachtsspiel gespielt“, ohne personenbezogene Daten.
+- Seite `/weihnachtsaktion/`, Banner auf der Startseite und auf `/geschenke/weihnachten/`. Spielbar bis 24.12.2026 (`ulbrich.xmas.ends_on`).
+- **Ablauf:** E-Mail eingeben und Teilnahmebedingungen bestätigen → 30 Sekunden spielen → Treffer werden gezählt → Rabatt und persönlicher Code erscheinen und kommen per E-Mail.
+- **Rabattstufen (Vorschlag, in `config/ulbrich.php → xmas.tiers` änderbar):** 1–11 Treffer = **5 %**, ab 12 Treffern = **10 %**, 0 Treffer = kein Rabatt. **Höchstens 10 %** ist fest eingebaut (`max_percent`).
+- **Nur einmal pro Person:** Die Teilnahme hängt an der E-Mail-Adresse; Schreibvarianten wie `Anna.Test+x@googlemail.com` = `annatest@gmail.com` zählen als dieselbe. Mit dem Start zählt die Teilnahme, auch bei Abbruch oder Neuladen. Wer erneut startet, sieht nur sein erstes Ergebnis.
+- **Gegen Schummeln:** Die Wertung passiert auf dem Server. Wer vor Ablauf der 30 Sekunden ein Ergebnis schickt, bekommt 0 Treffer; mehr als 80 Treffer werden auf 80 begrenzt. Der Rabatt übersteigt nie 10 %.
+- **Code einlösen:** Feld „Rabattcode“ in allen Bestell- und Buchungsformularen (solange die Codes gelten, bis 24.12.2026, `valid_until`). Jeder Code ist **einmalig**: Danach gilt er als eingelöst und ist dem Vorgang zugeordnet; der Betrag im Vorgang ist schon reduziert.
+- **Verwaltung → Weihnachtsaktion:** Teilnahmen, Treffer, Rabatt, Code, eingelöst ja/nein, Vorgang. Einlösung lässt sich manuell setzen oder zurücknehmen, etwa bei telefonischen Bestellungen. Auf dem Dashboard steht die Zahl der Teilnahmen und Codes.
+- **Teilnahmebedingungen** stehen auf der Aktionsseite. Gültigkeitszeitraum und Bedingungen bestätigen und anwaltlich prüfen lassen (intern markiert). Die Datenschutzerklärung hat einen Abschnitt „Weihnachtsaktion“.

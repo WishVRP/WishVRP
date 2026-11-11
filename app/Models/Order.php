@@ -77,6 +77,12 @@ class Order extends Model
             }
             $order->syncSeats();
         });
+
+        static::saved(function (Order $order) {
+            if ($order->wasChanged('status') || $order->wasChanged('public_name')) {
+                $order->syncEditionPiece();
+            }
+        });
     }
 
     /** Plätze im Kurstermin zählen bzw. freigeben (genau einmal). */
@@ -96,6 +102,22 @@ class Order extends Model
         } elseif (! $counts && $this->seats_counted) {
             $date->update(['seats_booked' => max(0, $date->seats_booked - $this->participants)]);
             $this->seats_counted = false;
+        }
+    }
+
+    /** Edition-Nummer: bezahlt/bestätigt → verkauft (Name automatisch, falls zugestimmt); storniert → wieder frei. */
+    public function syncEditionPiece(): void
+    {
+        $piece = EditionPiece::query()->where('order_id', $this->id)->first();
+        if (! $piece) {
+            return;
+        }
+        if ($this->status === 'storniert') {
+            $piece->update(['status' => 'frei', 'order_id' => null, 'buyer_name' => null, 'show_name' => false]);
+        } elseif (in_array($this->status, ['bezahlt', 'bestaetigt', 'versendet', 'abgeschlossen'], true)) {
+            $piece->update(['status' => 'vergeben', 'buyer_name' => $this->public_name, 'show_name' => filled($this->public_name)]);
+        } else {
+            $piece->update(['status' => 'reserviert', 'buyer_name' => $this->public_name, 'show_name' => filled($this->public_name)]);
         }
     }
 

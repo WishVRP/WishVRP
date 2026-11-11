@@ -6,6 +6,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PendingPageController;
 use App\Http\Controllers\SeoController;
+use App\Http\Controllers\XmasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,8 @@ Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
 */
 Route::post('/schmiedekurse/buchen/', [OrderController::class, 'booking'])->middleware('throttle:8,1')->name('booking.store');
 Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:8,1')->name('inquiry.store');
+Route::post('/weihnachtsaktion/start/', [XmasController::class, 'start'])->middleware('throttle:10,1')->name('xmas.start');
+Route::post('/weihnachtsaktion/ergebnis/', [XmasController::class, 'finish'])->middleware('throttle:10,1')->name('xmas.finish');
 Route::post('/e/', EventController::class)->middleware('throttle:120,1')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)->name('event');
 
 /*

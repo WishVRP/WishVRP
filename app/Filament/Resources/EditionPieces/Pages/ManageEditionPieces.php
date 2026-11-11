@@ -11,6 +11,6 @@ class ManageEditionPieces extends ManageRecords
 
     public function getSubheading(): ?string
     {
-        return 'Status und Anzeigename je Seriennummer. Auf der Website erscheint beim Antippen eines Feldes „Nr. 17 · gehört Erika M.“ – der Name nur, wenn „Name öffentlich“ an ist.';
+        return 'Rot = verkauft, Grün = verkauft mit freigegebenem Namen, schraffiert = reserviert, dunkel = frei (auf der Website wählbar). Bestellungen reservieren ihre Nummer automatisch; bei „Zahlung erhalten“/„Bestätigt“ wird sie verkauft und – mit Zustimmung – grün mit Namen; bei „Storniert“ wieder frei.';
     }
 }

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseDate;
+use App\Models\EditionPiece;
 use App\Models\Order;
 use App\Models\SiteEvent;
+use App\Models\XmasEntry;
 use App\Support\OrderMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,12 +26,40 @@ class OrderController extends Controller
         'phone' => ['nullable', 'string', 'max:40'],
         'message' => ['nullable', 'string', 'max:3000'],
         'consent' => ['accepted'],
+        'discount_code' => ['nullable', 'string', 'max:20'],
     ];
 
     private const MESSAGES = [
         'consent.accepted' => 'Bitte bestätige die Datenschutzhinweise.',
         'bedingungen.accepted' => 'Bitte bestätige die Kursbedingungen.',
     ];
+
+    /** Rabattcode der Weihnachtsaktion prüfen (einmalig, gültig). */
+    private function discount(array $data): array
+    {
+        if (blank($data['discount_code'] ?? null)) {
+            return [null, null];
+        }
+        $entry = XmasEntry::redeemable($data['discount_code']);
+        if (! $entry) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['discount_code' => 'Dieser Rabattcode ist ungültig, abgelaufen oder wurde schon eingelöst.']);
+        }
+
+        return [$entry, $entry->percent];
+    }
+
+    private function applyDiscount(?Order $order, ?XmasEntry $entry): void
+    {
+        if (! $order || ! $entry) {
+            return;
+        }
+        $order->forceFill([
+            'discount_code' => $entry->code,
+            'discount_percent' => $entry->percent,
+            'amount' => $order->amount !== null ? round((float) $order->amount * (100 - $entry->percent) / 100, 2) : null,
+        ])->save();
+        $entry->update(['redeemed_at' => now(), 'order_id' => $order->id]);
+    }
 
     private function isSpam(Request $request): bool
     {
@@ -49,6 +79,7 @@ class OrderController extends Controller
             'bedingungen' => ['accepted'],
         ], self::MESSAGES);
 
+        [$xmas] = $this->discount($data);
         $course = Course::query()->published()->get()->first(fn ($c) => Str::slug($c->name) === $data['kurs']);
         if (! $course) {
             return back()->withErrors(['kurs' => 'Bitte wähle einen Kurs.'])->withInput();
@@ -74,6 +105,7 @@ class OrderController extends Controller
             'amount' => $course->price_from ? $course->price_from * $data['teilnehmer'] : null,
             'source_path' => '/schmiedekurse/buchen/',
         ]);
+        $this->applyDiscount($order, $xmas);
         SiteEvent::create(['name' => 'buchung', 'path' => '/schmiedekurse/buchen/', 'occurred_on' => now()->toDateString()]);
         OrderMail::received($order);
 
@@ -96,8 +128,10 @@ class OrderController extends Controller
             'country' => ['nullable', 'string', 'max:80'],
             'source' => ['nullable', 'string', 'max:190'],
             'show_name' => ['nullable', 'boolean'],
+            'number' => ['nullable', 'integer', 'min:1', 'max:'.config('ulbrich.edition.total')],
             'public_name' => ['nullable', 'string', 'max:80'],
         ], self::MESSAGES);
+        [$xmas] = $this->discount($data);
         $quantity = $data['quantity'] ?? 1;
         $item = $data['item'] ?? null;
         $amount = null;
@@ -108,8 +142,17 @@ class OrderController extends Controller
             $item = 'Gutschein: '.($course?->name ?? 'Schmiedekurs');
             $amount = $course?->price_from ? $course->price_from * $quantity : null;
         }
+        $piece = null;
         if ($item === config('ulbrich.edition.name')) {
-            $amount = config('ulbrich.edition.price') * $quantity;
+            $quantity = 1;   // je Bestellung genau eine Nummer
+            $amount = config('ulbrich.edition.price');
+            if (! empty($data['number'])) {
+                $piece = EditionPiece::query()->where('number', $data['number'])->first();
+                if (! $piece?->isSelectable()) {
+                    return back()->withErrors(['number' => 'Diese Nummer ist leider nicht mehr frei. Bitte wähle eine andere.'])->withInput();
+                }
+                $item .= ' · Nr. '.$piece->number;
+            }
         }
 
         $order = Order::create([
@@ -126,6 +169,11 @@ class OrderController extends Controller
             // Anzeigename nur speichern, wenn der Veröffentlichung zugestimmt wurde
             'public_name' => ! empty($data['show_name']) ? (trim($data['public_name'] ?? '') ?: null) : null,
         ]);
+        $this->applyDiscount($order, $xmas);
+        if ($piece) {
+            // Nummer sofort reservieren; Name wird erst nach Zahlungsbestätigung grün angezeigt (Order::syncEditionPiece)
+            $piece->update(['status' => 'reserviert', 'order_id' => $order->id, 'buyer_name' => $order->public_name, 'show_name' => filled($order->public_name)]);
+        }
         SiteEvent::create(['name' => 'anfrage', 'path' => $order->source_path, 'occurred_on' => now()->toDateString()]);
         OrderMail::received($order);
 

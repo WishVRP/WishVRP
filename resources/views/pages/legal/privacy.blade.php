@@ -29,6 +29,10 @@
     <p>Wenn du über die Website einen Kurs buchst, einen Gutschein oder ein Messer bestellst oder eine Anfrage sendest, speichern wir deine Angaben (Name, E-Mail-Adresse, optional Telefon, Lieferadresse und Nachricht) sowie die gewählte Leistung, um deine Buchung oder Anfrage zu bearbeiten. Du bekommst eine Eingangsbestätigung per E-Mail. Eine Online-Zahlung findet nicht statt; bezahlt wird per Überweisung oder bei Abholung vor Ort.</p>
     <p><x-ui.missing>Rechtsgrundlage, Aufbewahrungsfristen (handels- und steuerrechtlich), E-Mail-Versanddienst – anwaltlich ergänzen</x-ui.missing></p>
 
+    <h2>Weihnachtsaktion</h2>
+    <p>Für die Teilnahme an der Weihnachtsaktion speichern wir deine E-Mail-Adresse, den Zeitpunkt, die Trefferzahl und gegebenenfalls deinen Rabattcode. Damit stellen wir sicher, dass jede Person nur einmal teilnimmt, und schicken dir deinen Code per E-Mail. Die Daten werden nach Ende der Aktion und Ablauf der Einlösefrist gelöscht, soweit keine Aufbewahrungspflicht besteht.</p>
+    <p><x-ui.missing>Rechtsgrundlage und Löschfrist der Weihnachtsaktion anwaltlich prüfen</x-ui.missing></p>
+
     <h2>Deine Rechte</h2>
     <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.</p>
 

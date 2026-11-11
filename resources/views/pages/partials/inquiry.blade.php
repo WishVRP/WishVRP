@@ -36,6 +36,18 @@
                             </select>
                         </label>
                     @endif
+                    @if (! empty($editionNumbers))
+                        <label class="field">
+                            <span class="field__label">Wunschnummer</span>
+                            <select name="number" id="edition-nummer">
+                                <option value="">egal – nächste freie Nummer</option>
+                                @foreach ($editionNumbers as $n)
+                                    <option value="{{ $n }}" @selected((string) old('number', request('nummer')) === (string) $n)>Nr. {{ $n }}</option>
+                                @endforeach
+                            </select>
+                            @error('number')<span class="field__error" role="alert">{{ $message }}</span>@enderror
+                        </label>
+                    @endif
                     @if (! empty($quantity))
                         <label class="field">
                             <span class="field__label">{{ $quantity }}</span>
@@ -48,7 +60,7 @@
                     <fieldset class="inquiry__public">
                         <label class="check">
                             <input type="checkbox" name="show_name" value="1" @checked(old('show_name')) data-public-toggle>
-                            <span>Mein Name darf im Raster der Edition 100 bei meiner Nummer erscheinen (freiwillig, jederzeit widerrufbar).</span>
+                            <span>Mein Name soll auf der Website bei meiner Nummer erscheinen (grünes Feld im Raster; freiwillig, jederzeit widerrufbar).</span>
                         </label>
                         <label class="field mt-3">
                             <span class="field__label">So soll der Name erscheinen</span>

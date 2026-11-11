@@ -22,7 +22,7 @@
     },
     {
      "t": "li",
-     "x": "A specific serial number cannot be promised; it is assigned before shipping"
+     "x": "You choose your serial number from the free numbers 1–90; special pieces 91–100 by arrangement"
     }
    ]
   },
@@ -73,7 +73,7 @@
   },
   {
    "q": "Can I choose my serial number?",
-   "a": "A specific serial number cannot be promised; it is assigned before shipping."
+   "a": "You choose your serial number from the free numbers 1–90; special pieces 91–100 by arrangement."
   },
   {
    "q": "Do you ship knives outside Germany?",

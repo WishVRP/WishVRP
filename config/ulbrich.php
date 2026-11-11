@@ -136,7 +136,7 @@ return [
         'shipping' => '7,99 € Versand pro Artikel innerhalb Deutschlands',
         'delivery' => 'voraussichtlich 7–14 Werktage ab Bestellung bei zeitnaher Zahlung (5–10 Werktage Bearbeitung, 2–4 Werktage Versand)',
         'payment' => 'Banküberweisung; Auftragsbestätigung nach geprüftem Zahlungseingang',
-        'serial_note' => 'Eine bestimmte Seriennummer wird nicht zugesagt; sie wird vor dem Versand zugeordnet.',
+        'serial_note' => 'Deine Seriennummer suchst du dir aus den freien Nummern 1–90 aus (Sonderstücke 91–100 nach Absprache).',
     ],
 
     /*
@@ -167,18 +167,21 @@ return [
     | anwaltlich prüfen lassen (Garantieerklärung, § 479 BGB).
     */
     /*
-    | Weihnachtsaktion „Schneeballschlacht“ (Wunsch Inhaber, 11.11.2026).
-    | Die Überraschung ist noch nicht festgelegt → title/text null = wird als
-    | „Angabe folgt“ markiert. Kein Rabatt/Code erfinden.
+    | Weihnachtsaktion „Schneeballschlacht“ (Inhaber, 11.11.2026): 30 Sekunden,
+    | Treffer zählen, Rabatt je nach Treffern, höchstens 10 %, jede Person nur
+    | einmal (eine Teilnahme je E-Mail-Adresse, Code einmalig einlösbar).
+    | Stufen und Gültigkeit sind Vorschläge – vom Inhaber bestätigen lassen.
     */
     'xmas' => [
         'enabled' => true,
-        'ends_on' => '2026-12-24',
+        'ends_on' => '2026-12-24',        // letzter Spieltag
+        'valid_until' => '2026-12-24',    // Code einlösbar bis (Vorschlag)
         'seconds' => 30,
-        'surprise' => [
-            'title' => null,   // z. B. „Gratis Pflegeset zu jeder Bestellung“ – vom Inhaber festlegen
-            'text' => null,
-            'code' => null,    // optionaler Gutscheincode, nur wenn wirklich gültig
+        'max_percent' => 10,              // Obergrenze laut Inhaber
+        'max_score' => 80,                // Plausibilitätsgrenze gegen Manipulation
+        'tiers' => [                      // ab X Treffern → Y % (aufsteigend)
+            ['min' => 1, 'percent' => 5],
+            ['min' => 12, 'percent' => 10],
         ],
     ],
 

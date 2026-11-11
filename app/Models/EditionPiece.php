@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 /** Ein Messer der Edition 100 (Seriennummer). */
 class EditionPiece extends Model
 {
-    public const STATUSES = ['offen' => 'Offen / nicht erfasst', 'reserviert' => 'Reserviert', 'vergeben' => 'Vergeben'];
+    public const STATUSES = ['frei' => 'Frei', 'reserviert' => 'Reserviert', 'vergeben' => 'Verkauft'];
 
     protected $fillable = ['number', 'status', 'buyer_name', 'show_name', 'order_id', 'note'];
 
@@ -28,16 +28,26 @@ class EditionPiece extends Model
         return $this->number > (int) config('ulbrich.edition.regular');
     }
 
-    /** Öffentlicher Text für das Raster – Name nur mit Zustimmung, „offen“ wird nicht als „frei“ behauptet. */
+    /** Öffentlicher Text für das Raster – Name nur mit Zustimmung. */
     public function publicLabel(): string
     {
         $label = 'Nr. '.$this->number.($this->isSpecial() ? ' · Sonderstück' : '');
 
         return match ($this->status) {
-            'vergeben' => $label.' · '.($this->show_name && $this->buyer_name ? 'gehört '.$this->buyer_name : 'vergeben'),
+            'vergeben' => $label.' · '.($this->hasPublicName() ? 'gehört '.$this->buyer_name : 'verkauft'),
             'reserviert' => $label.' · reserviert',
-            default => $label,
+            default => $label.' · '.($this->isSpecial() ? 'Sonderausführung auf Anfrage' : 'noch frei'),
         };
+    }
+
+    public function hasPublicName(): bool
+    {
+        return $this->status === 'vergeben' && $this->show_name && filled($this->buyer_name);
+    }
+
+    public function isSelectable(): bool
+    {
+        return $this->status === 'frei' && ! $this->isSpecial();
     }
 
     /** @return Collection<int, EditionPiece> nach Nummer, fehlende Nummern werden ergänzt (ohne Speichern) */
@@ -50,6 +60,6 @@ class EditionPiece extends Model
             $pieces = collect();
         }
 
-        return collect(range(1, $total))->map(fn ($n) => $pieces[$n] ?? new static(['number' => $n, 'status' => 'offen']));
+        return collect(range(1, $total))->map(fn ($n) => $pieces[$n] ?? new static(['number' => $n, 'status' => 'frei']));
     }
 }

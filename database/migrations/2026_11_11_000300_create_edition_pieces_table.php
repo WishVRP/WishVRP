@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('edition_pieces', function (Blueprint $table) {
             $table->id();
             $table->unsignedSmallInteger('number')->unique();
-            $table->string('status', 20)->default('offen');   // offen | reserviert | vergeben
+            $table->string('status', 20)->default('offen');   // offen (später: frei) | reserviert | vergeben
             $table->string('buyer_name', 80)->nullable();      // Anzeigename, z. B. „Erika M.“
             $table->boolean('show_name')->default(false);      // Zustimmung zur Veröffentlichung
             $table->foreignId('order_id')->nullable()->constrained()->nullOnDelete();

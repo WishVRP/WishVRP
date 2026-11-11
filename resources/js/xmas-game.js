@@ -10,7 +10,7 @@ export function startXmasGame(root) {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const $ = (s) => root.querySelector(s);
     const scoreEl = $('[data-xmas-score]'), timeEl = $('[data-xmas-time]'), bestEl = $('[data-xmas-best]');
-    const startBox = $('[data-xmas-start]'), endBox = $('[data-xmas-end]'), finalEl = $('[data-xmas-final]');
+    const startBox = $('[data-xmas-start]'), endBox = $('[data-xmas-end]');
 
     const store = {
         get() { try { return Number(localStorage.getItem('ulbrich-xmas-best') || 0); } catch { return 0; } },
@@ -58,20 +58,59 @@ export function startXmasGame(root) {
         if (event.key === ' ' || event.key === 'Enter') { throwTo(aimX, 0); event.preventDefault(); }
     });
 
-    root.querySelectorAll('[data-xmas-play]').forEach((b) => b.addEventListener('click', () => {
-        reset(); state = 'play'; startBox.hidden = true; endBox.hidden = true; root.focus({ preventScroll: true });
-        last = performance.now(); requestAnimationFrame(loop);
-    }));
+    const form = $('[data-xmas-form]'), errorEl = $('[data-xmas-error]');
+    const headline = $('[data-xmas-headline]'), prize = $('[data-xmas-prize]'), codeEl = $('[data-xmas-code]'), note = $('[data-xmas-note]');
+    const csrf = form.querySelector('[name=_token]').value;
+    let token = null;
 
-    function end() {
+    async function post(url, data) {
+        const res = await fetch(url, { method: 'POST', headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json' }, body: data, credentials: 'same-origin' });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(Object.values(json.errors || {}).flat()[0] || json.message || 'Das hat leider nicht geklappt. Bitte versuch es später noch einmal.');
+        return json;
+    }
+
+    function showResult(r, already) {
+        startBox.hidden = true; endBox.hidden = false;
+        headline.textContent = already ? 'Du hast schon mitgespielt' : `Ho ho ho! ${r.score} Treffer`;
+        if (r.percent > 0) {
+            prize.textContent = `${r.percent} % Rabatt`;
+            codeEl.hidden = false; codeEl.querySelector('b').textContent = r.code;
+            note.textContent = `Einmal einlösbar bei einer Bestellung oder Kursbuchung auf dieser Website bis ${root.dataset.until} – Feld „Rabattcode“.` + (already ? '' : ' Wir haben dir den Code auch per E-Mail geschickt.');
+        } else {
+            prize.textContent = already ? 'Diesmal gab es leider keinen Rabatt.' : 'Leider kein Treffer – diesmal kein Rabatt.';
+            codeEl.hidden = true;
+            note.textContent = (already && r.message) ? r.message : 'Die Aktion gibt es nur einmal pro Person. Danke fürs Mitspielen und frohe Weihnachten!';
+        }
+    }
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        errorEl.hidden = true;
+        const button = form.querySelector('button[type=submit]'); button.disabled = true;
+        try {
+            const r = await post(root.dataset.start, new FormData(form));
+            if (r.status === 'played') { showResult(r, true); return; }
+            token = r.token;
+            reset(); state = 'play'; startBox.hidden = true; endBox.hidden = true; root.focus({ preventScroll: true });
+            last = performance.now(); requestAnimationFrame(loop);
+        } catch (e) {
+            errorEl.textContent = e.message; errorEl.hidden = false;
+        } finally { button.disabled = false; }
+    });
+
+    async function end() {
         state = 'over';
-        finalEl.textContent = String(score);
         if (score > store.get()) store.set(score);
         bestEl.textContent = store.get() || '–';
+        headline.textContent = 'Auswertung …'; prize.textContent = '…'; codeEl.hidden = true; note.textContent = '';
         endBox.hidden = false;
         if (navigator.sendBeacon && navigator.doNotTrack !== '1' && !navigator.globalPrivacyControl) {
             const data = new FormData(); data.append('n', 'spiel'); data.append('p', location.pathname); navigator.sendBeacon('/e/', data);
         }
+        const data = new FormData(); data.append('token', token); data.append('score', String(score));
+        try { showResult(await post(root.dataset.finish, data), false); }
+        catch (e) { headline.textContent = 'Ups'; prize.textContent = e.message; }
     }
 
     function update(dt, now) {

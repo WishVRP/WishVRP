@@ -58,7 +58,7 @@
 
     @include('pages.partials.subpages', ['prefix' => '/klappmesser/', 'title' => 'Die zehn Sonderstücke', 'kicker' => 'Edition 100'])
 
-    @include('pages.partials.inquiry', ['type' => 'messer', 'item' => $e['name'], 'title' => 'Edition 100 bestellen', 'intro' => 'Reserviere dein nummeriertes Damast-Klappmesser. Du bekommst eine Bestätigung und die Zahlungsdaten; die Seriennummer wird vor dem Versand zugeordnet.', 'quantity' => 'Anzahl', 'shipping' => true, 'publicName' => true, 'submit' => 'Verbindlich anfragen'])
+    @include('pages.partials.inquiry', ['type' => 'messer', 'item' => $e['name'], 'title' => 'Edition 100 bestellen', 'intro' => 'Such dir oben im Raster eine freie Nummer aus oder wähle sie hier. Sie wird für dich reserviert; du bekommst eine Bestätigung und die Zahlungsdaten. Sobald die Zahlung bestätigt ist, wird dein Feld grün – mit deinem Namen, wenn du das möchtest.', 'editionNumbers' => \App\Models\EditionPiece::grid()->filter->isSelectable()->pluck('number')->all(), 'shipping' => true, 'publicName' => true, 'submit' => 'Verbindlich anfragen'])
 
     <x-page.cta title="Eines der hundert Messer sichern?" text="Verfügbare Nummern und Sonderstücke erfährst du direkt bei {{ $c['owner'] }}." />
 </x-layouts.site>

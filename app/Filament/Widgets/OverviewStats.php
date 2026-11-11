@@ -43,6 +43,10 @@ class OverviewStats extends StatsOverviewWidget
             Stat::make('Klicks Telefon & E-Mail (7 Tage)', (string) $contact)
                 ->description(($clicks7['buchen'] ?? 0).' × „Kurs buchen“ · '.($clicks7['gutschein'] ?? 0).' × Gutschein')
                 ->icon(Heroicon::OutlinedCursorArrowRays),
+            Stat::make('Weihnachtsaktion', (string) \App\Models\XmasEntry::query()->count())
+                ->description(\App\Models\XmasEntry::query()->whereNotNull('code')->count().' Codes · '.\App\Models\XmasEntry::query()->whereNotNull('redeemed_at')->count().' eingelöst')
+                ->icon(Heroicon::OutlinedGift)
+                ->url(\App\Filament\Resources\XmasEntries\XmasEntryResource::getUrl('index')),
             Stat::make('Offene Notizen', (string) Note::query()->open()->count())
                 ->description('für alle sichtbar')
                 ->icon(Heroicon::OutlinedChatBubbleLeftRight)

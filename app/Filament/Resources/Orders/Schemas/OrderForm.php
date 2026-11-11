@@ -44,7 +44,9 @@ class OrderForm
                 Section::make('Artikel & Betrag')->columns(3)->schema([
                     TextInput::make('item')->label('Artikel / Leistung')->maxLength(190),
                     TextInput::make('quantity')->label('Menge')->numeric()->minValue(1)->default(1),
-                    TextInput::make('amount')->label('Betrag (€, ohne Versand)')->numeric()->step(0.01),
+                    TextInput::make('amount')->label('Betrag (€, ohne Versand, nach Rabatt)')->numeric()->step(0.01),
+                    TextInput::make('discount_code')->label('Rabattcode')->maxLength(20)->disabled(),
+                    TextInput::make('discount_percent')->label('Rabatt %')->numeric()->disabled(),
                     TextInput::make('public_name')->label('Anzeigename im Edition-Raster (mit Zustimmung)')->maxLength(80),
                     Textarea::make('message')->label('Nachricht der Kundschaft')->rows(4)->columnSpanFull(),
                 ]),

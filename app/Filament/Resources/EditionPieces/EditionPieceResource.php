@@ -46,7 +46,7 @@ class EditionPieceResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
-            Select::make('status')->label('Status')->options(EditionPiece::STATUSES)->required(),
+            Select::make('status')->label('Status')->options(EditionPiece::STATUSES)->required()->default('frei'),
             TextInput::make('buyer_name')->label('Anzeigename Käufer/in')->maxLength(80)->placeholder('z. B. Erika M.'),
             Toggle::make('show_name')->label('Name darf im Raster auf der Website erscheinen')
                 ->helperText('Nur einschalten, wenn die Person zugestimmt hat (z. B. Häkchen im Bestellformular).'),
@@ -79,10 +79,10 @@ class EditionPieceResource extends Resource
             ->recordActions([EditAction::make()])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    BulkAction::make('vergeben')->label('Als vergeben markieren')->icon(Heroicon::OutlinedCheck)
+                    BulkAction::make('vergeben')->label('Als verkauft markieren')->icon(Heroicon::OutlinedCheck)
                         ->action(fn (Collection $records) => $records->each->update(['status' => 'vergeben'])),
-                    BulkAction::make('offen')->label('Als offen markieren')->icon(Heroicon::OutlinedArrowUturnLeft)
-                        ->action(fn (Collection $records) => $records->each->update(['status' => 'offen'])),
+                    BulkAction::make('frei')->label('Als frei markieren')->icon(Heroicon::OutlinedArrowUturnLeft)
+                        ->action(fn (Collection $records) => $records->each->update(['status' => 'frei', 'order_id' => null, 'buyer_name' => null, 'show_name' => false])),
                 ]),
             ]);
     }
