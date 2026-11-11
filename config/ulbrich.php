@@ -34,6 +34,7 @@ return [
     'heritage' => [
         'since' => 1934,
         'generation' => 3,
+        'opened_on' => '2024-03-01', // Eröffnung Messermanufaktur Stein am Kocher (HGV Möckmühl 2/2024)
         'generations' => [
             // Großvater: laut Live-Seite „prägte den Zugang zum Schmieden“ (Werkstattporträt Schwäbische Post, 12.04.2021)
             ['no' => 1, 'year' => 1934, 'name' => 'Der Großvater', 'text' => 'Mit ihm kommt das Schmiedehandwerk in die Familie – er prägt Andreas’ Zugang zum Schmieden.'],

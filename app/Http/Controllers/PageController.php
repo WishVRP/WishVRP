@@ -41,10 +41,10 @@ class PageController extends Controller
         $content = isset($page['content']) ? json_decode(file_get_contents(resource_path('content/'.$page['content'].'.json')), true) : null;
 
         $extra = match (true) {
-            $course !== null => [Schema::course($course), ($cf = json_decode(file_get_contents(resource_path('content/schmiedekurse__'.$course->slug.'.json')), true)['faq']) ? Schema::faq($cf) : null],
+            $course !== null => [Schema::course($course), ...Schema::courseEvents($course), ($cf = json_decode(file_get_contents(resource_path('content/schmiedekurse__'.$course->slug.'.json')), true)['faq']) ? Schema::faq($cf) : null],
             ! empty($page['article']) => [Schema::article($page['h1'] ?? $content['h1'], $meta->canonical(), $page['description']), $content['faq'] ? Schema::faq($content['faq']) : null],
             ! empty($page['service']) => [Schema::service($page['service'], $page['description'], $meta->canonical()), $content['faq'] ? Schema::faq($content['faq']) : null],
-            ! empty($page['product']) => [Schema::product($c['edition']), $content['faq'] ? Schema::faq($content['faq']) : null],
+            ! empty($page['product']) => [Schema::product($c['edition'], str_starts_with($path, '/en/')), $content['faq'] ? Schema::faq($content['faq']) : null],
             ! empty($page['about']) => [Schema::localBusiness(), Schema::person(), $content['faq'] ? Schema::faq($content['faq']) : null],
             $content !== null && ! empty($content['faq']) => [Schema::faq($content['faq'])],
             default => match ($path) {

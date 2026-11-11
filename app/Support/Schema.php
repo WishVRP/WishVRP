@@ -20,6 +20,18 @@ final class Schema
         return PageMeta::absolute('/').'#andreas-ulbrich';
     }
 
+    /** Verweis auf das Unternehmen mit Name/URL – lesbar auch, wenn der LocalBusiness-Knoten nicht im Graph steht. */
+    public static function businessRef(): array
+    {
+        return ['@type' => 'LocalBusiness', '@id' => self::businessId(), 'name' => config('ulbrich.name'), 'url' => PageMeta::absolute('/')];
+    }
+
+    /** @return array<string, string> */
+    public static function personRef(): array
+    {
+        return ['@type' => 'Person', '@id' => self::personId(), 'name' => config('ulbrich.owner')];
+    }
+
     /** @return array<string, mixed> */
     public static function localBusiness(): array
     {
@@ -51,6 +63,7 @@ final class Schema
             ],
             'openingHoursSpecification' => $hours,
             'founder' => ['@id' => self::personId()],
+            'foundingDate' => config('ulbrich.heritage.opened_on'),
             'disambiguatingDescription' => "Messerschmiede mit Schmiedekursen in {$c['address']['district']}, {$c['address']['locality']} (Landkreis Heilbronn, Baden-Württemberg), Inhaber {$c['owner']}.",
             'description' => "Schmiedekurse und handgefertigte Messer von {$c['owner_role']} {$c['owner']} – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie, heute in {$c['heritage']['generation']}. Generation.",
             'knowsAbout' => ['Messerschmieden', 'Damaststahl', 'Klappmesser', 'Schmiedekurse', 'Küchenmesser', 'Jagdmesser', 'Messer schärfen', 'Messerreparatur', 'Gravur'],
@@ -72,6 +85,7 @@ final class Schema
             '@id' => self::personId(),
             'name' => $c['owner'],
             'jobTitle' => $c['owner_role'],
+            'image' => PageMeta::absolute('/images/fotos/andreas-esse-1200.jpg'),
             'worksFor' => ['@id' => self::businessId()],
             'memberOf' => ['@type' => 'Organization', 'name' => $c['chamber']],
             'description' => "{$c['owner_role']} in {$c['heritage']['generation']}. Generation – Schmiedehandwerk seit {$c['heritage']['since']} in der Familie.",
@@ -96,16 +110,19 @@ final class Schema
     /** @return array<string, mixed> */
     public static function webPage(PageMeta $meta): array
     {
-        return [
-            '@type' => 'WebPage',
+        $profile = in_array($meta->path, ['/manufaktur/', '/en/about/'], true);
+
+        return self::clean([
+            '@type' => $profile ? 'ProfilePage' : 'WebPage',
+            'mainEntity' => $profile ? ['@id' => self::personId()] : null,
             '@id' => $meta->canonical().'#webpage',
             'url' => $meta->canonical(),
             'name' => $meta->fullTitle(),
             'description' => $meta->description,
             'inLanguage' => $meta->locale() === 'en' ? 'en' : 'de-DE',
             'isPartOf' => ['@id' => PageMeta::absolute('/').'#website'],
-            'about' => ['@id' => self::businessId()],
-        ];
+            'about' => self::businessRef(),
+        ]);
     }
 
     /** @return array<string, mixed>|null */
@@ -160,7 +177,7 @@ final class Schema
                     'name' => $course->name,
                     'description' => trim($course->name.' – '.collect([$course->categoryLabel(), $course->duration_label])->filter()->implode(', ')),
                     'url' => PageMeta::absolute($course->url()),
-                    'provider' => ['@id' => self::businessId()],
+                    'provider' => self::businessRef(),
                 ]),
             ])->all(),
         ];
@@ -178,16 +195,88 @@ final class Schema
             'name' => $course->name,
             'description' => $course->project.' – '.$course->duration_label.($course->hours_label ? ', '.$course->hours_label : ''),
             'url' => PageMeta::absolute($course->url()),
-            'provider' => ['@id' => self::businessId()],
+            'provider' => self::businessRef(),
             'inLanguage' => 'de-DE',
             'offers' => $course->price_from ? [
                 '@type' => 'Offer',
                 'price' => (string) $course->price_from,
                 'priceCurrency' => 'EUR',
-                'category' => 'ab-Preis pro Person',
+                'category' => 'Paid',
+                'description' => 'ab-Preis pro Person',
                 'url' => PageMeta::absolute($course->bookingUrl()),
             ] : null,
+            'hasCourseInstance' => self::courseInstances($course),
         ]);
+    }
+
+    /**
+     * Kursdurchführungen: je veröffentlichtem Termin eine Instanz mit Datum; ohne Termine
+     * eine Instanz mit Ort und Dauer (nur wenn die Dauer eindeutig ist, z. B. „2 Tage“).
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public static function courseInstances(\App\Models\Course $course): array
+    {
+        $base = ['@type' => 'CourseInstance', 'courseMode' => 'Onsite', 'location' => self::place(), 'instructor' => self::personRef()];
+        $dates = $course->dates()->upcoming()->get();
+        if ($dates->isNotEmpty()) {
+            return $dates->map(fn ($d) => self::clean($base + [
+                'startDate' => $d->starts_on->toDateString(),
+                'endDate' => ($d->ends_on ?? $d->starts_on)->toDateString(),
+                'courseWorkload' => 'P'.(($d->ends_on ?? $d->starts_on)->diffInDays($d->starts_on, true) + 1).'D',
+            ]))->values()->all();
+        }
+        $days = preg_match('/^(\d+) Tage?$/u', (string) $course->duration_label, $m) ? (int) $m[1] : null;
+
+        return [self::clean($base + ['courseWorkload' => $days ? "P{$days}D" : null])];
+    }
+
+    /**
+     * Freie, veröffentlichte Kurstermine als Veranstaltung (Event-Suchergebnisse).
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public static function courseEvents(\App\Models\Course $course): array
+    {
+        return $course->dates()->upcoming()->get()->map(fn ($d) => self::clean([
+            '@type' => 'EducationEvent',
+            'name' => $course->name.' – Schmiedekurs bei '.config('ulbrich.name'),
+            'description' => $course->project.' – '.$course->duration_label,
+            'startDate' => $d->starts_on->toDateString(),
+            'endDate' => ($d->ends_on ?? $d->starts_on)->toDateString(),
+            'eventStatus' => 'https://schema.org/EventScheduled',
+            'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+            'location' => self::place(),
+            'image' => PageMeta::absolute(config('seo.default_og_image')),
+            'organizer' => self::businessRef(),
+            'performer' => self::personRef(),
+            'offers' => $course->price_from ? [
+                '@type' => 'Offer',
+                'price' => (string) $course->price_from,
+                'priceCurrency' => 'EUR',
+                'availability' => $d->seatsLeft() > 0 ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+                'url' => PageMeta::absolute($course->bookingUrl()),
+            ] : null,
+        ]))->values()->all();
+    }
+
+    /** Werkstatt als Ort (Adresse aus der Konfiguration). */
+    public static function place(): array
+    {
+        $c = config('ulbrich');
+
+        return [
+            '@type' => 'Place',
+            'name' => $c['name'],
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => $c['address']['street'],
+                'postalCode' => $c['address']['postal_code'],
+                'addressLocality' => $c['address']['locality'],
+                'addressRegion' => $c['address']['region'],
+                'addressCountry' => $c['address']['country'],
+            ],
+        ];
     }
 
     /**
@@ -196,21 +285,25 @@ final class Schema
      * @param  array<string, mixed>  $e
      * @return array<string, mixed>
      */
-    public static function product(array $e): array
+    public static function product(array $e, bool $english = false): array
     {
         return self::clean([
             '@type' => 'Product',
             'name' => $e['name'],
-            'description' => "Damast-Klappmesser, limitiert auf {$e['total']} nummerierte Stücke ({$e['regular']} reguläre Stücke, {$e['special']} Sonderstücke).",
+            'description' => $english
+                ? "Damascus folding knife, limited to {$e['total']} numbered pieces ({$e['regular']} regular pieces, {$e['special']} special pieces), handmade by ".config('ulbrich.owner').'.'
+                : "Damast-Klappmesser, limitiert auf {$e['total']} nummerierte Stücke ({$e['regular']} reguläre Stücke, {$e['special']} Sonderstücke).",
+            'material' => $english ? 'Damascus steel' : 'Damaststahl',
             'brand' => ['@type' => 'Brand', 'name' => config('ulbrich.name')],
-            'manufacturer' => ['@id' => self::businessId()],
+            'manufacturer' => self::businessRef(),
             'image' => PageMeta::absolute('/images/fotos/klappmesser-offen-1200.jpg'),
             'offers' => [
                 '@type' => 'Offer',
                 'price' => (string) $e['price'],
                 'priceCurrency' => 'EUR',
                 'url' => PageMeta::absolute($e['url']),
-                'seller' => ['@id' => self::businessId()],
+                'seller' => self::businessRef(),
+                'itemCondition' => 'https://schema.org/NewCondition',
                 'availableDeliveryMethod' => array_values(array_filter([
                     'http://purl.org/goodrelations/v1#DeliveryModeParcelService',
                     config('ulbrich.sales.pickup') ? 'http://purl.org/goodrelations/v1#DeliveryModePickUp' : null,
@@ -242,8 +335,11 @@ final class Schema
             'description' => $description,
             'url' => $url,
             'inLanguage' => 'de-DE',
-            'author' => ['@id' => self::personId()],
-            'publisher' => ['@id' => self::businessId()],
+            // Autor = Manufaktur (keine erfundene Einzelautorschaft)
+            'author' => self::businessRef(),
+            'publisher' => self::businessRef() + ['logo' => ['@type' => 'ImageObject', 'url' => PageMeta::absolute('/images/icon-512.png')]],
+            'mainEntityOfPage' => ['@id' => $url.'#webpage'],
+            'about' => self::businessRef(),
             'image' => PageMeta::absolute(config('seo.default_og_image')),
         ];
     }
@@ -257,7 +353,7 @@ final class Schema
             'description' => $description,
             'url' => $url,
             'serviceType' => $name,
-            'provider' => ['@id' => self::businessId()],
+            'provider' => self::businessRef(),
             'areaServed' => config('ulbrich.sales.area_served'),
         ];
     }

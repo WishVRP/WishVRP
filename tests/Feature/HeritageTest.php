@@ -21,7 +21,8 @@ class HeritageTest extends TestCase
         $this->assertStringContainsString('id="tradition"', $html);
         $this->assertStringContainsString('data-story', $html);
         $this->assertStringContainsString('Seit wann gibt es das Schmiedehandwerk', $html, 'FAQ zur Tradition');
-        $this->assertStringNotContainsString('foundingDate', $html, '1934 ist Familientradition, kein Firmengründungsdatum');
+        $this->assertStringNotContainsString('"foundingDate": "'.$since, $html, '1934 ist Familientradition, kein Firmengründungsdatum');
+        $this->assertStringContainsString('"foundingDate": "'.config('ulbrich.heritage.opened_on').'"', $html, 'Gründung = Eröffnung der Manufaktur');
         $this->assertGreaterThanOrEqual(3, substr_count($html, 'href="/schmiedekurse/buchen/"'), 'Mehrere Wege zur Buchung');
     }
 
