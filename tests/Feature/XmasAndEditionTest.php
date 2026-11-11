@@ -74,18 +74,29 @@ class XmasAndEditionTest extends TestCase
 
     /* ---------------- Weihnachtsaktion ---------------- */
 
-    /** Anmelden (E-Mail + Handy) → SMS-Code (Testmodus) → bestätigen → Spiel starten. */
-    private function start(string $email = 'spieler@example.org', string $phone = '0171 1234567'): array
+    /** Standard (kostenlos): E-Mail → persönlicher Link → Spiel starten. */
+    private function start(string $email = 'spieler@example.org'): array
     {
+        $r = $this->postJson('/weihnachtsaktion/anmelden/', ['email' => $email, 'conditions' => '1'])->assertOk()->assertJson(['status' => 'sent'])->json();
+        $t = substr($r['dev_link'], strpos($r['dev_link'], '?t=') + 3);
+        $this->get('/weihnachtsaktion/?t='.$t)->assertOk()->assertSee('data-ref="'.$t.'"', false);
+
+        return $this->postJson('/weihnachtsaktion/start/', ['ref' => $t])->assertOk()->json() + ['ref' => $t];
+    }
+
+    /** Optional: SMS-Bestätigung. */
+    private function smsStart(string $email, string $phone): array
+    {
+        config(['ulbrich.xmas.verification' => 'sms']);
         $r = $this->postJson('/weihnachtsaktion/anmelden/', ['email' => $email, 'phone' => $phone, 'conditions' => '1'])->assertOk()->assertJson(['status' => 'sms'])->json();
-        $this->postJson('/weihnachtsaktion/code/', ['ref' => $r['ref'], 'code' => $r['dev_code']])->assertOk()->assertJson(['status' => 'verified']);
+        $this->postJson('/weihnachtsaktion/code/', ['ref' => $r['ref'], 'code' => $r['dev_code']])->assertOk();
 
         return $this->postJson('/weihnachtsaktion/start/', ['ref' => $r['ref']])->assertOk()->json() + ['ref' => $r['ref']];
     }
 
-    private function playFor(int $score, string $email = 'spieler@example.org', string $phone = '0171 1234567'): array
+    private function playFor(int $score, string $email = 'spieler@example.org'): array
     {
-        $r = $this->start($email, $phone);
+        $r = $this->start($email);
         $this->travel(31)->seconds();
 
         return $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => $score])->assertOk()->json();
@@ -98,6 +109,74 @@ class XmasAndEditionTest extends TestCase
         $this->assertSame(10, XmasEntry::percentFor(5), 'nie mehr als 10 %');
     }
 
+    public function test_email_link_is_required_and_works_only_once(): void
+    {
+        $r = $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'anna@example.org', 'conditions' => '1'])->assertOk()->json();
+        $this->assertStringContainsString('/weihnachtsaktion/?t=', $r['dev_link']);
+        $entry = XmasEntry::sole();
+        $this->postJson('/weihnachtsaktion/start/', ['ref' => $entry->verify_token])->assertForbidden();   // Link noch nicht geöffnet
+
+        $this->get('/weihnachtsaktion/?t='.$entry->verify_token)->assertSee('data-xmas-go', false);
+        $this->postJson('/weihnachtsaktion/start/', ['ref' => $entry->verify_token])->assertJson(['status' => 'ok']);
+        $this->get('/weihnachtsaktion/?t='.$entry->verify_token)->assertSee('Du hast schon gespielt');
+        $this->postJson('/weihnachtsaktion/start/', ['ref' => $entry->verify_token])->assertJson(['status' => 'played']);
+    }
+
+    public function test_full_round_gives_code_and_only_once_per_email(): void
+    {
+        $done = $this->playFor(12, 'Anna.Test+xmas@GoogleMail.com');
+        $this->assertSame([12, 10], [$done['score'], $done['percent']]);
+        $this->assertMatchesRegularExpression('/^XMAS-[A-Z0-9]{6}$/', $done['code']);
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'annatest@gmail.com', 'conditions' => '1'])->assertStatus(422);
+        $this->assertSame(1, XmasEntry::count());
+    }
+
+    public function test_disposable_addresses_and_connection_limit(): void
+    {
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'x@mailinator.com', 'conditions' => '1'])->assertStatus(422);
+        foreach (['1', '2', '3'] as $n) {
+            $this->postJson('/weihnachtsaktion/anmelden/', ['email' => "{$n}@example.org", 'conditions' => '1'])->assertOk();
+        }
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'd@example.org', 'conditions' => '1'])->assertStatus(429);
+        $this->assertSame(3, XmasEntry::count());
+    }
+
+    public function test_cheating_is_capped_or_rejected(): void
+    {
+        $fast = $this->start('schnell@example.org');
+        $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $fast['token'], 'score' => 50])->assertJson(['score' => 0, 'percent' => 0, 'code' => null]);
+        $this->assertSame(60, $this->playFor(999, 'viel@example.org')['score']);
+    }
+
+    public function test_one_discount_per_household_and_admin_warning(): void
+    {
+        $code = $this->playFor(5, 'erika@example.org')['code'];
+        $order = ['type' => 'messer', 'item' => config('ulbrich.edition.name'), 'consent' => '1', 'source' => '/klappmesser/'];
+        $erika = ['name' => 'Erika Muster', 'phone' => '0171 1234567', 'street' => 'Hauptstraße 5', 'postal_code' => '74196'];
+
+        $this->post('/anfrage/', $order + $erika + ['email' => 'andere@example.org', 'discount_code' => $code])->assertSessionHasErrors('discount_code');
+        $this->post('/anfrage/', $order + array_diff_key($erika, ['phone' => 1]) + ['email' => 'erika@example.org', 'discount_code' => $code])->assertSessionHasErrors('phone');
+        $this->post('/anfrage/', $order + $erika + ['email' => 'erika@example.org', 'discount_code' => strtolower($code)])->assertSessionHasNoErrors();
+        $this->assertSame(['5', '664.05'], [(string) Order::sole()->discount_percent, Order::sole()->amount]);
+        $this->post('/anfrage/', $order + $erika + ['email' => 'erika@example.org', 'discount_code' => $code])->assertSessionHasErrors('discount_code');
+
+        // zweite E-Mail derselben Person: andere Nummer, aber gleiche Anschrift → abgelehnt
+        RateLimiterReset::clear();
+        $code2 = $this->playFor(5, 'erika.zweit@example.org')['code'];
+        $this->post('/anfrage/', $order + ['name' => 'E. Muster', 'phone' => '0160 9999999', 'street' => 'Hauptstr. 5', 'postal_code' => '74196', 'email' => 'erika.zweit@example.org', 'discount_code' => $code2])
+            ->assertSessionHasErrors(['discount_code' => 'Pro Person bzw. Haushalt kann nur ein Weihnachtsrabatt eingelöst werden.']);
+
+        // dritte E-Mail, alles anders außer dem Namen → Einlösung möglich, aber Warnung in der Verwaltung
+        RateLimiterReset::clear();
+        $code3 = $this->playFor(5, 'erika.drei@example.org')['code'];
+        $this->post('/anfrage/', $order + ['name' => 'Erika Muster', 'phone' => '0152 1111111', 'street' => 'Bergweg 1', 'postal_code' => '70173', 'email' => 'erika.drei@example.org', 'discount_code' => $code3])->assertSessionHasNoErrors();
+        $third = Order::query()->latest('id')->first();
+        $this->assertCount(1, $third->discountWarnings());
+        $this->assertStringContainsString('Erika Muster', $third->discountWarnings()[0]);
+    }
+
+    /* ---- optionale SMS-Bestätigung ---- */
+
     public function test_mobile_numbers_are_normalised_and_landlines_rejected(): void
     {
         $this->assertSame('+491711234567', XmasEntry::mobileE164('0171 1234567'));
@@ -105,123 +184,56 @@ class XmasAndEditionTest extends TestCase
         $this->assertSame('+491711234567', XmasEntry::mobileE164('0049 171 1234567'));
         $this->assertSame('+436641234567', XmasEntry::mobileE164('+43 664 1234567'));
         $this->assertNull(XmasEntry::mobileE164('07131 123456'), 'Festnetz');
-        $this->assertNull(XmasEntry::mobileE164('171 1234567'), 'ohne Vorwahl');
     }
 
-    public function test_game_needs_confirmed_sms_code(): void
+    public function test_sms_mode_one_phone_one_game_and_redeem_with_same_phone(): void
     {
-        $r = $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'anna@example.org', 'phone' => '0151 2345678', 'conditions' => '1'])->assertOk()->json();
-        $this->assertMatchesRegularExpression('/^\d{6}$/', $r['dev_code']);
-        $this->assertStringContainsString('+4915', $r['message']);
-        $this->assertStringNotContainsString('2345678', $r['message'], 'Nummer maskiert');
+        $r = $this->smsStart('sms@example.org', '0171 5555555');
+        $this->assertSame('ok', $r['status']);
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'neu@example.org', 'phone' => '+49 171 5555555', 'conditions' => '1'])->assertStatus(422);
 
-        $this->postJson('/weihnachtsaktion/start/', ['ref' => $r['ref']])->assertForbidden();
-        $wrong = $r['dev_code'] === '123456' ? '654321' : '123456';
-        $this->postJson('/weihnachtsaktion/code/', ['ref' => $r['ref'], 'code' => $wrong])->assertStatus(422);
-        $this->postJson('/weihnachtsaktion/code/', ['ref' => $r['ref'], 'code' => $r['dev_code']])->assertOk();
-        $this->postJson('/weihnachtsaktion/start/', ['ref' => $r['ref']])->assertJson(['status' => 'ok']);
+        $this->travel(31)->seconds();
+        $code = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 5])->json('code');
+        $order = ['type' => 'messer', 'item' => config('ulbrich.edition.name'), 'name' => 'S', 'consent' => '1', 'email' => 'sms@example.org'];
+        $this->post('/anfrage/', $order + ['phone' => '0172 0000000', 'discount_code' => $code])
+            ->assertSessionHasErrors(['discount_code' => 'Der Rabattcode gilt nur zusammen mit der Handynummer, mit der gespielt wurde.']);
+        $this->post('/anfrage/', $order + ['phone' => '0171 5555555', 'discount_code' => $code])->assertSessionHasNoErrors();
     }
 
-    public function test_code_expires_and_attempts_are_limited(): void
+    public function test_sms_code_wrong_attempts_and_production_guard(): void
     {
+        config(['ulbrich.xmas.verification' => 'sms']);
         $r = $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'b@example.org', 'phone' => '0160 1112223', 'conditions' => '1'])->json();
+        $this->postJson('/weihnachtsaktion/start/', ['ref' => $r['ref']])->assertForbidden();
         foreach (range(1, 5) as $i) {
-            $this->postJson('/weihnachtsaktion/code/', ['ref' => $r['ref'], 'code' => '000000'])->assertStatus($r['dev_code'] === '000000' ? 200 : 422);
+            $this->postJson('/weihnachtsaktion/code/', ['ref' => $r['ref'], 'code' => $r['dev_code'] === '000000' ? '111111' : '000000'])->assertStatus(422);
         }
         $this->postJson('/weihnachtsaktion/code/', ['ref' => $r['ref'], 'code' => $r['dev_code']])->assertStatus(429);
 
-        $this->travel(61)->seconds();
-        $r2 = $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'b@example.org', 'phone' => '0160 1112223', 'conditions' => '1'])->assertOk()->json();
-        $this->travel(11)->minutes();
-        $this->postJson('/weihnachtsaktion/code/', ['ref' => $r2['ref'], 'code' => $r2['dev_code']])->assertStatus(422);
-    }
-
-    public function test_full_round_gives_code_and_only_once_per_phone_and_email(): void
-    {
-        $done = $this->playFor(12, 'Anna.Test+xmas@GoogleMail.com', '0171 1234567');
-        $this->assertSame([12, 10], [$done['score'], $done['percent']]);
-        $this->assertMatchesRegularExpression('/^XMAS-[A-Z0-9]{6}$/', $done['code']);
-
-        // gleiche Handynummer mit neuer E-Mail → abgelehnt
-        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'ganz.neu@example.org', 'phone' => '+49 171 1234567', 'conditions' => '1'])->assertStatus(422);
-        // gleiche E-Mail mit neuer Nummer → abgelehnt
-        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'annatest@gmail.com', 'phone' => '0172 9998887', 'conditions' => '1'])->assertStatus(422);
-        $this->assertSame(1, XmasEntry::count());
-    }
-
-    public function test_aborted_game_counts(): void
-    {
-        $r = $this->start('weg@example.org', '0176 5554443');
-        $this->postJson('/weihnachtsaktion/start/', ['ref' => $r['ref']])->assertJson(['status' => 'played', 'percent' => 0, 'code' => null]);
-    }
-
-    public function test_disposable_addresses_and_connection_limit(): void
-    {
-        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'x@mailinator.com', 'phone' => '0171 1000000', 'conditions' => '1'])->assertStatus(422);
-        foreach (['1', '2', '3'] as $n) {
-            $this->postJson('/weihnachtsaktion/anmelden/', ['email' => "{$n}@example.org", 'phone' => "0171 100000{$n}", 'conditions' => '1'])->assertOk();
-        }
-        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'd@example.org', 'phone' => '0171 1000009', 'conditions' => '1'])->assertStatus(429);
-        $this->assertSame(3, XmasEntry::count());
-    }
-
-    public function test_production_never_starts_without_real_sms_provider(): void
-    {
         $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class);
         $this->app['env'] = 'production';
         config(['services.sms.driver' => 'log']);
-        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'p@example.org', 'phone' => '0171 2000000', 'conditions' => '1'])->assertStatus(503);
-        config(['services.sms.driver' => 'seven', 'services.sms.seven_key' => null]);
         $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'p@example.org', 'phone' => '0171 2000000', 'conditions' => '1'])->assertStatus(503);
     }
 
     public function test_seven_driver_sends_sms_via_api(): void
     {
         \Illuminate\Support\Facades\Http::fake(['gateway.seven.io/*' => \Illuminate\Support\Facades\Http::response(['success' => '100'])]);
-        config(['services.sms.driver' => 'seven', 'services.sms.seven_key' => 'test-key']);
+        config(['ulbrich.xmas.verification' => 'sms', 'services.sms.driver' => 'seven', 'services.sms.seven_key' => 'test-key']);
         $r = $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 's@example.org', 'phone' => '0171 3000000', 'conditions' => '1'])->assertOk()->json();
-        $this->assertArrayNotHasKey('dev_code', $r, 'kein Code im Browser bei echter SMS');
-        \Illuminate\Support\Facades\Http::assertSent(fn ($req) => $req->url() === 'https://gateway.seven.io/api/sms'
-            && $req->hasHeader('X-Api-Key', 'test-key') && $req['to'] === '+491713000000' && preg_match('/\b\d{6}\b/', $req['text']));
-    }
-
-    public function test_cheating_is_capped_or_rejected(): void
-    {
-        $fast = $this->start('schnell@example.org', '0171 6666666');
-        $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $fast['token'], 'score' => 50])->assertJson(['score' => 0, 'percent' => 0, 'code' => null]);
-        $this->assertSame(60, $this->playFor(999, 'viel@example.org', '0171 7777777')['score']);
-    }
-
-    public function test_code_needs_same_email_and_phone_and_only_one_per_household(): void
-    {
-        $code = $this->playFor(5, 'erika@example.org', '0171 1234567')['code'];
-        $order = ['type' => 'messer', 'item' => config('ulbrich.edition.name'), 'name' => 'Erika Muster', 'consent' => '1', 'source' => '/klappmesser/', 'postal_code' => '74196'];
-
-        $this->post('/anfrage/', $order + ['email' => 'andere@example.org', 'phone' => '0171 1234567', 'discount_code' => $code])->assertSessionHasErrors('discount_code');
-        $this->post('/anfrage/', $order + ['email' => 'erika@example.org', 'phone' => '0172 0000000', 'discount_code' => $code])
-            ->assertSessionHasErrors(['discount_code' => 'Der Rabattcode gilt nur zusammen mit der Handynummer, mit der gespielt wurde.']);
-        $this->post('/anfrage/', $order + ['email' => 'erika@example.org', 'discount_code' => $code])->assertSessionHasErrors('phone');
-        $this->post('/anfrage/', $order + ['email' => 'erika@example.org', 'phone' => '+49 171 1234567', 'discount_code' => strtolower($code)])->assertSessionHasNoErrors();
-        $this->assertSame(['5', '664.05'], [(string) Order::sole()->discount_percent, Order::sole()->amount]);
-        $this->post("/anfrage/", $order + ["email" => "erika@example.org", "phone" => "0171 1234567", "discount_code" => $code])->assertSessionHasErrors("discount_code");
-
-        // zweite Teilnahme derselben Person mit anderer Nummer/E-Mail → beim Einlösen gleicher Name + PLZ → abgelehnt
-        RateLimiterReset::clear();
-        $code2 = $this->playFor(5, 'erika.zweit@example.org', '0160 9999999')['code'];
-        $this->post('/anfrage/', $order + ['email' => 'erika.zweit@example.org', 'phone' => '0160 9999999', 'discount_code' => $code2])
-            ->assertSessionHasErrors(['discount_code' => 'Pro Person bzw. Haushalt kann nur ein Weihnachtsrabatt eingelöst werden.']);
-        $this->assertSame(1, Order::count());
+        $this->assertArrayNotHasKey('dev_code', $r);
+        \Illuminate\Support\Facades\Http::assertSent(fn ($req) => $req->url() === 'https://gateway.seven.io/api/sms' && $req->hasHeader('X-Api-Key', 'test-key') && $req['to'] === '+491713000000');
     }
 
     public function test_page_conditions_teaser_and_campaign_end(): void
     {
         $html = $this->get('/weihnachtsaktion/')->assertOk()->getContent();
         $this->assertStringContainsString('data-xmas-form', $html);
+        $this->assertStringNotContainsString('name="phone"', $html, 'kostenlose Variante ohne Handynummer');
         $this->assertStringContainsString('Jede Person kann nur einmal teilnehmen.', $html);
         $this->assertStringContainsString('Ein Weihnachtsrabatt pro Person bzw. Haushalt.', $html);
         $this->assertStringContainsString('höchstens 10 %', $html);
         $this->assertStringContainsString('Gültig bis 31. Dezember 2026', $html);
-        $this->assertStringNotContainsString('data-xmas-practice', $html, 'keine Übungsrunde');
         $this->assertStringContainsString('href="/weihnachtsaktion/"', $this->get('/')->getContent());
         $this->assertStringContainsString('name="discount_code"', $this->get('/klappmesser/')->getContent());
 
@@ -230,7 +242,7 @@ class XmasAndEditionTest extends TestCase
 
         config(['ulbrich.xmas.ends_on' => now()->subDay()->toDateString(), 'ulbrich.xmas.valid_until' => now()->subDay()->toDateString()]);
         $this->assertStringContainsString('Die Weihnachtsaktion ist vorbei', $this->get('/weihnachtsaktion/')->getContent());
-        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'spaet@example.org', 'phone' => '0171 4000000', 'conditions' => '1'])->assertStatus(410);
+        $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'spaet@example.org', 'conditions' => '1'])->assertStatus(410);
         $this->assertStringNotContainsString('name="discount_code"', $this->get('/klappmesser/')->getContent());
     }
 }

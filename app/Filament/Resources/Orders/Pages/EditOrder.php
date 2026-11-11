@@ -13,6 +13,13 @@ class EditOrder extends EditRecord
 {
     protected static string $resource = OrderResource::class;
 
+    public function getSubheading(): ?string
+    {
+        $w = $this->record->discountWarnings();
+
+        return $w ? '⚠ Weihnachtsrabatt prüfen – ähnliche Einlösung(en): '.implode(', ', $w).'. Gleicher Name, gleiche Straße oder gleiche Telefonnummer – vor der Bestätigung klären.' : null;
+    }
+
     public function getTitle(): string
     {
         return $this->record->number.' · '.$this->record->typeLabel();

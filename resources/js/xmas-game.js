@@ -74,7 +74,7 @@ export function startXmasGame(root) {
     const form = $('[data-xmas-form]'), codeForm = $('[data-xmas-code-form]'), errorEl = $('[data-xmas-error]'), goBtn = $('[data-xmas-go]');
     const headline = $('[data-xmas-headline]'), prize = $('[data-xmas-prize]'), codeEl = $('[data-xmas-code]'), note = $('[data-xmas-note]');
     const csrf = $('[data-xmas-csrf]')?.value;
-    let token = null, ref = null;
+    let token = null, ref = root.dataset.ref || null;
     const step = (n) => root.querySelectorAll('[data-xmas-step]').forEach((el) => { el.hidden = el.dataset.xmasStep !== String(n); });
     const error = (msg) => { errorEl.textContent = msg || ''; errorEl.hidden = !msg; };
 
@@ -103,6 +103,11 @@ export function startXmasGame(root) {
         error(''); button.disabled = true;
         try {
             const r = await post(root.dataset.register, new FormData(form));
+            if (r.status === 'sent') {
+                step('sent'); $('[data-xmas-sent-text]').textContent = r.message;
+                const dev = $('[data-xmas-dev-mail]'); dev.hidden = !r.dev_link; if (r.dev_link) dev.querySelector('a').href = r.dev_link;
+                return;
+            }
             ref = r.ref; step(2);
             $('[data-xmas-sms-text]').textContent = r.message;
             const dev = $('[data-xmas-dev]'); dev.hidden = !r.dev_code; if (r.dev_code) $('[data-xmas-dev-code]').textContent = r.dev_code;

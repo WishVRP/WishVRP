@@ -56,10 +56,12 @@ class OrderController extends Controller
         $phone = XmasEntry::phoneKey($data['phone'] ?? null);
         $name = mb_strtolower(trim($data['name'] ?? ''));
         $postal = trim($data['postal_code'] ?? '');
+        $street = Order::streetKey($data['street'] ?? null);
         $used = Order::query()->whereNotNull('discount_code')->where('status', '!=', 'storniert')
-            ->get(['phone', 'name', 'postal_code'])
+            ->get(['phone', 'name', 'postal_code', 'street'])
             ->contains(fn (Order $o) => ($phone && XmasEntry::phoneKey($o->phone) === $phone)
-                || ($postal !== '' && $o->postal_code === $postal && mb_strtolower(trim($o->name)) === $name));
+                || ($postal !== '' && $o->postal_code === $postal && mb_strtolower(trim($o->name)) === $name)
+                || ($street && $postal !== '' && $o->postal_code === $postal && Order::streetKey($o->street) === $street));
         if ($used) {
             $fail('Pro Person bzw. Haushalt kann nur ein Weihnachtsrabatt eingelöst werden.');
         }

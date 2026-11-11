@@ -174,6 +174,8 @@ return [
     */
     'xmas' => [
         'enabled' => true,
+        // Bestätigung vor dem Spiel: 'email' (kostenlos, persönlicher Link) oder 'sms' (Code per SMS, Anbieter nötig)
+        'verification' => env('XMAS_VERIFICATION', 'email'),
         'ends_on' => '2026-12-24',        // letzter Spieltag
         'valid_until' => '2026-12-31',    // Code einlösbar bis (laut Inhaber)
         'seconds' => 30,

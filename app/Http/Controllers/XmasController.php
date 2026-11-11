@@ -13,7 +13,8 @@ use Illuminate\Support\Str;
 
 /**
  * Weihnachtsaktion – „jede Person nur einmal“:
- * 1. Teilnahme nur mit bestätigter Handynummer (6-stelliger SMS-Code); eine Handynummer = eine Teilnahme.
+ * 1. Bestätigung vor dem Spiel – kostenlos per persönlichem E-Mail-Link (Standard) oder per SMS-Code
+ *    (ulbrich.xmas.verification = sms; dann eine Handynummer = eine Teilnahme).
  * 2. Zusätzlich eine Teilnahme je E-Mail-Adresse (normalisiert), keine Wegwerf-Adressen.
  * 3. Höchstens 3 Anmeldungen je Internetanschluss und Tag (IP nur als Hash, 24 h im Cache).
  * 4. Einlösung nur mit derselben Handynummer und E-Mail, einmal je Haushalt (siehe OrderController).
@@ -28,6 +29,9 @@ class XmasController extends Controller
     public function register(Request $request): JsonResponse
     {
         abort_unless(XmasEntry::campaignActive(), 410, 'Die Aktion ist beendet.');
+        if (! XmasEntry::usesSms()) {
+            return $this->registerByEmail($request);
+        }
         abort_unless(Sms::canSend(), 503, 'Die Anmeldung ist gerade nicht möglich. Bitte versuch es später noch einmal.');
         $data = $request->validate([
             'email' => ['required', 'email', 'max:190'],
@@ -91,6 +95,54 @@ class XmasController extends Controller
         ]));
     }
 
+    /** Kostenlose Variante: persönlicher Spiel-Link per E-Mail (Link funktioniert genau einmal). */
+    private function registerByEmail(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'email' => ['required', 'email', 'max:190'],
+            'conditions' => ['accepted'],
+        ], ['conditions.accepted' => 'Bitte bestätige die Teilnahmebedingungen und den Datenschutzhinweis.', 'email.required' => 'Bitte gib deine E-Mail-Adresse ein.', 'email.email' => 'Bitte gib eine gültige E-Mail-Adresse ein.']);
+
+        if (XmasEntry::isDisposable($data['email'])) {
+            return $this->fail('Bitte verwende deine eigene, dauerhafte E-Mail-Adresse – Wegwerf-Adressen sind ausgeschlossen.');
+        }
+        $key = XmasEntry::emailKey($data['email']);
+        $entry = XmasEntry::query()->where('email_key', $key)->first();
+        if ($entry?->started_at) {
+            return $this->fail('Mit dieser E-Mail-Adresse wurde schon gespielt – die Aktion gibt es nur einmal pro Person.');
+        }
+        $limiter = 'xmas:'.hash('sha256', $request->ip().config('app.key'));
+        if (! $entry && RateLimiter::tooManyAttempts($limiter, 3)) {
+            return $this->fail('Von diesem Internetanschluss gab es heute schon mehrere Anmeldungen. Bitte versuch es morgen wieder.', 429);
+        }
+        if ($entry && $entry->sms_sent_at && $entry->sms_sent_at->gt(now()->subSeconds(60))) {
+            return $this->fail('Wir haben dir gerade erst einen Link geschickt. Bitte warte eine Minute.', 429);
+        }
+        if ($entry && $entry->sms_count >= self::MAX_SMS) {
+            return $this->fail('Für diese Adresse wurden schon zu viele Links angefordert. Schau in deinem Postfach (auch im Spam-Ordner) nach.', 429);
+        }
+        if (! $entry) {
+            RateLimiter::hit($limiter, 86400);
+            $entry = XmasEntry::create(['email' => $data['email'], 'email_key' => $key, 'token' => Str::random(48), 'verify_token' => Str::random(48)]);
+        }
+        $entry->update(['sms_sent_at' => now(), 'sms_count' => $entry->sms_count + 1]);   // Zähler für versendete Links
+
+        $link = rtrim(url('/'), '/').'/weihnachtsaktion/?t='.$entry->verify_token;
+        $this->send($entry->email, 'Dein persönlicher Link zur Schneeballschlacht', [
+            'Hallo,', '',
+            'hier ist dein persönlicher Link zur Weihnachtsaktion der '.config('ulbrich.name').':',
+            $link, '',
+            'Der Link funktioniert genau einmal: Du hast einen Versuch. Mit dem Start zählt deine Teilnahme – such dir also einen ruhigen Moment.', '',
+            config('ulbrich.owner'),
+        ]);
+
+        return response()->json(array_filter([
+            'status' => 'sent',
+            'message' => 'Fast geschafft! Wir haben dir deinen persönlichen Spiel-Link an '.$entry->email.' geschickt. Öffne ihn, um zu spielen.',
+            'dev_link' => app()->isProduction() ? null : $link,
+        ]));
+    }
+
     public function verify(Request $request): JsonResponse
     {
         $data = $request->validate(['ref' => ['required', 'string', 'size:48'], 'code' => ['required', 'string', 'max:10']]);
@@ -123,7 +175,7 @@ class XmasController extends Controller
         $data = $request->validate(['ref' => ['required', 'string', 'size:48']]);
         $entry = XmasEntry::query()->where('verify_token', $data['ref'])->first();
         abort_unless($entry, 404, 'Anmeldung nicht gefunden.');
-        abort_unless($entry->verified_at && $entry->phone_key, 403, 'Bitte bestätige zuerst deine Handynummer.');
+        abort_unless($entry->verified_at && (! XmasEntry::usesSms() || $entry->phone_key), 403, XmasEntry::usesSms() ? 'Bitte bestätige zuerst deine Handynummer.' : 'Bitte öffne den persönlichen Link aus deiner E-Mail.');
 
         if ($entry->started_at) {
             if (! $entry->finished_at) {
@@ -173,7 +225,7 @@ class XmasController extends Controller
                 '',
                 "Du hast den Weihnachtsmann {$entry->score}-mal getroffen und {$entry->percent} % Rabatt gewonnen.",
                 "Dein persönlicher Code: {$entry->code}",
-                "Einlösbar einmalig bis {$until} bei einer Bestellung oder Kursbuchung über die Website – nur zusammen mit dieser E-Mail-Adresse ({$entry->email}) und deiner bestätigten Handynummer. Pro Person bzw. Haushalt gilt ein Weihnachtsrabatt.",
+                "Einlösbar einmalig bis {$until} bei einer Bestellung oder Kursbuchung über die Website – nur zusammen mit dieser E-Mail-Adresse ({$entry->email})".($entry->phone_key ? ' und deiner bestätigten Handynummer' : '').'. Pro Person bzw. Haushalt gilt ein Weihnachtsrabatt.',
                 '',
                 'Frohe Weihnachten wünscht '.config('ulbrich.owner'),
                 config('ulbrich.name'),

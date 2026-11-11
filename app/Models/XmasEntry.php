@@ -125,6 +125,25 @@ class XmasEntry extends Model
         return static::query()->where('code', $code)->whereNull('redeemed_at')->first();
     }
 
+    public static function usesSms(): bool
+    {
+        return config('ulbrich.xmas.verification') === 'sms';
+    }
+
+    /** Persönlicher E-Mail-Link: bestätigt die Adresse beim ersten Öffnen. */
+    public static function fromInvite(?string $token): ?self
+    {
+        if (! $token || strlen($token) !== 48) {
+            return null;
+        }
+        $entry = static::query()->where('verify_token', $token)->first();
+        if ($entry && ! $entry->verified_at && ! self::usesSms()) {
+            $entry->update(['verified_at' => now()]);
+        }
+
+        return $entry;
+    }
+
     public static function campaignActive(): bool
     {
         $x = config('ulbrich.xmas');

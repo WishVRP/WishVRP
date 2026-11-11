@@ -121,6 +121,38 @@ class Order extends Model
         }
     }
 
+    /** Straße vergleichbar machen („Hauptstr. 5“ = „hauptstraße 5“). */
+    public static function streetKey(?string $street): ?string
+    {
+        $s = mb_strtolower(trim((string) $street));
+        $s = preg_replace('/str(\.|asse|aße)?\b/u', 'str', $s);
+        $s = preg_replace('/[^\p{L}\p{N}]/u', '', $s);
+
+        return $s !== '' ? $s : null;
+    }
+
+    /**
+     * Hinweise auf mögliche Mehrfach-Rabatte (zur Prüfung vor der Bestätigung):
+     * andere Vorgänge mit Weihnachtsrabatt und gleichem Namen, gleicher Straße oder gleicher Telefonnummer.
+     *
+     * @return array<int, string>
+     */
+    public function discountWarnings(): array
+    {
+        if (! $this->discount_code) {
+            return [];
+        }
+        $name = mb_strtolower(trim($this->name));
+        $street = self::streetKey($this->street);
+        $phone = XmasEntry::phoneKey($this->phone);
+
+        return static::query()->whereNotNull('discount_code')->whereKeyNot($this->id)->where('status', '!=', 'storniert')->get()
+            ->filter(fn (Order $o) => mb_strtolower(trim($o->name)) === $name
+                || ($street && self::streetKey($o->street) === $street)
+                || ($phone && XmasEntry::phoneKey($o->phone) === $phone))
+            ->map(fn (Order $o) => "{$o->number} ({$o->name})")->values()->all();
+    }
+
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);

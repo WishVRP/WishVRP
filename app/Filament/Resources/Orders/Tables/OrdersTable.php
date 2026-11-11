@@ -52,7 +52,7 @@ class OrdersTable
                 TextColumn::make('name')->label('Name')->searchable()->description(fn (Order $r) => $r->email),
                 TextColumn::make('summary')->label('Was')->state(fn (Order $r) => $r->summary())->wrap(),
                 TextColumn::make('amount')->label('Betrag')->money('EUR', locale: 'de')->sortable()
-                    ->description(fn (Order $r) => $r->discount_percent ? "−{$r->discount_percent} % ({$r->discount_code})" : null),
+                    ->description(fn (Order $r) => $r->discount_percent ? "−{$r->discount_percent} % ({$r->discount_code})".($r->discountWarnings() ? ' ⚠ prüfen' : '') : null),
                 TextColumn::make('status')->label('Status')->badge()
                     ->formatStateUsing(fn ($state) => Order::STATUSES[$state] ?? $state)
                     ->color(fn ($state) => Order::STATUS_COLORS[$state] ?? 'gray'),
