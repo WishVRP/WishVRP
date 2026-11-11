@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \App\Support\StagingSetup::run();
+
         // Getrennte Limits je Bereich (throttle:8,1 würde einen gemeinsamen Zähler für alle Routen nutzen).
         \Illuminate\Support\Facades\RateLimiter::for('forms', fn (\Illuminate\Http\Request $r) => \Illuminate\Cache\RateLimiting\Limit::perMinute(8)->by('forms|'.$r->ip()));
         \Illuminate\Support\Facades\RateLimiter::for('xmas', fn (\Illuminate\Http\Request $r) => \Illuminate\Cache\RateLimiting\Limit::perMinute(20)->by('xmas|'.$r->ip()));

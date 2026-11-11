@@ -50,7 +50,7 @@ NEWSLETTER_AUTO=false
 
 ## Ohne SSH (nur FTP) – fertiges Paket `ulbrich-test.zip`
 
-Das Paket enthält alles: Programmcode, Abhängigkeiten, gebaute Designdateien und eine vorbereitete Datenbank mit den Kursen. **Es enthält keine Passwörter oder Schlüssel.**
+Das Paket enthält alles: Programmcode, Abhängigkeiten und gebaute Designdateien. Die Datenbank mit den Kursen legt die Seite beim ersten Aufruf selbst an. **Es enthält keine Passwörter oder Schlüssel.**
 
 1. **Beim Hoster:**
    - Subdomain `test` anlegen
@@ -75,6 +75,8 @@ Automatisch geregelt:
 - Bild-Uploads funktionieren ohne Symlink.
 - E-Mails werden nur protokolliert, nicht verschickt. Die Weihnachtsaktion zeigt den Spiel-Link deshalb direkt auf der Seite.
 - Online-Zahlung ist aus.
+
+**Update:** Ein neues Paket einfach drüberladen und dabei Dateien überschreiben. Die `.env` auf dem Server vorher sichern bzw. nicht überschreiben. Die Datenbank ist nicht im Paket. Sie wird beim nächsten Aufruf automatisch auf den neuen Stand gebracht, Admin-Konto und Daten bleiben erhalten.
 
 Bei Fehler 500: Die Datei `storage/logs/laravel.log` herunterladen und den Inhalt (ohne Passwörter) an Claude geben.
 
