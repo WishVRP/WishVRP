@@ -2,3 +2,4 @@
 # Letzte Zeile = Basis für das nächste Update-Paket (scripts/update-paket.sh).
 6189a0e9c68360bf1b1237a658565d69d117af43 2026-11-11 ulbrich-test.zip (Vollpaket)
 91941b829f598a11c5f7ed967cc0b543c8f1c280 2026-11-11 ulbrich-update-2026-11-11-1852.zip
+2430edf013d9631f824e36c78e8915c5793677c7 2026-11-11 ulbrich-update-2026-11-11-1915.zip
