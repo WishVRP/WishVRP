@@ -68,7 +68,7 @@
         @include('pages.partials.faq', ['faqs' => \App\Support\Faqs::voucher()])
     </x-page.section>
 
-    @include('pages.partials.inquiry', ['type' => 'gutschein', 'title' => 'Gutschein bestellen', 'intro' => 'Wähle den Kurs, die Anzahl und schreib uns, an wen der Gutschein gehen soll. '.$c['owner'].' meldet sich mit allen Details zur Übergabe.', 'voucherCourses' => $courses, 'quantity' => 'Anzahl Gutscheine bzw. Personen', 'shipping' => true, 'submit' => 'Gutschein bestellen'])
+    @include('pages.partials.voucher-buy')
 
     <x-page.cta title="Gutschein telefonisch bestellen" />
 </x-layouts.site>

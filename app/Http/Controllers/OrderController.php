@@ -8,7 +8,14 @@ use App\Models\DiscountCode;
 use App\Models\EditionPiece;
 use App\Models\Order;
 use App\Models\SiteEvent;
+use App\Models\Voucher;
 use App\Models\XmasEntry;
+use App\Support\CourseCalendar;
+use App\Support\OrderPaid;
+use App\Support\Stripe;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Support\OrderMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -105,6 +112,16 @@ class OrderController extends Controller
         return filled($request->input('website'));   // Honeypot
     }
 
+    /** Kalenderdaten eines Monats für einen Kurs (frei | belegt | gesperrt). */
+    public function availability(Request $request): JsonResponse
+    {
+        $course = Course::query()->published()->where('slug', (string) $request->query('kurs'))->first();
+        abort_unless($course && CourseCalendar::bookable($course), 404);
+        $month = preg_match('/^\d{4}-\d{2}$/', (string) $request->query('monat')) ? Carbon::createFromFormat('Y-m-d', $request->query('monat').'-01') : CourseCalendar::first();
+
+        return response()->json(['days' => CourseCalendar::month($course, $month->year, $month->month)])->header('Cache-Control', 'no-store');
+    }
+
     public function booking(Request $request): RedirectResponse
     {
         if ($this->isSpam($request)) {
@@ -112,43 +129,134 @@ class OrderController extends Controller
         }
         $data = $request->validate(self::CONTACT + [
             'kurs' => ['required', 'string'],
-            'teilnehmer' => ['required', 'integer', 'min:1', 'max:12'],
-            'termin' => ['nullable', 'integer'],
-            'wunschtermin' => ['nullable', 'string', 'max:120'],
+            'teilnehmer' => ['required', 'integer', 'min:1', 'max:'.config('ulbrich.booking.max_persons')],
+            'datum' => ['required', 'date_format:Y-m-d'],
+            'gutschein_code' => ['nullable', 'string', 'max:20'],
             'bedingungen' => ['accepted'],
-        ], self::MESSAGES);
+        ], self::MESSAGES + ['datum.required' => 'Bitte wähle im Kalender einen freien Tag.']);
 
-        [$xmas] = $this->discount($data);
-        $course = Course::query()->published()->get()->first(fn ($c) => Str::slug($c->name) === $data['kurs']);
-        if (! $course) {
-            return back()->withErrors(['kurs' => 'Bitte wähle einen Kurs.'])->withInput();
+        $course = Course::query()->published()->where('slug', $data['kurs'])->first();
+        if (! $course || ! CourseCalendar::bookable($course)) {
+            return back()->withErrors(['kurs' => 'Bitte wähle einen online buchbaren Kurs.'])->withInput();
         }
-        $date = null;
-        if (! empty($data['termin'])) {
-            $date = CourseDate::query()->upcoming()->whereKey($data['termin'])->where('course_id', $course->id)->first();
-            if (! $date || $date->seatsLeft() < $data['teilnehmer']) {
-                return back()->withErrors(['termin' => 'Für diesen Termin sind nicht mehr genug Plätze frei. Bitte wähle einen anderen.'])->withInput();
+        [$disc] = $this->discount($data);
+        $voucher = null;
+        if (filled($data['gutschein_code'] ?? null)) {
+            $voucher = Voucher::usable($data['gutschein_code']);
+            $inUse = $voucher && Order::query()->where('voucher_id', $voucher->id)->where('status', '!=', 'storniert')->exists();
+            if (! $voucher || $inUse) {
+                return back()->withErrors(['gutschein_code' => 'Dieser Gutscheincode ist ungültig, abgelaufen oder schon eingelöst.'])->withInput();
             }
-        } elseif (CourseDate::query()->upcoming()->where('course_id', $course->id)->exists()) {
-            return back()->withErrors(['termin' => 'Bitte wähle einen Termin.'])->withInput();
         }
 
-        $order = Order::create([
-            'type' => 'kurs',
-            'status' => 'neu',
-            'name' => $data['name'], 'email' => $data['email'], 'phone' => $data['phone'] ?? null, 'message' => $data['message'] ?? null,
-            'course_id' => $course->id,
-            'course_date_id' => $date?->id,
-            'participants' => $data['teilnehmer'],
-            'preferred_date' => $date ? null : ($data['wunschtermin'] ?? null),
-            'amount' => $course->price_from ? $course->price_from * $data['teilnehmer'] : null,
-            'source_path' => '/schmiedekurse/buchen/',
-        ]);
-        $this->applyDiscount($order, $xmas);
+        $start = Carbon::parse($data['datum'])->startOfDay();
+        $end = $start->copy()->addDays(CourseCalendar::days($course) - 1);
+        $online = Stripe::enabled();
+
+        // Letzte Prüfung und Anlage in einem Schritt, damit kein Tag doppelt vergeben wird.
+        $order = DB::transaction(function () use ($course, $start, $end, $data, $online) {
+            if (! CourseCalendar::available($course, $start)) {
+                return null;
+            }
+
+            return Order::create([
+                'type' => 'kurs', 'status' => 'neu',
+                'name' => $data['name'], 'email' => $data['email'], 'phone' => $data['phone'] ?? null, 'message' => $data['message'] ?? null,
+                'course_id' => $course->id, 'course_start' => $start, 'course_end' => $end,
+                'participants' => $data['teilnehmer'],
+                'amount' => $course->price_from * $data['teilnehmer'],
+                'source_path' => '/schmiedekurse/buchen/',
+                'payment_method' => $online ? 'stripe' : 'ueberweisung',
+                'hold_until' => $online ? now()->addMinutes((int) config('ulbrich.booking.hold_minutes')) : null,
+            ]);
+        });
+        if (! $order) {
+            return back()->withErrors(['datum' => 'Dieser Tag ist leider gerade vergeben worden. Bitte wähle einen anderen.'])->withInput();
+        }
+
+        $this->applyDiscount($order, $disc);
+        if ($voucher) {
+            $order->forceFill(['voucher_id' => $voucher->id, 'voucher_amount' => min((float) $voucher->value, (float) $order->amount)])->save();
+        }
         SiteEvent::create(['name' => 'buchung', 'path' => '/schmiedekurse/buchen/', 'occurred_on' => now()->toDateString()]);
+
+        return $this->pay($order, [['name' => $course->name.' am '.$start->locale('de')->isoFormat('D. MMMM YYYY').' · '.$data['teilnehmer'].' P.', 'amount' => $this->due($order)]], '/schmiedekurse/buchen/#buchung-gesendet');
+    }
+
+    /** Offener Betrag nach Rabatt und Gutschein (inkl. Versand). */
+    private function due(Order $order): float
+    {
+        return max(0, round((float) $order->amount + (float) $order->shipping_amount - (float) $order->voucher_amount, 2));
+    }
+
+    /**
+     * Zahlung auslösen: 0 € (Gutschein deckt alles) → sofort bestätigt; Stripe aktiv → Checkout;
+     * sonst Anfrage mit Überweisung (wie bisher).
+     *
+     * @param  array<int, array{name: string, amount: float}>  $lines
+     */
+    private function pay(Order $order, array $lines, string $fallbackRedirect): RedirectResponse
+    {
+        if ($this->due($order) <= 0) {
+            OrderPaid::paid($order, $order->voucher_id ? 'gutschein' : 'rabatt');
+
+            return redirect('/zahlung/danke/?o='.$order->number);
+        }
+        if (Stripe::enabled()) {
+            try {
+                $order->update(['status' => 'zahlung_offen']);
+
+                return redirect()->away(Stripe::checkout($order, array_values(array_filter($lines, fn ($l) => $l['amount'] > 0))));
+            } catch (\Throwable $e) {
+                report($e);
+                OrderPaid::expired($order);
+
+                return back()->withErrors(['email' => 'Die Online-Zahlung ist gerade nicht erreichbar. Bitte versuch es gleich noch einmal oder ruf uns an.'])->withInput();
+            }
+        }
+        if ($order->voucher_id) {
+            Voucher::query()->whereKey($order->voucher_id)->update(['status' => 'eingeloest', 'redeemed_order_id' => $order->id, 'redeemed_at' => now()]);
+        }
         OrderMail::received($order);
 
-        return redirect('/schmiedekurse/buchen/#buchung-gesendet')->with('order_ok', $order->number);
+        return redirect($fallbackRedirect)->with('order_ok', $order->number);
+    }
+
+    /** Gutschein kaufen: Kurs × Personen, Code nach Zahlung per E-Mail. */
+    public function voucher(Request $request): RedirectResponse
+    {
+        if ($this->isSpam($request)) {
+            return back()->with('order_ok', 'U0000-0000');
+        }
+        $data = $request->validate(self::CONTACT + [
+            'kurs' => ['required', 'string'],
+            'personen' => ['required', 'integer', 'min:1', 'max:'.config('ulbrich.booking.max_persons')],
+            'empfaenger' => ['nullable', 'string', 'max:120'],
+            'agb' => ['accepted'],
+        ], self::MESSAGES + ['agb.accepted' => 'Bitte bestätige AGB und Widerrufsbelehrung.']);
+        $course = Course::query()->published()->where('slug', $data['kurs'])->first();
+        if (! $course || ! CourseCalendar::bookable($course)) {
+            return back()->withErrors(['kurs' => 'Bitte wähle einen Kurs.'])->withInput();
+        }
+        [$disc] = $this->discount($data);
+        $value = $course->price_from * $data['personen'];
+
+        $order = Order::create([
+            'type' => 'gutschein', 'status' => 'neu',
+            'name' => $data['name'], 'email' => $data['email'], 'phone' => $data['phone'] ?? null, 'message' => $data['message'] ?? null,
+            'item' => 'Gutschein: '.$course->name.' · '.$data['personen'].' '.($data['personen'] == 1 ? 'Person' : 'Personen'),
+            'course_id' => $course->id, 'quantity' => 1, 'amount' => $value,
+            'source_path' => '/geschenke/schmiedekurs-gutschein/',
+            'payment_method' => Stripe::enabled() ? 'stripe' : 'ueberweisung',
+        ]);
+        Voucher::create([
+            'code' => Voucher::newCode(), 'course_id' => $course->id, 'persons' => $data['personen'], 'value' => $value,
+            'status' => 'offen', 'recipient' => $data['empfaenger'] ?? null, 'order_id' => $order->id, 'valid_until' => Voucher::defaultValidUntil(),
+        ]);
+        $this->applyDiscount($order, $disc);
+        SiteEvent::create(['name' => 'anfrage', 'path' => '/geschenke/schmiedekurs-gutschein/', 'occurred_on' => now()->toDateString()]);
+
+        return $this->pay($order, [['name' => $order->item, 'amount' => $this->due($order)]], '/geschenke/schmiedekurs-gutschein/#anfrage-gesendet');
     }
 
     public function inquiry(Request $request): RedirectResponse

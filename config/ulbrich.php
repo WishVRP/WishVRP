@@ -162,6 +162,23 @@ return [
     ],
 
     /*
+    | Buchungskalender (Inhaber, 11.11.2026): jeder Tag buchbar, ein Kurs pro Tag,
+    | mehrtägige Kurse blockieren alle Kurstage. Bezahlung direkt online (Stripe).
+    */
+    'booking' => [
+        'min_days_ahead' => 2,        // frühestens übermorgen (Vorschlag)
+        'years_ahead' => 5,
+        'hold_minutes' => 30,         // Tag ist während der Online-Zahlung reserviert
+        'online_courses' => ['grundlagenkurs', 'klingenkurs', 'klingenkurs-alternativ', 'damast-messerkurs', 'damast-premium-kurs'],
+        'max_persons' => 6,           // Vorschlag – tatsächliche Höchstzahl vom Inhaber bestätigen
+    ],
+
+    /*
+    | Gutscheine: gesetzliche Verjährung 3 Jahre zum Jahresende (§§ 195, 199 BGB) – vom Anwalt bestätigen.
+    */
+    'voucher_years' => 3,
+
+    /*
     | Newsletter-Automatik (Inhaber, 11.11.2026): wöchentlich an bestätigte Empfänger,
     | alle 3 Monate mit persönlichem Rabattcode (höchstens 10 %). Inhalt der Auto-Ausgabe
     | nur aus echten Daten (Kurstermine, Edition-Nummern, Ratgeber) – nichts erfunden.

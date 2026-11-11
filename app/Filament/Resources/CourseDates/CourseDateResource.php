@@ -28,6 +28,9 @@ class CourseDateResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    /** Ersetzt durch den Buchungskalender (jeder Tag buchbar) – bleibt für Altdaten erreichbar. */
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function form(Schema $schema): Schema
     {
         return CourseDateForm::configure($schema);

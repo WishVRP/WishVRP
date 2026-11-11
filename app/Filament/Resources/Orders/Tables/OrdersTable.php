@@ -24,7 +24,11 @@ class OrdersTable
             ->visible(fn (Order $record) => in_array($record->status, $from, true))
             ->requiresConfirmation($status === 'storniert')
             ->action(function (Order $record) use ($status, $label) {
-                $record->update(['status' => $status]);
+                if ($status === 'bezahlt') {
+                    \App\Support\OrderPaid::paid($record, 'ueberweisung');   // Gutscheincode, Lager, Bestätigungsmail
+                } else {
+                    $record->update(['status' => $status]);
+                }
                 Notification::make()->title("{$record->number}: {$label}")->success()->send();
             });
     }

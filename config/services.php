@@ -29,6 +29,15 @@ return [
     ],
 
     /*
+    | Stripe (Online-Zahlung). Ohne Schlüssel: keine Online-Zahlung, Ablauf wie bisher (Anfrage/Überweisung).
+    | Schlüssel nur in .env. Webhook-Ziel: /stripe/webhook/ (Ereignisse checkout.session.completed/expired).
+    */
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
+    /*
     | SMS für die Weihnachtsaktion. driver: log (Entwicklung, nichts wird verschickt)
     | oder seven (seven.io, Anbieter aus Deutschland). API-Schlüssel nur in .env, nie ins Repository.
     */

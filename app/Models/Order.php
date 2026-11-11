@@ -55,6 +55,11 @@ class Order extends Model
             'shipped_at' => 'datetime',
             'cancelled_at' => 'datetime',
             'seats_counted' => 'boolean',
+            'course_start' => 'date',
+            'course_end' => 'date',
+            'hold_until' => 'datetime',
+            'shipping_amount' => 'decimal:2',
+            'voucher_amount' => 'decimal:2',
         ];
     }
 
@@ -159,6 +164,16 @@ class Order extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function voucher(): BelongsTo
+    {
+        return $this->belongsTo(Voucher::class);
+    }
+
     public function courseDate(): BelongsTo
     {
         return $this->belongsTo(CourseDate::class);
@@ -193,7 +208,8 @@ class Order extends Model
     public function summary(): string
     {
         if ($this->type === 'kurs') {
-            $date = $this->courseDate?->starts_on?->locale('de')->isoFormat('D. MMMM YYYY') ?? ($this->preferred_date ? 'Wunsch: '.$this->preferred_date : 'Termin offen');
+            $date = $this->course_start?->locale('de')->isoFormat('D. MMMM YYYY')
+                ?? $this->courseDate?->starts_on?->locale('de')->isoFormat('D. MMMM YYYY') ?? ($this->preferred_date ? 'Wunsch: '.$this->preferred_date : 'Termin offen');
 
             return trim(($this->course?->name ?? 'Kurs').' · '.$date.' · '.$this->participants.' P.');
         }

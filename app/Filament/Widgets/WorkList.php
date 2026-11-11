@@ -21,7 +21,8 @@ class WorkList extends Widget
         return [
             'orders' => Order::query()->open()->with(['course', 'courseDate'])->latest()->limit(6)->get(),
             'notes' => Note::query()->open()->with(['user', 'order'])->orderByDesc('is_pinned')->latest()->limit(6)->get(),
-            'dates' => CourseDate::query()->with('course')->whereDate('starts_on', '>=', now()->toDateString())->orderBy('starts_on')->limit(6)->get(),
+            'dates' => Order::query()->where('type', 'kurs')->whereNotNull('course_start')->where('status', '!=', 'storniert')
+                ->whereDate('course_start', '>=', now()->toDateString())->orderBy('course_start')->limit(6)->with('course')->get(),
         ];
     }
 }

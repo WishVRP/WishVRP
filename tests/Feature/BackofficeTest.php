@@ -34,27 +34,20 @@ class BackofficeTest extends TestCase
 
     public function test_booking_with_date_creates_order_and_sends_mails(): void
     {
-        $course = Course::where('slug', 'grundlagenkurs')->first();
-        $date = CourseDate::create(['course_id' => $course->id, 'starts_on' => now()->addDays(10), 'seats_total' => 6, 'seats_booked' => 0, 'is_published' => true]);
-
-        $this->post('/schmiedekurse/buchen/', $this->contact() + ['kurs' => 'grundlagenkurs', 'teilnehmer' => 2, 'termin' => $date->id, 'bedingungen' => '1'])
+        $day = now()->addDays(10)->toDateString();
+        $this->post('/schmiedekurse/buchen/', $this->contact() + ['kurs' => 'grundlagenkurs', 'teilnehmer' => 2, 'datum' => $day, 'bedingungen' => '1'])
             ->assertRedirect('/schmiedekurse/buchen/#buchung-gesendet')->assertSessionHas('order_ok');
 
         $order = Order::sole();
-        $this->assertSame(['kurs', 'neu', 2, '600.00'], [$order->type, $order->status, $order->participants, $order->amount]);
+        $this->assertSame(['kurs', 'neu', 2, '600.00', $day], [$order->type, $order->status, $order->participants, $order->amount, $order->course_start->toDateString()]);
         $this->assertMatchesRegularExpression('/^U\d{4}-0001$/', $order->number);
         $this->assertSame(1, SiteEvent::where('name', 'buchung')->count());
     }
 
-    public function test_booking_requires_consent_terms_and_free_seats(): void
+    public function test_booking_requires_consent_terms_and_a_free_day(): void
     {
-        $course = Course::where('slug', 'grundlagenkurs')->first();
-        $date = CourseDate::create(['course_id' => $course->id, 'starts_on' => now()->addDays(10), 'seats_total' => 2, 'seats_booked' => 1, 'is_published' => true]);
-
         $this->post('/schmiedekurse/buchen/', ['kurs' => 'grundlagenkurs', 'teilnehmer' => 1, 'name' => 'X', 'email' => 'x@example.org'])
-            ->assertSessionHasErrors(['consent', 'bedingungen']);
-        $this->post('/schmiedekurse/buchen/', $this->contact() + ['kurs' => 'grundlagenkurs', 'teilnehmer' => 2, 'termin' => $date->id, 'bedingungen' => '1'])
-            ->assertSessionHasErrors('termin');
+            ->assertSessionHasErrors(['consent', 'bedingungen', 'datum']);
         $this->assertSame(0, Order::count());
     }
 

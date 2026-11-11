@@ -1,5 +1,4 @@
 @php
-    use App\Filament\Resources\CourseDates\CourseDateResource;
     use App\Filament\Resources\Notes\NoteResource;
     use App\Filament\Resources\Orders\OrderResource;
     use App\Models\Order;
@@ -31,16 +30,16 @@
             @endforelse
         </x-filament::section>
 
-        <x-filament::section heading="Nächste Kurstermine">
-            <x-slot name="afterHeader"><x-filament::link :href="CourseDateResource::getUrl('index')" size="sm">Verwalten</x-filament::link></x-slot>
-            @forelse ($dates as $d)
-                <div class="uw-item">
-                    <div class="uw-item__head"><span>{{ $d->starts_on->locale('de')->isoFormat('dd, D. MMM YYYY') }}</span>
-                        <span class="uw-row__num">{{ $d->seats_booked }}/{{ $d->seats_total }}</span></div>
-                    <div class="uw-muted">{{ $d->course?->name }}@unless ($d->is_published) · nicht freigeschaltet @endunless</div>
-                </div>
+        <x-filament::section heading="Nächste Kurstage">
+            <x-slot name="afterHeader"><x-filament::link :href="\App\Filament\Resources\CalendarBlocks\CalendarBlockResource::getUrl('index')" size="sm">Kalender</x-filament::link></x-slot>
+            @forelse ($dates as $o)
+                <a class="uw-item" href="{{ OrderResource::getUrl('edit', ['record' => $o]) }}">
+                    <div class="uw-item__head"><span>{{ $o->course_start->locale('de')->isoFormat('dd, D. MMM YYYY') }}</span>
+                        <x-filament::badge :color="Order::STATUS_COLORS[$o->status] ?? 'gray'" size="sm">{{ $o->statusLabel() }}</x-filament::badge></div>
+                    <div class="uw-muted">{{ $o->course?->name }} · {{ $o->participants }} P. · {{ $o->name }}</div>
+                </a>
             @empty
-                <p class="uw-empty">Noch keine Termine angelegt.</p>
+                <p class="uw-empty">Noch keine Kurse gebucht.</p>
             @endforelse
         </x-filament::section>
     </div>

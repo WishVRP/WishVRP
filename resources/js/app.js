@@ -234,37 +234,84 @@ if (sparkCanvas && !reduceMotion) {
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
 }
 
-/* ---------- Buchung: Auswahl und Gesamtpreis ---------- */
-const euro = (n) => `${new Intl.NumberFormat('de-DE').format(n)} €`;
+/* ---------- Buchung: Kurs, Kalender (ein Kurs pro Tag), Personen, Gesamtpreis ---------- */
+const euro = (n) => `${new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 }).format(n)} €`;
 const booking = document.querySelector('[data-booking]');
 const summary = document.querySelector('[data-booking-summary]');
 if (booking && summary) {
     const persons = booking.querySelector('[data-persons]');
+    const max = parseInt(persons.dataset.max, 10) || 6;
+    const input = booking.querySelector('[data-cal-input]');
+    const grid = booking.querySelector('[data-cal-grid]');
+    const title = booking.querySelector('[data-cal-title]');
+    const chosen = booking.querySelector('[data-cal-chosen]');
+    const first = booking.dataset.first, lastDay = booking.dataset.last;
     const set = (sel, text) => { const el = summary.querySelector(sel); if (el) el.textContent = text; };
+    const fmt = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    let month = (input.value || first).slice(0, 7);
+    let cache = {};
+
+    const course = () => booking.querySelector('input[name="kurs"]:checked');
     const update = () => {
-        const course = booking.querySelector('input[name="kurs"]:checked');
-        const n = Math.min(12, Math.max(1, parseInt(persons.value, 10) || 1));
+        const co = course();
+        const n = Math.min(max, Math.max(1, parseInt(persons.value, 10) || 1));
         persons.value = n;
-        if (!course) return;
-        const price = parseInt(course.dataset.price, 10);
-        set('[data-sum-name]', course.dataset.name);
-        set('[data-sum-duration]', course.dataset.duration || '–');
+        if (!co) return;
+        const price = parseFloat(co.dataset.price);
+        set('[data-sum-name]', co.dataset.name);
+        set('[data-sum-duration]', co.dataset.duration || '–');
         set('[data-sum-persons]', String(n));
-        set('[data-sum-price]', price ? `ab ${euro(price)}` : 'auf Anfrage');
-        set('[data-sum-total]', price ? `ab ${euro(price * n)}` : 'auf Anfrage');
-        booking.querySelectorAll('[data-date-course]').forEach((li) => { li.hidden = li.dataset.dateCourse !== course.value; });
-        const url = new URL(window.location.href);
-        url.searchParams.set('kurs', course.value);
-        url.searchParams.set('teilnehmer', String(n));
-        try { window.history.replaceState(null, '', url); } catch { /* z. B. Datei-Vorschau */ }
+        set('[data-sum-price]', euro(price));
+        set('[data-sum-total]', euro(price * n));
+        set('[data-sum-date]', input.value ? fmt(input.value) : '–');
     };
-    booking.addEventListener('change', update);
+
+    async function load() {
+        const co = course(); if (!co) return;
+        const [y, m] = month.split('-').map(Number);
+        title.textContent = new Date(y, m - 1, 1).toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+        const key = `${co.value}|${month}`;
+        if (!cache[key]) {
+            grid.innerHTML = '<p class="cal__loading">Lädt …</p>';
+            try { cache[key] = await (await fetch(`${booking.dataset.availability}?kurs=${encodeURIComponent(co.value)}&monat=${month}`, { headers: { Accept: 'application/json' } })).json(); }
+            catch { grid.innerHTML = '<p class="cal__loading">Kalender konnte nicht geladen werden.</p>'; return; }
+        }
+        const days = cache[key].days || {};
+        const lead = (new Date(y, m - 1, 1).getDay() + 6) % 7;
+        grid.innerHTML = '';
+        for (let i = 0; i < lead; i++) grid.appendChild(document.createElement('span'));
+        Object.entries(days).forEach(([iso, state]) => {
+            const b = document.createElement('button');
+            b.type = 'button'; b.textContent = String(Number(iso.slice(8)));
+            b.className = `cal__day cal__day--${state}` + (iso === input.value ? ' is-selected' : '');
+            b.disabled = state !== 'frei';
+            b.setAttribute('aria-label', `${fmt(iso)}: ${state}`);
+            b.addEventListener('click', () => {
+                input.value = iso;
+                grid.querySelectorAll('.is-selected').forEach((x) => x.classList.remove('is-selected'));
+                b.classList.add('is-selected');
+                const d = parseInt(course().dataset.days, 10) || 1;
+                chosen.textContent = d > 1 ? `Gewählt: ${fmt(iso)} (${d} Kurstage)` : `Gewählt: ${fmt(iso)}`;
+                update();
+            });
+            grid.appendChild(b);
+        });
+        booking.querySelector('[data-cal-prev]').disabled = month <= first.slice(0, 7);
+        booking.querySelector('[data-cal-next]').disabled = month >= lastDay.slice(0, 7);
+    }
+    const shift = (dir) => { const [y, m] = month.split('-').map(Number); const d = new Date(y, m - 1 + dir, 1); month = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; load(); };
+    booking.querySelector('[data-cal-prev]').addEventListener('click', () => shift(-1));
+    booking.querySelector('[data-cal-next]').addEventListener('click', () => shift(1));
+    booking.addEventListener('change', (e) => {
+        if (e.target.name === 'kurs') { input.value = ''; chosen.textContent = 'Noch kein Tag gewählt.'; load(); }
+        update();
+    });
     persons.addEventListener('input', update);
     booking.querySelectorAll('[data-step]').forEach((btn) => btn.addEventListener('click', () => {
         persons.value = (parseInt(persons.value, 10) || 1) + parseInt(btn.dataset.step, 10);
         update();
     }));
-    update();
+    update(); load();
 }
 
 /* ---------- Gutschein-Vorschau ---------- */

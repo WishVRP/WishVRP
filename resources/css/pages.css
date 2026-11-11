@@ -744,3 +744,25 @@ a.path-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px r
 .xmas__overlay [data-xmas-step] { display: grid; gap: var(--space-3); justify-items: center; }
 .xmas__overlay [data-xmas-step][hidden] { display: none; }
 .xmas__overlay .check { font-size: 0.875rem; line-height: 1.45; }
+
+/* ---------- Buchungskalender ---------- */
+.cal { border: 1px solid var(--steel-200); border-radius: var(--radius-2); padding: var(--space-4); background: var(--steel-0, #fff); max-width: 28rem; }
+.cal__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.cal__title { font-weight: 600; text-transform: capitalize; }
+.cal__nav { width: 2.5rem; height: 2.5rem; border: 1px solid var(--steel-200); border-radius: 999px; background: transparent; font-size: 1.4rem; cursor: pointer; }
+.cal__nav:disabled { opacity: .35; cursor: default; }
+.cal__weekdays, .cal__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-top: var(--space-3); }
+.cal__weekdays span { text-align: center; font-family: var(--font-tech); font-size: var(--text-xs); color: var(--color-text-muted); }
+.cal__day { aspect-ratio: 1; border: 0; border-radius: 6px; font: inherit; font-size: var(--text-sm); cursor: pointer; }
+.cal__day--frei { background: #e7f4ec; color: #1f6b3d; }
+.cal__day--frei:hover { background: #c9e9d5; }
+.cal__day--belegt { background: #f6e3e1; color: #a0342a; text-decoration: line-through; cursor: not-allowed; }
+.cal__day--gesperrt { background: transparent; color: #b3b8c0; cursor: default; }
+.cal__day.is-selected { background: var(--temper-blue-ink, #2d5f93); color: #fff; outline: 2px solid var(--temper-straw); outline-offset: 1px; }
+.cal__day:focus-visible { outline: 2px solid var(--temper-blue-ink); outline-offset: 2px; }
+.cal__legend { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--text-sm); color: var(--color-text-muted); }
+.cal__dot { display: inline-block; width: .8rem; height: .8rem; border-radius: 3px; }
+.cal__dot--free { background: #e7f4ec; border: 1px solid #1f6b3d; }
+.cal__dot--busy { background: #f6e3e1; border: 1px solid #a0342a; margin-left: var(--space-3); }
+.cal__chosen { margin-top: var(--space-2); font-weight: 600; }
+.cal__loading { grid-column: 1 / -1; padding: var(--space-4); text-align: center; color: var(--color-text-muted); }
