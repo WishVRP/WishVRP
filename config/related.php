@@ -35,7 +35,7 @@ return [
     '/erlebnisse/schmieden-zu-zweit/' => ['/geschenke/schmiedekurs-gutschein/', '/schmiedekurse/', '/erlebnisse/teamevent/'],
     '/erlebnisse/teamevent/' => ['/schmiedekurse/manager-schmiedekurs/', '/erlebnisse/', '/schmiedekurse/heilbronn-region/'],
     '/geschenke/schmiedekurs-geburtstag/' => ['/geschenke/schmiedekurs-gutschein/', '/ratgeber/schmiedekurs-anfaenger/', '/geschenke/weihnachten/'],
-    '/geschenke/weihnachten/' => ['/geschenke/schmiedekurs-gutschein/', '/klappmesser/', '/geschenke/schmiedekurs-geburtstag/'],
+    '/geschenke/weihnachten/' => ['/klappmesser/', '/geschenke/schmiedekurs-gutschein/', '/messer-gravur/', '/ratgeber/messerformen/', '/ratgeber/messer-verschenken/', '/erlebnisse/schmieden-zu-zweit/'],
     '/klappmesser/sonderedition/' => ['/klappmesser/', '/messerprojekte/damast-klappmesser-edition-100/', '/sonderanfertigungen/'],
     '/messerprojekte/damast-klappmesser-edition-100/' => ['/klappmesser/', '/klappmesser/sonderedition/', '/messerprojekte/'],
     '/messer-kunst/' => ['/messerprojekte/', '/shop/einzelstuecke/', '/manufaktur/'],
