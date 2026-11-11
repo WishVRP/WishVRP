@@ -91,6 +91,16 @@ return [
         'meta_title' => 'Ratgeber Schmiedekurs – Kosten und Vorbereitung',
         'description' => 'Was kostet ein Schmiedekurs und wie bereitest du dich vor? Antworten und Preisübersicht aus der Messermanufaktur Ulbrich – vom Grundlagenkurs bis Damast.',
     ],
+    '/ratgeber/damaststahl/' => [
+        'title' => 'Damaststahl erklärt', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.guide-damascus',
+        'meta_title' => 'Damaststahl erklärt: Herstellung, Muster, Pflege',
+        'description' => 'Was ist Damaststahl, wie entsteht das Muster und wie pflegst du eine Damastklinge? Verständlich erklärt vom Handwerk aus – mit Tipps zum eigenen Damastmesser.',
+    ],
+    '/ratgeber/messer-pflegen/' => [
+        'title' => 'Messer pflegen', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.guide-care',
+        'meta_title' => 'Messer pflegen: Reinigen, Schärfen, richtig lagern',
+        'description' => 'So bleibt ein handgefertigtes Messer lange scharf: richtig reinigen, das passende Schneidbrett wählen, schärfen und lagern. Die wichtigsten Regeln im Überblick.',
+    ],
     '/manufaktur/' => [
         'title' => 'Manufaktur', 'status' => 'live', 'gsc_clicks' => null, 'view' => 'about.workshop',
         'meta_title' => 'Manufaktur seit 1934 – Messerschmied Andreas Ulbrich',

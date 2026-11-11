@@ -134,7 +134,8 @@ return [
     */
     'guides' => [
         ['title' => 'Was kostet ein Schmiedekurs?', 'topic' => 'Kosten', 'path' => '/ratgeber/'],
-        ['title' => 'So bereitest du dich auf deinen Schmiedekurs vor', 'topic' => 'Vorbereitung', 'path' => '/ratgeber/'],
+        ['title' => 'Damaststahl erklärt: Herstellung, Muster, Pflege', 'topic' => 'Damaststahl', 'path' => '/ratgeber/damaststahl/'],
+        ['title' => 'Messer pflegen: reinigen, schärfen, lagern', 'topic' => 'Messerpflege', 'path' => '/ratgeber/messer-pflegen/'],
     ],
 
     /*

@@ -48,4 +48,27 @@ final class Faqs
             ['q' => 'Kann der Kurstermin später noch verschoben werden?', 'a' => 'Ja, Umbuchen ist bis 7 Tage vor dem Kurstermin möglich.'],
         ];
     }
+
+    /** Allgemeines Handwerkswissen zu Damaststahl – keine betriebsspezifischen Angaben. */
+    public static function damascus(): array
+    {
+        return [
+            ['q' => 'Was ist Damaststahl?', 'a' => 'Damaststahl – genauer Schweißverbundstahl – entsteht, indem mindestens zwei unterschiedliche Stahlsorten in der Esse miteinander verschweißt, ausgeschmiedet und mehrfach gefaltet oder verdreht werden. Das typische Muster wird erst durch Ätzen sichtbar.'],
+            ['q' => 'Woher kommt das Muster im Damast?', 'a' => 'Die verschiedenen Stahllagen reagieren beim Ätzen unterschiedlich stark auf die Säure. Dadurch erscheinen helle und dunkle Linien. Wie das Muster aussieht, hängt davon ab, wie der Schmied die Lagen faltet, verdreht oder einschneidet.'],
+            ['q' => 'Ist Damaststahl besser als normaler Messerstahl?', 'a' => 'Nicht automatisch. Die Schneidleistung hängt vor allem von den verwendeten Stählen und der Wärmebehandlung ab. Damast verbindet gute Gebrauchseigenschaften mit einer Klinge, deren Muster jedes Messer einzigartig macht.'],
+            ['q' => 'Rostet Damaststahl?', 'a' => 'Viele Damaststähle enthalten nicht rostfreie, kohlenstoffreiche Lagen und können Flugrost bilden. Nach dem Gebrauch abwaschen, sofort abtrocknen und die Klinge gelegentlich dünn einölen.'],
+        ];
+    }
+
+    /** Allgemeine Messerpflege. */
+    public static function care(): array
+    {
+        return [
+            ['q' => 'Darf ein gutes Messer in die Spülmaschine?', 'a' => 'Nein. Hitze, aggressive Reiniger und das Anschlagen an anderem Geschirr schaden Schneide und Griff. Handgefertigte Messer immer von Hand spülen und sofort abtrocknen.'],
+            ['q' => 'Welches Schneidbrett schont die Klinge?', 'a' => 'Holz oder Kunststoff. Glas, Stein, Keramik und Metall stumpfen die Schneide schnell ab oder lassen sie ausbrechen.'],
+            ['q' => 'Wie oft muss ich mein Messer schärfen?', 'a' => 'Das hängt davon ab, wie oft und worauf du schneidest. Ein Zeichen ist, wenn das Messer über eine Tomatenhaut rutscht, statt sofort zu greifen. Zwischendurch hilft Abziehen, richtig nachschärfen geht mit einem Schleifstein.'],
+            ['q' => 'Wie lagere ich Messer richtig?', 'a' => 'So, dass die Schneide nichts berührt: im Messerblock, an einer Magnetleiste oder in einer Scheide bzw. einem Klingenschutz – nicht lose in der Schublade.'],
+        ];
+    }
 }
+

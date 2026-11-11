@@ -42,6 +42,14 @@ class PageController extends Controller
                 Schema::article('Was kostet ein Schmiedekurs?', $meta->canonical().'#kosten', 'Preise aller Schmiedekurse der Messermanufaktur Ulbrich pro Person, vom Grundlagenkurs bis zum Damast Premium-Kurs.'),
                 Schema::faq($faqs),
             ],
+            '/ratgeber/damaststahl/' => [
+                Schema::article('Damaststahl erklärt: Herstellung, Muster und Pflege', $meta->canonical(), $page['description']),
+                Schema::faq(Faqs::damascus()),
+            ],
+            '/ratgeber/messer-pflegen/' => [
+                Schema::article('Messer pflegen: reinigen, schärfen, richtig lagern', $meta->canonical(), $page['description']),
+                Schema::faq(Faqs::care()),
+            ],
             '/sonderanfertigungen/' => [Schema::service('Messer-Sonderanfertigung', 'Messer nach Kundenwunsch: Klingenform, Länge und Griff werden abgestimmt und das Messer in der Werkstatt von Hand geschmiedet.', $meta->canonical())],
             '/geschenke/schmiedekurs-gutschein/' => [Schema::faq(Faqs::voucher())],
             '/schmiedekurse/heilbronn-region/', '/manufaktur/' => [Schema::localBusiness(), Schema::person()],

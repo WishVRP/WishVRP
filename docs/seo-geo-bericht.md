@@ -2,6 +2,13 @@
 
 Grundlage: Skill `ultimate-seo-geo-engine`, automatische Prüfung aller 23 Seiten (lokal) plus Tests (`php artisan test`, 40 Tests). **Nicht gemessen:** Lighthouse, Core Web Vitals im Feld, Rich-Results-Test, Search Console. Die Live-Domain ist aus dieser Umgebung gesperrt.
 
+## 0. Neue Ratgeber-Inhalte (11.11.2026)
+- **`/ratgeber/damaststahl/`** „Damaststahl erklärt: Herstellung, Muster, Pflege“. Suchintention informational, stützt die Damastkurse und die Edition 100. Kurzantwort oben, Inhaltsverzeichnis, 6-Schritte-Liste, Vergleichstabelle, Pflegeliste, 4 FAQ. Article- und FAQPage-Schema.
+- **`/ratgeber/messer-pflegen/`** „Messer pflegen: reinigen, schärfen, lagern“. Suchintention informational, stützt Shop und Unikate. Grundregeln, Tabelle der Schneidunterlagen, Abziehen vs. Schärfen, Lagerung, 4 FAQ. Article- und FAQPage-Schema.
+- **Inhaltlich:** allgemeines, anerkanntes Handwerkswissen ohne erfundene Firmendaten, Zahlen oder Studien. Kursdaten kommen live aus der Datenbank, die Tradition aus der Konfiguration.
+- **Bewusst nicht** als eigene URL angelegt: „Kosten“ und „Vorbereitung“. Diese Artikel gibt es auf der Live-Seite unter unbekannten Pfaden, eine zweite URL würde doppelte Inhalte erzeugen. „Kosten“ steht als Abschnitt auf `/ratgeber/`.
+- Verlinkt von Startseite, Ratgeber-Übersicht, Edition 100, Unikaten und gegenseitig. Automatisch in Sitemap und `llms.txt`.
+
 ## 1. Umgesetzte SEO-Maßnahmen
 - **Titles:** alle 17 indexierbaren Seiten eindeutig und 50–60 Zeichen lang, Marke am Ende (per Test geprüft).
 - **Descriptions:** jede Seite hat eine eigene mit 140–160 Zeichen (Test). Die Startseite nennt die Tradition „seit 1934, 3. Generation“.

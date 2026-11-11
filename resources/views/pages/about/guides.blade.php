@@ -3,6 +3,14 @@
     <x-page.hero :meta="$meta" title="Ratgeber Schmiedekurs" kicker="Wissen" tile="Kosten & Vorbereitung" tileLabel="Ratgeber"
         lead="Antworten vor der Buchung: was ein Schmiedekurs kostet und wie du dich vorbereitest." />
 
+    <x-page.section title="Alle Artikel" kicker="Ratgeber">
+        <div class="path-cards path-cards--three">
+            <a class="path-card course--einstieg reveal" href="#kosten"><p class="path-card__label">Kosten</p><h3>Was kostet ein Schmiedekurs?</h3><p>Alle Kurspreise pro Person im Überblick.</p><span class="link-arrow">Lesen <span aria-hidden="true">→</span></span></a>
+            <a class="path-card course--damast reveal reveal-delay-1" href="/ratgeber/damaststahl/"><p class="path-card__label">Material</p><h3>Damaststahl erklärt</h3><p>Herstellung, Muster und Pflege einer Damastklinge.</p><span class="link-arrow">Lesen <span aria-hidden="true">→</span></span></a>
+            <a class="path-card course--klinge reveal reveal-delay-2" href="/ratgeber/messer-pflegen/"><p class="path-card__label">Pflege</p><h3>Messer pflegen</h3><p>Reinigen, schärfen und richtig lagern.</p><span class="link-arrow">Lesen <span aria-hidden="true">→</span></span></a>
+        </div>
+    </x-page.section>
+
     <article class="block" id="kosten" aria-labelledby="kosten-h">
         <div class="container prose-grid">
             <div class="prose">
