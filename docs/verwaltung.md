@@ -189,3 +189,21 @@ Verwaltung → Bewertungen → **„Link ‚Bewertung schreiben‘“**: den Lin
 Danach prüft die Seite DHL-Sendungen alle 2 Stunden (8–21 Uhr). Ist ein Paket zugestellt, springt der Status auf „Zugestellt“ und die „Angekommen“-Mail geht raus. Andere Versanddienste setzt du von Hand auf „Zugestellt“.
 
 **Voraussetzung für alle Automatiken:** Der Cron-Job `php artisan schedule:run` läuft jede Minute auf dem Server (siehe Go-live).
+
+## Versandkosten (weltweit, nach Land und Gewicht)
+
+Menü **Versandkosten**: Ländergruppen mit den **DHL-Preisen je Gewichtsstufe**. Kunden sehen immer den Preis **aufgerundet auf ,99**: 7,69 € → 7,99 €, 17,49 € → 17,99 €.
+
+- **Voreingestellt:**
+  - **Deutschland:** bis 5 kg 7,69 € → **7,99 €** (wie bisher), bis 10 kg 10,49 € → 10,99 €. Die günstigere Stufe bis 2 kg (6,19 € → 6,99 €) lässt sich ergänzen, falls gewünscht.
+  - **EU**, **Europa außerhalb der EU** (mit Zollhinweis) und **Welt** (alle übrigen Länder, mit Zollhinweis) haben noch **keine Preise**. Bis sie eingetragen sind, steht im Formular „Versandkosten auf Anfrage“.
+- **Preise eintragen:** Ländergruppe öffnen → „Gewichtsstufe hinzufügen“ → bis Gewicht (g), DHL-Preis, Bezeichnung. Die Spalte „Kunde zahlt“ zeigt sofort den aufgerundeten Preis. Quelle: DHL-Preisliste auf dhl.de (Privatkunden) oder euer DHL-Geschäftskundenvertrag.
+- **Gewicht:** Jedes Produkt hat das Feld „Versandgewicht inkl. Verpackung“. Ist es leer, gilt 1.500 g.
+- **Im Bestellformular** wählt der Kunde das Land. Der Versandpreis erscheint sofort und ändert sich mit Land, PLZ und Ort. Beim Absenden rechnet der Server noch einmal selbst. Außerhalb der EU steht der Hinweis, dass Zoll und Einfuhrabgaben der Empfänger trägt.
+- **Land ohne Preis:** Die Bestellung kommt als Anfrage mit „Versandkosten: wird dir per E-Mail genannt“, noch ohne Zahlung. Dann im Vorgang unter „Fertigung & Versand“ die **Versandkosten eintragen**, speichern und **„Bestellbestätigung senden“** klicken. Der Kunde bekommt die Bestätigung mit Gesamtbetrag und Bankdaten.
+
+### Echte Live-Preise (optional): DHL Express
+
+Für normale DHL-Pakete bietet DHL **keine** Live-Preisabfrage an. Live-Preise gibt es nur über **DHL Express** (MyDHL API). Dafür braucht ihr ein DHL-Express-Geschäftskonto (Kundennummer) und einen Zugang auf developer.dhl.com. Danach in der `.env`: `DHL_EXPRESS_KEY`, `DHL_EXPRESS_SECRET`, `DHL_EXPRESS_ACCOUNT`.
+
+Dann gilt: Für Länder **ohne Tabellenpreis** holt die Seite den Live-Preis von DHL Express (günstigstes Produkt), rundet auf ,99 und speichert ihn 6 Stunden zwischen. DHL Express ist deutlich teurer als DHL Paket. Für häufige Länder lohnt sich deshalb ein Tabellenpreis.

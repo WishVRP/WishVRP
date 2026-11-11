@@ -784,3 +784,10 @@ a.path-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px r
 .shop-card__body { display: grid; gap: var(--space-1); padding: var(--space-4); }
 .shop-card__name { font-weight: 600; }
 .shop-card__price { font-family: var(--font-tech); font-size: var(--text-sm); color: var(--color-text-muted); }
+
+/* Lieferung mit Live-Versandkosten */
+.shipping-box__quote { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border-left: 3px solid var(--temper-straw); background: var(--steel-0); font-size: var(--text-sm); }
+.shipping-box__quote.is-loading { opacity: 0.6; }
+.shipping-box__quote small { display: block; margin-top: var(--space-1); color: var(--color-text-muted); }
+.shipping-box.is-pickup [data-ship-address],
+.shipping-box.is-pickup [data-ship-quote] { display: none; }

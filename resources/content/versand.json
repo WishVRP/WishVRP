@@ -2,7 +2,7 @@
  "h1": "Versand, Abholung und Zahlung",
  "lead": [
   "So kommt dein Messer zu dir.",
-  "Messer aus der Messermanufaktur Ulbrich verschicken wir in ganz Deutschland für 7,99 € pro Artikel. Du kannst dein Messer auch in der Werkstatt in Stein am Kocher abholen – oder es dir weltweit schicken lassen, wenn du die anfallenden Kosten übernimmst."
+  "Messer aus der Messermanufaktur Ulbrich verschicken wir in ganz Deutschland für 7,99 € pro Artikel. Du kannst dein Messer auch in der Werkstatt in Stein am Kocher abholen – oder es dir weltweit mit DHL schicken lassen – die Versandkosten für dein Land berechnet das Bestellformular."
  ],
  "sections": [
   {
@@ -36,11 +36,11 @@
    "items": [
     {
      "t": "p",
-     "x": "Ins Ausland verschicken wir, wenn du alle anfallenden Kosten übernimmst – also Versand, Versicherung und eventuelle Gebühren. Frag vor deiner Bestellung nach den Kosten für dein Land."
+     "x": "Ins Ausland verschicken wir weltweit mit DHL – die Versandkosten berechnet das Bestellformular nach Land und Gewicht, sobald du dein Land wählst. Angezeigt wird der DHL-Preis, aufgerundet auf volle ,99 €. Ist für ein Land noch kein Preis hinterlegt, nennen wir dir die Kosten per E-Mail – erst dann zahlst du."
     },
     {
      "t": "p",
-     "x": "Fällt Zoll oder Einfuhrsteuer an, kommt dieser Betrag zum Preis hinzu."
+     "x": "Außerhalb der EU können im Zielland Zoll und Einfuhrsteuer anfallen. Diese Abgaben trägt der Empfänger; sie kommen zum Preis hinzu."
     },
     {
      "t": "h3",
@@ -85,11 +85,11 @@
   },
   {
    "q": "Verschickt ihr Messer ins Ausland?",
-   "a": "Ja, wenn du alle anfallenden Kosten übernimmst. Alternativ holst du das Messer in der Manufaktur ab."
+   "a": "Ja, weltweit mit DHL. Die Versandkosten für dein Land siehst du im Bestellformular, sobald du das Land wählst. Alternativ holst du das Messer in der Manufaktur ab."
   },
   {
    "q": "Wer zahlt den Zoll?",
-   "a": "Fällt Zoll oder Einfuhrsteuer an, kommt dieser Betrag zum Preis hinzu."
+   "a": "Außerhalb der EU können im Zielland Zoll und Einfuhrsteuer anfallen. Diese Abgaben trägt der Empfänger; sie kommen zum Preis hinzu."
   },
   {
    "q": "Wie lange dauert die Lieferung?",

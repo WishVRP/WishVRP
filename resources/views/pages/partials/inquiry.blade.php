@@ -56,12 +56,8 @@
                     @endif
                 </div>
                 @include('pages.partials.contact-fields')
-                @if (! empty($publicName) && \App\Support\Stripe::enabled())
-                    <fieldset class="fields">
-                        <legend class="field__label">Lieferung</legend>
-                        <label class="check"><input type="radio" name="versand" value="versand" @checked(old('versand', 'versand') === 'versand')> <span>Versand in Deutschland ({{ number_format((float) config('ulbrich.sales.shipping_de_eur'), 2, ',', '.') }} €)</span></label>
-                        <label class="check"><input type="radio" name="versand" value="abholung" @checked(old('versand') === 'abholung')> <span>Abholung in der Manufaktur (kostenlos)</span></label>
-                    </fieldset>
+                @if (! empty($publicName))
+                    @include('pages.partials.shipping-address')
                 @endif
                 @if (! empty($publicName))
                     <fieldset class="inquiry__public">
@@ -75,14 +71,14 @@
                         </label>
                     </fieldset>
                 @endif
-                @if (! empty($shipping))
+                @if (! empty($shipping) && empty($publicName))
                     <details class="inquiry__shipping">
                         <summary>Lieferadresse angeben (optional)</summary>
                         <div class="fields mt-4">
                             <label class="field field--wide"><span class="field__label">Straße und Hausnummer</span><input type="text" name="street" maxlength="160" autocomplete="street-address" value="{{ old('street') }}"></label>
                             <label class="field"><span class="field__label">PLZ</span><input type="text" name="postal_code" maxlength="20" autocomplete="postal-code" value="{{ old('postal_code') }}"></label>
                             <label class="field"><span class="field__label">Ort</span><input type="text" name="city" maxlength="120" autocomplete="address-level2" value="{{ old('city') }}"></label>
-                            <label class="field"><span class="field__label">Land</span><input type="text" name="country" maxlength="80" autocomplete="country-name" value="{{ old('country', 'Deutschland') }}"></label>
+                            <label class="field"><span class="field__label">Land</span><select name="country_code" autocomplete="country">@foreach (\App\Support\Shipping::countries() as $code => $cname)<option value="{{ $code }}" @selected(old('country_code', 'DE') === $code)>{{ $cname }}</option>@endforeach</select></label>
                         </div>
                     </details>
                 @endif

@@ -27,6 +27,7 @@ Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
 Route::get('/schmiedekurse/verfuegbarkeit/', [OrderController::class, 'availability'])->middleware('throttle:events')->name('booking.availability');
 Route::post('/schmiedekurse/buchen/', [OrderController::class, 'booking'])->middleware('throttle:forms')->name('booking.store');
 Route::post('/gutschein/kaufen/', [OrderController::class, 'voucher'])->middleware('throttle:forms')->name('voucher.buy');
+Route::get('/versandkosten/', [\App\Http\Controllers\ShippingController::class, 'quote'])->middleware('throttle:events')->name('shipping.quote');
 Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:forms')->name('inquiry.store');
 Route::post('/weihnachtsaktion/anmelden/', [XmasController::class, 'register'])->middleware('throttle:xmas')->name('xmas.register');
 Route::post('/weihnachtsaktion/code/', [XmasController::class, 'verify'])->middleware('throttle:xmas')->name('xmas.verify');

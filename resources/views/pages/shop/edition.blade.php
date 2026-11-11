@@ -26,7 +26,7 @@
                     <div class="spec__row"><dt>Maße</dt><dd>@if($e['dimensions']){{ $e['dimensions'] }}@else<x-ui.missing>Klingen-/Gesamtlänge, Gewicht</x-ui.missing>@endif</dd></div>
                     <div class="spec__row"><dt>Griff</dt><dd>@if($e['handle']){{ $e['handle'] }}@else<x-ui.missing>Griffmaterial</x-ui.missing>@endif</dd></div>
                     <div class="spec__row"><dt>Seriennummer</dt><dd>{{ $e['serial_note'] }}</dd></div>
-                    <div class="spec__row"><dt>Versand</dt><dd>{{ $e['shipping'] }}</dd></div>
+                    <div class="spec__row"><dt>Versand</dt><dd>{{ \App\Support\Shipping::domesticLabel() }}</dd></div>
                     <div class="spec__row"><dt>Abholung</dt><dd>{{ config('ulbrich.sales.pickup_note') }}; vor Ort bar oder mit Karte</dd></div>
                     <div class="spec__row"><dt>Ausland</dt><dd>{{ config('ulbrich.sales.international') }} {{ config('ulbrich.sales.customs') }} <a href="/versand/">Versand &amp; Abholung</a></dd></div>
                     <div class="spec__row"><dt>Garantie</dt><dd>{{ config('ulbrich.warranty.years') }} Jahre, {{ config('ulbrich.warranty.condition') }} <a href="/garantie/">Zur Garantie</a></dd></div>

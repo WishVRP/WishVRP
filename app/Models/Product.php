@@ -20,7 +20,7 @@ class Product extends Model
 
     public const STATUSES = ['entwurf' => 'Entwurf (unsichtbar)', 'aktiv' => 'Im Shop', 'verkauft' => 'Verkauft'];
 
-    protected $fillable = ['name', 'slug', 'category', 'status', 'short', 'description', 'price', 'stock', 'images', 'specs', 'sort'];
+    protected $fillable = ['name', 'slug', 'category', 'status', 'short', 'description', 'price', 'stock', 'images', 'specs', 'sort', 'weight_g'];
 
     protected function casts(): array
     {

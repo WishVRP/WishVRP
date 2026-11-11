@@ -190,7 +190,7 @@ class OrderController extends Controller
         $this->applyDiscount($order, $disc);
         $lines = [['name' => $order->item.($order->discount_percent ? " (−{$order->discount_percent} %)" : ''), 'amount' => (float) $order->amount]];
         if ((float) $order->shipping_amount > 0) {
-            $lines[] = ['name' => 'Versand innerhalb Deutschlands', 'amount' => (float) $order->shipping_amount];
+            $lines[] = ['name' => 'Versand nach '.($order->country ?: 'Deutschland').($order->shipping_note ? ' ('.\Illuminate\Support\Str::before($order->shipping_note, ' ·').')' : ''), 'amount' => (float) $order->shipping_amount];
         }
 
         return $this->pay($order, $lines, $fallbackRedirect);
@@ -286,6 +286,8 @@ class OrderController extends Controller
             'postal_code' => ['nullable', 'string', 'max:20'],
             'city' => ['nullable', 'string', 'max:120'],
             'country' => ['nullable', 'string', 'max:80'],
+            'country_code' => ['nullable', Rule::in(array_keys(\App\Support\Shipping::countries()))],
+            'versand' => ['nullable', 'in:versand,abholung'],
             'source' => ['nullable', 'string', 'max:190'],
             'show_name' => ['nullable', 'boolean'],
             'number' => ['nullable', 'integer', 'min:1', 'max:'.config('ulbrich.edition.total')],
@@ -324,7 +326,9 @@ class OrderController extends Controller
             'course_id' => $course?->id,
             'amount' => $amount,
             'street' => $data['street'] ?? null, 'postal_code' => $data['postal_code'] ?? null,
-            'city' => $data['city'] ?? null, 'country' => $data['country'] ?? null,
+            'city' => $data['city'] ?? null,
+            'country' => ! empty($data['country_code']) ? \App\Support\Shipping::countryName($data['country_code']) : ($data['country'] ?? null),
+            'country_code' => $data['country_code'] ?? null,
             'source_path' => isset(config('pages')[$data['source'] ?? '']) ? $data['source'] : null,
             // Anzeigename nur speichern, wenn der Veröffentlichung zugestimmt wurde
             'public_name' => ! empty($data['show_name']) ? (trim($data['public_name'] ?? '') ?: null) : null,
@@ -336,17 +340,25 @@ class OrderController extends Controller
         }
         SiteEvent::create(['name' => 'anfrage', 'path' => $order->source_path, 'occurred_on' => now()->toDateString()]);
 
-        // Edition 100 mit Online-Zahlung: Versand/Abholung wählen, Nummer bleibt während der Zahlung reserviert.
-        if ($item && str_starts_with($item, config('ulbrich.edition.name')) && Stripe::enabled()) {
-            $ship = $request->input('versand') === 'abholung' ? 0.0 : (float) config('ulbrich.sales.shipping_de_eur');
-            $order->forceFill(['shipping_method' => $ship ? 'versand' : 'abholung', 'shipping_amount' => $ship,
-                'hold_until' => now()->addMinutes((int) config('ulbrich.booking.hold_minutes'))])->save();
-            $lines = [['name' => $order->item, 'amount' => (float) $order->amount]];
-            if ($ship) {
-                $lines[] = ['name' => 'Versand innerhalb Deutschlands', 'amount' => $ship];
-            }
+        // Edition 100: Versand (Kosten nach Land) oder Abholung; mit Online-Zahlung bleibt die Nummer währenddessen reserviert.
+        if ($item && str_starts_with($item, config('ulbrich.edition.name'))) {
+            $pickup = ($data['versand'] ?? 'versand') === 'abholung';
+            $q = $pickup ? null : \App\Support\Shipping::quote($data['country_code'] ?? 'DE', null, $data['postal_code'] ?? null, $data['city'] ?? null);
+            $order->forceFill([
+                'shipping_method' => $pickup ? 'abholung' : 'versand',
+                'shipping_amount' => $pickup ? 0 : $q['price'],
+                'shipping_note' => $q ? ($q['price'] === null ? 'Versandkosten auf Anfrage' : $q['label'].($q['customs'] ? ' · zzgl. Zoll/Einfuhrabgaben im Zielland' : '')) : null,
+                'country' => $q['country_name'] ?? $order->country, 'country_code' => $q['country'] ?? $order->country_code,
+            ])->save();
+            if (Stripe::enabled() && ($pickup || $q['price'] !== null)) {
+                $order->forceFill(['hold_until' => now()->addMinutes((int) config('ulbrich.booking.hold_minutes'))])->save();
+                $lines = [['name' => $order->item, 'amount' => (float) $order->amount]];
+                if (! $pickup && $q['price'] > 0) {
+                    $lines[] = ['name' => 'Versand nach '.$q['country_name'].' ('.$q['label'].')', 'amount' => $q['price']];
+                }
 
-            return $this->pay($order, $lines, '/klappmesser/#anfrage-gesendet');
+                return $this->pay($order, $lines, '/klappmesser/#anfrage-gesendet');
+            }
         }
         OrderMail::received($order);
 

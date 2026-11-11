@@ -43,7 +43,7 @@ class InternationalTest extends TestCase
         $html = $this->get('/versand/')->assertOk()->getContent();
 
         $this->assertStringContainsString('7,99 € pro Artikel', $html);
-        $this->assertStringContainsString('alle anfallenden Kosten übernimmst', $html);
+        $this->assertStringContainsString('berechnet das Bestellformular nach Land und Gewicht', $html);
         $this->assertStringContainsString('Zoll', $html);
         $this->assertStringContainsString('"@type": "FAQPage"', $html);
 
@@ -74,7 +74,7 @@ class InternationalTest extends TestCase
     public function test_llms_txt_names_shipping_rules(): void
     {
         $txt = $this->get('/llms.txt')->getContent();
-        $this->assertStringContainsString(config('ulbrich.sales.shipping_de'), $txt);
+        $this->assertStringContainsString(\App\Support\Shipping::domesticLabel(), $txt);
         $this->assertStringContainsString(config('ulbrich.sales.international'), $txt);
     }
 }

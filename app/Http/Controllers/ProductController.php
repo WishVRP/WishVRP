@@ -81,25 +81,38 @@ class ProductController extends Controller
             'street' => ['required_if:versand,versand', 'nullable', 'string', 'max:160'],
             'postal_code' => ['required_if:versand,versand', 'nullable', 'string', 'max:20'],
             'city' => ['required_if:versand,versand', 'nullable', 'string', 'max:120'],
-        ], ['consent.accepted' => 'Bitte bestätige die Datenschutzhinweise.', 'agb.accepted' => 'Bitte bestätige AGB und Widerrufsbelehrung.',
+            'country_code' => ['required_if:versand,versand', 'nullable', \Illuminate\Validation\Rule::in(array_keys(\App\Support\Shipping::countries()))],
+        ], ['country_code.required_if' => 'Bitte wähle das Land für den Versand.', 'country_code.in' => 'Bitte wähle ein Land aus der Liste.','consent.accepted' => 'Bitte bestätige die Datenschutzhinweise.', 'agb.accepted' => 'Bitte bestätige AGB und Widerrufsbelehrung.',
             'street.required_if' => 'Bitte gib deine Lieferadresse an.', 'postal_code.required_if' => 'Bitte gib deine Postleitzahl an.', 'city.required_if' => 'Bitte gib deinen Ort an.']);
 
         if (! $product->available()) {
             return back()->withErrors(['versand' => 'Dieses Stück ist leider gerade nicht mehr verfügbar.'])->withInput();
         }
-        $shipping = $data['versand'] === 'versand' ? (float) config('ulbrich.sales.shipping_de_eur') : 0.0;
+        // Versand: serverseitig nach Land, Gewicht (Produkt) und Preistabelle bzw. DHL Express berechnet
+        $ship = $data['versand'] === 'versand'
+            ? \App\Support\Shipping::quote($data['country_code'] ?? 'DE', $product->weight_g, $data['postal_code'] ?? null, $data['city'] ?? null)
+            : null;
+        $shipping = $ship ? $ship['price'] : 0.0;   // null = Versandkosten auf Anfrage
         $order = Order::create([
             'type' => 'messer', 'status' => 'neu',
             'name' => $data['name'], 'email' => $data['email'], 'phone' => $data['phone'] ?? null, 'message' => $data['message'] ?? null,
             'item' => $product->name, 'quantity' => 1, 'product_id' => $product->id, 'amount' => $product->price,
             'street' => $data['street'] ?? null, 'postal_code' => $data['postal_code'] ?? null, 'city' => $data['city'] ?? null,
-            'country' => $data['versand'] === 'versand' ? 'Deutschland' : null,
+            'country' => $ship['country_name'] ?? null, 'country_code' => $ship['country'] ?? null,
             'shipping_method' => $data['versand'], 'shipping_amount' => $shipping,
+            'shipping_note' => $ship ? ($ship['price'] === null ? 'Versandkosten auf Anfrage' : $ship['label'].($ship['customs'] ? ' · zzgl. Zoll/Einfuhrabgaben im Zielland' : '')) : null,
             'source_path' => $product->url(),
             'payment_method' => Stripe::enabled() ? 'stripe' : 'ueberweisung',
             'hold_until' => Stripe::enabled() ? now()->addMinutes((int) config('ulbrich.booking.hold_minutes')) : null,
         ]);
         SiteEvent::create(['name' => 'anfrage', 'path' => $product->url(), 'occurred_on' => now()->toDateString()]);
+
+        if ($ship && $ship['price'] === null) {
+            // Versandkosten unbekannt (z. B. Land ohne Tabellenpreis): als Anfrage, wir nennen die Kosten, dann Zahlung
+            \App\Support\OrderMail::received($order);
+
+            return redirect($product->url().'#kaufen')->with('order_ok', $order->number);
+        }
 
         return $orders->payOrder($order, $data, $product->url().'#kaufen');
     }

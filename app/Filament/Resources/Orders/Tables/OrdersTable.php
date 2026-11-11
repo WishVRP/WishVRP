@@ -137,6 +137,11 @@ class OrdersTable
             self::statusAction('zahlung_offen', 'Zahlungsdaten gesendet', 'zahlung_offen', 'info', Heroicon::OutlinedEnvelope, ['neu']),
             self::statusAction('bezahlt', 'Zahlung erhalten', 'bezahlt', 'success', Heroicon::OutlinedBanknotes, ['neu', 'zahlung_offen']),
             self::statusAction('bestaetigt', 'Bestätigen', 'bestaetigt', 'success', Heroicon::OutlinedCheckBadge, ['neu', 'zahlung_offen', 'bezahlt']),
+            Action::make('bestaetigung')->label('Bestellbestätigung senden')->icon(Heroicon::OutlinedEnvelope)->color('gray')
+                ->visible(fn (Order $record) => in_array($record->status, ['neu', 'zahlung_offen'], true))
+                ->requiresConfirmation()
+                ->modalDescription('Schickt die Bestellbestätigung mit aktuellem Betrag, Versandkosten und Bankdaten (z. B. nachdem du Versandkosten ins Ausland eingetragen hast).')
+                ->action(fn (Order $record) => self::done($record, 'Bestellbestätigung', CustomerMail::send($record, 'eingang'))),
             self::inProgressAction(),
             self::shippedAction(),
             self::deliveredAction(),

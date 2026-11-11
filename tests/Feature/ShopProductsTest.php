@@ -37,7 +37,7 @@ class ShopProductsTest extends TestCase
 
     private function buyer(array $extra = []): array
     {
-        return $extra + ['name' => 'Kim Käufer', 'email' => 'kim@example.org', 'consent' => '1', 'agb' => '1', 'versand' => 'versand',
+        return $extra + ['name' => 'Kim Käufer', 'email' => 'kim@example.org', 'consent' => '1', 'agb' => '1', 'versand' => 'versand', 'country_code' => 'DE',
             'street' => 'Bergweg 1', 'postal_code' => '70173', 'city' => 'Stuttgart'];
     }
 

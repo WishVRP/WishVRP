@@ -187,6 +187,45 @@ if (track && galleryNav) {
 
 /* Funken über der Esse: reine CSS-Animation (sections.css, .hero__sparks i) – kein JavaScript mehr. */
 
+/* ---------- Versandkosten live: Land/PLZ/Ort → Preis (Server rechnet beim Absenden noch einmal) ---------- */
+document.querySelectorAll('[data-shipping]').forEach((box) => {
+    const out = box.querySelector('[data-ship-quote]');
+    const country = box.querySelector('[data-ship-country]');
+    const plz = box.querySelector('[data-ship-plz]');
+    const city = box.querySelector('[data-ship-city]');
+    const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    let timer = 0; let seq = 0;
+    const mode = () => box.querySelector('[data-ship-mode]:checked')?.value || 'versand';
+    const load = async () => {
+        box.classList.toggle('is-pickup', mode() === 'abholung');
+        if (mode() === 'abholung' || !country) return;
+        const q = new URLSearchParams({ land: country.value });
+        if (plz?.value) q.set('plz', plz.value.trim());
+        if (city?.value) q.set('ort', city.value.trim());
+        if (box.dataset.shipProduct) q.set('produkt', box.dataset.shipProduct);
+        const my = ++seq;
+        out.classList.add('is-loading');
+        try {
+            const r = await fetch(`${box.dataset.shipUrl}?${q}`, { headers: { Accept: 'application/json' } });
+            const d = await r.json();
+            if (my !== seq) return;
+            out.innerHTML = `Versand nach ${esc(d.country_name)}: <b>${d.formatted ? esc(d.formatted) : 'auf Anfrage'}</b>`
+                + (d.formatted ? ` <span class="muted">(${esc(d.label)})</span>` : '')
+                + (d.note ? `<small>${esc(d.note)}</small>` : '');
+        } catch (e) {
+            out.textContent = 'Versandkosten konnten gerade nicht berechnet werden – wir nennen sie dir per E-Mail.';
+        } finally {
+            if (my === seq) out.classList.remove('is-loading');
+        }
+    };
+    const later = () => { clearTimeout(timer); timer = setTimeout(load, 400); };
+    box.querySelectorAll('[data-ship-mode]').forEach((r) => r.addEventListener('change', load));
+    country?.addEventListener('change', load);
+    plz?.addEventListener('input', later);
+    city?.addEventListener('input', later);
+    load();
+});
+
 /* ---------- Buchung: Kurs, Kalender (ein Kurs pro Tag), Personen, Gesamtpreis ---------- */
 const euro = (n) => `${new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 }).format(n)} €`;
 const booking = document.querySelector('[data-booking]');

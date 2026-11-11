@@ -65,7 +65,7 @@ class SeoController extends Controller
             ];
         })->filter(fn ($i) => $i['image']);   // Google verlangt ein Bild
 
-        return response()->view('seo.merchant-feed', ['items' => $items, 'shipping' => number_format((float) config('ulbrich.sales.shipping_de_eur'), 2, '.', '').' EUR'])
+        return response()->view('seo.merchant-feed', ['items' => $items, 'shipping' => number_format(\App\Support\Shipping::domestic(), 2, '.', '').' EUR'])
             ->header('Content-Type', 'application/xml; charset=UTF-8');
     }
 
@@ -106,7 +106,7 @@ class SeoController extends Controller
             '- Messer-Unikate und Sonderanfertigungen auf Anfrage; Formen u. a. '.implode(', ', $c['sales']['knife_forms']),
             '- Leistungen: '.implode(', ', $c['sales']['services']),
             '', '## Versand, Abholung, Zahlung',
-            '- '.$c['sales']['shipping_de'],
+            '- '.\App\Support\Shipping::domesticLabel(),
             '- '.$c['sales']['pickup_note'],
             '- '.$c['sales']['international'],
             '- '.$c['sales']['customs'],

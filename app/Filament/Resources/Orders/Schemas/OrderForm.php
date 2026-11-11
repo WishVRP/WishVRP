@@ -55,6 +55,10 @@ class OrderForm
                     ->description('Am einfachsten über „Status ändern“ → „In Arbeit“ / „Versendet“ – dann geht die passende E-Mail automatisch raus.')
                     ->schema([
                         TextInput::make('production_time')->label('Fertigungszeit')->maxLength(80),
+                        TextInput::make('shipping_amount')->label('Versandkosten (€)')->numeric()->step(0.01)
+                            ->helperText('Bei „auf Anfrage“: Betrag eintragen, speichern, dann „Bestellbestätigung senden“.'),
+                        Select::make('country_code')->label('Land')->options(\App\Support\Shipping::countries())->searchable()->placeholder('–'),
+                        TextInput::make('shipping_note')->label('Versandart / Hinweis')->maxLength(190),
                         Select::make('shipping_method')->label('Lieferung')->options(['versand' => 'Versand', 'abholung' => 'Abholung'])->placeholder('–'),
                         Select::make('tracking_carrier')->label('Versanddienst')->options(collect(Order::CARRIERS)->map(fn ($c) => $c[0]))->placeholder('–'),
                         TextInput::make('tracking_number')->label('Sendungsnummer')->maxLength(60),

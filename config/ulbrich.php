@@ -159,9 +159,12 @@ return [
         'area_served' => ['Deutschland', 'weltweit'],
         'pickup' => true,
         'pickup_note' => 'Selbstabholung in der Manufaktur in Stein am Kocher nach Absprache',
-        'shipping_de_eur' => 7.99,
+        'shipping_de_eur' => 7.99,   // Anzeige „ab“ in Deutschland; berechnet wird über Verwaltung → Versandkosten
+        // Standard fürs Versandgewicht/Paketmaß, wenn beim Produkt nichts eingetragen ist (Annahme – bitte prüfen)
+        'default_parcel_g' => 1500,
+        'default_parcel_cm' => [35, 25, 10],
         'shipping_de' => '7,99 € Versand pro Artikel innerhalb Deutschlands',
-        'international' => 'Versand ins Ausland ist möglich, wenn du alle anfallenden Kosten übernimmst (Versand, Versicherung, Gebühren). Alternativ holst du dein Messer in der Manufaktur ab.',
+        'international' => 'Versand weltweit mit DHL: Die Versandkosten richten sich nach Land und Gewicht und werden im Bestellformular berechnet, sobald du dein Land wählst. Ist für ein Land noch kein Preis hinterlegt, nennen wir dir die Kosten per E-Mail, bevor du zahlst. Alternativ holst du dein Messer in der Manufaktur ab.',
         'customs' => 'Fällt Zoll oder Einfuhrsteuer an, kommt dieser Betrag zum Preis hinzu.',
         'delivery' => 'Die Lieferzeit hängt davon ab, ob ein fertiges Messer oder eine Sonderanfertigung bestellt wird; sie wird bei der Bestellung genannt.',
         'payment' => ['Überweisung'],

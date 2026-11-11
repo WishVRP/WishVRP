@@ -5,8 +5,8 @@
 @endphp
 <div class="delivery reveal" aria-label="Versand, Abholung und Zahlung">
     <div class="delivery__item">
-        <h3 class="delivery__title">Versand in Deutschland</h3>
-        <p>{{ $s['shipping_de'] }}. {{ $s['delivery'] }}</p>
+        <h3 class="delivery__title">Versand mit DHL – weltweit</h3>
+        <p>{{ \App\Support\Shipping::domesticLabel() }}. {{ $s['delivery'] }}</p>
     </div>
     <div class="delivery__item">
         <h3 class="delivery__title">Abholung vor Ort</h3>

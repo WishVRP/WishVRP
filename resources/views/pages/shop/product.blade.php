@@ -33,7 +33,7 @@
                     <h1 id="page-title" class="product__title">{{ $product->name }}</h1>
                     @if ($product->short)<p class="lead mt-3">{{ $product->short }}</p>@endif
                     <p class="product__price">{{ number_format((float) $product->price, 2, ',', '.') }} €</p>
-                    <p class="tech muted">zzgl. {{ number_format((float) $c['sales']['shipping_de_eur'], 2, ',', '.') }} € Versand in Deutschland oder kostenlose Abholung · <x-ui.tax-note /></p>
+                    <p class="tech muted">zzgl. Versand (Deutschland ab {{ number_format(\App\Support\Shipping::domestic(), 2, ',', '.') }} €, weltweit je nach Land) oder kostenlose Abholung · <x-ui.tax-note /></p>
                     <p @class(['product__stock', 'is-out' => ! $available])>{{ $available ? ($product->stock === 1 ? 'Einzelstück – sofort verfügbar' : 'Verfügbar') : 'Verkauft' }}</p>
                     @if (! empty($product->specs))
                         <dl class="spec mt-5">
@@ -58,23 +58,13 @@
                 <div class="inquiry__intro">
                     <h2 id="kaufen-h" class="h-section">{{ $online ? 'Kaufen' : 'Verbindlich anfragen' }}</h2>
                     <p class="lead mt-4">{{ $online ? 'Du zahlst sicher online (Stripe). Das Stück ist während der Zahlung für dich reserviert.' : 'Du bekommst eine Bestätigung und die Zahlungsdaten per E-Mail; nach Zahlungseingang verschicken wir dein Messer.' }}</p>
-                    <p class="muted mt-4">Versand ins Ausland auf Anfrage: <a href="mailto:{{ $c['email'] }}">{{ $c['email'] }}</a>. <a href="/versand/">Versand & Abholung</a></p>
+                    <p class="muted mt-4">Versand weltweit mit DHL: Die Kosten siehst du im Formular, sobald du dein Land wählst. Zoll und Einfuhrabgaben außerhalb der EU trägt der Empfänger. <a href="/versand/">Versand & Abholung</a></p>
                 </div>
                 <form class="inquiry__form" method="post" action="{{ $path }}">
                     @csrf
                     <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-                    <fieldset class="fields">
-                        <legend class="field__label">Lieferung</legend>
-                        <label class="check"><input type="radio" name="versand" value="versand" @checked(old('versand', 'versand') === 'versand')> <span>Versand in Deutschland ({{ number_format((float) $c['sales']['shipping_de_eur'], 2, ',', '.') }} €)</span></label>
-                        <label class="check"><input type="radio" name="versand" value="abholung" @checked(old('versand') === 'abholung')> <span>Abholung in {{ $c['address']['district'] }} (kostenlos, vor Ort bar oder Karte möglich)</span></label>
-                    </fieldset>
-                    @error('versand')<p class="field__error" role="alert">{{ $message }}</p>@enderror
                     @include('pages.partials.contact-fields')
-                    <div class="fields">
-                        <label class="field field--wide"><span class="field__label">Straße und Hausnummer (bei Versand)</span><input type="text" name="street" maxlength="160" autocomplete="street-address" value="{{ old('street') }}">@error('street')<span class="field__error">{{ $message }}</span>@enderror</label>
-                        <label class="field"><span class="field__label">PLZ</span><input type="text" name="postal_code" maxlength="20" autocomplete="postal-code" value="{{ old('postal_code') }}">@error('postal_code')<span class="field__error">{{ $message }}</span>@enderror</label>
-                        <label class="field"><span class="field__label">Ort</span><input type="text" name="city" maxlength="120" autocomplete="address-level2" value="{{ old('city') }}">@error('city')<span class="field__error">{{ $message }}</span>@enderror</label>
-                    </div>
+                    @include('pages.partials.shipping-address', ['productId' => $product->id])
                     <label class="check">
                         <input type="checkbox" name="agb" value="1" required @checked(old('agb'))>
                         <span>Ich habe die <a href="/agb/">AGB</a> und die <a href="/widerruf/">Widerrufsbelehrung</a> gelesen.</span>

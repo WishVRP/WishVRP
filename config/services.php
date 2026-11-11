@@ -44,6 +44,14 @@ return [
     ],
 
     // DHL Shipment Tracking (developer.dhl.com, kostenlos bis 250 Abfragen/Tag): erkennt Zustellungen automatisch.
+    // DHL Express (MyDHL API): Live-Versandpreise ins Ausland – nur mit DHL-Express-Geschäftskonto.
+    'dhl_express' => [
+        'key' => env('DHL_EXPRESS_KEY'),
+        'secret' => env('DHL_EXPRESS_SECRET'),
+        'account' => env('DHL_EXPRESS_ACCOUNT'),
+        'test' => (bool) env('DHL_EXPRESS_TEST', false),
+    ],
+
     'dhl' => [
         'key' => env('DHL_API_KEY'),
     ],

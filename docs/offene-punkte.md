@@ -44,6 +44,10 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
   - Rückgabe- und Versandrichtlinie hinterlegen
 - [ ] Optional **seven.io** (nur wenn die SMS-Bestätigung statt E-Mail gewünscht ist; kostet pro SMS): `SEVEN_API_KEY`, `XMAS_VERIFICATION=sms`, AV-Vertrag abschließen
 - [ ] **Bewertungslink** aus dem Google-Unternehmensprofil („Bewertungen anfordern“) in der Verwaltung → Bewertungen eintragen. Er steckt im Knopf der Mails nach Zustellung und nach dem Kurs.
+- [ ] **Versandkosten Ausland** eintragen: Verwaltung → Versandkosten → EU / Europa / Welt, Preise aus der DHL-Preisliste (dhl.de) oder eurem DHL-Vertrag. Bis dahin: „auf Anfrage“. Inlandspreise (5 kg 7,69 €, 10 kg 10,49 €) ebenfalls kurz mit dhl.de abgleichen.
+- [ ] **Versandgewicht** bei jedem Produkt eintragen (inkl. Verpackung). Ohne Angabe gelten 1.500 g.
+- [ ] Optional **DHL-Express-Konto** für echte Live-Preise ins Ausland (`DHL_EXPRESS_*`)
+- [ ] Rechtlich prüfen: Messerversand ins Ausland (Einfuhrbestimmungen mancher Länder, z. B. Klingenlänge oder Klappmesser), DHL-Beförderungsbedingungen
 - [ ] Optional **DHL-API-Key** (developer.dhl.com, „Shipment Tracking – Unified“, kostenlos) → `DHL_API_KEY`: Zustellungen werden automatisch erkannt.
 - [ ] Optional **Brevo** o. Ä. als Newsletter-Versanddienst, falls die Mengen für das eigene Postfach zu groß werden
 

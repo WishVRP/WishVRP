@@ -50,6 +50,7 @@ class ProductResource extends Resource
                 Select::make('status')->label('Status')->options(Product::STATUSES)->required()->default('entwurf'),
                 TextInput::make('price')->label('Preis (€)')->numeric()->required()->minValue(0)->step(0.01),
                 TextInput::make('stock')->label('Bestand')->numeric()->required()->minValue(0)->default(1)->helperText('Unikat = 1. Bei 0 wird es als „verkauft“ angezeigt.'),
+                TextInput::make('weight_g')->label('Versandgewicht inkl. Verpackung (g)')->numeric()->minValue(1)->maxValue(31500)->placeholder('leer = '.config('ulbrich.sales.default_parcel_g').' g')->helperText('Bestimmt die Versandkosten (DHL-Gewichtsstufe).'),
                 Textarea::make('short')->label('Kurzbeschreibung (für Google und Übersicht)')->rows(2)->maxLength(255)->columnSpanFull(),
                 MarkdownEditor::make('description')->label('Beschreibung')->columnSpanFull()
                     ->toolbarButtons(['bold', 'italic', 'bulletList', 'orderedList', 'heading', 'undo', 'redo']),

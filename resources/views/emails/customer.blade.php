@@ -146,12 +146,14 @@
                     <tr><td style="{{ $lbl }}">Preis</td><td style="{{ $row }}">{{ $eur($amount) }}</td></tr>
                 @endif
                 @if ((float) $o->shipping_amount > 0)
-                    <tr><td style="{{ $lbl }}">Versand</td><td style="{{ $row }}">{{ $eur($o->shipping_amount) }}</td></tr>
+                    <tr><td style="{{ $lbl }}">Versand{{ $o->country && $o->country_code !== 'DE' ? ' nach '.$o->country : '' }}</td><td style="{{ $row }}">{{ $eur($o->shipping_amount) }}@if ($o->shipping_note && str_contains($o->shipping_note, 'Zoll'))<br><span style="font-size:12px;color:{{ $muted }};">zzgl. Zoll/Einfuhrabgaben im Zielland</span>@endif</td></tr>
+                @elseif ($o->shipping_method === 'versand' && $o->shipping_amount === null)
+                    <tr><td style="{{ $lbl }}">Versand{{ $o->country ? ' nach '.$o->country : '' }}</td><td style="{{ $row }}"><b>wird dir per E-Mail genannt</b> – erst danach zahlst du</td></tr>
                 @endif
                 @if ((float) $o->voucher_amount > 0)
                     <tr><td style="{{ $lbl }}">Gutschein</td><td style="{{ $row }}">− {{ $eur($o->voucher_amount) }}</td></tr>
                 @endif
-                <tr><td style="{{ $row }}font-weight:bold;color:{{ $ink }};">{{ $kind === 'bezahlt' ? 'Bezahlt' : 'Gesamt' }}</td><td style="{{ $row }}font-size:18px;font-weight:bold;">{{ $eur($o->totalDue()) }}</td></tr>
+                <tr><td style="{{ $row }}font-weight:bold;color:{{ $ink }};">{{ $kind === 'bezahlt' ? 'Bezahlt' : ($o->shipping_method === 'versand' && $o->shipping_amount === null ? 'Zwischensumme (ohne Versand)' : 'Gesamt') }}</td><td style="{{ $row }}font-size:18px;font-weight:bold;">{{ $eur($o->totalDue()) }}</td></tr>
             @endif
             @if (! in_array($o->type, ['kurs', 'anfrage', 'service'], true) && $o->shipping_method)
                 <tr><td style="{{ $lbl }}">Lieferung</td><td style="{{ $row }}">
@@ -170,7 +172,7 @@
     </td></tr>
 
     {{-- Zahlung per Überweisung --}}
-    @if ($kind === 'eingang' && $o->totalDue() > 0 && $o->payment_method !== 'stripe' && ! in_array($o->type, ['anfrage', 'service'], true))
+    @if ($kind === 'eingang' && $o->totalDue() > 0 && $o->payment_method !== 'stripe' && ! in_array($o->type, ['anfrage', 'service'], true) && ! ($o->shipping_method === 'versand' && $o->shipping_amount === null))
     <tr><td style="padding:16px 32px 4px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2px dashed {{ $gold }};border-radius:6px;">
             <tr><td style="padding:18px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.7;">
