@@ -19,12 +19,12 @@
                 @if (count($reviews))
                     <div class="quotes">
                         @foreach (array_slice($reviews, 0, 4) as $review)
-                            <figure class="quote">
-                                <blockquote><p>{{ $review['text'] }}</p></blockquote>
-                                <figcaption>{{ $review['author'] }} · {{ \Illuminate\Support\Carbon::parse($review['date'])->locale('de')->isoFormat('MMMM YYYY') }} · {{ $review['source'] }}</figcaption>
-                            </figure>
+                            @include('pages.partials.review-quote', ['review' => $review])
                         @endforeach
                     </div>
+                    @if (count($reviews) > 4)
+                        <p><a class="link-arrow" href="/schmiedekurse/erfahrungen/">Alle {{ count($reviews) }} Bewertungen lesen <span aria-hidden="true">→</span></a></p>
+                    @endif
                 @elseif ($isPreview)
                     {{-- Nur Vorschau: Platz für wörtliche Google-Bewertungen nach Freigabe --}}
                     <div class="quotes" data-placeholder="Bewertungstexte aus dem Google-Profil">

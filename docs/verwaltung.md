@@ -115,3 +115,16 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
 3. Nur in der `.env` des Servers: `STRIPE_SECRET=sk_live_…` und `STRIPE_WEBHOOK_SECRET=whsec_…`. Zum Testen zuerst die Test-Schlüssel (`sk_test_…`) nutzen.
 4. Sobald beide Werte da sind, zeigt die Website „Zahlungspflichtig buchen/bestellen“ und leitet zu Stripe weiter; vorher bleibt alles bei Anfrage und Überweisung.
 - **Rechtlich prüfen lassen:** AGB, Widerrufsbelehrung (Kurse mit festem Termin sind meist vom Widerruf ausgenommen, Sonderanfertigungen auch, Fertigware nicht), Steuerhinweis (Kleinunternehmer oder MwSt.), Pflichtangaben im Bestellprozess.
+
+## Bewertungen (Google)
+
+Menü **Bewertungen**:
+
+1. **„Google-Gesamtbewertung“** (oben rechts): Durchschnitt, Anzahl und den Link zum Google-Profil eintragen. Den Link bekommst du in Google Maps über „Teilen“ → „Link kopieren“. Das Datum „Stand“ setzt sich automatisch. Die Werte erscheinen im Startbereich, im Bewertungsabschnitt und auf `/schmiedekurse/erfahrungen/`.
+2. **„Bewertung hinzufügen“**: Bewertungen aus dem Google-Profil **wörtlich** kopieren.
+   - Felder: Name wie bei Google angezeigt, Sterne, Text, Monat, optional das Thema (z. B. Damastkurs).
+   - Nichts umformulieren und nichts erfinden.
+   - Die Reihenfolge lässt sich per Ziehen ändern. „Auf der Website zeigen“ blendet einzelne Bewertungen aus.
+3. Die Startseite zeigt die ersten 4 Bewertungen. Sind es mehr, erscheint ein Link zu allen auf `/schmiedekurse/erfahrungen/`.
+
+Bewusst ohne Bewertungs-Sterne im Google-Code (Schema): Google zeigt für selbst eingebundene Bewertungen eines Unternehmens keine Sterne in den Suchergebnissen an und kann das als irreführend werten. Die Sterne in der Google-Suche kommen direkt aus dem Google-Unternehmensprofil. Mehr Bewertungen dort sind deshalb der wirksamste Hebel: Nach jedem Kurs um eine Bewertung bitten.

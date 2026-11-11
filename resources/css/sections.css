@@ -1676,6 +1676,38 @@
     color: var(--color-text-muted);
 }
 
+.quote__stars {
+    margin: 0 0 var(--space-2);
+    color: var(--temper-straw);
+    letter-spacing: 0.1em;
+    text-align: right;
+}
+
+.quote__stars-off {
+    color: var(--steel-200);
+}
+
+.quote blockquote {
+    margin: 0;
+}
+
+.reviews-block {
+    margin-block: var(--space-7);
+}
+
+.reviews-block .rating__meta {
+    margin-bottom: var(--space-5);
+}
+
+.quotes--grid {
+    display: grid;
+    gap: var(--space-5);
+}
+
+@media (min-width: 48rem) {
+    .quotes--grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 .press {
     margin-top: var(--space-7);
 }

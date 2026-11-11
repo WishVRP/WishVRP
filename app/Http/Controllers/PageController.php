@@ -75,7 +75,8 @@ class PageController extends Controller
         return view('pages.'.$page['view'], [
             ...compact('meta', 'schema', 'page', 'path', 'c', 'courses', 'dates', 'faqs', 'course'),
             'e' => $c['edition'],
-            'rating' => $c['google_rating'],
+            'rating' => \App\Support\Reviews::rating(),
+            'reviews' => \App\Support\Reviews::list(),
             'minPrice' => $courses->whereNotNull('price_from')->min('price_from'),
             'maxBlade' => $courses->max('total_length_cm') ?: 40,
         ]);

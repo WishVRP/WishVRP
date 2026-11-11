@@ -129,7 +129,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 - [ ] Partner: welche Kooperationen gibt es konkret?
 
 ### Bewertungen, Fotos, Referenzen
-- [ ] Freigegebene Bewertungstexte (z. B. aus Google) und Link zum Google-Profil. Erfundene Bewertungen gibt es keine.
+- [ ] **Google-Bewertungen eintragen:** Verwaltung → Bewertungen. Die Texte wörtlich aus dem Google-Profil übernehmen, dazu Gesamtbewertung und Link zum Profil (Anleitung in `docs/verwaltung.md`). Alternativ die Texte an Claude schicken.
 - [ ] Freigegebene Kursfotos und Projektbeschreibungen
 - [ ] Zebrano- und Rotholz-Bilder: KI-Hintergrund oder echt? Falls KI, besser durch echte Fotos ersetzen.
 - [ ] **Neue Fotos** für die Website liefern (Wunsch: Bilder überarbeiten). So geht's: `docs/fotos.md` → „Neue Fotos – so liefern“. Dateinamen, Alttexte und Bild-Sitemap werden dann automatisch passend angelegt.

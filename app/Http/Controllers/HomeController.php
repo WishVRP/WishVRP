@@ -46,8 +46,8 @@ class HomeController extends Controller
         return view('pages.home', [
             ...compact('meta', 'schema', 'courses', 'dates', 'minPrice', 'maxBlade', 'faqs', 'c'),
             'e' => $c['edition'],
-            'rating' => $c['google_rating'],
-            'reviews' => $c['reviews'],
+            'rating' => \App\Support\Reviews::rating(),
+            'reviews' => \App\Support\Reviews::list(),
             'press' => $c['press'],
             // Gestaltete Platzhalter für Bewertungen/Presse nur außerhalb der Produktion.
             'isPreview' => ! app()->isProduction(),
