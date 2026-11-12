@@ -128,7 +128,7 @@ return [
 
     'booking_rules' => [
         'Kurse werden ausschließlich online gebucht.',
-        'Umbuchen ist bis 7 Tage vor dem Kurstermin möglich.',
+        'Zwei Umbuchungen sind kostenlos – bis 7 Tage vor dem Kurstermin, online über den Link in deiner Buchungsbestätigung. Der gebuchte Preis bleibt dabei gleich.',
         'Ein Gutschein reserviert noch keinen Kursplatz – den Termin wählt die beschenkte Person bei der Buchung.',
     ],
 
@@ -182,6 +182,8 @@ return [
     'booking' => [
         'min_days_ahead' => 2,        // frühestens übermorgen (Vorschlag)
         'years_ahead' => 5,
+        'free_rebookings' => 2,       // kostenlose Umbuchungen je Buchung (Vorgabe Inhaber 12.11.2026)
+        'rebook_days_before' => 7,    // bis so viele Tage vor dem (aktuellen) Kurstermin
         'hold_minutes' => 30,         // Tag ist während der Online-Zahlung reserviert
         'online_courses' => ['grundlagenkurs', 'klingenkurs', 'klingenkurs-alternativ', 'damast-messerkurs', 'damast-premium-kurs'],
         'max_persons' => 6,           // Vorschlag – tatsächliche Höchstzahl vom Inhaber bestätigen

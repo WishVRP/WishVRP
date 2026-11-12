@@ -79,7 +79,8 @@
                 <li><a href="/impressum/">Impressum</a></li>
                 <li><a href="/datenschutz/">Datenschutz</a></li>
                 <li><a href="/agb/">AGB</a></li>
-                <li><a href="/widerruf/">Widerruf</a></li>
+                <li><a href="/widerruf/">Widerrufsbelehrung</a></li>
+                <li><a href="/widerrufen/">Vertrag widerrufen</a></li>
                 <li><a href="/kursbedingungen/">Kursbedingungen</a></li>
             </ul>
         </div>

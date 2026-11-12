@@ -32,6 +32,9 @@ Route::get('/kunsthandwerkermarkt/staende/', [\App\Http\Controllers\MarketContro
 Route::post('/kunsthandwerkermarkt/reservieren/', [\App\Http\Controllers\MarketController::class, 'reserve'])->middleware('throttle:events')->name('market.reserve');
 Route::post('/kunsthandwerkermarkt/termin/', [\App\Http\Controllers\MarketController::class, 'notify'])->middleware('throttle:forms')->name('market.notify');
 Route::post('/kunsthandwerkermarkt/bewerben/', [\App\Http\Controllers\MarketController::class, 'apply'])->middleware('throttle:forms')->name('market.apply');
+Route::post('/buchung/umbuchen/', [\App\Http\Controllers\RebookController::class, 'store'])->middleware('throttle:forms')->name('rebook.store');
+Route::post('/widerrufen/pruefen/', [\App\Http\Controllers\WithdrawalController::class, 'review'])->middleware('throttle:forms')->name('withdraw.review');
+Route::post('/widerrufen/', [\App\Http\Controllers\WithdrawalController::class, 'store'])->middleware('throttle:forms')->name('withdraw.store');
 Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:forms')->name('inquiry.store');
 Route::post('/weihnachtsaktion/anmelden/', [XmasController::class, 'register'])->middleware('throttle:xmas')->name('xmas.register');
 Route::post('/weihnachtsaktion/code/', [XmasController::class, 'verify'])->middleware('throttle:xmas')->name('xmas.verify');

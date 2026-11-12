@@ -41,3 +41,41 @@ Artisan::command('orders:track-deliveries', function () {
     $this->info(\App\Support\OrderAutomation::trackDeliveries().' Sendung(en) als zugestellt erkannt.');
 })->purpose('DHL-Sendungsstatus prüfen');
 \Illuminate\Support\Facades\Schedule::command('orders:track-deliveries')->everyTwoHours()->between('8:00', '21:00')->timezone('Europe/Berlin')->withoutOverlapping();
+
+// Alle Benachrichtigungen einmal mit Beispieldaten an eine Adresse schicken (z. B. nach dem Einrichten des Mailservers).
+Artisan::command('ulbrich:mail-test {email}', function (string $email) {
+    $course = \App\Models\Course::query()->first();
+    $mk = function (array $a) {
+        $o = new \App\Models\Order($a + ['name' => 'Test Kundin', 'email' => 'test@example.org', 'payment_method' => 'ueberweisung', 'review_consent' => true]);
+        $o->number = 'U'.now()->year.'-TEST';
+        $o->manage_token = str_repeat('t', 48);
+        $o->created_at = now();
+
+        return $o;
+    };
+    $knife = $mk(['type' => 'messer', 'item' => 'Damast-Kochmesser (Beispiel)', 'quantity' => 1, 'amount' => 289, 'shipping_amount' => 7.99, 'shipping_method' => 'versand',
+        'street' => 'Musterweg 1', 'postal_code' => '12345', 'city' => 'Musterstadt', 'country' => 'Deutschland', 'country_code' => 'DE',
+        'tracking_carrier' => 'dhl', 'tracking_number' => '00340434161094000000', 'production_time' => 'ca. 3–4 Wochen']);
+    $kurs = $mk(['type' => 'kurs', 'course_id' => $course?->id, 'participants' => 2, 'amount' => 600, 'course_start' => now()->addDays(30), 'course_end' => now()->addDays(30)]);
+    $sent = 0;
+    foreach (['eingang', 'bezahlt', 'in_arbeit', 'versendet', 'abholbereit', 'zugestellt'] as $k) {
+        \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\CustomerUpdateMail($knife, $k));
+        $sent++;
+    }
+    foreach (['eingang', 'bezahlt', 'umgebucht', 'kurs'] as $k) {
+        \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\CustomerUpdateMail($kurs, $k));
+        $sent++;
+    }
+    $app = new \App\Models\MarketApplication(['code' => 'KHM-TEST00', 'season' => \App\Support\Market::season(), 'stand' => 4, 'name' => 'Test Ausstellerin', 'email' => $email, 'category' => 'Keramik', 'description' => 'Beispiel', 'amount' => 90, 'tables' => 1]);
+    foreach (['eingang', 'angenommen', 'bezahlt', 'abgelehnt'] as $k) {
+        \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\MarketMail($app, $k));
+        $sent++;
+    }
+    $w = new \App\Models\Withdrawal(['name' => 'Test Kundin', 'email' => $email, 'order_number' => 'U'.now()->year.'-TEST', 'decision_note' => 'Beispieltext']);
+    $w->created_at = now();
+    foreach (['eingang', 'angenommen', 'abgelehnt'] as $k) {
+        \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\WithdrawalMail($w, $k));
+        $sent++;
+    }
+    $this->info("{$sent} Test-E-Mails an {$email} geschickt (Mailer: ".config('mail.default').').');
+})->purpose('Alle Kunden-, Markt- und Widerrufs-E-Mails mit Beispieldaten an eine Adresse schicken');

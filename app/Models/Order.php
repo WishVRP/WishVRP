@@ -112,6 +112,8 @@ class Order extends Model
             'review_requested_at' => 'datetime',
             'review_consent' => 'boolean',
             'customs_amount' => 'decimal:2',
+            'rebooked_at' => 'datetime',
+            'original_course_start' => 'date',
             'shipping_amount' => 'decimal:2',
             'voucher_amount' => 'decimal:2',
         ];
@@ -120,6 +122,7 @@ class Order extends Model
     protected static function booted(): void
     {
         static::creating(function (Order $order) {
+            $order->manage_token ??= \Illuminate\Support\Str::random(48);   // persönlicher Link (Umbuchen)
             // Einwilligung „Bitte um Bewertung“ aus dem Website-Formular (Checkbox in contact-fields), sonst nein
             if ($order->review_consent === null && app()->bound('request') && request()->has('review_consent')) {
                 $order->review_consent = request()->boolean('review_consent');
@@ -273,5 +276,40 @@ class Order extends Model
         }
 
         return trim(($this->item ?? $this->typeLabel()).($this->quantity > 1 ? ' × '.$this->quantity : ''));
+    }
+
+    public function manageUrl(): string
+    {
+        return rtrim(config('app.url'), '/').'/buchung/umbuchen/?t='.$this->manage_token;
+    }
+
+    public function freeRebookingsLeft(): int
+    {
+        return max(0, (int) config('ulbrich.booking.free_rebookings', 2) - (int) $this->rebook_count);
+    }
+
+    /** Letzter Tag für eine Umbuchung (X Tage vor dem aktuellen Kurstermin). */
+    public function rebookDeadline(): ?\Illuminate\Support\Carbon
+    {
+        return $this->course_start?->copy()->subDays((int) config('ulbrich.booking.rebook_days_before', 7));
+    }
+
+    /** null = Umbuchung möglich, sonst Grund. */
+    public function rebookBlocker(): ?string
+    {
+        if ($this->type !== 'kurs' || ! $this->course_start) {
+            return 'Für diese Buchung ist keine Online-Umbuchung möglich.';
+        }
+        if (in_array($this->status, ['storniert', 'abgeschlossen'], true)) {
+            return 'Diese Buchung ist '.($this->status === 'storniert' ? 'storniert' : 'abgeschlossen').'.';
+        }
+        if ($this->freeRebookingsLeft() <= 0) {
+            return 'Die zwei kostenlosen Umbuchungen sind aufgebraucht. Ruf uns gern an – wir finden eine Lösung.';
+        }
+        if (now()->startOfDay()->gt($this->rebookDeadline())) {
+            return 'Umbuchen ist nur bis '.config('ulbrich.booking.rebook_days_before').' Tage vor dem Kurstermin möglich (bis '.$this->rebookDeadline()->format('d.m.Y').').';
+        }
+
+        return null;
     }
 }

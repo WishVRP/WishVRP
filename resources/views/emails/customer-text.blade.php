@@ -34,7 +34,19 @@ Die Zahlungsdaten schicken wir dir in Kürze. Verwendungszweck: {{ $o->number }}
 @endif
 @endif
 
-AGB: https://messermanufaktur-ulbrich.de/agb/ · Widerruf: https://messermanufaktur-ulbrich.de/widerruf/
+@if ($o->type === 'kurs' && $o->course_start && ! $o->rebookBlocker())
+Umbuchen ({{ config('ulbrich.booking.free_rebookings') }}× kostenlos bis {{ $o->rebookDeadline()->format('d.m.Y') }}): {{ $o->manageUrl() }}
+@endif
+@if (\App\Support\Tax::note()){{ \App\Support\Tax::note() }}
+@endif
+AGB: https://messermanufaktur-ulbrich.de/agb/ · Widerrufsbelehrung: https://messermanufaktur-ulbrich.de/widerruf/ · Vertrag widerrufen: https://messermanufaktur-ulbrich.de/widerrufen/
+@break
+@case('umgebucht')
+dein Schmiedekurs ist umgebucht – der Preis bleibt gleich.
+Neuer Kurstag: {{ $o->course_start?->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}
+Kostenlose Umbuchungen: noch {{ $o->freeRebookingsLeft() }} von {{ config('ulbrich.booking.free_rebookings') }}
+@if (! $o->rebookBlocker())Termin ansehen oder erneut umbuchen: {{ $o->manageUrl() }}
+@endif
 @break
 @case('in_arbeit')
 gute Nachrichten aus der Werkstatt: Wir haben mit deiner Bestellung begonnen.

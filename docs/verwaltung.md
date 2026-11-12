@@ -255,3 +255,43 @@ Seite `/kunsthandwerkermarkt/`: **Geländeplan nach eurem Standplan-PDF**: Halle
 - **Empfänger zahlt** (Standard): Hinweis im Formular und in der Bestätigung „Zoll und Einfuhrabgaben zahlt der Empfänger bei Zustellung“.
 - **Vorab berechnen:** Zollsatz %, Einfuhrumsatzsteuer % und Pauschale eintragen. Die Website rechnet Zoll = Warenwert × Zollsatz, Steuer = (Ware + Versand + Zoll) × Steuersatz, + Pauschale. Das Ergebnis wird auf ,99 aufgerundet, als eigene Position angezeigt und mitbezahlt (auch über Stripe).
 - Bei Sendungen außerhalb der EU steht im Vorgang automatisch: „Zollinhaltserklärung CN22/CN23 bzw. Handelsrechnung beilegen, Zolltarifnummer …“.
+
+## Widerrufsfunktion („Vertrag widerrufen“)
+
+Pflicht für Online-Verträge seit 19.06.2026. Link im Footer jeder Seite und in jeder Bestell- und Zahlungsbestätigung: `/widerrufen/`.
+
+**So läuft es für Kunden:**
+1. Name, E-Mail und (optional) Vorgangsnummer eingeben. Ein Grund ist nicht nötig.
+2. Auf **„Vertrag widerrufen“** klicken.
+3. Auf der Prüfseite **„Widerruf bestätigen“** klicken.
+4. Sofort kommt eine **Eingangsbestätigung per E-Mail** mit Datum, Uhrzeit und Angaben.
+
+**Für euch:**
+- Mail „Widerruf eingegangen“, rotes Zähler-Symbol am Menüpunkt **Widerrufe** und eine angeheftete Notiz am Vorgang. Verknüpft wird der Vorgang nur, wenn Nummer **und** E-Mail passen.
+- **Annehmen:** Der Vorgang wird storniert, Kurstag, Lager und Edition-Nummer werden frei. Der Kunde bekommt eine Bestätigung. Die **Rückzahlung innerhalb von 14 Tagen** veranlasst ihr selbst.
+- **Ablehnen:** nur bei gesetzlicher Ausnahme, mit Begründung. Beispiele: Kurs mit festem Termin oder Anfertigung nach Kundenwunsch (§ 312g Abs. 2 BGB). Im Zweifel vorher rechtlich prüfen.
+
+## Kurs umbuchen (2× kostenlos)
+
+- In jeder Buchungs- und Zahlungsbestätigung steht der Link **„Termin online umbuchen“** (`/buchung/umbuchen/?t=…`).
+- Regeln (`config/ulbrich.php` → `booking`): **2 kostenlose Umbuchungen**, jeweils bis **7 Tage vor dem aktuellen Kurstag**, nur auf freie Tage (ein Kurs pro Tag), frühestens übermorgen.
+- **Preisbindung:** Der gebuchte Preis bleibt, auch wenn sich der Kurspreis inzwischen geändert hat.
+- Kunde bekommt die Mail „Umbuchung bestätigt“, am Vorgang steht eine Notiz (alter → neuer Termin). Der ursprüngliche Termin bleibt gespeichert.
+- **Verwaltung → Vorgang → Status → „Kurs umbuchen“:** auch über die Regeln hinaus möglich. Wahlweise ohne Anrechnung auf die kostenlosen Umbuchungen.
+
+## Steuern
+
+`ULBRICH_TAX_MODE` in der `.env`:
+- `kleinunternehmer`: Hinweis „§ 19 UStG“ an Preisen und in Bestätigungen
+- `regular`: „inkl. 19 % MwSt.“, in der Bestellbestätigung mit ausgewiesenem Steuerbetrag
+- `pending` (bis zur Antwort des Steuerberaters): Prüfhinweis auf der Website, nichts in den Mails
+
+## Benachrichtigungen testen
+
+Nach dem Einrichten des Mailservers auf dem Server: `php artisan ulbrich:mail-test eure@adresse.de`. Das schickt **17 Beispiel-Mails** an diese Adresse:
+- Bestellung: Eingang, Zahlung, In Arbeit, Versand, Abholung, Zustellung
+- Kurs: Eingang, Zahlung, Umbuchung, Bewertungsbitte
+- Markt: 4 Mails
+- Widerruf: 3 Mails
+
+Ohne SSH: die E-Mail-Vorschau im Adminbereich nutzen (Vorgang → „E-Mail-Vorschau“).

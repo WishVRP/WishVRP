@@ -61,7 +61,7 @@ final class CourseCalendar
         return $busy;
     }
 
-    public static function available(Course $course, Carbon $start): bool
+    public static function available(Course $course, Carbon $start, ?int $ignoreOrderId = null): bool
     {
         $start = $start->copy()->startOfDay();
         $end = $start->copy()->addDays(self::days($course) - 1);
@@ -69,7 +69,7 @@ final class CourseCalendar
             return false;
         }
 
-        return self::busy($start, $end)->isEmpty();
+        return self::busy($start, $end, $ignoreOrderId)->isEmpty();
     }
 
     /** Monatsansicht: Y-m-d => frei | belegt | gesperrt (außerhalb des Buchungsfensters). */
@@ -102,13 +102,13 @@ final class CourseCalendar
     }
 
     /** Nächste freie Starttage (für Startseite/Newsletter). @return array<int, string> */
-    public static function nextFree(Course $course, int $count = 5): array
+    public static function nextFree(Course $course, int $count = 5, ?int $ignoreOrderId = null, int $range = 120): array
     {
         $out = [];
         $d = self::first();
-        $busy = self::busy($d, $d->copy()->addDays(120));
+        $busy = self::busy($d, $d->copy()->addDays($range + 10), $ignoreOrderId);
         $len = self::days($course);
-        for ($i = 0; $i < 120 && count($out) < $count; $i++, $d->addDay()) {
+        for ($i = 0; $i < $range && count($out) < $count; $i++, $d->addDay()) {
             $ok = true;
             for ($x = $d->copy(), $n = 0; $n < $len; $n++, $x->addDay()) {
                 if ($busy->has($x->toDateString())) {

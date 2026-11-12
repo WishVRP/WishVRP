@@ -89,6 +89,10 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
   - ggf. seven.io oder Brevo
 - [ ] Bestellbestätigung prüfen lassen: Nach § 312f BGB müssen Vertragsinhalt, AGB und Widerrufsbelehrung dem Kunden auf einem dauerhaften Datenträger vorliegen. Die Mail verlinkt sie bisher nur. Sobald die Texte stehen, als PDF-Anhang oder Volltext in die Mail aufnehmen.
 - [ ] Text der Checkbox „Bitte um Bewertung per E-Mail“ und Hinweis in den Mails prüfen (BGH VI ZR 225/17). Status-Mails (In Arbeit, Versendet, Zugestellt) sind Vertragskommunikation.
+- [ ] **Widerrufsbelehrung** um die elektronische Widerrufsfunktion ergänzen (Link `/widerrufen/`); Rückzahlungsweg festlegen
+- [ ] **Kursbedingungen/AGB**: „2 kostenlose Umbuchungen bis 7 Tage vor dem Kurstag, Preis bleibt“ aufnehmen; Regel für weitere Umbuchungen und Absagen festlegen
+- [ ] **Steuer**: Nach Antwort des Steuerberaters `ULBRICH_TAX_MODE` in der `.env` auf `kleinunternehmer` oder `regular` setzen
+- [ ] Nach Einrichtung des Mailservers: `php artisan ulbrich:mail-test …` an eigene Adresse und alle 17 Mails durchsehen
 - [ ] Newsletter an Bestandskunden ohne Einwilligung (§ 7 Abs. 3 UWG): nur nach Prüfung
 - [ ] Messerversand: Altersprüfung (ab 18) bei Versand, Hinweise zum Waffengesetz (§ 42a WaffG Führverbot)
 - [ ] Englische Rechtstexte (Imprint, Privacy, Terms)

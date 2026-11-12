@@ -142,6 +142,31 @@ class OrdersTable
                 ->requiresConfirmation()
                 ->modalDescription('Schickt die Bestellbestätigung mit aktuellem Betrag, Versandkosten und Bankdaten (z. B. nachdem du Versandkosten ins Ausland eingetragen hast).')
                 ->action(fn (Order $record) => self::done($record, 'Bestellbestätigung', CustomerMail::send($record, 'eingang'))),
+            Action::make('umbuchen')->label('Kurs umbuchen')->icon(Heroicon::OutlinedCalendarDays)->color('gray')
+                ->visible(fn (Order $record) => $record->type === 'kurs' && $record->course_start && ! in_array($record->status, ['storniert', 'abgeschlossen'], true))
+                ->schema([
+                    \Filament\Forms\Components\DatePicker::make('start')->label('Neuer erster Kurstag')->required()->native(false)->displayFormat('d.m.Y'),
+                    Toggle::make('count')->label('Als kostenlose Umbuchung zählen')->default(true),
+                    self::notifyField(),
+                ])
+                ->modalDescription(fn (Order $record) => 'Aktuell: '.$record->course_start->format('d.m.Y').' · kostenlose Umbuchungen übrig: '.$record->freeRebookingsLeft().'. Preis bleibt unverändert (Preisbindung). Hier sind auch Umbuchungen über die Regeln hinaus möglich.')
+                ->action(function (Order $record, array $data) {
+                    $start = \Illuminate\Support\Carbon::parse($data['start'])->startOfDay();
+                    if (! $record->course || ! \App\Support\CourseCalendar::available($record->course, $start, $record->id)) {
+                        Notification::make()->title('Dieser Tag ist nicht frei')->danger()->send();
+
+                        return;
+                    }
+                    $old = $record->course_start->format('d.m.Y');
+                    $record->forceFill([
+                        'original_course_start' => $record->original_course_start ?? $record->course_start,
+                        'course_start' => $start, 'course_end' => $start->copy()->addDays(\App\Support\CourseCalendar::days($record->course) - 1),
+                        'rebook_count' => $record->rebook_count + ($data['count'] ? 1 : 0), 'rebooked_at' => now(),
+                    ])->save();
+                    \App\Models\Note::query()->create(['order_id' => $record->id, 'user_id' => auth()->id(), 'body' => 'Umgebucht in der Verwaltung: '.$old.' → '.$start->format('d.m.Y').($data['count'] ? '' : ' (zählt nicht als kostenlose Umbuchung)'), 'done_at' => now()]);
+                    $sent = $data['notify'] && CustomerMail::send($record, 'umgebucht');
+                    self::done($record, 'Umgebucht', $sent);
+                }),
             self::inProgressAction(),
             self::shippedAction(),
             self::deliveredAction(),

@@ -33,6 +33,7 @@
             @switch($kind)
                 @case('eingang') {{ $o->type === 'kurs' ? 'Buchungsbestätigung' : ($o->type === 'anfrage' || $o->type === 'service' ? 'Eingangsbestätigung' : 'Bestellbestätigung') }} @break
                 @case('bezahlt') Zahlungsbestätigung @break
+                @case('umgebucht') Umbuchung @break
                 @case('in_arbeit') Bestellstatus · In Arbeit @break
                 @case('versendet') Bestellstatus · Versendet @break
                 @case('abholbereit') Bestellstatus · Abholbereit @break
@@ -89,6 +90,14 @@
                 @else
                     <p style="{{ $p }}">deine Zahlung ist eingegangen, vielen Dank! {{ $o->isPickup() ? 'Wir melden uns, um einen Abholtermin in der Manufaktur abzustimmen.' : 'Wir melden uns, sobald dein Messer in Arbeit bzw. unterwegs ist.' }}</p>
                 @endif
+                @break
+            @case('umgebucht')
+                <p style="{{ $p }}">dein Schmiedekurs ist umgebucht. Der Preis bleibt wie gebucht – es entstehen dir keine Kosten.</p>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;border-top:2px solid {{ $night }};">
+                    <tr><td style="padding:9px 0;border-bottom:1px solid {{ $line }};font-family:Arial,Helvetica,sans-serif;font-size:14px;color:{{ $muted }};width:42%;">Kurs</td><td style="padding:9px 0;border-bottom:1px solid {{ $line }};font-family:Arial,Helvetica,sans-serif;font-size:14px;">{{ $o->course?->name }} · {{ $o->participants }} {{ $o->participants == 1 ? 'Person' : 'Personen' }}</td></tr>
+                    <tr><td style="padding:9px 0;border-bottom:1px solid {{ $line }};font-family:Arial,Helvetica,sans-serif;font-size:14px;color:{{ $muted }};">Neuer Kurstag</td><td style="padding:9px 0;border-bottom:1px solid {{ $line }};font-family:Arial,Helvetica,sans-serif;font-size:16px;"><b>{{ $o->course_start?->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}</b></td></tr>
+                    <tr><td style="padding:9px 0;border-bottom:1px solid {{ $line }};font-family:Arial,Helvetica,sans-serif;font-size:14px;color:{{ $muted }};">Kostenlose Umbuchungen</td><td style="padding:9px 0;border-bottom:1px solid {{ $line }};font-family:Arial,Helvetica,sans-serif;font-size:14px;">noch {{ $o->freeRebookingsLeft() }} von {{ config('ulbrich.booking.free_rebookings') }}</td></tr>
+                </table>
                 @break
             @case('in_arbeit')
                 <p style="{{ $p }}">gute Nachrichten aus der Werkstatt: Wir haben mit deiner Bestellung begonnen. Ab jetzt wird geschmiedet, geschliffen und von Hand montiert – mit der Sorgfalt, die ein Messer für viele Jahre braucht.</p>
@@ -157,6 +166,14 @@
                     <tr><td style="{{ $lbl }}">Gutschein</td><td style="{{ $row }}">− {{ $eur($o->voucher_amount) }}</td></tr>
                 @endif
                 <tr><td style="{{ $row }}font-weight:bold;color:{{ $ink }};">{{ $kind === 'bezahlt' ? 'Bezahlt' : ($o->shipping_method === 'versand' && $o->shipping_amount === null ? 'Zwischensumme (ohne Versand)' : 'Gesamt') }}</td><td style="{{ $row }}font-size:18px;font-weight:bold;">{{ $eur($o->totalDue()) }}</td></tr>
+                @if (\App\Support\Tax::included($o->totalDue()))
+                    <tr><td style="{{ $lbl }}">darin enthalten {{ \App\Support\Tax::RATE }} % MwSt.</td><td style="{{ $row }}">{{ $eur(\App\Support\Tax::included($o->totalDue())) }}</td></tr>
+                @elseif (\App\Support\Tax::mode() === 'kleinunternehmer')
+                    <tr><td colspan="2" style="{{ $row }}font-size:12px;color:{{ $muted }};">{{ \App\Support\Tax::note() }}</td></tr>
+                @endif
+            @endif
+            @if ($o->type === 'kurs' && $o->course_start && $o->manage_token && ! $o->rebookBlocker())
+                <tr><td style="{{ $lbl }}">Umbuchen</td><td style="{{ $row }}">{{ config('ulbrich.booking.free_rebookings') }}× kostenlos bis {{ $o->rebookDeadline()->format('d.m.Y') }} – <a href="{{ $o->manageUrl() }}" style="color:#2d5f93;">Termin online umbuchen</a></td></tr>
             @endif
             @if (! in_array($o->type, ['kurs', 'anfrage', 'service'], true) && $o->shipping_method)
                 <tr><td style="{{ $lbl }}">Lieferung</td><td style="{{ $row }}">
@@ -228,6 +245,7 @@
         $cta = match ($kind) {
             'versendet' => $o->trackingLink() ? ['Sendung verfolgen', $o->trackingLink()] : null,
             'abholbereit' => ['Anrufen: '.$c['phone']['display'], 'tel:'.$c['phone']['e164']],
+            'umgebucht' => ! $o->rebookBlocker() ? ['Termin ansehen oder erneut umbuchen', $o->manageUrl()] : null,
             'zugestellt', 'kurs' => $reviewUrl ? ['★ Jetzt bei Google bewerten', $reviewUrl] : null,
             default => null,
         };
@@ -267,7 +285,7 @@
         {{ $c['name'] }} · {{ $c['owner'] }} · {{ $a['street'] }} · {{ $a['postal_code'] }} {{ $a['locality'] }}<br>
         Telefon {{ $c['phone']['display'] }} · <a href="mailto:{{ $c['email'] }}" style="color:#9aa0aa;">{{ $c['email'] }}</a> · <a href="{{ $site }}/" style="color:{{ $gold }};text-decoration:none;">messermanufaktur-ulbrich.de</a><br>
         <a href="{{ $site }}/impressum/" style="color:#9aa0aa;">Impressum</a> · <a href="{{ $site }}/datenschutz/" style="color:#9aa0aa;">Datenschutz</a>
-        @if (in_array($kind, ['eingang', 'bezahlt'], true)) · <a href="{{ $site }}/agb/" style="color:#9aa0aa;">AGB</a> · <a href="{{ $site }}/widerruf/" style="color:#9aa0aa;">Widerrufsbelehrung</a>@if ($o->type === 'kurs') · <a href="{{ $site }}/kursbedingungen/" style="color:#9aa0aa;">Kursbedingungen</a>@endif @endif<br>
+        @if (in_array($kind, ['eingang', 'bezahlt'], true)) · <a href="{{ $site }}/agb/" style="color:#9aa0aa;">AGB</a> · <a href="{{ $site }}/widerruf/" style="color:#9aa0aa;">Widerrufsbelehrung</a> · <a href="{{ $site }}/widerrufen/" style="color:#9aa0aa;">Vertrag widerrufen</a>@if ($o->type === 'kurs') · <a href="{{ $site }}/kursbedingungen/" style="color:#9aa0aa;">Kursbedingungen</a>@endif @endif<br>
         <span style="color:#6f7580;">Diese E-Mail gehört zu deiner Bestellung bzw. Buchung {{ $o->number }}.@if ($reviewUrl) Die Bitte um eine Bewertung bekommst du, weil du bei der Bestellung zugestimmt hast; keine weiteren Anfragen gewünscht? Antworte einfach auf diese E-Mail.@endif</span>
     </td></tr>
 </table>

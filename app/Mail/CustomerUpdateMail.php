@@ -24,6 +24,7 @@ class CustomerUpdateMail extends Mailable
     public const KINDS = [
         'eingang' => 'Bestellbestätigung',
         'bezahlt' => 'Zahlungsbestätigung',
+        'umgebucht' => 'Dein Kurs ist umgebucht',
         'in_arbeit' => 'Dein Messer ist in Arbeit',
         'versendet' => 'Dein Paket ist unterwegs',
         'abholbereit' => 'Abholbereit in der Manufaktur',
@@ -51,6 +52,7 @@ class CustomerUpdateMail extends Mailable
                 'kurs' => 'Buchungsbestätigung', 'gutschein' => 'Bestellbestätigung Gutschein', 'anfrage', 'service' => 'Eingangsbestätigung deiner Anfrage', default => 'Bestellbestätigung',
             },
             'bezahlt' => 'Zahlung erhalten – '.($this->order->type === 'kurs' ? 'dein Kurstag ist fest gebucht' : 'vielen Dank'),
+            'umgebucht' => 'Umbuchung bestätigt: neuer Kurstag',
             'in_arbeit' => 'Wir haben mit deiner Bestellung begonnen',
             'versendet' => 'Dein Paket ist unterwegs',
             'abholbereit' => 'Deine Bestellung liegt zur Abholung bereit',
