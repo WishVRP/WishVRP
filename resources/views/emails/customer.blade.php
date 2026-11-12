@@ -150,6 +150,9 @@
                 @elseif ($o->shipping_method === 'versand' && $o->shipping_amount === null)
                     <tr><td style="{{ $lbl }}">Versand{{ $o->country ? ' nach '.$o->country : '' }}</td><td style="{{ $row }}"><b>wird dir per E-Mail genannt</b> – erst danach zahlst du</td></tr>
                 @endif
+                @if ((float) $o->customs_amount > 0)
+                    <tr><td style="{{ $lbl }}">Zoll &amp; Einfuhrabgaben{{ $o->country ? ' '.$o->country : '' }}</td><td style="{{ $row }}">{{ $eur($o->customs_amount) }}<br><span style="font-size:12px;color:{{ $muted }};">im Voraus bezahlt, Schätzung</span></td></tr>
+                @endif
                 @if ((float) $o->voucher_amount > 0)
                     <tr><td style="{{ $lbl }}">Gutschein</td><td style="{{ $row }}">− {{ $eur($o->voucher_amount) }}</td></tr>
                 @endif
@@ -172,7 +175,13 @@
     </td></tr>
 
     {{-- Zahlung per Überweisung --}}
-    @if ($kind === 'eingang' && $o->totalDue() > 0 && $o->payment_method !== 'stripe' && ! in_array($o->type, ['anfrage', 'service'], true) && ! ($o->shipping_method === 'versand' && $o->shipping_amount === null))
+    @php $exportReview = $o->export_note && str_contains($o->export_note, 'Einfuhr prüfen'); @endphp
+    @if ($kind === 'eingang' && $exportReview)
+    <tr><td style="padding:16px 32px 4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-left:4px solid #b9852a;background:#fbf3e2;"><tr><td style="padding:14px 18px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;">
+        <b>Wir prüfen den Versand in dein Land.</b> Für {{ $o->country }} klären wir die Einfuhrbestimmungen für Messer persönlich und melden uns bei dir. Erst danach zahlst du – vorher entstehen dir keine Kosten.
+    </td></tr></table></td></tr>
+    @endif
+    @if ($kind === 'eingang' && ! $exportReview && $o->totalDue() > 0 && $o->payment_method !== 'stripe' && ! in_array($o->type, ['anfrage', 'service'], true) && ! ($o->shipping_method === 'versand' && $o->shipping_amount === null))
     <tr><td style="padding:16px 32px 4px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2px dashed {{ $gold }};border-radius:6px;">
             <tr><td style="padding:18px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.7;">

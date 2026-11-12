@@ -57,7 +57,7 @@
                 </div>
                 @include('pages.partials.contact-fields')
                 @if (! empty($publicName))
-                    @include('pages.partials.shipping-address')
+                    @include('pages.partials.shipping-address', ['edition' => true])
                 @endif
                 @if (! empty($publicName))
                     <fieldset class="inquiry__public">

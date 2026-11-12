@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ShippingZone extends Model
 {
-    protected $fillable = ['name', 'countries', 'rest_of_world', 'customs', 'active', 'sort'];
+    protected $fillable = ['name', 'countries', 'rest_of_world', 'customs', 'active', 'sort', 'customs_mode', 'duty_percent', 'vat_percent', 'customs_fee'];
 
     protected function casts(): array
     {

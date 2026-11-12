@@ -232,3 +232,26 @@ Seite `/kunsthandwerkermarkt/`: **Geländeplan nach eurem Standplan-PDF**: Halle
   - **Ablehnen** → freundliche Absage, Stand wird wieder frei
   - **Stornieren** → ohne Mail, Stand wird frei
 - **Gebühr:** Standpreis + Werbepauschale (+ Beleuchtung), automatisch aus `config/ulbrich.php` → `market`.
+
+## Einfuhr-Regeln, gesperrte Bestellungen und Zoll
+
+**Grundsatz:** Die Website erfindet kein Recht. Was erlaubt oder gesperrt ist, tragt ihr nach rechtlicher Prüfung ein (Anwalt, Zoll-Auskunft, Botschaft). Bis dahin gilt die vorsichtige Einstellung:
+
+- **Deutschland:** erlaubt
+- **Kein Messer** (Ringe, Zubehör): überall erlaubt
+- **Alle anderen Länder ohne Regel:** **prüfen**. Die Bestellung kommt als Anfrage ohne Zahlung. Kunde und Bestellbestätigung zeigen „Wir prüfen den Versand in dein Land“.
+
+**Messerart pro Produkt** (Pflichtfeld): Küchenmesser, feststehend (Jagd/Outdoor), Klappmesser, Einhandmesser, sonstiges oder kein Messer. Die Zolltarifnummer (Kapitel 8211) wird mitgeführt. Edition 100 läuft als „Klappmesser“ (`config/ulbrich.php` → `export.edition_type`). Ist sie einhändig zu öffnen, auf „einhandmesser“ ändern.
+
+**Verwaltung → Einfuhr-Regeln**: Land (oder alle) × Messerart (oder alle) → **erlaubt / prüfen / gesperrt**, mit Text für den Kunden, internem Grund, Quelle und Prüfdatum. Die genaueste Regel gewinnt: Land + Art vor Land + alle vor alle + Art.
+
+**Im Bestellformular** (sobald das Land gewählt ist):
+- **gesperrt:** roter Hinweis, Bestellknopf gesperrt. Abholung in der Manufaktur bleibt möglich. Der Server lehnt es zusätzlich selbst ab.
+- **prüfen:** gelber Hinweis. Die Bestellung kommt als Anfrage, im Vorgang steht „Einfuhr prüfen“ mit Grund. Spalte „Einfuhr“ und Filter „Einfuhr prüfen“ in der Bestellliste.
+
+**Verwaltung → Gesperrte Bestellungen**: jeder blockierte Versuch mit Datum, Land, PLZ/Ort, Artikel, Messerart, **Grund** und Kontakt. Wird nach 180 Tagen automatisch gelöscht.
+
+**Zoll** (Verwaltung → Versandkosten → Ländergruppe, bei „Außerhalb der EU“):
+- **Empfänger zahlt** (Standard): Hinweis im Formular und in der Bestätigung „Zoll und Einfuhrabgaben zahlt der Empfänger bei Zustellung“.
+- **Vorab berechnen:** Zollsatz %, Einfuhrumsatzsteuer % und Pauschale eintragen. Die Website rechnet Zoll = Warenwert × Zollsatz, Steuer = (Ware + Versand + Zoll) × Steuersatz, + Pauschale. Das Ergebnis wird auf ,99 aufgerundet, als eigene Position angezeigt und mitbezahlt (auch über Stripe).
+- Bei Sendungen außerhalb der EU steht im Vorgang automatisch: „Zollinhaltserklärung CN22/CN23 bzw. Handelsrechnung beilegen, Zolltarifnummer …“.

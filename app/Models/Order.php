@@ -75,10 +75,10 @@ class Order extends Model
         return $tpl && $this->tracking_number ? str_replace('{n}', rawurlencode($this->tracking_number), $tpl) : null;
     }
 
-    /** Zu zahlender Betrag: Betrag (nach Rabatt) + Versand − Gutschein. */
+    /** Zu zahlender Betrag: Betrag (nach Rabatt) + Versand + vorab bezahlter Zoll − Gutschein. */
     public function totalDue(): float
     {
-        return max(0, round((float) $this->amount + (float) $this->shipping_amount - (float) $this->voucher_amount, 2));
+        return max(0, round((float) $this->amount + (float) $this->shipping_amount + (float) $this->customs_amount - (float) $this->voucher_amount, 2));
     }
 
     public function isPickup(): bool
@@ -111,6 +111,7 @@ class Order extends Model
             'tracking_checked_at' => 'datetime',
             'review_requested_at' => 'datetime',
             'review_consent' => 'boolean',
+            'customs_amount' => 'decimal:2',
             'shipping_amount' => 'decimal:2',
             'voucher_amount' => 'decimal:2',
         ];

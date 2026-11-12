@@ -3,7 +3,7 @@
     $countries = \App\Support\Shipping::countries();
     $sel = old('country_code', 'DE');
 @endphp
-<div class="shipping-box" data-shipping data-ship-url="{{ route('shipping.quote') }}" @isset($productId) data-ship-product="{{ $productId }}" @endisset>
+<div class="shipping-box" data-shipping data-ship-url="{{ route('shipping.quote') }}" @isset($productId) data-ship-product="{{ $productId }}" @endisset @if (! empty($edition)) data-ship-edition="1" @endif>
     <fieldset class="fields">
         <legend class="field__label">Lieferung</legend>
         <label class="check"><input type="radio" name="versand" value="versand" @checked(old('versand', 'versand') === 'versand') data-ship-mode> <span>Versand mit DHL – Kosten je nach Land, werden unten berechnet</span></label>
@@ -21,6 +21,7 @@
         <label class="field"><span class="field__label">PLZ</span><input type="text" name="postal_code" maxlength="20" autocomplete="postal-code" value="{{ old('postal_code') }}" data-ship-plz>@error('postal_code')<span class="field__error">{{ $message }}</span>@enderror</label>
         <label class="field"><span class="field__label">Ort</span><input type="text" name="city" maxlength="120" autocomplete="address-level2" value="{{ old('city') }}" data-ship-city>@error('city')<span class="field__error">{{ $message }}</span>@enderror</label>
     </div>
+    <p class="shipping-box__export" data-ship-export role="alert" hidden></p>
     <p class="shipping-box__quote" data-ship-quote aria-live="polite">
         @php $q = \App\Support\Shipping::quote($sel, isset($productId) ? \App\Models\Product::query()->whereKey($productId)->value('weight_g') : null); @endphp
         @if ($q['price'] !== null)

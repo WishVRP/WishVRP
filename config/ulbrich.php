@@ -245,6 +245,28 @@ return [
     /*
     | Kunst- & Handwerkermarkt – veranstaltet von der Messermanufaktur (laut Live-Seite /kunsthandwerkermarkt/, 11.11.2026).
     */
+    /*
+    | Ausfuhr/Einfuhr: Messerarten mit Zolltarifnummer (Kapitel 82.11 – vor Nutzung mit dem Zoll abgleichen).
+    | Regeln je Land und Messerart pflegt der Inhaber in der Verwaltung (Einfuhr-Regeln) nach rechtlicher Prüfung.
+    | Ohne Regel gilt 'default_action' (vorsichtig: prüfen – Bestellung kommt als Anfrage ohne Zahlung).
+    */
+    'export' => [
+        'default_action' => 'pruefen',
+        'knife_types' => [
+            'kuechenmesser' => ['label' => 'Küchenmesser (feststehende Klinge)', 'hs' => '8211 92 00'],
+            'feststehend' => ['label' => 'Jagd-, Outdoor- oder Gürtelmesser (feststehend)', 'hs' => '8211 92 00'],
+            'klappmesser' => ['label' => 'Klapp- oder Taschenmesser', 'hs' => '8211 93 00'],
+            'einhandmesser' => ['label' => 'Einhandmesser (feststellbare Klinge, mit einer Hand zu öffnen)', 'hs' => '8211 93 00'],
+            'sonstiges' => ['label' => 'Sonstiges Messer / Klinge', 'hs' => '8211 99 00'],
+            'kein_messer' => ['label' => 'Kein Messer (Ringe, Zubehör, Pflegemittel)', 'hs' => null],
+        ],
+        'edition_type' => 'klappmesser',   // Edition 100 – bitte prüfen, ob einhändig zu öffnen (dann: einhandmesser)
+        'messages' => [
+            'gesperrt' => 'Leider dürfen wir dieses Messer nicht in dein Land verschicken. Gern kannst du es nach Absprache in unserer Manufaktur abholen.',
+            'pruefen' => 'Für den Versand in dein Land prüfen wir die Einfuhrbestimmungen persönlich. Du bekommst nach der Prüfung Bescheid – erst dann zahlst du.',
+        ],
+    ],
+
     'market' => [
         // Quellen: Live-Seite (11.11.2026), Marktordnung, Standplan und Standmietvertrag (PDF vom Inhaber, 11.11.2026)
         'name' => 'Kunst- & Handwerkermarkt',

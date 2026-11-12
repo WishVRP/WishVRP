@@ -47,6 +47,7 @@ class ProductResource extends Resource
                     ->helperText('So, wie Kunden suchen: z. B. „Damast-Kochmesser 21 cm mit Olivenholzgriff“.'),
                 TextInput::make('slug')->label('Adresse (URL)')->maxLength(160)->helperText('Leer lassen = aus dem Namen erzeugt.')->unique(ignoreRecord: true),
                 Select::make('category')->label('Kategorie')->options(collect(Product::CATEGORIES)->map(fn ($c) => $c[0]))->required(),
+                Select::make('knife_type')->label('Messerart (für Versand ins Ausland, Zoll und Einfuhr-Regeln)')->options(collect(config('ulbrich.export.knife_types'))->map(fn ($t) => $t['label'].($t['hs'] ? ' · Zolltarif '.$t['hs'] : '')))->required()->native(false),
                 Select::make('status')->label('Status')->options(Product::STATUSES)->required()->default('entwurf'),
                 TextInput::make('price')->label('Preis (€)')->numeric()->required()->minValue(0)->step(0.01),
                 TextInput::make('stock')->label('Bestand')->numeric()->required()->minValue(0)->default(1)->helperText('Unikat = 1. Bei 0 wird es als „verkauft“ angezeigt.'),

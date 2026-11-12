@@ -166,12 +166,17 @@ class OrdersTable
                 TextColumn::make('status')->label('Status')->badge()
                     ->formatStateUsing(fn ($state) => Order::STATUSES[$state] ?? $state)
                     ->color(fn ($state) => Order::STATUS_COLORS[$state] ?? 'gray'),
+                TextColumn::make('export_note')->label('Einfuhr')->badge()->toggleable()
+                    ->state(fn (Order $r) => $r->export_note ? (str_contains($r->export_note, 'Einfuhr prüfen') ? 'prüfen' : (str_contains($r->export_note, 'Gesperrt') ? 'gesperrt' : 'Zollpapiere')) : null)
+                    ->color(fn ($state) => ['prüfen' => 'warning', 'gesperrt' => 'danger', 'Zollpapiere' => 'info'][$state] ?? 'gray')
+                    ->tooltip(fn (Order $r) => $r->export_note),
                 TextColumn::make('assignee.name')->label('Zuständig')->toggleable(),
                 TextColumn::make('notes_count')->label('Notizen')->counts('notes')->toggleable(),
             ])
             ->filters([
                 Filter::make('offen')->label('Nur offene')->query(fn (Builder $query) => $query->whereIn('status', Order::OPEN))->default(),
                 SelectFilter::make('type')->label('Art')->options(Order::TYPES),
+                Filter::make('einfuhr')->label('Einfuhr prüfen')->query(fn (Builder $query) => $query->where('export_note', 'like', '%Einfuhr prüfen%')),
                 SelectFilter::make('status')->label('Status')->options(Order::STATUSES),
             ])
             ->recordActions([

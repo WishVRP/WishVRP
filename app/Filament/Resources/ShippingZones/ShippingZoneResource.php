@@ -46,8 +46,16 @@ class ShippingZoneResource extends Resource
             Select::make('countries')->label('Länder')->multiple()->searchable()->options(Shipping::countries())
                 ->helperText('Bei „Alle übrigen Länder“ leer lassen.'),
             Toggle::make('rest_of_world')->label('Gilt für alle übrigen Länder (Rest der Welt)'),
-            Toggle::make('customs')->label('Außerhalb der EU (Hinweis auf Zoll/Einfuhrabgaben)'),
+            Toggle::make('customs')->label('Außerhalb der EU (Zoll/Einfuhrabgaben möglich)')->live(),
             Toggle::make('active')->label('Aktiv')->default(true),
+            Select::make('customs_mode')->label('Zoll')->options(['empfaenger' => 'Empfänger zahlt bei Zustellung (Hinweis im Formular)', 'vorab' => 'Wir berechnen Zoll vorab und schlagen ihn auf'])
+                ->default('empfaenger')->required()->native(false)->live()->visible(fn (Get $get) => (bool) $get('customs')),
+            TextInput::make('duty_percent')->label('Zollsatz (%)')->numeric()->step(0.01)->minValue(0)->maxValue(100)
+                ->visible(fn (Get $get) => $get('customs') && $get('customs_mode') === 'vorab')->helperText('Für Messer (Zolltarif 8211) laut Zoll des Ziellands'),
+            TextInput::make('vat_percent')->label('Einfuhrumsatzsteuer (%)')->numeric()->step(0.01)->minValue(0)->maxValue(100)
+                ->visible(fn (Get $get) => $get('customs') && $get('customs_mode') === 'vorab'),
+            TextInput::make('customs_fee')->label('Pauschale Zollabwicklung (€)')->numeric()->step(0.01)->minValue(0)
+                ->visible(fn (Get $get) => $get('customs') && $get('customs_mode') === 'vorab')->helperText('z. B. Gebühr des Versanddienstes für die Verzollung'),
             Repeater::make('rates')->relationship()->label('Preise laut DHL (vor Aufrundung)')->columnSpanFull()
                 ->orderColumn(false)->defaultItems(0)->addActionLabel('Gewichtsstufe hinzufügen')
                 ->schema([

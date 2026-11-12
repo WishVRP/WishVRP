@@ -203,6 +203,7 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
         if (plz?.value) q.set('plz', plz.value.trim());
         if (city?.value) q.set('ort', city.value.trim());
         if (box.dataset.shipProduct) q.set('produkt', box.dataset.shipProduct);
+        if (box.dataset.shipEdition) q.set('edition', '1');
         const my = ++seq;
         out.classList.add('is-loading');
         try {
@@ -211,15 +212,33 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
             if (my !== seq) return;
             out.innerHTML = `Versand nach ${esc(d.country_name)}: <b>${d.formatted ? esc(d.formatted) : 'auf Anfrage'}</b>`
                 + (d.formatted ? ` <span class="muted">(${esc(d.label)})</span>` : '')
+                + (d.customs_formatted ? `<small>+ Zoll und Einfuhrabgaben (im Voraus): <b>${esc(d.customs_formatted)}</b> – ${esc(d.customs_label || '')}</small>` : '')
                 + (d.note ? `<small>${esc(d.note)}</small>` : '');
+            exportState(d.export || { action: 'erlaubt' });
         } catch (e) {
             out.textContent = 'Versandkosten konnten gerade nicht berechnet werden – wir nennen sie dir per E-Mail.';
         } finally {
             if (my === seq) out.classList.remove('is-loading');
         }
     };
+    // Einfuhr: gesperrt → Hinweis + Bestellknopf gesperrt; prüfen → Hinweis (Bestellung wird Anfrage ohne Zahlung)
+    const exportBox = box.querySelector('[data-ship-export]');
+    const submit = box.closest('form')?.querySelector('button[type="submit"]');
+    function exportState(ex) {
+        const blocked = ex.action === 'gesperrt' && mode() !== 'abholung';
+        if (exportBox) {
+            exportBox.hidden = ex.action === 'erlaubt' || mode() === 'abholung';
+            exportBox.textContent = ex.message || '';
+            exportBox.classList.toggle('is-blocked', ex.action === 'gesperrt');
+        }
+        out.hidden = blocked;   // bei Sperre keine Versandkosten anzeigen
+        if (submit) {
+            submit.disabled = blocked;
+            if (blocked) submit.setAttribute('data-export-locked', ''); else submit.removeAttribute('data-export-locked');
+        }
+    }
     const later = () => { clearTimeout(timer); timer = setTimeout(load, 400); };
-    box.querySelectorAll('[data-ship-mode]').forEach((r) => r.addEventListener('change', load));
+    box.querySelectorAll('[data-ship-mode]').forEach((r) => r.addEventListener('change', () => { if (mode() === 'abholung') exportState({ action: 'erlaubt' }); load(); }));
     country?.addEventListener('change', load);
     plz?.addEventListener('input', later);
     city?.addEventListener('input', later);

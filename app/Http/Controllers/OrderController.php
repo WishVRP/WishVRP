@@ -192,6 +192,9 @@ class OrderController extends Controller
         if ((float) $order->shipping_amount > 0) {
             $lines[] = ['name' => 'Versand nach '.($order->country ?: 'Deutschland').($order->shipping_note ? ' ('.\Illuminate\Support\Str::before($order->shipping_note, ' ·').')' : ''), 'amount' => (float) $order->shipping_amount];
         }
+        if ((float) $order->customs_amount > 0) {
+            $lines[] = ['name' => 'Zoll und Einfuhrabgaben '.($order->country ?: '').' (im Voraus)', 'amount' => (float) $order->customs_amount];
+        }
 
         return $this->pay($order, $lines, $fallbackRedirect);
     }
@@ -199,7 +202,7 @@ class OrderController extends Controller
     /** Offener Betrag nach Rabatt und Gutschein (inkl. Versand). */
     private function due(Order $order): float
     {
-        return max(0, round((float) $order->amount + (float) $order->shipping_amount - (float) $order->voucher_amount, 2));
+        return $order->totalDue();
     }
 
     /**
@@ -344,17 +347,33 @@ class OrderController extends Controller
         if ($item && str_starts_with($item, config('ulbrich.edition.name'))) {
             $pickup = ($data['versand'] ?? 'versand') === 'abholung';
             $q = $pickup ? null : \App\Support\Shipping::quote($data['country_code'] ?? 'DE', null, $data['postal_code'] ?? null, $data['city'] ?? null);
+            $etype = config('ulbrich.export.edition_type');
+            $export = $q ? \App\Support\ExportCheck::evaluate($q['country'], $etype) : null;
+            if ($export && $export['action'] === 'gesperrt') {
+                \App\Support\ExportCheck::logBlocked($export, $q['country'], $etype, $data + ['item' => $order->item, 'source_path' => $order->source_path]);
+                $piece?->update(['status' => 'frei', 'order_id' => null, 'buyer_name' => null, 'show_name' => false]);
+                $order->forceFill(['status' => 'storniert', 'export_note' => 'Gesperrt: '.$export['reason']])->save();
+
+                return back()->withErrors(['country_code' => $export['message']])->withInput();
+            }
+            $customs = $q && $q['price'] !== null ? \App\Support\Customs::estimate($q['country'], (float) $order->amount, (float) $q['price']) : null;
             $order->forceFill([
                 'shipping_method' => $pickup ? 'abholung' : 'versand',
                 'shipping_amount' => $pickup ? 0 : $q['price'],
-                'shipping_note' => $q ? ($q['price'] === null ? 'Versandkosten auf Anfrage' : $q['label'].($q['customs'] ? ' · zzgl. Zoll/Einfuhrabgaben im Zielland' : '')) : null,
+                'shipping_note' => $q ? ($q['price'] === null ? 'Versandkosten auf Anfrage' : $q['label'].(($customs['mode'] ?? null) === 'empfaenger' ? ' · zzgl. Zoll/Einfuhrabgaben im Zielland' : '')) : null,
                 'country' => $q['country_name'] ?? $order->country, 'country_code' => $q['country'] ?? $order->country_code,
+                'customs_amount' => ($customs['mode'] ?? null) === 'vorab' ? $customs['amount'] : null,
+                'knife_type' => $etype,
+                'export_note' => $export ? \App\Support\ExportCheck::note($export, (bool) $q['customs']) : null,
             ])->save();
-            if (Stripe::enabled() && ($pickup || $q['price'] !== null)) {
+            if (Stripe::enabled() && ($pickup || ($q['price'] !== null && $export['action'] === 'erlaubt'))) {
                 $order->forceFill(['hold_until' => now()->addMinutes((int) config('ulbrich.booking.hold_minutes'))])->save();
                 $lines = [['name' => $order->item, 'amount' => (float) $order->amount]];
                 if (! $pickup && $q['price'] > 0) {
                     $lines[] = ['name' => 'Versand nach '.$q['country_name'].' ('.$q['label'].')', 'amount' => $q['price']];
+                }
+                if ((float) $order->customs_amount > 0) {
+                    $lines[] = ['name' => 'Zoll und Einfuhrabgaben '.$q['country_name'].' (im Voraus)', 'amount' => (float) $order->customs_amount];
                 }
 
                 return $this->pay($order, $lines, '/klappmesser/#anfrage-gesendet');

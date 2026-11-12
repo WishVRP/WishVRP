@@ -93,6 +93,15 @@ class ProductController extends Controller
             ? \App\Support\Shipping::quote($data['country_code'] ?? 'DE', $product->weight_g, $data['postal_code'] ?? null, $data['city'] ?? null)
             : null;
         $shipping = $ship ? $ship['price'] : 0.0;   // null = Versandkosten auf Anfrage
+
+        // Einfuhr: gesperrt → keine Bestellung (Versuch wird protokolliert); prüfen → Anfrage ohne Zahlung
+        $export = $ship ? \App\Support\ExportCheck::evaluate($ship['country'], $product->knife_type) : null;
+        if ($export && $export['action'] === 'gesperrt') {
+            \App\Support\ExportCheck::logBlocked($export, $ship['country'], $product->knife_type, $data + ['item' => $product->name, 'source_path' => $product->url()]);
+
+            return back()->withErrors(['country_code' => $export['message']])->withInput();
+        }
+        $customs = $ship && $shipping !== null ? \App\Support\Customs::estimate($ship['country'], (float) $product->price, (float) $shipping) : null;
         $order = Order::create([
             'type' => 'messer', 'status' => 'neu',
             'name' => $data['name'], 'email' => $data['email'], 'phone' => $data['phone'] ?? null, 'message' => $data['message'] ?? null,
@@ -100,14 +109,17 @@ class ProductController extends Controller
             'street' => $data['street'] ?? null, 'postal_code' => $data['postal_code'] ?? null, 'city' => $data['city'] ?? null,
             'country' => $ship['country_name'] ?? null, 'country_code' => $ship['country'] ?? null,
             'shipping_method' => $data['versand'], 'shipping_amount' => $shipping,
-            'shipping_note' => $ship ? ($ship['price'] === null ? 'Versandkosten auf Anfrage' : $ship['label'].($ship['customs'] ? ' · zzgl. Zoll/Einfuhrabgaben im Zielland' : '')) : null,
+            'shipping_note' => $ship ? ($ship['price'] === null ? 'Versandkosten auf Anfrage' : $ship['label'].(($customs['mode'] ?? null) === 'empfaenger' ? ' · zzgl. Zoll/Einfuhrabgaben im Zielland' : '')) : null,
+            'customs_amount' => ($customs['mode'] ?? null) === 'vorab' ? $customs['amount'] : null,
+            'knife_type' => $product->knife_type,
+            'export_note' => $export ? \App\Support\ExportCheck::note($export, (bool) $ship['customs']) : null,
             'source_path' => $product->url(),
             'payment_method' => Stripe::enabled() ? 'stripe' : 'ueberweisung',
             'hold_until' => Stripe::enabled() ? now()->addMinutes((int) config('ulbrich.booking.hold_minutes')) : null,
         ]);
         SiteEvent::create(['name' => 'anfrage', 'path' => $product->url(), 'occurred_on' => now()->toDateString()]);
 
-        if ($ship && $ship['price'] === null) {
+        if ($ship && ($ship['price'] === null || $export['action'] === 'pruefen')) {
             // Versandkosten unbekannt (z. B. Land ohne Tabellenpreis): als Anfrage, wir nennen die Kosten, dann Zahlung
             \App\Support\OrderMail::received($order);
 

@@ -47,7 +47,9 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 - [ ] **Versandkosten Ausland** eintragen: Verwaltung → Versandkosten → EU / Europa / Welt, Preise aus der DHL-Preisliste (dhl.de) oder eurem DHL-Vertrag. Bis dahin: „auf Anfrage“. Inlandspreise (5 kg 7,69 €, 10 kg 10,49 €) ebenfalls kurz mit dhl.de abgleichen.
 - [ ] **Versandgewicht** bei jedem Produkt eintragen (inkl. Verpackung). Ohne Angabe gelten 1.500 g.
 - [ ] Optional **DHL-Express-Konto** für echte Live-Preise ins Ausland (`DHL_EXPRESS_*`)
-- [ ] Rechtlich prüfen: Messerversand ins Ausland (Einfuhrbestimmungen mancher Länder, z. B. Klingenlänge oder Klappmesser), DHL-Beförderungsbedingungen
+- [ ] **Einfuhr-Regeln** (Anwalt/Zoll): für die Länder, in die ihr verschicken wollt, je Messerart klären, ob **erlaubt / gesperrt** – in Verwaltung → Einfuhr-Regeln eintragen (mit Quelle und Datum). Ohne Regel landet jede Auslandsbestellung als „prüfen“-Anfrage. Ausfuhr aus Deutschland (Messer i. d. R. ohne Genehmigung) und DHL-Beförderungsbedingungen mitprüfen.
+- [ ] **Zoll**: je Ländergruppe festlegen, ob der Empfänger zahlt (Standard) oder ihr vorab berechnet – dann Zollsatz, Einfuhrumsatzsteuer und Pauschale eintragen. Zolltarifnummern (8211 92 00 / 8211 93 00) mit dem Zoll abgleichen.
+- [ ] **Messerart** bei jedem Produkt wählen; bei Edition 100 bestätigen, ob Klapp- oder Einhandmesser
 - [ ] Optional **DHL-API-Key** (developer.dhl.com, „Shipment Tracking – Unified“, kostenlos) → `DHL_API_KEY`: Zustellungen werden automatisch erkannt.
 - [ ] Optional **Brevo** o. Ä. als Newsletter-Versanddienst, falls die Mengen für das eigene Postfach zu groß werden
 

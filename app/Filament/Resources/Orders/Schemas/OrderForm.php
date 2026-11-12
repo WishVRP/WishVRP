@@ -59,6 +59,9 @@ class OrderForm
                             ->helperText('Bei „auf Anfrage“: Betrag eintragen, speichern, dann „Bestellbestätigung senden“.'),
                         Select::make('country_code')->label('Land')->options(\App\Support\Shipping::countries())->searchable()->placeholder('–'),
                         TextInput::make('shipping_note')->label('Versandart / Hinweis')->maxLength(190),
+                        TextInput::make('customs_amount')->label('Zoll vorab (€)')->numeric()->step(0.01),
+                        \Filament\Forms\Components\Textarea::make('export_note')->label('Einfuhr / Zollpapiere')->rows(2)->columnSpanFull()
+                            ->helperText('„Einfuhr prüfen“: vor der Zahlungsaufforderung die Einfuhrbestimmungen klären, dann Versandkosten/Zoll eintragen und „Bestellbestätigung senden“.'),
                         Select::make('shipping_method')->label('Lieferung')->options(['versand' => 'Versand', 'abholung' => 'Abholung'])->placeholder('–'),
                         Select::make('tracking_carrier')->label('Versanddienst')->options(collect(Order::CARRIERS)->map(fn ($c) => $c[0]))->placeholder('–'),
                         TextInput::make('tracking_number')->label('Sendungsnummer')->maxLength(60),
