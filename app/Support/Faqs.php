@@ -35,7 +35,7 @@ final class Faqs
         return [...$faqs,
             ['q' => 'Wie lange dauert ein Schmiedekurs?', 'a' => 'Grundlagenkurs und Klingenkurs dauern einen Tag, der Damast-Messerkurs zwei Tage, der Damast Premium-Kurs zwei bis drei Tage und der Manager-Schmiedekurs drei Tage.'],
             ['q' => 'Kann ich einen Schmiedekurs verschenken?', 'a' => 'Ja, mit einem Schmiedekurs-Gutschein. Der Gutschein reserviert noch keinen Kursplatz: Die beschenkte Person bucht ihren Termin später selbst online.'],
-            ['q' => 'Kann ich meinen Kurstermin verschieben?', 'a' => 'Umbuchen ist bis 7 Tage vor dem Kurstermin möglich.'],
+            ['q' => 'Kann ich meinen Kurstermin verschieben?', 'a' => 'Zwei Umbuchungen sind kostenlos – bis 48 Stunden vor dem Kurstermin, online oder per E-Mail. Der gebuchte Preis bleibt gleich.'],
             ['q' => 'Wie buche ich einen Kurs?', 'a' => 'Kurse werden ausschließlich online gebucht. Im Buchungskalender wählst du Kurs, Termin und Teilnehmerzahl.'],
         ];
     }
@@ -45,7 +45,7 @@ final class Faqs
     {
         return [
             ['q' => 'Reserviert der Gutschein schon einen Kurstermin?', 'a' => 'Nein. Der Gutschein reserviert noch keinen Kursplatz – die beschenkte Person wählt Kurs und Termin später selbst und bucht online.'],
-            ['q' => 'Kann der Kurstermin später noch verschoben werden?', 'a' => 'Ja, Umbuchen ist bis 7 Tage vor dem Kurstermin möglich.'],
+            ['q' => 'Kann der Kurstermin später noch verschoben werden?', 'a' => 'Ja. Zwei Umbuchungen sind kostenlos – bis 48 Stunden vor dem Kurstermin, online oder per E-Mail. Der gebuchte Preis bleibt gleich.'],
         ];
     }
 

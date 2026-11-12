@@ -10,7 +10,8 @@ use Illuminate\Support\Str;
 /** Newsletter-Empfänger mit Double-Opt-in. Werbung nur an bestätigte, nicht abgemeldete Adressen. */
 class NewsletterSubscriber extends Model
 {
-    public const CONSENT = 'Ja, ich möchte den Newsletter der Messermanufaktur Ulbrich mit Neuigkeiten, Kursterminen und Angeboten per E-Mail erhalten (freiwillig, jederzeit abbestellbar).';
+    // Einwilligungstext laut Launchpaket (Datei 11, 12.11.2026); wird je Anmeldung als Nachweis gespeichert
+    public const CONSENT = 'Ich möchte per E-Mail Neuigkeiten, Angebote, Kurstermine und Aktionen der Messermanufaktur Ulbrich erhalten. Ich kann meine Einwilligung jederzeit über den Abmeldelink in jeder Nachricht oder per E-Mail an info@messermanufaktur-ulbrich.de mit Wirkung für die Zukunft widerrufen. Weitere Informationen enthält die Datenschutzerklärung.';
 
     protected $fillable = ['email', 'email_key', 'source', 'consent_text', 'consented_at', 'confirm_token', 'confirmed_at', 'unsubscribe_token', 'unsubscribed_at'];
 

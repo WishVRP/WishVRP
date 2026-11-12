@@ -37,7 +37,7 @@
         <div class="container prose">
             <x-ui.kicker>Vorbereitung</x-ui.kicker>
             <h2 id="vorb-h" class="h-section">So bereitest du dich auf deinen Schmiedekurs vor</h2>
-            <p class="lead">Die wichtigsten Regeln zur Buchung kennst du schon: Kurse werden online gebucht, Umbuchen geht bis 7 Tage vor dem Termin.</p>
+            <p class="lead">Die wichtigsten Regeln zur Buchung kennst du schon: Kurse werden online gebucht, zwei Umbuchungen sind bis 48 Stunden vor dem Termin kostenlos.</p>
             <p><x-ui.missing label="Inhalt folgt">Artikel „Vorbereitung“ von der Live-Seite übernehmen (Kleidung, Mitbringen, Verpflegung)</x-ui.missing></p>
         </div>
     </article>

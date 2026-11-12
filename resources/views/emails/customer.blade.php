@@ -173,7 +173,10 @@
                 @endif
             @endif
             @if ($o->type === 'kurs' && $o->course_start && $o->manage_token && ! $o->rebookBlocker())
-                <tr><td style="{{ $lbl }}">Umbuchen</td><td style="{{ $row }}">{{ config('ulbrich.booking.free_rebookings') }}× kostenlos bis {{ $o->rebookDeadline()->format('d.m.Y') }} – <a href="{{ $o->manageUrl() }}" style="color:#2d5f93;">Termin online umbuchen</a></td></tr>
+                <tr><td style="{{ $lbl }}">Umbuchen</td><td style="{{ $row }}">{{ config('ulbrich.booking.free_rebookings') }}× kostenlos bis {{ $o->rebookDeadline()->format('d.m.Y, H:i').' Uhr' }} – <a href="{{ $o->manageUrl() }}" style="color:#2d5f93;">Termin online umbuchen</a></td></tr>
+            @endif
+            @if ($o->type === 'kurs' && $o->valueValidUntil())
+                <tr><td style="{{ $lbl }}">Buchungswert</td><td style="{{ $row }}">verwendbar bis {{ $o->valueValidUntil()->format('d.m.Y') }}</td></tr>
             @endif
             @if (! in_array($o->type, ['kurs', 'anfrage', 'service'], true) && $o->shipping_method)
                 <tr><td style="{{ $lbl }}">Lieferung</td><td style="{{ $row }}">

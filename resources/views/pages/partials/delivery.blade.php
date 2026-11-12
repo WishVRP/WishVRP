@@ -17,8 +17,8 @@
         <p>{{ $s['international'] }} {{ $s['customs'] }}</p>
     </div>
     <div class="delivery__item">
-        <h3 class="delivery__title">{{ $w['years'] }} Jahre Garantie</h3>
-        <p>{{ ucfirst($w['condition']) }}. Dazu bekommst du {{ implode(' und ', $w['included']) }}. <a href="/garantie/">Zur Garantie</a></p>
+        <h3 class="delivery__title">{{ $w['name'] }}</h3>
+        <p>{{ $w['text'] }} {{ $w['statutory_note'] }} Dazu bekommst du {{ implode(' und ', $w['included']) }}. <a href="/garantie/">Garantiebedingungen</a></p>
     </div>
     <p class="delivery__more"><a href="/versand/">Alles zu Versand, Abholung und Zahlung <span aria-hidden="true">→</span></a></p>
 </div>

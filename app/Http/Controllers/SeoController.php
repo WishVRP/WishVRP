@@ -93,7 +93,7 @@ class SeoController extends Controller
             "- Telefon: {$c['phone']['display']}",
             ...($c['email'] ? ["- E-Mail: {$c['email']}"] : []),
             ...array_map(fn ($u) => "- Profil: {$u}", $c['same_as']),
-            "- Buchung: Kurse werden online gebucht; Umbuchen bis 7 Tage vor dem Termin",
+            "- Buchung: Kurse werden online gebucht; zwei kostenlose Umbuchungen bis 48 Stunden vor dem Termin, Preis bleibt; gemeinsame Buchungen bis 4 Personen; bezahlter Buchungswert 10 Jahre verwendbar",
             '',
             '## Schmiedekurse',
         ];
@@ -112,7 +112,7 @@ class SeoController extends Controller
             '- '.$c['sales']['customs'],
             '- '.$c['sales']['delivery'],
             '- Zahlung: '.implode(', ', $c['sales']['payment']).'; vor Ort: '.implode(', ', $c['sales']['payment_onsite']),
-            '- Garantie: '.$c['warranty']['years'].' Jahre '.$c['warranty']['condition'].'; dazu '.implode(' und ', $c['warranty']['included']),
+            '- '.$c['warranty']['name'].': '.$c['warranty']['text'].' '.$c['warranty']['statutory_note'].' Dazu: '.implode(' und ', $c['warranty']['included']),
             '- Messer schärfen lassen: vorbeibringen oder per Post',
             '- English pages: '.PageMeta::absolute('/en/'),
             ...(($products = \App\Models\Product::query()->where('status', 'aktiv')->get())->isNotEmpty() ? ['', '## Messer im Shop', ...$products->map(fn ($p) => '- ['.$p->name.']('.PageMeta::absolute($p->url()).'): '.number_format((float) $p->price, 2, ',', '.').' €')->all()] : []),

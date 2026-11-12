@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
-/** Kurstermin umbuchen über den persönlichen Link: 2× kostenlos, bis 7 Tage vorher, Preis bleibt (Preisbindung). */
+/** Kurstermin umbuchen über den persönlichen Link: 2× kostenlos, bis 48 Stunden vor Kursbeginn, Preis bleibt (Preisbindung). */
 class RebookController extends Controller
 {
     public function store(Request $request): RedirectResponse

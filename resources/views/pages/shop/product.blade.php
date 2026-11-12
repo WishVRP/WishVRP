@@ -42,7 +42,7 @@
                     @endif
                     <ul class="check-list mt-5" role="list">
                         <li>Von Hand gefertigt von Messerschmied {{ $c['owner'] }}</li>
-                        <li>{{ $c['warranty']['years'] }} Jahre Garantie bei Pflege nach Pflegehinweisen – <a href="/garantie/">mehr</a></li>
+                        <li>{{ $c['warranty']['name'] }}: {{ $c['warranty']['short'] }} – <a href="/garantie/">Bedingungen</a></li>
                         <li>Pflegeheft und Pflegemittel kostenlos dabei</li>
                     </ul>
                     @if ($available)<a class="btn btn--primary btn--lg mt-5" href="#kaufen">{{ $online ? 'Jetzt kaufen' : 'Verbindlich anfragen' }}</a>@endif

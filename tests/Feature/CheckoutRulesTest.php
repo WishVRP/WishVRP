@@ -65,7 +65,7 @@ class CheckoutRulesTest extends TestCase
         $this->post('/buchung/umbuchen/', ['t' => $o->manage_token, 'start' => now()->addDays(45)->toDateString()])->assertSessionHasErrors('start');
         $this->post('/buchung/umbuchen/', ['t' => $o->manage_token, 'start' => now()->addDay()->toDateString()])->assertSessionHasErrors('start');   // Buchungsfrist (frühestens übermorgen)
 
-        $this->travelTo(Carbon::parse($o->course_start)->subDays(6));   // weniger als 7 Tage vorher
+        $this->travelTo(Carbon::parse($o->course_start)->subHours(10));   // weniger als 48 Stunden vor Kursbeginn
         $this->assertNotNull($o->refresh()->rebookBlocker());
         $this->post('/buchung/umbuchen/', ['t' => $o->manage_token, 'start' => now()->addDays(20)->toDateString()])->assertSessionHasErrors('start');
     }

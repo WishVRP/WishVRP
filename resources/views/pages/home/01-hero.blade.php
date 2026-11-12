@@ -19,7 +19,7 @@
                 <x-ui.button href="/schmiedekurse/buchen/" variant="straw" size="lg">Schmiedekurs buchen</x-ui.button>
                 <x-ui.button href="#kursfinder" variant="secondary" size="lg">Kurse vergleichen</x-ui.button>
             </div>
-            @if ($minPrice)<p class="hero__microcopy">Kurse ab {{ number_format($minPrice, 0, ',', '.') }} € p. P. · Gutschein möglich · Umbuchen bis 7 Tage vorher</p>@endif
+            @if ($minPrice)<p class="hero__microcopy">Kurse ab {{ number_format($minPrice, 0, ',', '.') }} € p. P. · Gutschein möglich · 2× kostenlos umbuchen</p>@endif
         </div>
         <dl class="hero__facts" aria-label="Auf einen Blick">
             <div><dt>Familientradition</dt><dd>seit {{ $h['since'] }} · {{ $years }} Jahre</dd></div>

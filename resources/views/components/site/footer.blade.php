@@ -57,7 +57,7 @@
                     <li><a href="/messer-schaerfen-lassen/">Messer schärfen lassen</a></li>
                     <li><a href="/messer-reparieren-lassen/">Messer reparieren lassen</a></li>
                     <li><a href="/versand/">Versand &amp; Abholung</a></li>
-                    <li><a href="/garantie/">2 Jahre Garantie</a></li>
+                    <li><a href="/garantie/">Lebenslange Schliff-Garantie</a></li>
                 </ul>
             </nav>
             <nav aria-labelledby="footer-manufaktur">
@@ -81,7 +81,11 @@
                 <li><a href="/agb/">AGB</a></li>
                 <li><a href="/widerruf/">Widerrufsbelehrung</a></li>
                 <li><a href="/widerrufen/">Vertrag widerrufen</a></li>
+                <li><a href="/versand/#bedingungen">Versand &amp; Zahlung</a></li>
+                <li><a href="/widerruf/#muster-widerrufsformular">Muster-Widerrufsformular</a></li>
                 <li><a href="/kursbedingungen/">Kursbedingungen</a></li>
+                <li><a href="/gutscheinbedingungen/">Gutscheinbedingungen</a></li>
+                <li><a href="/garantie/">Garantiebedingungen</a></li>
             </ul>
         </div>
     </div>

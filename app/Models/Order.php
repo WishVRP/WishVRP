@@ -288,10 +288,22 @@ class Order extends Model
         return max(0, (int) config('ulbrich.booking.free_rebookings', 2) - (int) $this->rebook_count);
     }
 
-    /** Letzter Tag für eine Umbuchung (X Tage vor dem aktuellen Kurstermin). */
+    /** Spätester Zeitpunkt für eine Umbuchung: X Stunden vor Kursbeginn (Kursbeginn laut config, z. B. 9:00 Uhr). */
     public function rebookDeadline(): ?\Illuminate\Support\Carbon
     {
-        return $this->course_start?->copy()->subDays((int) config('ulbrich.booking.rebook_days_before', 7));
+        if (! $this->course_start) {
+            return null;
+        }
+        [$h, $m] = array_map('intval', explode(':', (string) config('ulbrich.booking.course_start_time', '09:00')));
+
+        return \Illuminate\Support\Carbon::parse($this->course_start->format('Y-m-d'), 'Europe/Berlin')->setTime($h, $m)
+            ->subHours((int) config('ulbrich.booking.rebook_hours_before', 48));
+    }
+
+    /** Buchungswert verwendbar bis (10 Jahre ab Zahlungseingang). */
+    public function valueValidUntil(): ?\Illuminate\Support\Carbon
+    {
+        return $this->paid_at?->copy()->addYears((int) config('ulbrich.booking.value_years', 10));
     }
 
     /** null = Umbuchung möglich, sonst Grund. */
@@ -306,8 +318,8 @@ class Order extends Model
         if ($this->freeRebookingsLeft() <= 0) {
             return 'Die zwei kostenlosen Umbuchungen sind aufgebraucht. Ruf uns gern an – wir finden eine Lösung.';
         }
-        if (now()->startOfDay()->gt($this->rebookDeadline())) {
-            return 'Umbuchen ist nur bis '.config('ulbrich.booking.rebook_days_before').' Tage vor dem Kurstermin möglich (bis '.$this->rebookDeadline()->format('d.m.Y').').';
+        if (now()->gt($this->rebookDeadline())) {
+            return 'Umbuchen ist nur bis '.config('ulbrich.booking.rebook_hours_before').' Stunden vor dem Kurstermin möglich (bis '.$this->rebookDeadline()->format('d.m.Y, H:i').' Uhr). Ruf uns gern an – wir finden eine Lösung.';
         }
 
         return null;

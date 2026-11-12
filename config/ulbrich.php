@@ -124,11 +124,15 @@ return [
     |   'regular'          → „inkl. 19 % MwSt.“
     | Entscheidung durch Steuerberater, danach hier umstellen.
     */
-    'tax_mode' => env('ULBRICH_TAX_MODE', 'pending'),
+    // Laut Betreiber (Launchpaket 12.11.2026): Regelbesteuerung, USt-IdNr. DE328830313
+    'tax_mode' => env('ULBRICH_TAX_MODE', 'regular'),
+    'vat_id' => 'DE328830313',
 
     'booking_rules' => [
         'Kurse werden ausschließlich online gebucht.',
-        'Zwei Umbuchungen sind kostenlos – bis 7 Tage vor dem Kurstermin, online über den Link in deiner Buchungsbestätigung. Der gebuchte Preis bleibt dabei gleich.',
+        'Zwei Umbuchungen sind kostenlos – bis 48 Stunden vor dem Kurstermin, online über den Link in deiner Buchungsbestätigung oder per E-Mail. Der gebuchte Preis bleibt dabei gleich.',
+        'Eine freiwillige Stornierung gegen Rückzahlung bieten wir nicht an; der bezahlte Buchungswert bleibt zehn Jahre ab Zahlungseingang für den gebuchten Kurs verwendbar. Gesetzliche Rechte bleiben unberührt.',
+        'Einzelbuchung für eine Person, gemeinsame Buchungen bis vier Personen – größere Gruppen nach Absprache.',
         'Ein Gutschein reserviert noch keinen Kursplatz – den Termin wählt die beschenkte Person bei der Buchung.',
     ],
 
@@ -182,11 +186,13 @@ return [
     'booking' => [
         'min_days_ahead' => 2,        // frühestens übermorgen (Vorschlag)
         'years_ahead' => 5,
-        'free_rebookings' => 2,       // kostenlose Umbuchungen je Buchung (Vorgabe Inhaber 12.11.2026)
-        'rebook_days_before' => 7,    // bis so viele Tage vor dem (aktuellen) Kurstermin
+        'free_rebookings' => 2,       // kostenlose Umbuchungen je Buchung (Kursbedingungen 12.11.2026)
+        'rebook_hours_before' => 48,  // mindestens 48 Stunden vor Beginn des jeweils vereinbarten Termins
+        'course_start_time' => '09:00', // Annahme für die 48-h-Frist, solange keine Kurszeiten gepflegt sind – bitte bestätigen
+        'value_years' => 10,          // bezahlter Buchungswert 10 Jahre ab Zahlungseingang verwendbar (Preis bleibt)
         'hold_minutes' => 30,         // Tag ist während der Online-Zahlung reserviert
         'online_courses' => ['grundlagenkurs', 'klingenkurs', 'klingenkurs-alternativ', 'damast-messerkurs', 'damast-premium-kurs'],
-        'max_persons' => 6,           // Vorschlag – tatsächliche Höchstzahl vom Inhaber bestätigen
+        'max_persons' => 4,           // laut Kursbedingungen 12.11.2026: gemeinsame Buchung bis 4, mehr nach Absprache
     ],
 
     /*
@@ -236,12 +242,12 @@ return [
     ],
 
     'warranty' => [
-        'years' => 2,
-        'condition' => 'bei Pflege nach den mitgelieferten Pflegehinweisen',
-        'remedy' => 'Geht ein Messer trotz Pflege nach den Pflegehinweisen kaputt, richten wir es wieder her oder erstatten den Kaufpreis.',
-        'excluded' => 'Schäden durch falsche Behandlung – zum Beispiel Rost nach dem Spülen in der Spülmaschine – sind Eigenverschulden und von der Garantie ausgenommen; im Einzelfall ist Kulanz möglich.',
-        'included' => ['Pflegehinweise als kleines Heft', 'Pflegemittel, kostenlos'],
-        'statutory_note' => 'Deine gesetzlichen Gewährleistungsrechte bleiben von der Garantie unberührt.',
+        // Launchpaket 12.11.2026: freiwillige lebenslange Schliff-Garantie + gesetzliche Mängelrechte (statt bisher „2 Jahre Garantie“)
+        'name' => 'Lebenslange Schliff-Garantie',
+        'short' => 'Lebenslang kostenlos nachschärfen',
+        'text' => 'Messer aus unserer Werkstatt – gekauft oder im Kurs selbst geschmiedet – schärfen wir kostenlos nach, so oft es nötig ist, solange die Manufaktur besteht. Versandkosten für das Einschicken trägst du.',
+        'statutory_note' => 'Deine gesetzlichen Mängelrechte bleiben davon unberührt.',
+        'included' => ['Pflegehinweise als kleines Heft', 'ein Pflegemittel, kostenlos'],
     ],
 
     /*

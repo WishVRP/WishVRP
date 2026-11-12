@@ -35,7 +35,10 @@ Die Zahlungsdaten schicken wir dir in Kürze. Verwendungszweck: {{ $o->number }}
 @endif
 
 @if ($o->type === 'kurs' && $o->course_start && ! $o->rebookBlocker())
-Umbuchen ({{ config('ulbrich.booking.free_rebookings') }}× kostenlos bis {{ $o->rebookDeadline()->format('d.m.Y') }}): {{ $o->manageUrl() }}
+Umbuchen ({{ config('ulbrich.booking.free_rebookings') }}× kostenlos bis {{ $o->rebookDeadline()->format('d.m.Y, H:i').' Uhr' }}): {{ $o->manageUrl() }}
+@endif
+@if ($o->type === 'kurs' && $o->valueValidUntil())
+Buchungswert verwendbar bis {{ $o->valueValidUntil()->format('d.m.Y') }}
 @endif
 @if (\App\Support\Tax::note()){{ \App\Support\Tax::note() }}
 @endif

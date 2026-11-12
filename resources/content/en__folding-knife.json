@@ -61,7 +61,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Each knife comes with a care booklet and a care product, free of charge, and a [2-year warranty](/en/warranty/) when cared for as instructed."
+     "x": "Each knife comes with a care booklet and a care product, free of charge, and our [lifetime sharpening guarantee](/en/warranty/): free resharpening as often as needed."
     }
    ]
   }
@@ -85,7 +85,7 @@
   },
   {
    "q": "Is there a warranty on the Edition 100?",
-   "a": "Yes, 2 years when cared for according to the enclosed care instructions."
+   "a": "Statutory warranty rights apply, and our lifetime sharpening guarantee means we resharpen the knife free of charge as often as needed."
   }
  ],
  "source": "config/ulbrich.php → edition, sales"

@@ -19,7 +19,8 @@
                     <div class="spec__row"><dt>Kurs</dt><dd>{{ $order->course?->name }} · {{ $order->participants }} {{ $order->participants == 1 ? 'Person' : 'Personen' }}</dd></div>
                     <div class="spec__row"><dt>Aktueller Kurstag</dt><dd><b>{{ $order->course_start?->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}</b></dd></div>
                     <div class="spec__row"><dt>Kostenlose Umbuchungen</dt><dd>noch {{ $order->freeRebookingsLeft() }} von {{ config('ulbrich.booking.free_rebookings') }}</dd></div>
-                    @if ($order->rebookDeadline())<div class="spec__row"><dt>Umbuchen möglich bis</dt><dd>{{ $order->rebookDeadline()->format('d.m.Y') }} ({{ config('ulbrich.booking.rebook_days_before') }} Tage vor dem Kurstag)</dd></div>@endif
+                    @if ($order->rebookDeadline())<div class="spec__row"><dt>Umbuchen möglich bis</dt><dd>{{ $order->rebookDeadline()->format('d.m.Y, H:i').' Uhr' }} ({{ config('ulbrich.booking.rebook_hours_before') }} Stunden vor Kursbeginn)</dd></div>@endif
+                    @if ($order->valueValidUntil())<div class="spec__row"><dt>Buchungswert verwendbar bis</dt><dd>{{ $order->valueValidUntil()->format('d.m.Y') }}</dd></div>@endif
                     <div class="spec__row"><dt>Preis</dt><dd>bleibt gleich (Preisbindung): {{ number_format((float) $order->amount, 2, ',', '.') }} €</dd></div>
                 </dl>
                 @error('start')<p class="field__error mt-4" role="alert">{{ $message }}</p>@enderror

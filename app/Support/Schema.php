@@ -308,10 +308,6 @@ final class Schema
                     'http://purl.org/goodrelations/v1#DeliveryModeParcelService',
                     config('ulbrich.sales.pickup') ? 'http://purl.org/goodrelations/v1#DeliveryModePickUp' : null,
                 ])),
-                'warranty' => config('ulbrich.warranty.years') ? [
-                    '@type' => 'WarrantyPromise',
-                    'durationOfWarranty' => ['@type' => 'QuantitativeValue', 'value' => config('ulbrich.warranty.years'), 'unitCode' => 'ANN'],
-                ] : null,
                 // Nur Deutschland: Auslandskosten trägt der Kunde und werden einzeln genannt.
                 'shippingDetails' => Shipping::domestic() ? [
                     '@type' => 'OfferShippingDetails',
@@ -350,7 +346,6 @@ final class Schema
                     'shippingRate' => ['@type' => 'MonetaryAmount', 'value' => number_format(Shipping::domestic(), 2, '.', ''), 'currency' => 'EUR'],
                     'shippingDestination' => ['@type' => 'DefinedRegion', 'addressCountry' => 'DE'],
                 ],
-                'warranty' => ['@type' => 'WarrantyPromise', 'durationOfWarranty' => ['@type' => 'QuantitativeValue', 'value' => config('ulbrich.warranty.years'), 'unitCode' => 'ANN']],
             ],
         ]);
     }
