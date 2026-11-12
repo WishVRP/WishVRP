@@ -230,7 +230,10 @@ return [
         'enabled' => true,
         // Bestätigung vor dem Spiel: 'email' (kostenlos, persönlicher Link) oder 'sms' (Code per SMS, Anbieter nötig)
         'verification' => env('XMAS_VERIFICATION', 'email'),
+        'starts_on' => null,              // [FEHLT] Beginn der Aktion (Datum, Uhrzeit) – Launchpaket Vorlage 10
         'ends_on' => '2026-12-24',        // letzter Spieltag
+        'min_age' => null,                // [FEHLT] Mindestalter der Teilnehmenden
+        'countries' => null,              // [FEHLT] teilnahmeberechtigte Wohnsitzländer, z. B. 'Deutschland, Österreich'
         'valid_until' => '2026-12-31',    // Code einlösbar bis (laut Inhaber)
         'seconds' => 30,
         'max_percent' => 10,              // Obergrenze laut Inhaber

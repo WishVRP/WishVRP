@@ -56,7 +56,7 @@ class OrderForm
                     ->schema([
                         TextInput::make('production_time')->label('Fertigungszeit')->maxLength(80),
                         TextInput::make('shipping_amount')->label('Versandkosten (€)')->numeric()->step(0.01)
-                            ->helperText('Bei „auf Anfrage“: Betrag eintragen, speichern, dann „Bestellbestätigung senden“.'),
+                            ->helperText('Bei „auf Anfrage“: Betrag eintragen, speichern, dann „Eingangsbestätigung senden“.'),
                         Select::make('country_code')->label('Land')->options(\App\Support\Shipping::countries())->searchable()->placeholder('–'),
                         TextInput::make('shipping_note')->label('Versandart / Hinweis')->maxLength(190),
                         TextInput::make('customs_amount')->label('Zoll vorab (€)')->numeric()->step(0.01),

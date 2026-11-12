@@ -84,7 +84,7 @@
                     </label>
                     <label class="check">
                         <input type="checkbox" name="bedingungen" value="1" required @checked(old('bedingungen'))>
-                        <span>Ich habe die <a href="/kursbedingungen/">Kursbedingungen</a> und die <a href="/agb/">AGB</a> gelesen.</span>
+                        <span>Ich habe die <a href="/kursbedingungen/">Kursbedingungen</a>, die <a href="/agb/">AGB</a> und die <a href="/widerruf/">Widerrufsbelehrung</a> gelesen.</span>
                     </label>
                     @error('bedingungen')<p class="field__error" role="alert">{{ $message }}</p>@enderror
                 </fieldset>

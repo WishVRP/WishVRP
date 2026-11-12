@@ -198,7 +198,7 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
     const mode = () => box.querySelector('[data-ship-mode]:checked')?.value || 'versand';
     const load = async () => {
         box.classList.toggle('is-pickup', mode() === 'abholung');
-        if (mode() === 'abholung' || !country) return;
+        if (mode() === 'abholung' || !country) { summary(null); return; }
         const q = new URLSearchParams({ land: country.value });
         if (plz?.value) q.set('plz', plz.value.trim());
         if (city?.value) q.set('ort', city.value.trim());
@@ -215,6 +215,7 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
                 + (d.customs_formatted ? `<small>+ Zoll und Einfuhrabgaben (im Voraus): <b>${esc(d.customs_formatted)}</b> – ${esc(d.customs_label || '')}</small>` : '')
                 + (d.note ? `<small>${esc(d.note)}</small>` : '');
             exportState(d.export || { action: 'erlaubt' });
+            summary(d);
         } catch (e) {
             out.textContent = 'Versandkosten konnten gerade nicht berechnet werden – wir nennen sie dir per E-Mail.';
         } finally {
@@ -237,6 +238,25 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
             if (blocked) submit.setAttribute('data-export-locked', ''); else submit.removeAttribute('data-export-locked');
         }
     }
+    // Zusammenfassung vor dem Kaufabschluss: Artikel + Versand + ggf. Zoll = Gesamt
+    const sum = box.querySelector('[data-ship-sum]');
+    const eur = (n) => n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    const qty = () => Math.max(1, parseInt(box.closest('form')?.querySelector('[name="quantity"]')?.value || '1', 10) || 1);
+    function summary(d) {
+        if (!sum) return;
+        const pickup = mode() === 'abholung';
+        const item = parseFloat(box.dataset.shipValue || '0') * qty();
+        const ship = pickup ? 0 : (d && d.price != null ? Number(d.price) : null);
+        const customs = !pickup && d && d.customs_amount ? Number(d.customs_amount) : 0;
+        sum.querySelector('[data-sum-item]').textContent = eur(item);
+        sum.querySelector('[data-sum-ship]').textContent = pickup ? 'Abholung (kostenlos)' : (ship == null ? 'auf Anfrage' : eur(ship));
+        const crow = sum.querySelector('[data-sum-customs-row]');
+        crow.hidden = !customs;
+        if (customs) sum.querySelector('[data-sum-customs]').textContent = eur(customs);
+        sum.querySelector('[data-sum-total]').textContent = ship == null ? '–' : eur(item + ship + customs);
+        sum.querySelector('[data-sum-pickup-pay]').hidden = !pickup;
+    }
+    box.closest('form')?.querySelector('[name="quantity"]')?.addEventListener('input', () => load());
     const later = () => { clearTimeout(timer); timer = setTimeout(load, 400); };
     box.querySelectorAll('[data-ship-mode]').forEach((r) => r.addEventListener('change', () => { if (mode() === 'abholung') exportState({ action: 'erlaubt' }); load(); }));
     country?.addEventListener('change', load);

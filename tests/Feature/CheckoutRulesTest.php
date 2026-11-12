@@ -112,6 +112,12 @@ class CheckoutRulesTest extends TestCase
         $this->assertNull(Withdrawal::query()->latest('id')->first()->order_id);
         // ohne Vorgangsnummer möglich, Grund nicht nötig
         $this->post('/widerrufen/', ['name' => 'Ohne', 'email' => 'ohne@example.org', 'confirm' => '1'])->assertSessionHasNoErrors();
+        $this->assertStringContainsString('Betrifft: den gesamten Vertrag', (new WithdrawalMail(Withdrawal::query()->latest('id')->first()))->render());
+        // Teilwiderruf: betroffene Positionen
+        $this->post('/widerrufen/', ['name' => 'Teil', 'email' => 'teil@example.org', 'items' => 'Kochmesser 21 cm', 'confirm' => '1'])->assertSessionHasNoErrors();
+        $w = Withdrawal::query()->latest('id')->first();
+        $this->assertSame('Kochmesser 21 cm', $w->items);
+        $this->assertStringContainsString('Betrifft: Kochmesser 21 cm', (new WithdrawalMail($w))->render());
     }
 
     public function test_admin_accepts_withdrawal_cancels_order_and_frees_course_day(): void

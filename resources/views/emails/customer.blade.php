@@ -31,8 +31,8 @@
     <tr><td style="padding:34px 32px 8px;">
         <div style="font-family:Menlo,Consolas,monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:{{ $goldDark }};">
             @switch($kind)
-                @case('eingang') {{ $o->type === 'kurs' ? 'Buchungsbestätigung' : ($o->type === 'anfrage' || $o->type === 'service' ? 'Eingangsbestätigung' : 'Bestellbestätigung') }} @break
-                @case('bezahlt') Zahlungsbestätigung @break
+                @case('eingang') Eingangsbestätigung @break
+                @case('bezahlt') Auftragsbestätigung @break
                 @case('umgebucht') Umbuchung @break
                 @case('in_arbeit') Bestellstatus · In Arbeit @break
                 @case('versendet') Bestellstatus · Versendet @break

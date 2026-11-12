@@ -263,7 +263,8 @@ Pflicht für Online-Verträge seit 19.06.2026. Link im Footer jeder Seite und in
 **So läuft es für Kunden:**
 1. Name, E-Mail und (optional) Vorgangsnummer eingeben. Ein Grund ist nicht nötig.
 2. Auf **„Vertrag widerrufen“** klicken.
-3. Auf der Prüfseite **„Widerruf bestätigen“** klicken.
+3. Optional angeben, welche Artikel/Leistungen betroffen sind (leer = ganzer Vertrag; steht in Mail und Verwaltung unter „Betrifft“).
+4. Auf der Prüfseite **„Widerruf bestätigen“** klicken.
 4. Sofort kommt eine **Eingangsbestätigung per E-Mail** mit Datum, Uhrzeit und Angaben.
 
 **Für euch:**
@@ -274,7 +275,7 @@ Pflicht für Online-Verträge seit 19.06.2026. Link im Footer jeder Seite und in
 ## Kurs umbuchen (2× kostenlos)
 
 - In jeder Buchungs- und Zahlungsbestätigung steht der Link **„Termin online umbuchen“** (`/buchung/umbuchen/?t=…`).
-- Regeln (`config/ulbrich.php` → `booking`): **2 kostenlose Umbuchungen**, jeweils bis **7 Tage vor dem aktuellen Kurstag**, nur auf freie Tage (ein Kurs pro Tag), frühestens übermorgen.
+- Regeln (`config/ulbrich.php` → `booking`): **2 kostenlose Umbuchungen**, jeweils bis **48 Stunden vor Kursbeginn** (Kursbeginn 09:00 Uhr, `course_start_time`), nur auf freie Tage (ein Kurs pro Tag), frühestens übermorgen. Höchstens **4 Personen** pro Buchung. Der bezahlte Buchungswert bleibt **10 Jahre** verwendbar (steht in der Auftragsbestätigung und auf der Umbuchungsseite).
 - **Preisbindung:** Der gebuchte Preis bleibt, auch wenn sich der Kurspreis inzwischen geändert hat.
 - Kunde bekommt die Mail „Umbuchung bestätigt“, am Vorgang steht eine Notiz (alter → neuer Termin). Der ursprüngliche Termin bleibt gespeichert.
 - **Verwaltung → Vorgang → Status → „Kurs umbuchen“:** auch über die Regeln hinaus möglich. Wahlweise ohne Anrechnung auf die kostenlosen Umbuchungen.
@@ -295,3 +296,10 @@ Nach dem Einrichten des Mailservers auf dem Server: `php artisan ulbrich:mail-te
 - Widerruf: 3 Mails
 
 Ohne SSH: die E-Mail-Vorschau im Adminbereich nutzen (Vorgang → „E-Mail-Vorschau“).
+
+## Rechtstexte und Bestellablauf (Stand 12.11.2026)
+
+- **Rechtstexte bearbeiten:** `resources/legal/*.md` (Impressum, AGB, Kursbedingungen, Gutscheinbedingungen, Versand & Zahlung, Widerruf, Schliff-Garantie, Datenschutz). Platzhalter in eckigen Großbuchstaben erscheinen auf der Seite als „Angabe folgt“. Änderungen über Claude bzw. ein Update-Paket.
+- **Mails nach AGB § 2:** Die automatische Mail nach dem Absenden heißt **Eingangsbestätigung** (noch kein Vertrag). Nach dem Zahlungseingang („Zahlung erhalten“) geht die **Auftragsbestätigung** raus – damit ist der Auftrag angenommen. In der Verwaltung heißt der Knopf entsprechend „Eingangsbestätigung senden“.
+- **Vor dem Kaufabschluss** sieht die Kundschaft im Shop und bei der Edition 100 eine Zusammenfassung: Artikel + Versand + ggf. Zoll = Gesamt, Steuerhinweis, Lieferzeit, Zahlungsart und Links zu Versand & Zahlung, AGB und Widerruf. Kurse und Gutscheine verlangen das Häkchen für Kurs- bzw. Gutscheinbedingungen, AGB und Widerrufsbelehrung.
+- **Steuer:** `ULBRICH_TAX_MODE` (Standard `regular` = „inkl. 19 % MwSt.“).

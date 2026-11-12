@@ -1,6 +1,6 @@
 # Go-live-Plan – messermanufaktur-ulbrich.de
 
-Stand: 11.11.2026. Reihenfolge = Abhängigkeiten.
+Stand: 12.11.2026. Reihenfolge = Abhängigkeiten.
 **Am Livesystem wird nichts ohne ausdrückliche Freigabe im Chat geändert.**
 Details zu jedem Punkt: `docs/offene-punkte.md` und `docs/verwaltung.md`.
 
@@ -8,23 +8,11 @@ Details zu jedem Punkt: `docs/offene-punkte.md` und `docs/verwaltung.md`.
 
 ## Phase 1 – Muss vor dem Start erledigt sein (blockierend)
 
-### 1. Rechtliches (Anwalt oder Rechtstexte-Dienst, z. B. IT-Recht Kanzlei / Händlerbund)
-- [ ] **Steuer klären** (Steuerberater): Kleinunternehmer nach § 19 UStG oder „inkl. MwSt.“? Davon hängen alle Preisangaben und Rechnungen ab.
-- [ ] **Impressum** aktualisieren: DDG statt TMG, Hinweis auf die EU-OS-Plattform entfernen
-- [ ] **Datenschutzerklärung** ergänzen um:
-  - Besucherstatistik ohne Cookies
-  - Formulare
-  - Newsletter
-  - Weihnachtsaktion
-  - Google-Bewertungen
-  - Stripe
-  - E-Mail-Versand
-- [ ] **AGB**, **Widerrufsbelehrung** (inkl. Ausnahmen für Kurse mit festem Termin und für Anfertigungen nach Kundenwunsch), **Versand- und Rückgabebedingungen**, **Kursbedingungen**
-- [ ] **Teilnahmebedingungen der Weihnachtsaktion**
-- [ ] **Garantieerklärung** „2 Jahre bei richtiger Pflege“ (§ 479 BGB)
-- [ ] **Messerversand**: Altersprüfung, Hinweise zum Waffengesetz
-- [ ] Wortlaut der **Checkbox für die Bitte um Bewertung** prüfen lassen
-- [ ] Eure fertigen Texte gebt ihr an Claude. Claude baut sie ein und hängt AGB und Widerruf an die Bestellbestätigung an (§ 312f BGB).
+### 1. Rechtliches
+- [x] Rechtstexte aus dem Launchpaket (12.11.2026) eingebaut: Impressum, AGB, Kurs- und Gutscheinbedingungen, Versand & Zahlung, Widerruf mit Online-Widerruf, Schliff-Garantie, Datenschutz
+- [ ] Die markierten Lücken („Angabe folgt“) füllen und die Entscheidungen bestätigen – Liste in `docs/offene-punkte.md`, Abschnitt 4
+- [ ] Teilnahmebedingungen der Weihnachtsaktion: Beginn, Mindestalter, Länder
+- [ ] Steuer: Standard „inkl. 19 % MwSt.“ – nur ändern, falls Kleinunternehmer
 
 ### 2. Fakten, die nur ihr kennt (an Claude schicken)
 - [ ] Endgültige **Kurspreise** und **maximale Teilnehmerzahl** pro Tag

@@ -26,6 +26,7 @@ hiermit bestätigen wir den Eingang deines Widerrufs.
 
 Eingegangen am: {{ $w->created_at->timezone('Europe/Berlin')->format('d.m.Y') }} um {{ $w->created_at->timezone('Europe/Berlin')->format('H:i') }} Uhr
 Vorgangsnummer: {{ $w->order_number ?: 'nicht angegeben' }}
+Betrifft: {{ $w->items ?: 'den gesamten Vertrag' }}
 Name: {{ $w->name }}
 E-Mail: {{ $w->email }}
 @if ($w->message)

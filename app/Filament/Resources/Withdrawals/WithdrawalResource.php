@@ -74,6 +74,7 @@ class WithdrawalResource extends Resource
                 TextColumn::make('name')->label('Name')->description(fn (Withdrawal $r) => $r->email)->searchable(['name', 'email']),
                 TextColumn::make('order_number')->label('Vorgang')->placeholder('–')
                     ->description(fn (Withdrawal $r) => $r->order ? $r->order->typeLabel().' · '.$r->order->summary() : ($r->order_number ? 'nicht zugeordnet (Nummer/E-Mail passt nicht)' : null)),
+                TextColumn::make('items')->label('Betrifft')->limit(60)->wrap()->placeholder('ganzer Vertrag'),
                 TextColumn::make('message')->label('Nachricht')->limit(60)->wrap()->placeholder('–'),
                 TextColumn::make('status')->label('Status')->badge()->formatStateUsing(fn ($s) => Withdrawal::STATUSES[$s] ?? $s)
                     ->color(fn ($s) => ['eingegangen' => 'danger', 'angenommen' => 'success', 'abgelehnt' => 'gray'][$s] ?? 'gray'),

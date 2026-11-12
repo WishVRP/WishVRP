@@ -70,33 +70,37 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 
 ---
 
-## 4. Rechtstexte (Anwalt / IT-Recht-Kanzlei)
+## 4. Rechtstexte (Launchpaket vom 12.11.2026 eingebaut)
 
-- [ ] **Steuer:** Kleinunternehmer (§ 19 UStG) oder „inkl. MwSt.“? Mit dem Steuerberater klären; davon hängen Preisangaben und Rechnungen ab.
-- [ ] AGB für Shop, Kurse, Gutscheine und Sonderanfertigungen
-- [ ] Widerrufsbelehrung inkl. Ausnahmen: Kurse mit festem Termin (§ 312g Abs. 2 Nr. 9 BGB), Anfertigungen nach Kundenwunsch
-- [ ] Rückgabe- und Versandbedingungen (auch für das Merchant Center)
-- [ ] Garantieerklärung „2 Jahre bei richtiger Pflege“ nach § 479 BGB formulieren (Ausschluss Spülmaschine, Kulanz)
-- [ ] Teilnahmebedingungen der Weihnachtsaktion (Gewinnspiel, einmal pro Person, Codes gültig bis 31.12.2026)
-- [ ] Datenschutzerklärung ergänzen um:
-  - Besucherstatistik (ohne Cookies)
-  - Formulare und Bestellungen
-  - Weihnachtsaktion
-  - Google-Bewertungen (Abruf über die Google Places API, serverseitig, keine Besucherdaten an Google)
-  - Newsletter mit Double-Opt-in
-  - Stripe
-  - E-Mail-Hoster
-  - ggf. seven.io oder Brevo
-- [ ] Bestellbestätigung prüfen lassen: Nach § 312f BGB müssen Vertragsinhalt, AGB und Widerrufsbelehrung dem Kunden auf einem dauerhaften Datenträger vorliegen. Die Mail verlinkt sie bisher nur. Sobald die Texte stehen, als PDF-Anhang oder Volltext in die Mail aufnehmen.
-- [ ] Text der Checkbox „Bitte um Bewertung per E-Mail“ und Hinweis in den Mails prüfen (BGH VI ZR 225/17). Status-Mails (In Arbeit, Versendet, Zugestellt) sind Vertragskommunikation.
-- [ ] **Widerrufsbelehrung** um die elektronische Widerrufsfunktion ergänzen (Link `/widerrufen/`); Rückzahlungsweg festlegen
-- [ ] **Kursbedingungen/AGB**: „2 kostenlose Umbuchungen bis 7 Tage vor dem Kurstag, Preis bleibt“ aufnehmen; Regel für weitere Umbuchungen und Absagen festlegen
-- [ ] **Steuer**: Nach Antwort des Steuerberaters `ULBRICH_TAX_MODE` in der `.env` auf `kleinunternehmer` oder `regular` setzen
-- [ ] Nach Einrichtung des Mailservers: `php artisan ulbrich:mail-test …` an eigene Adresse und alle 17 Mails durchsehen
+Eingebaut sind: Impressum, AGB, Kursbedingungen, Gutscheinbedingungen, Versand & Zahlung (`/versand/#bedingungen`), Widerrufsbelehrung mit Muster-Formular, Online-Widerruf (`/widerrufen/`), lebenslange Schliff-Garantie, Datenschutzerklärung (an die echte Technik angepasst) und der Newsletter-Einwilligungstext. Die Texte liegen in `resources/legal/*.md`. Offene Angaben stehen auf der Seite als „Angabe folgt“.
+
+**Noch auszufüllen (in den Texten markiert):**
+- [ ] **Impressum:** Handelsregister (falls eingetragen) bzw. bestätigen, dass kein Eintrag besteht
+- [ ] **Datenschutz:** Speicherfrist der Server-Logs bei IONOS (im IONOS-Vertrag bzw. Control-Center nachsehen)
+- [ ] **Datenschutz:** Wie lange der Newsletter-Anmeldenachweis nach der Abmeldung aufbewahrt wird (Vorschlag: 3 Jahre)
+- [ ] **Datenschutz:** Speicherdauer der Teilnahmedaten der Weihnachtsaktion (Vorschlag: bis 31.03.2027)
+- [ ] **Datenschutz:** Speicherdauer abgelehnter und abgeschlossener Markt-Bewerbungen
+- [ ] **Datenschutz:** Kanäle für Kursfotos (Website, Instagram, Facebook …?) und Löschfristen
+- [ ] **Datenschutz:** Übermittlungsmechanismen der Zahlungsdienstleister (Stripe/SumUp: EU-US Data Privacy Framework bzw. Standardvertragsklauseln) bestätigen
+- [ ] **Weihnachtsaktion:** Beginn der Aktion, Mindestalter und teilnahmeberechtigte Länder (`config/ulbrich.php` → `xmas`). Die Vorlage 10 aus dem Paket wurde nicht unverändert veröffentlicht; die Bedingungen auf `/weihnachtsaktion/` folgen ihrem Aufbau und lesen die Fakten aus der Konfiguration.
+
+**Bitte entscheiden bzw. bestätigen:**
+- [ ] **Kursbeginn 09:00 Uhr** angenommen. Davon hängt die 48-Stunden-Umbuchungsfrist ab (`booking.course_start_time`).
+- [ ] Aus den Kursbedingungen habe ich den Satz **„Ein eigenes Angebot für Gruppenevents besteht nicht“** entfernt, weil es den Manager-Schmiedekurs und die Team-Seite gibt. Soll er doch rein, müssen diese Seiten angepasst werden.
+- [ ] **Garantie:** Die bisherige „2 Jahre Garantie“ ist überall durch die **lebenslange Schliff-Garantie** ersetzt (wie im Paket). Bitte bestätigen.
+- [ ] **Umbuchung:** überall von „bis 7 Tage vorher“ auf **„2× kostenlos bis 48 Stunden vor Kursbeginn“** umgestellt; **maximal 4 Personen** pro gemeinsamer Buchung (vorher 6). Bezahlter Buchungswert 10 Jahre verwendbar.
+- [ ] **Widerruf** für Gutscheine, Kurse und Sonderanfertigungen: Das Paket enthält die Widerrufsbelehrung für Waren. Ob für Kurse (fester Termin) und Anfertigungen nach Kundenwunsch eigene Hinweise im Bestellablauf nötig sind, bitte anwaltlich bestätigen.
+- [ ] Ein **Cookie-Banner** ist nicht eingebaut und nicht nötig: Die Seite setzt nur zwei technisch notwendige Cookies, hat keine Statistik mit Cookies und lädt nichts von fremden Servern (Datenschutz Abschnitt 7).
+- [ ] Optionale **Foto-/Video-Einwilligung** bei der Kursbuchung: wird eingebaut, sobald die Kanäle feststehen.
+
+**Weiterhin offen:**
+- [ ] **Steuer:** Standard ist jetzt „inkl. 19 % MwSt.“ (USt-IdNr. DE328830313 aus dem Paket). Wenn doch Kleinunternehmer: `ULBRICH_TAX_MODE=kleinunternehmer` in die `.env`.
+- [ ] Nach § 312f BGB: AGB und Widerrufsbelehrung als dauerhafter Datenträger zur Auftragsbestätigung (derzeit Links in jeder Bestätigungsmail) – ggf. als PDF-Anhang
+- [ ] Text der Checkbox „Bitte um Bewertung per E-Mail“ prüfen lassen (BGH VI ZR 225/17)
+- [ ] Nach Einrichtung des Mailservers: `php artisan ulbrich:mail-test …` an eigene Adresse und alle Mails durchsehen
 - [ ] Newsletter an Bestandskunden ohne Einwilligung (§ 7 Abs. 3 UWG): nur nach Prüfung
 - [ ] Messerversand: Altersprüfung (ab 18) bei Versand, Hinweise zum Waffengesetz (§ 42a WaffG Führverbot)
-- [ ] Englische Rechtstexte (Imprint, Privacy, Terms)
-- [ ] Impressum aktualisieren (alte TMG-Hinweise raus, Verweis auf die OS-Plattform entfernen)
+- [ ] Englische Rechtstexte (Imprint, Privacy, Terms) – bisher nur Deutsch
 
 ---
 
@@ -116,7 +120,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 ### Kurse und Buchung
 - [ ] Kursort bestätigen (Werkstatt-Adresse)
 - [ ] Endgültige Preise pro Person (aktuell „ab“-Preise)
-- [ ] Maximale Teilnehmerzahl pro Tag (vorläufig 6)
+- [x] Maximal 4 Personen pro gemeinsamer Buchung (Launchpaket)
 - [ ] Dürfen andere Personen an einem schon gebuchten Tag dazukommen?
 - [ ] Tagesablauf des Damastkurses, Uhrzeiten
 - [ ] Mindestalter

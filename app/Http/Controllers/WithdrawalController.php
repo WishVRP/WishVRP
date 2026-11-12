@@ -24,6 +24,7 @@ class WithdrawalController extends Controller
             'name' => ['required', 'string', 'max:120'],
             'email' => ['required', 'email', 'max:190'],
             'order_number' => ['nullable', 'string', 'max:20'],
+            'items' => ['nullable', 'string', 'max:1000'],
             'message' => ['nullable', 'string', 'max:2000'],
         ];
     }
@@ -49,7 +50,7 @@ class WithdrawalController extends Controller
             $order = null;   // Vorgang nur verknüpfen, wenn die E-Mail passt (kein Fremdzugriff)
         }
         $w = Withdrawal::query()->create([
-            'order_id' => $order?->id, 'order_number' => $number, 'name' => $data['name'], 'email' => $data['email'],
+            'order_id' => $order?->id, 'order_number' => $number, 'items' => $data['items'] ?? null, 'name' => $data['name'], 'email' => $data['email'],
             'message' => $data['message'] ?? null, 'ip_hash' => hash('sha256', $request->ip().config('app.key')),
         ]);
         if ($order) {

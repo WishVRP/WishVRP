@@ -43,7 +43,7 @@
                 @include('pages.partials.contact-fields')
                 <label class="check">
                     <input type="checkbox" name="agb" value="1" required @checked(old('agb'))>
-                    <span>Ich habe die <a href="/agb/">AGB</a> und die <a href="/widerruf/">Widerrufsbelehrung</a> gelesen.</span>
+                    <span>Ich habe die <a href="/agb/">AGB</a>, die <a href="/gutscheinbedingungen/">Gutscheinbedingungen</a> und die <a href="/widerruf/">Widerrufsbelehrung</a> gelesen.</span>
                 </label>
                 @error('agb')<p class="field__error" role="alert">{{ $message }}</p>@enderror
                 <button type="submit" class="btn btn--primary btn--lg mt-5">{{ $online ? 'Zahlungspflichtig bestellen' : 'Gutschein bestellen' }}</button>

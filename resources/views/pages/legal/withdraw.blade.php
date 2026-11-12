@@ -17,11 +17,12 @@
                         <div class="spec__row"><dt>Name</dt><dd>{{ $review['name'] }}</dd></div>
                         <div class="spec__row"><dt>E-Mail</dt><dd>{{ $review['email'] }}</dd></div>
                         <div class="spec__row"><dt>Vorgangsnummer</dt><dd>{{ $review['order_number'] ?: 'nicht angegeben' }}</dd></div>
+                        <div class="spec__row"><dt>Betrifft</dt><dd>{{ ($review['items'] ?? null) ?: 'den gesamten Vertrag' }}</dd></div>
                         @if (! empty($review['message']))<div class="spec__row"><dt>Nachricht</dt><dd>{{ $review['message'] }}</dd></div>@endif
                     </dl>
                     <form method="post" action="{{ route('withdraw.store') }}" class="mt-5">
                         @csrf
-                        @foreach (['name', 'email', 'order_number', 'message'] as $f)<input type="hidden" name="{{ $f }}" value="{{ $review[$f] ?? '' }}">@endforeach
+                        @foreach (['name', 'email', 'order_number', 'items', 'message'] as $f)<input type="hidden" name="{{ $f }}" value="{{ $review[$f] ?? '' }}">@endforeach
                         <input type="hidden" name="confirm" value="1">
                         <button type="submit" class="btn btn--primary btn--lg">Widerruf bestätigen</button>
                         <a href="/widerrufen/" class="btn btn--secondary btn--lg">Angaben ändern</a>
@@ -35,6 +36,7 @@
                         <label class="field"><span class="field__label">Name *</span><input type="text" name="name" required maxlength="120" autocomplete="name" value="{{ old('name') }}">@error('name')<span class="field__error">{{ $message }}</span>@enderror</label>
                         <label class="field"><span class="field__label">E-Mail-Adresse * (für die Bestätigung)</span><input type="email" name="email" required maxlength="190" autocomplete="email" value="{{ old('email') }}">@error('email')<span class="field__error">{{ $message }}</span>@enderror</label>
                         <label class="field"><span class="field__label">Vorgangsnummer (steht in deiner Bestätigung, z. B. U2026-0042)</span><input type="text" name="order_number" maxlength="20" value="{{ old('order_number') }}"></label>
+                        <label class="field field--wide"><span class="field__label">Welche Artikel oder Leistungen? (freiwillig – leer lassen, wenn der ganze Vertrag gemeint ist)</span><input type="text" name="items" maxlength="1000" value="{{ old('items') }}" placeholder="z. B. Kochmesser 21 cm"></label>
                         <label class="field field--wide"><span class="field__label">Nachricht (freiwillig)</span><textarea name="message" rows="3" maxlength="2000">{{ old('message') }}</textarea></label>
                     </div>
                     <button type="submit" class="btn btn--primary btn--lg mt-4">Vertrag widerrufen</button>

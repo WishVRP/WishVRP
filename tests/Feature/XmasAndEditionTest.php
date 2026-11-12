@@ -12,6 +12,15 @@ use Tests\TestCase;
 
 class XmasAndEditionTest extends TestCase
 {
+    public function test_xmas_terms_name_organizer_and_mark_missing_age_and_countries(): void
+    {
+        $html = $this->get('/weihnachtsaktion/')->getContent();
+        $this->assertStringContainsString('Veranstalter:', $html);
+        $this->assertStringContainsString('Wannenstraße 33', $html);
+        $this->assertStringContainsString('Mindestalter folgt', $html);
+        $this->assertStringContainsString('meldet dich nicht zum Newsletter an', $html);
+    }
+
     use RefreshDatabase;
 
     protected function setUp(): void

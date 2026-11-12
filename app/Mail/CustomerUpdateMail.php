@@ -22,8 +22,8 @@ class CustomerUpdateMail extends Mailable
     use Queueable;
 
     public const KINDS = [
-        'eingang' => 'Bestellbestätigung',
-        'bezahlt' => 'Zahlungsbestätigung',
+        'eingang' => 'Eingangsbestätigung',
+        'bezahlt' => 'Auftragsbestätigung',
         'umgebucht' => 'Dein Kurs ist umgebucht',
         'in_arbeit' => 'Dein Messer ist in Arbeit',
         'versendet' => 'Dein Paket ist unterwegs',
@@ -49,9 +49,10 @@ class CustomerUpdateMail extends Mailable
     {
         $subject = match ($this->kind) {
             'eingang' => match ($this->order->type) {
-                'kurs' => 'Buchungsbestätigung', 'gutschein' => 'Bestellbestätigung Gutschein', 'anfrage', 'service' => 'Eingangsbestätigung deiner Anfrage', default => 'Bestellbestätigung',
+                // AGB § 2: Die automatische Mail bestätigt nur den Eingang; Annahme = Auftragsbestätigung nach Zahlungseingang
+                'kurs' => 'Eingangsbestätigung deiner Kursbuchung', 'gutschein' => 'Eingangsbestätigung deiner Gutscheinbestellung', 'anfrage', 'service' => 'Eingangsbestätigung deiner Anfrage', default => 'Eingangsbestätigung deiner Bestellung',
             },
-            'bezahlt' => 'Zahlung erhalten – '.($this->order->type === 'kurs' ? 'dein Kurstag ist fest gebucht' : 'vielen Dank'),
+            'bezahlt' => 'Auftragsbestätigung – '.($this->order->type === 'kurs' ? 'Zahlung erhalten, dein Kurstag ist fest gebucht' : 'Zahlung erhalten, vielen Dank'),
             'umgebucht' => 'Umbuchung bestätigt: neuer Kurstag',
             'in_arbeit' => 'Wir haben mit deiner Bestellung begonnen',
             'versendet' => 'Dein Paket ist unterwegs',
