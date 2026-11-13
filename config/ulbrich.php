@@ -131,11 +131,12 @@ return [
     /*
     | Hinweise für die Kurs-Erinnerung – nur echte Angaben eintragen (null = Zeile fehlt in der Mail).
     */
+    // laut Inhaber (Chat 13.11.2026)
     'course_info' => [
-        'clothing' => null,   // [FEHLT] z. B. feste, geschlossene Schuhe, Kleidung aus Baumwolle …
-        'bring' => null,      // [FEHLT] was mitbringen (Verpflegung, Brille …)
-        'parking' => null,    // [FEHLT] Parken an der Werkstatt
-        'transit' => null,    // [FEHLT] Anreise mit Bus/Bahn
+        'clothing' => 'Kleidung, die dreckig werden und auch mal kaputtgehen darf – in der Schmiede bleibt man schnell irgendwo hängen. Schuhe: am besten Sicherheitsschuhe mit Stahlkappe, falls etwas auf den Fuß fällt.',
+        'bring' => 'Gute Laune! Getränke gibt es bei uns vor Ort kostenlos. Für das Essen bring dir etwas mit oder etwas Geld: Ein Norma ist direkt um die Ecke, Metzger und Bäcker sind etwa 1–2 km entfernt.',
+        'parking' => 'Kein Problem – auf unserem Grundstück kannst du während des ganzen Kurses parken.',
+        'transit' => 'Die Bushaltestelle ist direkt vor unserer Halle. Einen Bahnhof gibt es bei uns nicht; mit der Bahn bis Neuenstadt und von dort mit dem Bus weiter (Verbindung bitte vorher prüfen).',
     ],
 
     'booking_rules' => [

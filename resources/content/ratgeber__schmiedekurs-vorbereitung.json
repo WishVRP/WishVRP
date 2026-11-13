@@ -19,7 +19,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Eine Schmiede verlangt passende Kleidung und die Beachtung der vor Ort gegebenen Schutz- und Verhaltenshinweise. Frage nach den konkreten Anforderungen deines Kurses, einschließlich Schuhwerk und bereitgestellter Schutzausrüstung. Teile besondere organisatorische Anforderungen vorab mit; sensible medizinische Einzelheiten gehören nicht in ein allgemeines Kontaktformular."
+     "x": "Komm in Kleidung, die dreckig werden und auch mal kaputtgehen darf – in der Schmiede bleibt man schnell irgendwo hängen. Bei den Schuhen sind Sicherheitsschuhe mit Stahlkappe am besten, falls etwas auf den Fuß fällt. Beachte vor Ort die Schutz- und Verhaltenshinweise. Getränke gibt es bei uns kostenlos; für das Essen bring dir etwas mit oder etwas Geld – ein Norma ist direkt um die Ecke, Metzger und Bäcker sind etwa 1–2 km entfernt. Teile besondere organisatorische Anforderungen vorab mit; sensible medizinische Einzelheiten gehören nicht in ein allgemeines Kontaktformular."
     },
     {
      "t": "h3",
@@ -45,7 +45,7 @@
    "items": [
     {
      "t": "p",
-     "x": "Die Kurse finden in der Messermanufaktur Ulbrich statt: Wannenstraße 33, 74196 Neuenstadt am Kocher, Ortsteil Stein am Kocher. Plane deine Anreise so, dass du pünktlich zum Kursbeginn da bist."
+     "x": "Die Kurse finden in der Messermanufaktur Ulbrich statt: Wannenstraße 33, 74196 Neuenstadt am Kocher, Ortsteil Stein am Kocher. Parken kannst du während des ganzen Kurses auf unserem Grundstück. Die Bushaltestelle ist direkt vor der Halle; einen Bahnhof gibt es im Ort nicht – mit der Bahn bis Neuenstadt und von dort mit dem Bus weiter. Plane deine Anreise so, dass du pünktlich zum Kursbeginn da bist."
     }
    ]
   },
@@ -88,7 +88,7 @@
   },
   {
    "q": "Was soll ich zum Schmiedekurs anziehen?",
-   "a": "Frag vor dem Kurs kurz nach, welche Kleidung und Schuhe Andreas Ulbrich empfiehlt."
+   "a": "Kleidung, die dreckig werden und auch mal kaputtgehen darf, und am besten Sicherheitsschuhe mit Stahlkappe. Getränke gibt es vor Ort kostenlos."
   }
  ],
  "source": "https://messermanufaktur-ulbrich.de/ratgeber/schmiedekurs-vorbereitung/"

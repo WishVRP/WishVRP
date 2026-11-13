@@ -38,7 +38,15 @@
             <x-ui.kicker>Vorbereitung</x-ui.kicker>
             <h2 id="vorb-h" class="h-section">So bereitest du dich auf deinen Schmiedekurs vor</h2>
             <p class="lead">Die wichtigsten Regeln zur Buchung kennst du schon: Kurse werden online gebucht, zwei Umbuchungen sind bis 48 Stunden vor dem Termin kostenlos.</p>
-            <p><x-ui.missing label="Inhalt folgt">Artikel „Vorbereitung“ von der Live-Seite übernehmen (Kleidung, Mitbringen, Verpflegung)</x-ui.missing></p>
+            @php $ci = config('ulbrich.course_info'); @endphp
+            <ul>
+                <li><strong>Kleidung und Schuhe:</strong> {{ $ci['clothing'] }}</li>
+                <li><strong>Mitbringen und Verpflegung:</strong> {{ $ci['bring'] }}</li>
+                <li><strong>Parken:</strong> {{ $ci['parking'] }}</li>
+                <li><strong>Bus und Bahn:</strong> {{ $ci['transit'] }}</li>
+                <li><strong>Beginn:</strong> {{ config('ulbrich.booking.course_start_time') }} Uhr in der Werkstatt, {{ $c['address']['street'] }}, {{ $c['address']['postal_code'] }} {{ $c['address']['locality'] }} ({{ $c['address']['district'] }}).</li>
+            </ul>
+            <p>Alles Weitere im Ratgeber <a href="/ratgeber/schmiedekurs-vorbereitung/">Schmiedekurs vorbereiten</a>. Drei Tage vor deinem Kurs bekommst du diese Infos außerdem per E-Mail.</p>
         </div>
     </article>
 
