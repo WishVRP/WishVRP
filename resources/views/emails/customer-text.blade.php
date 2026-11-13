@@ -37,6 +37,9 @@ Die Zahlungsdaten schicken wir dir in Kürze. Verwendungszweck: {{ $o->number }}
 @if ($o->type === 'kurs' && $o->course_start && ! $o->rebookBlocker())
 Umbuchen ({{ config('ulbrich.booking.free_rebookings') }}× kostenlos bis {{ $o->rebookDeadline()->format('d.m.Y, H:i').' Uhr' }}): {{ $o->manageUrl() }}
 @endif
+@if ($kind === 'bezahlt' && $o->invoice_number)
+Rechnung {{ $o->invoice_number }} – als PDF im Anhang
+@endif
 @if ($o->type === 'kurs' && $o->valueValidUntil())
 Buchungswert verwendbar bis {{ $o->valueValidUntil()->format('d.m.Y') }}
 @endif
@@ -72,6 +75,23 @@ deine Bestellung liegt in der Manufaktur zur Abholung bereit. Ruf an ({{ $c['pho
 @case('zugestellt')
 laut Versanddienst ist dein Paket angekommen. Wir hoffen, alles ist heil bei dir gelandet und du hast Freude daran.
 Tipp: von Hand spülen, gleich abtrocknen, die Klinge ab und zu leicht einölen.
+@break
+@case('erinnerung')
+in wenigen Tagen stehst du bei uns an der Esse – wir freuen uns auf dich! Den Termin kannst du über den Anhang in deinen Kalender übernehmen.
+
+Kurs: {{ $o->course?->name }} · {{ $o->participants }} {{ $o->participants == 1 ? 'Person' : 'Personen' }}
+Kurstag: {{ $o->course_start?->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}@if ($o->course_end && $o->course_start && ! $o->course_end->isSameDay($o->course_start)) bis {{ $o->course_end->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}@endif
+
+Beginn: {{ config('ulbrich.booking.course_start_time') }} Uhr
+Ort: {{ $c['name'] }}, {{ $c['address']['street'] }}, {{ $c['address']['postal_code'] }} {{ $c['address']['locality'] }} ({{ $c['address']['district'] }})
+Route: https://www.google.com/maps/dir/?api=1&destination={{ rawurlencode($c['name'].', '.$c['address']['street'].', '.$c['address']['postal_code'].' '.$c['address']['locality']) }}
+@foreach (['parking' => 'Parken', 'transit' => 'Mit Bus & Bahn', 'clothing' => 'Kleidung', 'bring' => 'Bitte mitbringen'] as $k => $label)
+@if (! empty(config('ulbrich.course_info.'.$k)))
+{{ $label }}: {{ config('ulbrich.course_info.'.$k) }}
+@endif
+@endforeach
+
+Du kommst später, bist krank oder hast eine Frage? Ruf an: {{ $c['phone']['display'] }} – oder antworte auf diese E-Mail.
 @break
 @default
 danke, dass du heute bei uns an der Esse gestanden hast{{ $o->course ? ' – beim '.$o->course->name : '' }}. Wir hoffen, du hattest einen richtig guten Tag.

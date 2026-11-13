@@ -131,6 +131,34 @@ class OrdersTable
             });
     }
 
+    /** Rechnung: herunterladen (jederzeit), erstellen (falls noch keine), Stornorechnung herunterladen. */
+    public static function invoiceActions(): array
+    {
+        $download = fn (Order $o, bool $cancel = false) => response()->streamDownload(
+            fn () => print(\App\Support\Invoice::pdf($o, $cancel)),
+            \App\Support\Invoice::filename($cancel ? $o->cancel_invoice_number : $o->invoice_number),
+            ['Content-Type' => 'application/pdf'],
+        );
+
+        return [
+            Action::make('rechnung')->label(fn (Order $r) => 'Rechnung '.$r->invoice_number.' (PDF)')->icon(Heroicon::OutlinedDocumentArrowDown)->color('gray')
+                ->visible(fn (Order $r) => (bool) $r->invoice_number)
+                ->action(fn (Order $r) => $download($r)),
+            Action::make('stornorechnung')->label(fn (Order $r) => 'Stornorechnung '.$r->cancel_invoice_number.' (PDF)')->icon(Heroicon::OutlinedDocumentMinus)->color('gray')
+                ->visible(fn (Order $r) => (bool) $r->cancel_invoice_number)
+                ->action(fn (Order $r) => $download($r, true)),
+            Action::make('rechnung_erstellen')->label('Rechnung erstellen')->icon(Heroicon::OutlinedDocumentPlus)->color('gray')
+                ->visible(fn (Order $r) => ! $r->invoice_number && $r->status !== 'storniert' && ((float) $r->amount + (float) $r->shipping_amount) > 0)
+                ->requiresConfirmation()
+                ->modalDescription('Erstellt eine Rechnung mit der nächsten fortlaufenden Nummer aus den aktuellen Angaben (Betrag, Versand, Anschrift). Danach ist sie unveränderlich – bei Fehlern stornieren und neu anlegen. Normalerweise passiert das automatisch bei „Zahlung erhalten“.')
+                ->action(function (Order $r) use ($download) {
+                    \App\Support\Invoice::assign($r);
+
+                    return $download($r->refresh());
+                }),
+        ];
+    }
+
     public static function actions(): array
     {
         return [
@@ -188,6 +216,8 @@ class OrdersTable
                 TextColumn::make('summary')->label('Was')->state(fn (Order $r) => $r->summary())->wrap(),
                 TextColumn::make('amount')->label('Betrag')->money('EUR', locale: 'de')->sortable()
                     ->description(fn (Order $r) => $r->discount_percent ? "−{$r->discount_percent} % ({$r->discount_code})".($r->discountWarnings() ? ' ⚠ prüfen' : '') : null),
+                TextColumn::make('invoice_number')->label('Rechnung')->searchable()->toggleable()->placeholder('–')
+                    ->description(fn (Order $r) => $r->cancel_invoice_number ? 'storniert: '.$r->cancel_invoice_number : null),
                 TextColumn::make('status')->label('Status')->badge()
                     ->formatStateUsing(fn ($state) => Order::STATUSES[$state] ?? $state)
                     ->color(fn ($state) => Order::STATUS_COLORS[$state] ?? 'gray'),
@@ -203,13 +233,46 @@ class OrdersTable
                 SelectFilter::make('type')->label('Art')->options(Order::TYPES),
                 Filter::make('einfuhr')->label('Einfuhr prüfen')->query(fn (Builder $query) => $query->where('export_note', 'like', '%Einfuhr prüfen%')),
                 SelectFilter::make('status')->label('Status')->options(Order::STATUSES),
+                Filter::make('rechnungen')->label('Rechnungen im Zeitraum')
+                    ->schema([
+                        \Filament\Forms\Components\DatePicker::make('von')->label('Rechnungsdatum von')->native(false)->displayFormat('d.m.Y'),
+                        \Filament\Forms\Components\DatePicker::make('bis')->label('bis')->native(false)->displayFormat('d.m.Y'),
+                    ])
+                    ->query(fn (Builder $query, array $data) => $query
+                        ->when($data['von'] ?? null, fn ($q, $d) => $q->where(fn ($w) => $w->whereDate('invoice_date', '>=', $d)->orWhereDate('cancel_invoice_date', '>=', $d)))
+                        ->when($data['bis'] ?? null, fn ($q, $d) => $q->where(fn ($w) => $w->whereDate('invoice_date', '<=', $d)->orWhereDate('cancel_invoice_date', '<=', $d)))
+                        ->when(($data['von'] ?? null) || ($data['bis'] ?? null), fn ($q) => $q->whereNotNull('invoice_number'))),
             ])
             ->recordActions([
                 ActionGroup::make(self::actions())->label('Status')->icon(Heroicon::OutlinedArrowPath)->button(),
+                ActionGroup::make(self::invoiceActions())->label('Rechnung')->icon(Heroicon::OutlinedDocumentText)->button()->color('gray'),
                 EditAction::make()->label('Öffnen'),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([DeleteBulkAction::make()]),
+                BulkActionGroup::make([
+                    \Filament\Actions\BulkAction::make('rechnungen_zip')->label('Rechnungen als ZIP (z. B. für den Steuerberater)')->icon(Heroicon::OutlinedArchiveBoxArrowDown)
+                        ->action(function (\Illuminate\Support\Collection $records) {
+                            $zipPath = tempnam(sys_get_temp_dir(), 're');
+                            $zip = new \ZipArchive;
+                            $zip->open($zipPath, \ZipArchive::OVERWRITE);
+                            $n = 0;
+                            foreach ($records as $o) {
+                                foreach (array_filter([$o->invoice_number ? false : null, $o->cancel_invoice_number ? true : null], fn ($v) => $v !== null) as $cancel) {
+                                    $zip->addFromString(\App\Support\Invoice::filename($cancel ? $o->cancel_invoice_number : $o->invoice_number), \App\Support\Invoice::pdf($o, $cancel));
+                                    $n++;
+                                }
+                            }
+                            $zip->close();
+                            if (! $n) {
+                                Notification::make()->title('In der Auswahl ist keine Rechnung')->warning()->send();
+
+                                return null;
+                            }
+
+                            return response()->download($zipPath, 'Rechnungen-Messermanufaktur-Ulbrich-'.now()->format('Y-m-d').'.zip')->deleteFileAfterSend();
+                        })->deselectRecordsAfterCompletion(),
+                    DeleteBulkAction::make(),
+                ]),
             ])
             ->emptyStateHeading('Noch keine Vorgänge')
             ->emptyStateDescription('Buchungen und Anfragen aus der Website erscheinen hier automatisch.');

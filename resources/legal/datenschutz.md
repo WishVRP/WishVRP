@@ -20,7 +20,11 @@ Um zu sehen, welche Seiten gelesen werden, zählen wir Seitenaufrufe auf unserem
 
 Wenn Sie uns kontaktieren oder Waren, Sonderanfertigungen, Reparaturen, Kurse oder Gutscheine anfragen bzw. bestellen, verarbeiten wir die für die Bearbeitung erforderlichen Angaben. Dazu können Name, Anschrift, E-Mail-Adresse, Telefonnummer, Rechnungs-, Liefer- und Bestelldaten sowie kurs- bzw. auftragsspezifische Angaben gehören. Grundlage ist die Vertragsanbahnung und Vertragserfüllung (Art. 6 Abs. 1 Buchst. b DSGVO); gesetzliche Aufbewahrungspflichten beruhen auf Art. 6 Abs. 1 Buchst. c DSGVO. Weitere freiwillige Angaben werden nur zweckgebunden verarbeitet.
 
+Soll ein Gutschein direkt an die beschenkte Person geschickt werden, verwenden wir deren von Ihnen angegebene E-Mail-Adresse und Ihren Gruß ausschließlich, um den Gutschein zum gewünschten Termin zu versenden (Art. 6 Abs. 1 Buchst. b und f DSGVO). Bitte geben Sie eine Adresse nur an, wenn die Person damit rechnen kann.
+
 Haben Sie in eine Bitte um eine Bewertung nach Lieferung oder Kurs eingewilligt, senden wir Ihnen dazu einmalig eine E-Mail (Art. 6 Abs. 1 Buchst. a DSGVO); die Einwilligung können Sie jederzeit widerrufen.
+
+Vor einem gebuchten Kurs senden wir Ihnen einmalig eine Erinnerung mit Ort, Beginn und einem Kalendereintrag (Vertragserfüllung, Art. 6 Abs. 1 Buchst. b DSGVO). Fotos in unserer Galerie veröffentlichen wir nur mit Einwilligung der abgebildeten Personen.
 
 Erklären Sie über unsere Seite „Vertrag widerrufen“ einen Widerruf, speichern wir Name, E-Mail-Adresse, Vorgangsnummer, Ihre freiwillige Nachricht und den Zeitpunkt, um den Widerruf zu bearbeiten und den Eingang zu bestätigen (Art. 6 Abs. 1 Buchst. b und c DSGVO).
 

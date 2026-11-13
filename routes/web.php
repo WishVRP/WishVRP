@@ -33,6 +33,7 @@ Route::post('/kunsthandwerkermarkt/reservieren/', [\App\Http\Controllers\MarketC
 Route::post('/kunsthandwerkermarkt/termin/', [\App\Http\Controllers\MarketController::class, 'notify'])->middleware('throttle:forms')->name('market.notify');
 Route::post('/kunsthandwerkermarkt/bewerben/', [\App\Http\Controllers\MarketController::class, 'apply'])->middleware('throttle:forms')->name('market.apply');
 Route::post('/buchung/umbuchen/', [\App\Http\Controllers\RebookController::class, 'store'])->middleware('throttle:forms')->name('rebook.store');
+Route::post('/nachschaerfen/', [\App\Http\Controllers\ResharpenController::class, 'store'])->middleware('throttle:forms')->name('resharpen.store');
 Route::post('/widerrufen/pruefen/', [\App\Http\Controllers\WithdrawalController::class, 'review'])->middleware('throttle:forms')->name('withdraw.review');
 Route::post('/widerrufen/', [\App\Http\Controllers\WithdrawalController::class, 'store'])->middleware('throttle:forms')->name('withdraw.store');
 Route::post('/anfrage/', [OrderController::class, 'inquiry'])->middleware('throttle:forms')->name('inquiry.store');

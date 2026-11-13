@@ -27,7 +27,7 @@ class PageController extends Controller
             title: $page['meta_title'] ?? $page['title'],
             description: $page['description'],
             path: $path,
-            index: $page['index'] ?? true,
+            index: \App\Support\PageIndex::indexable($page),
             breadcrumb: $this->breadcrumb($path),
         );
 

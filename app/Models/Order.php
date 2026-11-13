@@ -116,6 +116,9 @@ class Order extends Model
             'original_course_start' => 'date',
             'shipping_amount' => 'decimal:2',
             'voucher_amount' => 'decimal:2',
+            'invoice_date' => 'date',
+            'cancel_invoice_date' => 'date',
+            'reminder_sent_at' => 'datetime',
         ];
     }
 
@@ -147,6 +150,14 @@ class Order extends Model
         static::saved(function (Order $order) {
             if ($order->wasChanged('status') || $order->wasChanged('public_name')) {
                 $order->syncEditionPiece();
+            }
+            // Storno nach Rechnung → Stornorechnung (Rechnungen werden nie geändert oder gelöscht)
+            if ($order->wasChanged('status') && $order->status === 'storniert' && $order->invoice_number && ! $order->cancel_invoice_number) {
+                try {
+                    \App\Support\Invoice::cancel($order);
+                } catch (\Throwable $e) {
+                    report($e);
+                }
             }
         });
     }

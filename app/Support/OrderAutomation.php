@@ -46,6 +46,29 @@ final class OrderAutomation
     }
 
     /**
+     * Erinnerung vor dem Kurs (Standard: 3 Tage vorher, morgens) mit allen Infos und Kalendereintrag – genau einmal.
+     * Wer kurzfristig bucht (weniger als 3 Tage vorher), bekommt sie am nächsten Morgen, sofern der Kurs noch nicht begonnen hat.
+     */
+    public static function courseReminders(?Carbon $today = null): int
+    {
+        $todayStr = ($today ?? now('Europe/Berlin'))->format('Y-m-d');
+        $until = Carbon::parse($todayStr)->addDays((int) config('ulbrich.booking.reminder_days_before', 3))->format('Y-m-d');
+        $sent = 0;
+        Order::query()->with('course')->where('type', 'kurs')->whereNull('reminder_sent_at')
+            ->whereIn('status', ['bezahlt', 'bestaetigt'])->whereNotNull('course_start')
+            ->whereDate('course_start', '>', $todayStr)->whereDate('course_start', '<=', $until)
+            ->whereDate('created_at', '<', $todayStr)   // am Buchungstag reicht die Bestätigung
+            ->each(function (Order $order) use (&$sent) {
+                if (CustomerMail::send($order, 'erinnerung')) {
+                    $order->forceFill(['reminder_sent_at' => now()])->saveQuietly();
+                    $sent++;
+                }
+            });
+
+        return $sent;
+    }
+
+    /**
      * DHL-Sendungen automatisch auf „Zugestellt“ setzen (DHL Shipment Tracking API, Schlüssel DHL_API_KEY).
      * Andere Versanddienste: in der Verwaltung von Hand auf „Zugestellt“ setzen.
      */

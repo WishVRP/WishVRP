@@ -248,8 +248,11 @@ class OrderController extends Controller
             'kurs' => ['required', 'string'],
             'personen' => ['required', 'integer', 'min:1', 'max:'.config('ulbrich.booking.max_persons')],
             'empfaenger' => ['nullable', 'string', 'max:120'],
+            'geschenk_email' => ['nullable', 'email', 'max:190'],
+            'geschenk_datum' => ['nullable', 'date', 'after_or_equal:today', 'before:'.Voucher::defaultValidUntil()->toDateString()],
+            'geschenk_nachricht' => ['nullable', 'string', 'max:300'],
             'agb' => ['accepted'],
-        ], self::MESSAGES + ['agb.accepted' => 'Bitte bestätige AGB und Widerrufsbelehrung.']);
+        ], self::MESSAGES + ['agb.accepted' => 'Bitte bestätige AGB und Widerrufsbelehrung.', 'geschenk_datum.after_or_equal' => 'Bitte wähle heute oder einen späteren Tag.']);
         $course = Course::query()->published()->where('slug', $data['kurs'])->first();
         if (! $course || ! CourseCalendar::bookable($course)) {
             return back()->withErrors(['kurs' => 'Bitte wähle einen Kurs.'])->withInput();
@@ -268,6 +271,9 @@ class OrderController extends Controller
         Voucher::create([
             'code' => Voucher::newCode(), 'course_id' => $course->id, 'persons' => $data['personen'], 'value' => $value,
             'status' => 'offen', 'recipient' => $data['empfaenger'] ?? null, 'order_id' => $order->id, 'valid_until' => Voucher::defaultValidUntil(),
+            'recipient_email' => $data['geschenk_email'] ?? null,
+            'send_on' => ! empty($data['geschenk_email']) ? ($data['geschenk_datum'] ?? null) : null,
+            'gift_message' => $data['geschenk_nachricht'] ?? null,
         ]);
         $this->applyDiscount($order, $disc);
         SiteEvent::create(['name' => 'anfrage', 'path' => '/geschenke/schmiedekurs-gutschein/', 'occurred_on' => now()->toDateString()]);

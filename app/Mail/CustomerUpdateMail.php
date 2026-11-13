@@ -30,6 +30,7 @@ class CustomerUpdateMail extends Mailable
         'abholbereit' => 'Abholbereit in der Manufaktur',
         'zugestellt' => 'Dein Paket ist angekommen',
         'kurs' => 'Danke für deinen Kurstag',
+        'erinnerung' => 'Erinnerung an deinen Kurs',
     ];
 
     public static function title(Order $o, string $kind): string
@@ -39,6 +40,7 @@ class CustomerUpdateMail extends Mailable
                 'kurs' => 'Danke für deine Buchung', 'anfrage', 'service' => 'Danke für deine Anfrage', default => 'Danke für deine Bestellung',
             },
             'bezahlt' => $o->type === 'kurs' ? 'Dein Kurstag ist fest gebucht' : 'Zahlung erhalten',
+            'erinnerung' => 'Bald geht’s los an der Esse',
             default => self::KINDS[$kind],
         };
     }
@@ -59,9 +61,25 @@ class CustomerUpdateMail extends Mailable
             'abholbereit' => 'Deine Bestellung liegt zur Abholung bereit',
             'zugestellt' => 'Dein Paket ist angekommen – alles gut?',
             'kurs' => 'Danke für deinen Tag an der Esse',
+            'erinnerung' => 'Bald geht’s los: dein Schmiedekurs am '.($this->order->course_start?->locale('de')->isoFormat('dddd, D. MMMM') ?? ''),
         };
 
         return new Envelope(subject: $subject.' ('.$this->order->number.')', replyTo: [config('ulbrich.email')]);
+    }
+
+    /** Auftragsbestätigung: Rechnung als PDF; Kurs: Kalendereintrag (.ics). */
+    public function attachments(): array
+    {
+        $o = $this->order;
+        if (in_array($this->kind, ['erinnerung', 'bezahlt', 'umgebucht'], true) && $o->type === 'kurs' && $o->course_start) {
+            $ics = \App\Support\CourseIcs::make($o);   // Kalendereintrag zum Antippen
+        }
+        $files = isset($ics) ? [\Illuminate\Mail\Mailables\Attachment::fromData(fn () => $ics, 'Schmiedekurs-'.$o->course_start->format('Y-m-d').'.ics')->withMime('text/calendar')] : [];
+        if ($this->kind !== 'bezahlt' || ! $o->invoice_number || ! ($pdf = \App\Support\Invoice::pdf($o))) {
+            return $files;
+        }
+
+        return [...$files, \Illuminate\Mail\Mailables\Attachment::fromData(fn () => $pdf, \App\Support\Invoice::filename($o->invoice_number))->withMime('application/pdf')];
     }
 
     public function content(): Content

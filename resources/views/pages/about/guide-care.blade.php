@@ -18,6 +18,7 @@
             </nav>
 
             <div class="prose article__body">
+                <p><a class="btn btn--secondary" href="/downloads/pflegeanleitung-messermanufaktur-ulbrich.pdf" download>Pflegeanleitung als PDF (zum Ausdrucken)</a></p>
                 <p class="article__summary"><strong>Die vier Grundregeln:</strong> von Hand spülen und sofort abtrocknen · auf Holz oder Kunststoff schneiden · regelmäßig abziehen, bei Bedarf auf dem Stein schärfen · so lagern, dass die Schneide nichts berührt.</p>
 
                 <h2 id="reinigen">Messer richtig reinigen</h2>

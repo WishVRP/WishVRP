@@ -128,6 +128,16 @@ return [
     'tax_mode' => env('ULBRICH_TAX_MODE', 'regular'),
     'vat_id' => 'DE328830313',
 
+    /*
+    | Hinweise für die Kurs-Erinnerung – nur echte Angaben eintragen (null = Zeile fehlt in der Mail).
+    */
+    'course_info' => [
+        'clothing' => null,   // [FEHLT] z. B. feste, geschlossene Schuhe, Kleidung aus Baumwolle …
+        'bring' => null,      // [FEHLT] was mitbringen (Verpflegung, Brille …)
+        'parking' => null,    // [FEHLT] Parken an der Werkstatt
+        'transit' => null,    // [FEHLT] Anreise mit Bus/Bahn
+    ],
+
     'booking_rules' => [
         'Kurse werden ausschließlich online gebucht.',
         'Zwei Umbuchungen sind kostenlos – bis 48 Stunden vor dem Kurstermin, online über den Link in deiner Buchungsbestätigung oder per E-Mail. Der gebuchte Preis bleibt dabei gleich.',
@@ -188,6 +198,7 @@ return [
         'years_ahead' => 5,
         'free_rebookings' => 2,       // kostenlose Umbuchungen je Buchung (Kursbedingungen 12.11.2026)
         'rebook_hours_before' => 48,  // mindestens 48 Stunden vor Beginn des jeweils vereinbarten Termins
+        'reminder_days_before' => 3,     // Erinnerungsmail vor dem Kurs (mit Kalendereintrag)
         'course_start_time' => '09:00', // Annahme für die 48-h-Frist, solange keine Kurszeiten gepflegt sind – bitte bestätigen
         'value_years' => 10,          // bezahlter Buchungswert 10 Jahre ab Zahlungseingang verwendbar (Preis bleibt)
         'hold_minutes' => 30,         // Tag ist während der Online-Zahlung reserviert
@@ -238,9 +249,9 @@ return [
         'seconds' => 60,                  // Spielzeit insgesamt (Inhaber, 13.11.2026: eine Minute)
         'max_percent' => 10,              // Obergrenze laut Inhaber
         'max_score' => 130,               // Plausibilitätsgrenze (bei 0,45 s Nachladezeit max. ~133 Würfe in 60 s)
-        'tiers' => [                      // ab X Treffern → Y % (aufsteigend), bei 30 s kalibriert (4 → 5 %, 10 → 10 %), für 60 s verdoppelt – gleiche Schwierigkeit
-            ['min' => 8, 'percent' => 5],
-            ['min' => 20, 'percent' => 10],
+        'tiers' => [                      // ab X Treffern → Y % (aufsteigend), Inhaber 13.11.2026: ab 6 Treffern 5 %, ab 14 Treffern 10 % (60 s Spielzeit)
+            ['min' => 6, 'percent' => 5],
+            ['min' => 14, 'percent' => 10],
         ],
     ],
 

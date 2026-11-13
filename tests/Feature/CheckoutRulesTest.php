@@ -163,8 +163,10 @@ class CheckoutRulesTest extends TestCase
         Mail::fake();
         $this->seed(CourseSeeder::class);
         $this->artisan('ulbrich:mail-test', ['email' => 'ich@example.org'])->assertSuccessful();
-        Mail::assertSent(CustomerUpdateMail::class, 10);
+        Mail::assertSent(CustomerUpdateMail::class, 11);
         Mail::assertSent(\App\Mail\MarketMail::class, 4);
         Mail::assertSent(WithdrawalMail::class, 3);
+        Mail::assertSent(\App\Mail\VoucherMail::class, 2);
+        Mail::assertSent(\App\Mail\ResharpenMail::class, 1);
     }
 }

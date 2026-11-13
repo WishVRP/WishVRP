@@ -40,6 +40,7 @@
                     <li><a href="/erlebnisse/">Erlebnisse</a></li>
                     <li><a href="/erlebnisse/teamevent/">Firmen &amp; Gruppen</a></li>
                     <li><a href="/schmiedekurse/erfahrungen/">Kurserfahrungen</a></li>
+                    <li><a href="/galerie/">Galerie: Bei uns geschmiedet</a></li>
                 </ul>
             </nav>
             <nav aria-labelledby="footer-messer">
@@ -58,6 +59,7 @@
                     <li><a href="/messer-reparieren-lassen/">Messer reparieren lassen</a></li>
                     <li><a href="/versand/">Versand &amp; Abholung</a></li>
                     <li><a href="/garantie/">Lebenslange Schliff-Garantie</a></li>
+                    <li><a href="/nachschaerfen/">Messer zum Nachschärfen einschicken</a></li>
                 </ul>
             </nav>
             <nav aria-labelledby="footer-manufaktur">

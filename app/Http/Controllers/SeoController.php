@@ -31,7 +31,7 @@ class SeoController extends Controller
         // Bild-Sitemap: Fotos je Seite (Google-Bildersuche). Startseite zeigt alle Manufaktur-Fotos.
         $photos = collect(config('fotos'))->keys()->map(fn (string $k) => PageMeta::absolute(\App\Support\Foto::largest($k)))->all();
         $urls = collect(config('pages'))
-            ->filter(fn (array $p) => $p['status'] === 'live' && ($p['index'] ?? true))
+            ->filter(fn (array $p) => $p['status'] === 'live' && \App\Support\PageIndex::indexable($p))
             ->mapWithKeys(fn (array $p, string $path) => [PageMeta::absolute($path) => $path === '/' ? $photos : []])
             ->merge(\App\Models\Product::query()->visible()->get()->mapWithKeys(fn ($p) => [
                 PageMeta::absolute($p->url()) => array_map(fn ($i) => PageMeta::absolute($i), $p->imageUrls()),
@@ -124,7 +124,7 @@ class SeoController extends Controller
             '', '## Seiten',
         ];
         foreach (config('pages') as $path => $page) {
-            if (($page['index'] ?? true) && $page['status'] === 'live') {
+            if (\App\Support\PageIndex::indexable($page) && $page['status'] === 'live') {
                 $lines[] = '- ['.$page['title'].']('.PageMeta::absolute($path).')';
             }
         }

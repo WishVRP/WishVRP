@@ -59,7 +59,7 @@ Name, E-Mail und Passwort eingeben. Beim ersten Login führt die Verwaltung durc
   - **Wirkung:** Mehrfach **spielen** mit mehreren E-Mail-Adressen ist möglich, mehrfach **sparen** praktisch nicht. Rabatt höchstens 10 %.
 - **Optional strenger: SMS-Code (`XMAS_VERIFICATION=sms`):** Dann braucht jede Teilnahme eine per SMS-Code bestätigte Handynummer (eine Nummer = eine Teilnahme), und der Code ist nur mit dieser Nummer einlösbar. Dafür ist ein SMS-Anbieter nötig (eingebaut: seven.io, wenige Cent pro SMS; `SMS_DRIVER=seven`, `SEVEN_API_KEY` nur in der `.env` des Servers). Ohne Anbieter ist die SMS-Anmeldung in der Produktion gesperrt.
 - **Testen in der Entwicklung:** Es werden keine E-Mails oder SMS verschickt; der Spiel-Link bzw. SMS-Code erscheint als „Testmodus“ direkt auf der Seite. IP-Limit zurücksetzen: `php artisan cache:clear`.
-- **Gegen Schummeln:** Die Wertung passiert auf dem Server. Wer vor Ablauf der Spielzeit (1 Minute) ein Ergebnis schickt, bekommt 0 Treffer; mehr als 130 Treffer werden auf 130 begrenzt. Rabattstufen: ab 8 Treffern 5 %, ab 20 Treffern 10 %. Der Rabatt übersteigt nie 10 %.
+- **Gegen Schummeln:** Die Wertung passiert auf dem Server. Wer vor Ablauf der Spielzeit (1 Minute) ein Ergebnis schickt, bekommt 0 Treffer; mehr als 130 Treffer werden auf 130 begrenzt. Rabattstufen: ab 6 Treffern 5 %, ab 14 Treffern 10 %. Der Rabatt übersteigt nie 10 %.
 - **Code einlösen:** Feld „Rabattcode“ in allen Bestell- und Buchungsformularen (solange die Codes gelten, bis 31.12.2026, `valid_until`). Jeder Code ist **einmalig**: Danach gilt er als eingelöst und ist dem Vorgang zugeordnet; der Betrag im Vorgang ist schon reduziert.
 - **Verwaltung → Weihnachtsaktion:** Teilnahmen, Treffer, Rabatt, Code, eingelöst ja/nein, Vorgang. Einlösung lässt sich manuell setzen oder zurücknehmen, etwa bei telefonischen Bestellungen. Auf dem Dashboard steht die Zahl der Teilnahmen und Codes.
 - **Teilnahmebedingungen** stehen auf der Aktionsseite. Gültigkeitszeitraum und Bedingungen bestätigen und anwaltlich prüfen lassen (intern markiert). Die Datenschutzerklärung hat einen Abschnitt „Weihnachtsaktion“.
@@ -303,3 +303,35 @@ Ohne SSH: die E-Mail-Vorschau im Adminbereich nutzen (Vorgang → „E-Mail-Vors
 - **Mails nach AGB § 2:** Die automatische Mail nach dem Absenden heißt **Eingangsbestätigung** (noch kein Vertrag). Nach dem Zahlungseingang („Zahlung erhalten“) geht die **Auftragsbestätigung** raus – damit ist der Auftrag angenommen. In der Verwaltung heißt der Knopf entsprechend „Eingangsbestätigung senden“.
 - **Vor dem Kaufabschluss** sieht die Kundschaft im Shop und bei der Edition 100 eine Zusammenfassung: Artikel + Versand + ggf. Zoll = Gesamt, Steuerhinweis, Lieferzeit, Zahlungsart und Links zu Versand & Zahlung, AGB und Widerruf. Kurse und Gutscheine verlangen das Häkchen für Kurs- bzw. Gutscheinbedingungen, AGB und Widerrufsbelehrung.
 - **Steuer:** `ULBRICH_TAX_MODE` (Standard `regular` = „inkl. 19 % MwSt.“).
+
+## Rechnungen, Gutscheine, Erinnerungen, Nachschärfen, Galerie (Stand 13.11.2026)
+
+**Rechnungen (PDF)**
+- Entstehen automatisch bei „Zahlung erhalten“ bzw. nach Online-Zahlung, fortlaufend nummeriert je Jahr (`RE-2026-0001`), und hängen an der Auftragsbestätigung.
+- Herunterladen jederzeit: Bestellungen → Knopf **„Rechnung“** in der Zeile oder oben im Vorgang. Ist noch keine da (z. B. Barzahlung vor Ort): „Rechnung erstellen“.
+- **Für den Steuerberater:** Filter „Rechnungen im Zeitraum“ setzen, Filter „Nur offene“ entfernen, alle markieren → „Rechnungen als ZIP“.
+- Rechnungen werden nie geändert oder gelöscht. Wird ein Vorgang storniert (auch nach Widerruf), entsteht automatisch eine **Stornorechnung** mit eigener Nummer. Bei Fehlern: stornieren und neu anlegen.
+- Gespeichert unter `storage/app/private/rechnungen/` – bei der Datensicherung mitsichern (10 Jahre Aufbewahrung).
+
+**Gutscheine zum Ausdrucken**
+- Nach der Zahlung bekommt die Käuferin/der Käufer den Gutschein als **PDF** (mit Name, Gruß, Code, Gültigkeit).
+- Optional: E-Mail der beschenkten Person + Datum → Versand **am Wunschtag um 7 Uhr** (ohne Datum sofort nach Zahlung). Der Zeitplan (Cron) muss laufen.
+- Verwaltung → Gutscheine: „PDF“ herunterladen, „Erneut senden“, Spalte „An Beschenkte“ (geplant/gesendet).
+
+**Kurs-Erinnerung**
+- Automatisch **3 Tage vor dem Kurs um 9:30 Uhr** (`booking.reminder_days_before`): Kurs, Tag, Beginn, Adresse mit Routenlink, Kalendereintrag (.ics). Kalendereintrag hängt auch an Auftragsbestätigung und Umbuchung.
+- Kleidung, Mitbringen, Parken, Bus & Bahn erscheinen, sobald sie in `config/ulbrich.php` → `course_info` eingetragen sind.
+
+**Messer zum Nachschärfen** (`/nachschaerfen/`)
+- Kunde gibt Messer, Herkunft, Bestellnummer (optional) und Einsenden/Vorbeibringen an → Vorgang „Messerservice“ und E-Mail mit Einsendeadresse und Verpackungstipps.
+- Passt die Bestellnummer zur E-Mail, steht am Vorgang „E-Mail passt“; sonst eine angeheftete Notiz „bitte prüfen“.
+- Weiter wie gewohnt mit „In Arbeit“ → „Versendet / abholbereit“.
+
+**Galerie** (`/galerie/`)
+- Verwaltung → Galerie → „Foto hinzufügen“: Bildbeschreibung zuerst ausfüllen (wird Dateiname), Einwilligungs-Häkchen ist Pflicht.
+- Ab 6 sichtbaren Fotos wird die Seite automatisch für Google freigegeben.
+
+**Pflegeanleitung (PDF)**
+- `public/downloads/pflegeanleitung-messermanufaktur-ulbrich.pdf`, verlinkt im Ratgeber Pflege, bei der Garantie und in der „Angekommen“-Mail. Nach Textänderungen neu erzeugen: `php artisan ulbrich:pflege-pdf`.
+
+**Test-E-Mails:** `php artisan ulbrich:mail-test deine@adresse` schickt jetzt 21 Beispiel-Mails (inkl. Erinnerung, Gutschein, Nachschärfen).

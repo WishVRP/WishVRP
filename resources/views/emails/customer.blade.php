@@ -38,6 +38,7 @@
                 @case('versendet') Bestellstatus · Versendet @break
                 @case('abholbereit') Bestellstatus · Abholbereit @break
                 @case('zugestellt') Bestellstatus · Zugestellt @break
+                @case('erinnerung') Erinnerung · Schmiedekurs @break
                 @default Schmiedekurs
             @endswitch
         </div>
@@ -110,7 +111,26 @@
                 @break
             @case('zugestellt')
                 <p style="{{ $p }}">laut Versanddienst ist dein Paket angekommen. Wir hoffen, alles ist heil bei dir gelandet und du hast Freude an deinem neuen Stück aus unserer Werkstatt.</p>
-                <p style="{{ $p }}">Ein Tipp für lange Freude: von Hand spülen, gleich abtrocknen und die Klinge ab und zu leicht einölen – alles Weitere steht im beiliegenden Pflegeheft.</p>
+                <p style="{{ $p }}">Ein Tipp für lange Freude: von Hand spülen, gleich abtrocknen und die Klinge ab und zu leicht einölen – alles Weitere steht im beiliegenden Pflegeheft und in unserer <a href="{{ rtrim(config('app.url'), '/') }}/downloads/pflegeanleitung-messermanufaktur-ulbrich.pdf" style="color:#2d5f93;">Pflegeanleitung (PDF)</a>.</p>
+                @break
+            @case('erinnerung')
+                @php
+                    $info = array_filter(config('ulbrich.course_info', []));
+                    $route = 'https://www.google.com/maps/dir/?api=1&destination='.rawurlencode($c['name'].', '.$c['address']['street'].', '.$c['address']['postal_code'].' '.$c['address']['locality']);
+                    $cell = 'padding:9px 0;border-bottom:1px solid '.$line.';font-family:Arial,Helvetica,sans-serif;font-size:14px;';
+                @endphp
+                <p style="{{ $p }}">in {{ max(1, (int) now('Europe/Berlin')->startOfDay()->diffInDays($o->course_start, false)) }} {{ (int) now('Europe/Berlin')->startOfDay()->diffInDays($o->course_start, false) === 1 ? 'Tag' : 'Tagen' }} stehst du bei uns an der Esse – wir freuen uns auf dich! Hier ist alles Wichtige auf einen Blick. Den Termin kannst du über den Anhang direkt in deinen Kalender übernehmen.</p>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;border-top:2px solid {{ $night }};">
+                    <tr><td style="{{ $cell }}color:{{ $muted }};width:36%;">Kurs</td><td style="{{ $cell }}">{{ $o->course?->name }} · {{ $o->participants }} {{ $o->participants == 1 ? 'Person' : 'Personen' }}</td></tr>
+                    <tr><td style="{{ $cell }}color:{{ $muted }};">{{ $o->course_end && ! $o->course_end->isSameDay($o->course_start) ? 'Kurstage' : 'Kurstag' }}</td><td style="{{ $cell }}font-size:16px;"><b>{{ $o->course_start->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}</b>@if ($o->course_end && ! $o->course_end->isSameDay($o->course_start)) bis {{ $o->course_end->locale('de')->isoFormat('dddd, D. MMMM') }}@endif</td></tr>
+                    <tr><td style="{{ $cell }}color:{{ $muted }};">Beginn</td><td style="{{ $cell }}">{{ config('ulbrich.booking.course_start_time') }} Uhr</td></tr>
+                    <tr><td style="{{ $cell }}color:{{ $muted }};">Ort</td><td style="{{ $cell }}">{{ $c['name'] }}<br>{{ $c['address']['street'] }}, {{ $c['address']['postal_code'] }} {{ $c['address']['locality'] }} ({{ $c['address']['district'] }})<br><a href="{{ $route }}" style="color:#2d5f93;">Route in Google Maps</a></td></tr>
+                    @if (! empty($info['parking']))<tr><td style="{{ $cell }}color:{{ $muted }};">Parken</td><td style="{{ $cell }}">{{ $info['parking'] }}</td></tr>@endif
+                    @if (! empty($info['transit']))<tr><td style="{{ $cell }}color:{{ $muted }};">Mit Bus &amp; Bahn</td><td style="{{ $cell }}">{{ $info['transit'] }}</td></tr>@endif
+                    @if (! empty($info['clothing']))<tr><td style="{{ $cell }}color:{{ $muted }};">Kleidung</td><td style="{{ $cell }}">{{ $info['clothing'] }}</td></tr>@endif
+                    @if (! empty($info['bring']))<tr><td style="{{ $cell }}color:{{ $muted }};">Bitte mitbringen</td><td style="{{ $cell }}">{{ $info['bring'] }}</td></tr>@endif
+                </table>
+                <p style="{{ $p }}">Du kommst später, bist krank oder hast eine Frage zu Kleidung und Anfahrt? Ruf uns kurz an unter <a href="tel:{{ $c['phone']['e164'] }}" style="color:#2d5f93;">{{ $c['phone']['display'] }}</a> oder antworte einfach auf diese E-Mail.</p>
                 @break
             @default
                 <p style="{{ $p }}">danke, dass du heute bei uns an der Esse gestanden hast{{ $o->course ? ' – beim '.$o->course->name : '' }}. Wir hoffen, du hattest einen richtig guten Tag und bist mit deinem Werkstück zufrieden nach Hause gefahren.</p>
@@ -174,6 +194,9 @@
             @endif
             @if ($o->type === 'kurs' && $o->course_start && $o->manage_token && ! $o->rebookBlocker())
                 <tr><td style="{{ $lbl }}">Umbuchen</td><td style="{{ $row }}">{{ config('ulbrich.booking.free_rebookings') }}× kostenlos bis {{ $o->rebookDeadline()->format('d.m.Y, H:i').' Uhr' }} – <a href="{{ $o->manageUrl() }}" style="color:#2d5f93;">Termin online umbuchen</a></td></tr>
+            @endif
+            @if ($kind === 'bezahlt' && $o->invoice_number)
+                <tr><td style="{{ $lbl }}">Rechnung</td><td style="{{ $row }}">{{ $o->invoice_number }} – als PDF im Anhang</td></tr>
             @endif
             @if ($o->type === 'kurs' && $o->valueValidUntil())
                 <tr><td style="{{ $lbl }}">Buchungswert</td><td style="{{ $row }}">verwendbar bis {{ $o->valueValidUntil()->format('d.m.Y') }}</td></tr>

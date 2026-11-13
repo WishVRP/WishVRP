@@ -36,11 +36,35 @@ Artisan::command('orders:course-reviews', function () {
 })->purpose('Bewertungsanfragen nach Kurstagen senden');
 \Illuminate\Support\Facades\Schedule::command('orders:course-reviews')->dailyAt('19:00')->timezone('Europe/Berlin')->withoutOverlapping();
 
+// Erinnerung vor dem Kurs (3 Tage vorher, morgens) mit Kalendereintrag.
+Artisan::command('orders:course-reminders', function () {
+    $this->info(\App\Support\OrderAutomation::courseReminders().' Kurs-Erinnerung(en) gesendet.');
+})->purpose('Erinnerungen vor Kurstagen senden');
+\Illuminate\Support\Facades\Schedule::command('orders:course-reminders')->dailyAt('09:30')->timezone('Europe/Berlin')->withoutOverlapping();
+
 // DHL-Pakete automatisch auf „Zugestellt“ setzen (nur mit DHL_API_KEY), dann „Angekommen“-Mail mit Bewertungslink.
 Artisan::command('orders:track-deliveries', function () {
     $this->info(\App\Support\OrderAutomation::trackDeliveries().' Sendung(en) als zugestellt erkannt.');
 })->purpose('DHL-Sendungsstatus prüfen');
 \Illuminate\Support\Facades\Schedule::command('orders:track-deliveries')->everyTwoHours()->between('8:00', '21:00')->timezone('Europe/Berlin')->withoutOverlapping();
+
+// Gutscheine an die beschenkte Person zum Wunschtermin verschicken (morgens um 7 Uhr).
+Artisan::command('vouchers:send-gifts', function () {
+    $n = 0;
+    \App\Models\Voucher::query()->whereNotNull('recipient_email')->whereNull('sent_to_recipient_at')->where('status', 'bezahlt')
+        ->each(function (\App\Models\Voucher $v) use (&$n) { $n += (int) $v->sendToRecipientIfDue(); });
+    $this->info("{$n} Gutschein(e) an Beschenkte verschickt.");
+})->purpose('Geschenk-Gutscheine zum Wunschtermin versenden');
+\Illuminate\Support\Facades\Schedule::command('vouchers:send-gifts')->dailyAt('07:00')->timezone('Europe/Berlin')->withoutOverlapping();
+\Illuminate\Support\Facades\Schedule::command('vouchers:send-gifts')->hourly()->between('8:00', '20:00')->timezone('Europe/Berlin')->withoutOverlapping();   // holt nach, falls 7 Uhr ausfiel
+
+// Pflegeanleitung als PDF neu erzeugen (liegt danach unter public/downloads/ und wird mit ausgeliefert).
+Artisan::command('ulbrich:pflege-pdf', function () {
+    $file = public_path('downloads/pflegeanleitung-messermanufaktur-ulbrich.pdf');
+    file_put_contents($file, \App\Support\Pdf::render('pdf.care'));
+    @chmod($file, 0644);
+    $this->info('Erstellt: '.$file);
+})->purpose('Pflegeanleitung (PDF) erzeugen');
 
 // Alle Benachrichtigungen einmal mit Beispieldaten an eine Adresse schicken (z. B. nach dem Einrichten des Mailservers).
 Artisan::command('ulbrich:mail-test {email}', function (string $email) {
@@ -62,10 +86,21 @@ Artisan::command('ulbrich:mail-test {email}', function (string $email) {
         \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\CustomerUpdateMail($knife, $k));
         $sent++;
     }
-    foreach (['eingang', 'bezahlt', 'umgebucht', 'kurs'] as $k) {
+    foreach (['eingang', 'bezahlt', 'umgebucht', 'erinnerung', 'kurs'] as $k) {
+        $kurs->course_start = $kurs->course_end = $k === 'erinnerung' ? now()->addDays(3) : now()->addDays(30);
         \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\CustomerUpdateMail($kurs, $k));
         $sent++;
     }
+    $v = new \App\Models\Voucher(['code' => 'GS-TEST2345', 'course_id' => $course?->id, 'persons' => 2, 'value' => 600, 'status' => 'bezahlt', 'recipient' => 'Max',
+        'gift_message' => 'Frohe Weihnachten!', 'recipient_email' => $email, 'send_on' => now()->addDays(5), 'valid_until' => \App\Models\Voucher::defaultValidUntil()]);
+    $v->setRelation('order', $mk(['type' => 'gutschein']));
+    foreach (['buyer', 'recipient'] as $k) {
+        \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\VoucherMail($v, $k));
+        $sent++;
+    }
+    \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\ResharpenMail($mk(['type' => 'service', 'item' => 'Nachschärfen (Schliff-Garantie) · 1 Messer', 'shipping_method' => 'versand',
+        'street' => 'Musterweg 1', 'postal_code' => '12345', 'city' => 'Musterstadt', 'country' => 'Deutschland'])));
+    $sent++;
     $app = new \App\Models\MarketApplication(['code' => 'KHM-TEST00', 'season' => \App\Support\Market::season(), 'stand' => 4, 'name' => 'Test Ausstellerin', 'email' => $email, 'category' => 'Keramik', 'description' => 'Beispiel', 'amount' => 90, 'tables' => 1]);
     foreach (['eingang', 'angenommen', 'bezahlt', 'abgelehnt'] as $k) {
         \Illuminate\Support\Facades\Mail::to($email)->send(new \App\Mail\MarketMail($app, $k));

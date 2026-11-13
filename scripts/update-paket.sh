@@ -30,9 +30,26 @@ if git diff --name-only "$BASE" "$HEAD" | grep -qE '^(resources/(css|js)/|vite\.
     mkdir -p "$TMP/ulbrich-test/public" && cp -r public/build "$TMP/ulbrich-test/public/"
 fi
 # Abhängigkeiten geändert → vendor komplett (selten)
+# Nur neue/geänderte Pakete + Autoloader (vendor/composer, vendor/autoload.php) – nicht den ganzen vendor-Ordner.
 if git diff --name-only "$BASE" "$HEAD" | grep -qE '^composer\.lock$'; then
-    echo "composer.lock geändert – vendor wird mitgeliefert."
-    composer install --no-dev --optimize-autoloader --no-interaction -q --working-dir="$TMP/ulbrich-test" 2>/dev/null || true
+    echo "composer.lock geändert – neue Pakete und Autoloader werden mitgeliefert."
+    VT=$(mktemp -d)
+    git show "$HEAD:composer.json" > "$VT/composer.json"; git show "$HEAD:composer.lock" > "$VT/composer.lock"
+    mkdir -p "$VT/app" "$VT/database/seeders" "$VT/database/factories"
+    composer install --no-dev --no-scripts --optimize-autoloader --no-interaction -q --working-dir="$VT"
+    PKGS=$(python3 - "$BASE" "$HEAD" <<'PY'
+import json, subprocess, sys
+def lock(rev):
+    try: return {p['name']: p['version'] for p in json.loads(subprocess.check_output(['git', 'show', rev + ':composer.lock']))['packages']}
+    except subprocess.CalledProcessError: return {}
+a, b = lock(sys.argv[1]), lock(sys.argv[2])
+print('\n'.join(k for k, v in b.items() if a.get(k) != v))
+PY
+)
+    mkdir -p "$TMP/ulbrich-test/vendor"
+    cp -r "$VT/vendor/composer" "$VT/vendor/autoload.php" "$TMP/ulbrich-test/vendor/"
+    for p in $PKGS; do mkdir -p "$TMP/ulbrich-test/vendor/$(dirname "$p")"; cp -r "$VT/vendor/$p" "$TMP/ulbrich-test/vendor/$p"; done
+    rm -rf "$VT"
 fi
 # Dateien der Verwaltung (Filament) mitgeben, wenn Filament aktualisiert wurde oder FILAMENT_ASSETS=1
 if git diff --name-only "$BASE" "$HEAD" | grep -qE '^composer\.lock$' || [[ "${FILAMENT_ASSETS:-0}" == 1 ]]; then
@@ -47,7 +64,7 @@ fi
     echo "Den Ordner ulbrich-test per FTP über den bestehenden Ordner laden (Dateien überschreiben)."
     echo "Die .env auf dem Server bleibt unverändert. Die Datenbank aktualisiert sich beim nächsten Aufruf selbst."
     [[ -n "$DELETED" ]] && echo "Zusätzlich die Dateien aus LOESCHEN.txt auf dem Server löschen."
-    echo; echo "Enthaltene Dateien:"; (cd "$TMP" && find ulbrich-test -type f | sort | grep -vE '^ulbrich-test/(vendor|public/(css|js|fonts)/filament)/'; [[ -d ulbrich-test/public/js/filament ]] && echo "ulbrich-test/public/{css,js,fonts}/filament/… (Dateien der Verwaltung, komplett)"; if [[ -d ulbrich-test/vendor ]]; then echo "ulbrich-test/vendor/… (komplett)"; fi)
+    echo; echo "Enthaltene Dateien:"; (cd "$TMP" && find ulbrich-test -type f | sort | grep -vE '^ulbrich-test/(vendor|public/(css|js|fonts)/filament)/'; [[ -d ulbrich-test/public/js/filament ]] && echo "ulbrich-test/public/{css,js,fonts}/filament/… (Dateien der Verwaltung, komplett)"; if [[ -d ulbrich-test/vendor ]]; then echo "ulbrich-test/vendor/… (neue Pakete: $(cd ulbrich-test/vendor && ls -d */*/ 2>/dev/null | grep -v '^composer' | tr '\n' ' '), dazu vendor/composer und vendor/autoload.php)"; fi)
 } > "$TMP/LIESMICH.txt"
 
 NAME="ulbrich-update-$(date +%Y-%m-%d-%H%M)${2:+-sammel}.zip"

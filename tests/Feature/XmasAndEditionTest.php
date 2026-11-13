@@ -113,7 +113,7 @@ class XmasAndEditionTest extends TestCase
 
     public function test_tiers_and_cap(): void
     {
-        $this->assertSame([0, 0, 5, 5, 10, 10], array_map([XmasEntry::class, 'percentFor'], [0, 7, 8, 19, 20, 500]));
+        $this->assertSame([0, 0, 5, 5, 10, 10], array_map([XmasEntry::class, 'percentFor'], [0, 5, 6, 13, 14, 500]));
         config(['ulbrich.xmas.tiers' => [['min' => 1, 'percent' => 25]]]);
         $this->assertSame(10, XmasEntry::percentFor(5), 'nie mehr als 10 %');
     }

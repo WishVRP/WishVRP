@@ -104,6 +104,17 @@ Eingebaut sind: Impressum, AGB, Kursbedingungen, Gutscheinbedingungen, Versand &
 
 ---
 
+### Steuerberater (Rechnungen, Stand 13.11.2026)
+- [ ] Rechnungsaufbau prüfen lassen (Muster: Verwaltung → Vorgang → „Rechnung“)
+- [ ] **Versand ins Nicht-EU-Ausland:** Ausfuhrlieferungen können umsatzsteuerfrei sein (§ 4 Nr. 1a UStG). Derzeit enthält jede Rechnung 19 %. Soll das für Nicht-EU-Länder angepasst werden?
+- [ ] **Gutscheine:** Kursgutscheine sind als Einzweckgutschein angelegt (Umsatzsteuer beim Verkauf, bei Einlösung nur noch die Differenz). Bestätigen.
+- [ ] **Vorab berechneter Zoll** steht als durchlaufender Posten ohne Umsatzsteuer auf der Rechnung. Bestätigen.
+
+### Kurs-Erinnerung
+- [ ] Texte für Kleidung/Schuhe, Mitbringen, Parken und Anreise mit Bus/Bahn liefern (`config/ulbrich.php` → `course_info`). Bis dahin steht in der Erinnerung nur „bei Fragen anrufen“.
+
+---
+
 ## 5. Fakten und Inhalte, die nur ihr liefern könnt
 
 ### Edition 100 (Damast-Klappmesser)

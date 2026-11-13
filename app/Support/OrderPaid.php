@@ -30,7 +30,12 @@ final class OrderPaid
         if ($order->voucher_id) {
             Voucher::query()->whereKey($order->voucher_id)->update(['status' => 'eingeloest', 'redeemed_order_id' => $order->id, 'redeemed_at' => now()]);
         }
-        self::mailConfirmation($order);
+        try {
+            Invoice::assign($order->fresh());   // Rechnung (PDF) – hängt an der Auftragsbestätigung
+        } catch (\Throwable $e) {
+            report($e);
+        }
+        self::mailConfirmation($order->fresh());
     }
 
     public static function expired(Order $order): void
@@ -65,19 +70,10 @@ final class OrderPaid
 
     private static function mailVoucher(Order $order): void
     {
-        $c = config('ulbrich');
-        foreach (Voucher::query()->where('order_id', $order->id)->with('course')->get() as $v) {
+        foreach (Voucher::query()->where('order_id', $order->id)->with(['course', 'order'])->get() as $v) {
+            $v->sendToRecipientIfDue();   // ohne Wunschtermin sofort an die beschenkte Person
             try {
-                Mail::raw(implode("\n", [
-                    "Hallo {$order->name},", '',
-                    'hier ist dein Gutschein der '.$c['name'].':', '',
-                    "Gutscheincode: {$v->code}",
-                    'Für: '.($v->course?->name ?? 'Schmiedekurs').' · '.$v->persons.' '.($v->persons === 1 ? 'Person' : 'Personen').($v->recipient ? " · für {$v->recipient}" : ''),
-                    'Wert: '.number_format((float) $v->value, 2, ',', '.').' €',
-                    'Gültig bis: '.$v->valid_until->locale('de')->isoFormat('D. MMMM YYYY'), '',
-                    'So wird er eingelöst: Auf der Website unter „Kurs buchen“ den Kurs und einen freien Tag wählen und den Gutscheincode eintragen.', '',
-                    $c['owner'], $c['name'],
-                ]), fn ($m) => $m->to($order->email, $order->name)->subject("Dein Gutschein {$v->code}"));
+                Mail::to($order->email, $order->name)->send(new \App\Mail\VoucherMail($v->refresh(), 'buyer'));
             } catch (\Throwable $e) {
                 report($e);
             }
