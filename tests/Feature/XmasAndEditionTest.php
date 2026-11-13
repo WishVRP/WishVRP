@@ -106,14 +106,14 @@ class XmasAndEditionTest extends TestCase
     private function playFor(int $score, string $email = 'spieler@example.org'): array
     {
         $r = $this->start($email);
-        $this->travel(31)->seconds();
+        $this->travel(config('ulbrich.xmas.seconds') + 1)->seconds();
 
         return $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => $score])->assertOk()->json();
     }
 
     public function test_tiers_and_cap(): void
     {
-        $this->assertSame([0, 0, 5, 5, 10, 10], array_map([XmasEntry::class, 'percentFor'], [0, 3, 4, 9, 10, 500]));
+        $this->assertSame([0, 0, 5, 5, 10, 10], array_map([XmasEntry::class, 'percentFor'], [0, 7, 8, 19, 20, 500]));
         config(['ulbrich.xmas.tiers' => [['min' => 1, 'percent' => 25]]]);
         $this->assertSame(10, XmasEntry::percentFor(5), 'nie mehr als 10 %');
     }
@@ -133,8 +133,8 @@ class XmasAndEditionTest extends TestCase
 
     public function test_full_round_gives_code_and_only_once_per_email(): void
     {
-        $done = $this->playFor(12, 'Anna.Test+xmas@GoogleMail.com');
-        $this->assertSame([12, 10], [$done['score'], $done['percent']]);
+        $done = $this->playFor(24, 'Anna.Test+xmas@GoogleMail.com');
+        $this->assertSame([24, 10], [$done['score'], $done['percent']]);
         $this->assertMatchesRegularExpression('/^XMAS-[A-Z0-9]{6}$/', $done['code']);
         $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'annatest@gmail.com', 'conditions' => '1'])->assertStatus(422);
         $this->assertSame(1, XmasEntry::count());
@@ -154,12 +154,12 @@ class XmasAndEditionTest extends TestCase
     {
         $fast = $this->start('schnell@example.org');
         $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $fast['token'], 'score' => 50])->assertJson(['score' => 0, 'percent' => 0, 'code' => null]);
-        $this->assertSame(60, $this->playFor(999, 'viel@example.org')['score']);
+        $this->assertSame(130, $this->playFor(999, 'viel@example.org')['score']);
     }
 
     public function test_one_discount_per_household_and_admin_warning(): void
     {
-        $code = $this->playFor(5, 'erika@example.org')['code'];
+        $code = $this->playFor(10, 'erika@example.org')['code'];
         $order = ['type' => 'messer', 'item' => config('ulbrich.edition.name'), 'consent' => '1', 'source' => '/klappmesser/'];
         $erika = ['name' => 'Erika Muster', 'phone' => '0171 1234567', 'street' => 'Hauptstraße 5', 'postal_code' => '74196'];
 
@@ -171,13 +171,13 @@ class XmasAndEditionTest extends TestCase
 
         // zweite E-Mail derselben Person: andere Nummer, aber gleiche Anschrift → abgelehnt
         RateLimiterReset::clear();
-        $code2 = $this->playFor(5, 'erika.zweit@example.org')['code'];
+        $code2 = $this->playFor(10, 'erika.zweit@example.org')['code'];
         $this->post('/anfrage/', $order + ['name' => 'E. Muster', 'phone' => '0160 9999999', 'street' => 'Hauptstr. 5', 'postal_code' => '74196', 'email' => 'erika.zweit@example.org', 'discount_code' => $code2])
             ->assertSessionHasErrors(['discount_code' => 'Pro Person bzw. Haushalt kann nur ein Weihnachtsrabatt eingelöst werden.']);
 
         // dritte E-Mail, alles anders außer dem Namen → Einlösung möglich, aber Warnung in der Verwaltung
         RateLimiterReset::clear();
-        $code3 = $this->playFor(5, 'erika.drei@example.org')['code'];
+        $code3 = $this->playFor(10, 'erika.drei@example.org')['code'];
         $this->post('/anfrage/', $order + ['name' => 'Erika Muster', 'phone' => '0152 1111111', 'street' => 'Bergweg 1', 'postal_code' => '70173', 'email' => 'erika.drei@example.org', 'discount_code' => $code3])->assertSessionHasNoErrors();
         $third = Order::query()->latest('id')->first();
         $this->assertCount(1, $third->discountWarnings());
@@ -201,8 +201,8 @@ class XmasAndEditionTest extends TestCase
         $this->assertSame('ok', $r['status']);
         $this->postJson('/weihnachtsaktion/anmelden/', ['email' => 'neu@example.org', 'phone' => '+49 171 5555555', 'conditions' => '1'])->assertStatus(422);
 
-        $this->travel(31)->seconds();
-        $code = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 5])->json('code');
+        $this->travel(config('ulbrich.xmas.seconds') + 1)->seconds();
+        $code = $this->postJson('/weihnachtsaktion/ergebnis/', ['token' => $r['token'], 'score' => 10])->json('code');
         $order = ['type' => 'messer', 'item' => config('ulbrich.edition.name'), 'name' => 'S', 'consent' => '1', 'email' => 'sms@example.org'];
         $this->post('/anfrage/', $order + ['phone' => '0172 0000000', 'discount_code' => $code])
             ->assertSessionHasErrors(['discount_code' => 'Der Rabattcode gilt nur zusammen mit der Handynummer, mit der gespielt wurde.']);
