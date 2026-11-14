@@ -30,6 +30,12 @@ final class CustomerMail
             return true;
         } catch (\Throwable $e) {
             report($e);
+            // Grund sichtbar am Vorgang (ohne FTP/Log): z. B. falsches Mail-Passwort
+            Note::query()->create([
+                'order_id' => $order->id,
+                'user_id' => auth()->id(),
+                'body' => '⚠ E-Mail „'.CustomerUpdateMail::KINDS[$kind].'“ an '.$order->email.' konnte NICHT gesendet werden: '.\Illuminate\Support\Str::limit($e->getMessage(), 300),
+            ]);
 
             return false;
         }

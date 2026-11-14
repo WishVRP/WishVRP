@@ -214,6 +214,7 @@ class OrdersTable
                 TextColumn::make('type')->label('Art')->badge()->formatStateUsing(fn ($state) => Order::TYPES[$state] ?? $state)->color('gray'),
                 TextColumn::make('name')->label('Name')->searchable()->description(fn (Order $r) => $r->email),
                 TextColumn::make('summary')->label('Was')->state(fn (Order $r) => $r->summary())->wrap(),
+                TextColumn::make('course_start')->label('Kurstag')->date('D, d.m.Y')->sortable()->placeholder('–')->toggleable(),
                 TextColumn::make('amount')->label('Betrag')->money('EUR', locale: 'de')->sortable()
                     ->description(fn (Order $r) => $r->discount_percent ? "−{$r->discount_percent} % ({$r->discount_code})".($r->discountWarnings() ? ' ⚠ prüfen' : '') : null),
                 TextColumn::make('invoice_number')->label('Rechnung')->searchable()->toggleable()->placeholder('–')

@@ -36,7 +36,10 @@ class OrderForm
                 ]),
                 Section::make('Kurs')->columns(3)->visible(fn ($get) => $get('type') === 'kurs')->schema([
                     Select::make('course_id')->label('Kurs')->options(fn () => Course::query()->orderBy('sort')->pluck('name', 'id'))->live(),
-                    Select::make('course_date_id')->label('Termin')
+                    \Filament\Forms\Components\DatePicker::make('course_start')->label('Kurstag (gebucht)')->displayFormat('D, d.m.Y')->native(false)
+                        ->helperText('Vom Kunden im Kalender gewählt. Ändern besser über „Umbuchen“ in der Liste.'),
+                    \Filament\Forms\Components\DatePicker::make('course_end')->label('Letzter Kurstag')->displayFormat('D, d.m.Y')->native(false),
+                    Select::make('course_date_id')->label('Fester Termin (alt, optional)')
                         ->options(fn ($get) => CourseDate::query()->when($get('course_id'), fn ($q, $id) => $q->where('course_id', $id))
                             ->orderBy('starts_on')->get()->mapWithKeys(fn ($d) => [$d->id => $d->starts_on->format('d.m.Y').' · '.$d->seatsLeftLabel()])),
                     TextInput::make('participants')->label('Teilnehmer')->numeric()->minValue(1)->maxValue(50),

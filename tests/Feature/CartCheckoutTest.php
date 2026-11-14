@@ -183,4 +183,25 @@ class CartCheckoutTest extends TestCase
         $this->assertStringContainsString('SOMMER-25', $text);
         $this->assertStringContainsString('Nur Shop', $text);
     }
+
+    public function test_admin_sees_booked_course_day_and_mail_errors(): void
+    {
+        config(['ulbrich_admin.mfa_required' => false]);
+        $this->actingAs(User::factory()->create());
+        $day = $this->courseDay(30);
+        $this->post('/warenkorb/hinzufuegen/', ['type' => 'kurs', 'kurs' => 'grundlagenkurs', 'datum' => $day, 'teilnehmer' => 1]);
+        $this->post('/kasse/', $this->contact)->assertSessionHasNoErrors();
+        $o = Order::query()->sole();
+        $this->assertSame(1, $o->notes()->where('body', 'like', 'E-Mail an erika@example.org%')->count(), 'Eingangsbestätigung protokolliert');
+
+        Livewire::test(\App\Filament\Resources\Orders\Pages\EditOrder::class, ['record' => $o->getRouteKey()])
+            ->assertFormFieldExists('course_start')
+            ->assertFormSet(['course_start' => $day]);
+        Livewire::test(\App\Filament\Resources\Orders\Pages\ListOrders::class)->assertSee(\Illuminate\Support\Carbon::parse($day)->format('d.m.Y'));
+
+        // Versandfehler steht als Notiz am Vorgang
+        Mail::shouldReceive('to')->andThrow(new \RuntimeException('Failed to authenticate on SMTP server'));
+        \App\Support\CustomerMail::send($o, 'eingang');
+        $this->assertTrue($o->notes()->where('body', 'like', '%NICHT gesendet%Failed to authenticate%')->exists());
+    }
 }
