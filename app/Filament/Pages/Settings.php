@@ -138,7 +138,12 @@ class Settings extends Page
                         Notification::make()->title('Test-E-Mail an '.$data['to'].' verschickt')->body('Bitte auch im Spam-Ordner nachsehen.')->success()->send();
                     } catch (\Throwable $e) {
                         report($e);
-                        Notification::make()->title('Versand fehlgeschlagen')->body(Str::limit($e->getMessage(), 400))->danger()->persistent()->send();
+                        $pw = (string) config('mail.mailers.smtp.password');
+                        $source = RuntimeSettings::has('mail_password') ? 'aus diesen Einstellungen' : 'aus der .env';
+                        Notification::make()->title('Versand fehlgeschlagen')
+                            ->body(Str::limit($e->getMessage(), 260)."\n\nVerwendet: ".config('mail.mailers.smtp.host').':'.config('mail.mailers.smtp.port').', Benutzer '.config('mail.mailers.smtp.username')
+                                .', Passwort '.$source.' ('.mb_strlen($pw).' Zeichen'.($pw !== trim($pw) ? ', mit Leerzeichen am Rand!' : '').').')
+                            ->danger()->persistent()->send();
                     }
                 }),
         ];
