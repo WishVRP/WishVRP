@@ -14,6 +14,7 @@
     @include('pages.home.07b-gallery')
     @include('pages.home.08-custom')
     @include('pages.home.09-gifts')
+    @include('pages.home.09b-market')
     @include('pages.home.10-process')
     @include('pages.home.11-maker')
     @include('pages.home.12-teams')

@@ -212,6 +212,8 @@ Dann gilt: Für Länder **ohne Tabellenpreis** holt die Seite den Live-Preis von
 
 Seite `/kunsthandwerkermarkt/`: **Geländeplan nach eurem Standplan-PDF**: Halle (1–8) mit Haupteingang und Rettungsweg, Außenplatz (9–18) an der Wannenstraße mit Wurst- und Getränkestand und Eingang. Rechts zeigt die Leiste „Dein Stand“ Größe, Verkaufsseite, Preis und Countdown. Downloads: Marktordnung, Standplan, Standmietvertrag (`public/downloads/`).
 
+Der Markt steht außerdem im **Hauptmenü („Markt“)** und als eigener Abschnitt auf der **Startseite** (nach den Gutscheinen). Dort erscheinen automatisch Termin, freie Stände und – solange die Bewerbung offen ist – der Knopf „Stand aussuchen und bewerben“.
+
 **So läuft es für Aussteller**
 - Freien Stand antippen. Er ist dann **15 Minuten** für die Person reserviert, mit Countdown.
 - Bewerbung ausfüllen: Kontakt, Sortiment, Beschreibung, 1–5 Fotos, optional Beleuchtung.

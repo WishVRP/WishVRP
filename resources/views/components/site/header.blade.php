@@ -13,6 +13,7 @@
         ['label' => 'Messer', 'path' => '/shop/', 'hint' => 'Edition 100 · Unikate'],
         ['label' => 'Anfertigung', 'path' => '/sonderanfertigungen/', 'hint' => 'nach Wunsch'],
         ['label' => 'Gutscheine', 'path' => '/geschenke/schmiedekurs-gutschein/', 'hint' => 'zum Verschenken'],
+        ['label' => 'Markt', 'path' => '/kunsthandwerkermarkt/', 'hint' => 'Kunst & Handwerk'],
         ['label' => 'Manufaktur', 'path' => '/manufaktur/', 'hint' => 'Andreas Ulbrich'],
         ['label' => 'Ratgeber', 'path' => '/ratgeber/', 'hint' => 'Wissen'],
     ];

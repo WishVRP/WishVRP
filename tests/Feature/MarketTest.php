@@ -177,4 +177,16 @@ class MarketTest extends TestCase
         $this->assertNull($sub->confirmed_at);
         $this->post('/kunsthandwerkermarkt/termin/', ['email' => 'x@example.org'])->assertSessionHasErrors('newsletter_consent');
     }
+
+    public function test_market_is_linked_in_menu_and_shown_on_home(): void
+    {
+        $this->get('/')->assertOk()
+            ->assertSee('href="/kunsthandwerkermarkt/"', false)
+            ->assertSee('id="kunsthandwerkermarkt"', false)
+            ->assertSee('wird bekannt gegeben')
+            ->assertSee('18 von 18 frei');
+
+        Setting::write('market', ['date' => '12. und 13. September 2027', 'open' => false]);
+        $this->get('/')->assertSee('12. und 13. September 2027')->assertDontSee('Stand aussuchen und bewerben');
+    }
 }
