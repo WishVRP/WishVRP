@@ -547,3 +547,6 @@ const xmasRoot = document.querySelector('[data-xmas-game]');
 if (xmasRoot) {
     import('./xmas-game.js').then(({ startXmasGame }) => startXmasGame(xmasRoot));
 }
+
+/* ---------- Drucken (Zahlungsübersicht) – ohne Inline-Skript wegen CSP ---------- */
+document.querySelectorAll('[data-print]').forEach((b) => b.addEventListener('click', () => window.print()));

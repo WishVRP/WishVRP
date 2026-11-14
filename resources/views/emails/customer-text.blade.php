@@ -5,7 +5,7 @@ Hallo {{ $firstName }},
 @switch($kind)
 @case('eingang')
 @case('bezahlt')
-{{ $kind === 'eingang' ? 'vielen Dank! Hier ist die Übersicht deiner '.($o->type === 'kurs' ? 'Buchung' : (in_array($o->type, ['anfrage', 'service'], true) ? 'Anfrage' : 'Bestellung')).'.' : 'deine Zahlung ist eingegangen, vielen Dank!'.($o->type === 'kurs' ? ' Dein Kurstag ist damit fest gebucht.' : '') }}
+{{ $kind === 'eingang' ? 'vielen Dank! Hier ist die Übersicht deiner '.($o->type === 'kurs' ? 'Buchung' : (in_array($o->type, ['anfrage', 'service'], true) ? 'Anfrage' : 'Bestellung')).'.' : 'deine Zahlung ist eingegangen, vielen Dank!'.($o->type === 'kurs' ? ' Dein Kurs ist damit verbindlich gebucht – die Kursbestätigung mit allen Infos folgt in Kürze.' : '') }}
 
 Vorgangsnummer: {{ $o->number }}
 @if ($o->type === 'kurs')
@@ -85,8 +85,18 @@ deine Bestellung liegt in der Manufaktur zur Abholung bereit. Ruf an ({{ $c['pho
 laut Versanddienst ist dein Paket angekommen. Wir hoffen, alles ist heil bei dir gelandet und du hast Freude daran.
 Tipp: von Hand spülen, gleich abtrocknen, die Klinge ab und zu leicht einölen.
 @break
+@case('storniert')
+{{ $o->type === 'kurs' ? 'deine Buchung' : 'deine Bestellung' }} {{ $o->number }} ({{ $o->summary() }}) haben wir storniert.{{ $o->type === 'kurs' ? ' Der Kurstag ist damit wieder frei.' : '' }}
+@if ($o->paid_at)
+Den bereits gezahlten Betrag von {{ number_format($o->totalDue(), 2, ',', '.') }} € erstatten wir dir in den nächsten Tagen auf das Konto, von dem du überwiesen hast.{{ $o->cancel_invoice_number ? ' Die Stornorechnung findest du im Anhang.' : '' }}
+@else
+Falls du schon überwiesen hast, erstatten wir dir den Betrag in den nächsten Tagen zurück. Bitte überweise nichts mehr für diesen Vorgang.
+@endif
+Fragen? {{ $c['phone']['display'] }} oder einfach auf diese E-Mail antworten.
+@break
 @case('erinnerung')
-in wenigen Tagen stehst du bei uns an der Esse – wir freuen uns auf dich! Den Termin kannst du über den Anhang in deinen Kalender übernehmen.
+@case('bestaetigt')
+{{ $kind === 'bestaetigt' ? 'dein Kurs ist bestätigt – wir freuen uns auf dich an der Esse! Hier ist alles, was du für deinen Tag wissen musst. Den Termin kannst du über den Anhang in deinen Kalender übernehmen.' : 'in wenigen Tagen stehst du bei uns an der Esse – wir freuen uns auf dich! Den Termin kannst du über den Anhang in deinen Kalender übernehmen.' }}
 
 Kurs: {{ $o->course?->name }} · {{ $o->participants }} {{ $o->participants == 1 ? 'Person' : 'Personen' }}
 Kurstag: {{ $o->course_start?->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}@if ($o->course_end && $o->course_start && ! $o->course_end->isSameDay($o->course_start)) bis {{ $o->course_end->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}@endif

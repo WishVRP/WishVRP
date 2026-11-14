@@ -97,7 +97,7 @@ class BookingCalendarTest extends TestCase
 
         $this->post('/stripe/webhook/', [], ['Stripe-Signature' => 't=1,v1=falsch'])->assertStatus(400);
         $this->webhook('checkout.session.completed')->assertOk();
-        $this->assertSame('bestaetigt', $order->fresh()->status);
+        $this->assertSame('bezahlt', $order->fresh()->status);
         $this->assertNull($order->fresh()->hold_until);
 
         // abgelaufene Zahlung gibt den Tag frei
@@ -132,7 +132,7 @@ class BookingCalendarTest extends TestCase
         $day = now()->addDays(25)->toDateString();
         $this->book('grundlagenkurs', $day, ['teilnehmer' => 2, 'gutschein_code' => strtolower($voucher->code)])->assertRedirect('/zahlung/danke/?o='.Order::latest('id')->value('number'));
         $booking = Order::latest('id')->first();
-        $this->assertSame(['bestaetigt', 'gutschein', '600.00'], [$booking->status, $booking->payment_method, $booking->voucher_amount]);
+        $this->assertSame(['bezahlt', 'gutschein', '600.00'], [$booking->status, $booking->payment_method, $booking->voucher_amount]);
         $this->assertSame('eingeloest', $voucher->fresh()->status);
 
         $this->book('grundlagenkurs', now()->addDays(26)->toDateString(), ['gutschein_code' => $voucher->code])->assertSessionHasErrors('gutschein_code');

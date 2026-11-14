@@ -204,4 +204,20 @@ class CartCheckoutTest extends TestCase
         \App\Support\CustomerMail::send($o, 'eingang');
         $this->assertTrue($o->notes()->where('body', 'like', '%NICHT gesendet%Failed to authenticate%')->exists());
     }
+
+    public function test_payment_overview_after_checkout_and_by_link(): void
+    {
+        config(['ulbrich.bank' => ['holder' => 'Andreas Ulbrich', 'iban' => 'DE02 1203 0000 0000 2020 51', 'bic' => null, 'name' => null]]);
+        $this->post('/warenkorb/hinzufuegen/', ['type' => 'kurs', 'kurs' => 'grundlagenkurs', 'datum' => $this->courseDay(25), 'teilnehmer' => 2]);
+        $this->post('/kasse/', $this->contact)->assertRedirect('/kasse/');
+        $this->get('/kasse/')->assertSee('Zahlungsübersicht mit Bankdaten öffnen');
+        $o = Order::query()->sole();
+        $this->get('/zahlung/uebersicht/')->assertOk()->assertSee('DE02 1203 0000 0000 2020 51')->assertSee($o->number)->assertSee('600,00 €')->assertSee('Drucken');
+
+        // fremde Sitzung ohne Link: nichts sichtbar; mit persönlichem Link aus der E-Mail: sichtbar
+        $this->flushSession();
+        $this->get('/zahlung/uebersicht/')->assertDontSee('DE02 1203')->assertSee('nicht (mehr) verfügbar');
+        $this->get('/zahlung/uebersicht/?t='.$o->manage_token)->assertSee('DE02 1203 0000 0000 2020 51');
+        $this->assertStringContainsString('/zahlung/uebersicht/?t='.$o->manage_token, (new CustomerUpdateMail($o, 'eingang'))->render());
+    }
 }

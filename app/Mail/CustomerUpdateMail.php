@@ -31,6 +31,8 @@ class CustomerUpdateMail extends Mailable
         'zugestellt' => 'Dein Paket ist angekommen',
         'kurs' => 'Danke für deinen Kurstag',
         'erinnerung' => 'Erinnerung an deinen Kurs',
+        'bestaetigt' => 'Kursbestätigung mit Anleitung',
+        'storniert' => 'Stornierung',
     ];
 
     public static function title(Order $o, string $kind): string
@@ -39,8 +41,10 @@ class CustomerUpdateMail extends Mailable
             'eingang' => match ($o->type) {
                 'kurs' => 'Danke für deine Buchung', 'anfrage', 'service' => 'Danke für deine Anfrage', default => 'Danke für deine Bestellung',
             },
-            'bezahlt' => $o->type === 'kurs' ? 'Dein Kurstag ist fest gebucht' : 'Zahlung erhalten',
+            'bezahlt' => $o->type === 'kurs' ? 'Zahlung erhalten – verbindlich gebucht' : 'Zahlung erhalten',
             'erinnerung' => 'Bald geht’s los an der Esse',
+            'bestaetigt' => 'Dein Kurs ist bestätigt',
+            'storniert' => $o->type === 'kurs' ? 'Deine Buchung ist storniert' : 'Deine Bestellung ist storniert',
             default => self::KINDS[$kind],
         };
     }
@@ -54,7 +58,9 @@ class CustomerUpdateMail extends Mailable
                 // AGB § 2: Die automatische Mail bestätigt nur den Eingang; Annahme = Auftragsbestätigung nach Zahlungseingang
                 'kurs' => 'Eingangsbestätigung deiner Kursbuchung', 'gutschein' => 'Eingangsbestätigung deiner Gutscheinbestellung', 'anfrage', 'service' => 'Eingangsbestätigung deiner Anfrage', default => 'Eingangsbestätigung deiner Bestellung',
             },
-            'bezahlt' => 'Auftragsbestätigung – '.($this->order->type === 'kurs' ? 'Zahlung erhalten, dein Kurstag ist fest gebucht' : 'Zahlung erhalten, vielen Dank'),
+            'bezahlt' => 'Auftragsbestätigung – '.($this->order->type === 'kurs' ? 'Zahlung erhalten, dein Kurs ist verbindlich gebucht' : 'Zahlung erhalten, vielen Dank'),
+            'bestaetigt' => 'Kurs bestätigt: alles für deinen Tag an der Esse am '.($this->order->course_start?->locale('de')->isoFormat('D. MMMM YYYY') ?? ''),
+            'storniert' => 'Stornierung deiner '.($this->order->type === 'kurs' ? 'Buchung' : 'Bestellung'),
             'umgebucht' => 'Umbuchung bestätigt: neuer Kurstag',
             'in_arbeit' => 'Wir haben mit deiner Bestellung begonnen',
             'versendet' => 'Dein Paket ist unterwegs',
@@ -71,10 +77,13 @@ class CustomerUpdateMail extends Mailable
     public function attachments(): array
     {
         $o = $this->order;
-        if (in_array($this->kind, ['erinnerung', 'bezahlt', 'umgebucht'], true) && $o->type === 'kurs' && $o->course_start) {
+        if (in_array($this->kind, ['erinnerung', 'bezahlt', 'umgebucht', 'bestaetigt'], true) && $o->type === 'kurs' && $o->course_start) {
             $ics = \App\Support\CourseIcs::make($o);   // Kalendereintrag zum Antippen
         }
         $files = isset($ics) ? [\Illuminate\Mail\Mailables\Attachment::fromData(fn () => $ics, 'Schmiedekurs-'.$o->course_start->format('Y-m-d').'.ics')->withMime('text/calendar')] : [];
+        if ($this->kind === 'storniert' && $o->cancel_invoice_number && ($pdf = \App\Support\Invoice::pdf($o, true))) {
+            return [...$files, \Illuminate\Mail\Mailables\Attachment::fromData(fn () => $pdf, \App\Support\Invoice::filename($o->cancel_invoice_number))->withMime('application/pdf')];
+        }
         if ($this->kind !== 'bezahlt' || ! $o->invoice_number || ! ($pdf = \App\Support\Invoice::pdf($o))) {
             return $files;
         }

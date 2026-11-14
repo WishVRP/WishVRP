@@ -53,7 +53,7 @@ class WithdrawalResource extends Resource
     {
         $w->update(['status' => $status, 'decision_note' => $note, 'decided_at' => now()]);
         if ($status === 'angenommen' && $w->order && $w->order->status !== 'storniert') {
-            $w->order->update(['status' => 'storniert']);   // gibt Kurstag, Lager und Edition-Nummer frei
+            \App\Support\OrderStatusFlow::quietly(fn () => $w->order->update(['status' => 'storniert']));   // gibt Kurstag, Lager und Edition-Nummer frei (Mail kommt als Widerrufsbestätigung)
         }
         if ($w->order) {
             Note::query()->create(['order_id' => $w->order_id, 'user_id' => auth()->id(), 'body' => 'Widerruf '.($status === 'angenommen' ? 'angenommen – Vorgang storniert. Rückzahlung innerhalb von 14 Tagen veranlassen.' : 'abgelehnt: '.$note), 'done_at' => now()]);

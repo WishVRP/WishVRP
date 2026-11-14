@@ -101,7 +101,7 @@ final class OrderAutomation
                 if (($status['statusCode'] ?? null) !== 'delivered') {
                     return;
                 }
-                $order->update(['status' => 'zugestellt', 'delivered_at' => isset($status['timestamp']) ? Carbon::parse($status['timestamp']) : now()]);
+                OrderStatusFlow::quietly(fn () => $order->update(['status' => 'zugestellt', 'delivered_at' => isset($status['timestamp']) ? Carbon::parse($status['timestamp']) : now()]));
                 CustomerMail::send($order, 'zugestellt');
                 $done++;
             });

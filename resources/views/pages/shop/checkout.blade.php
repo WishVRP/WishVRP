@@ -19,9 +19,12 @@
                     @if ($done['shipping_open'])
                         <p>Für dein Land prüfen wir Versand und Einfuhr persönlich und melden uns mit den Versandkosten. Erst danach zahlst du.</p>
                     @elseif ($done['total'] > 0)
-                        <p>Bitte überweise <b>{{ number_format($done['total'], 2, ',', '.') }} €</b>. Die Bankdaten und den Verwendungszweck findest du in der Bestätigung, die wir gerade an <b>{{ $done['email'] }}</b> geschickt haben. @if (count($done['numbers']) > 1) Bei mehreren Vorgängen bekommst du je Vorgang eine E-Mail mit dem jeweiligen Betrag. @endif</p>
+                        <p>Bitte überweise <b>{{ number_format($done['total'], 2, ',', '.') }} €</b>. Die Bankdaten und den Verwendungszweck findest du in der Zahlungsübersicht (Knopf unten) und in der Bestätigung, die wir gerade an <b>{{ $done['email'] }}</b> geschickt haben. @if (count($done['numbers']) > 1) Bei mehreren Vorgängen bekommst du je Vorgang eine E-Mail mit dem jeweiligen Betrag. @endif</p>
                     @else
                         <p>Alles ist bereits durch deinen Gutschein bzw. Rabatt bezahlt. Die Bestätigung kommt per E-Mail an <b>{{ $done['email'] }}</b>.</p>
+                    @endif
+                    @if (! $done['shipping_open'] && $done['total'] > 0)
+                        <p class="checkout-done__pay"><a class="btn btn--primary btn--lg" href="/zahlung/uebersicht/" target="_blank" rel="noopener">Zahlungsübersicht mit Bankdaten öffnen</a></p>
                     @endif
                     <p class="mt-4">Fragen? Ruf an: <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a> oder antworte auf die E-Mail.</p>
                 </div>

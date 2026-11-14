@@ -26,16 +26,29 @@ class OrdersTable
 {
     public static function statusAction(string $name, string $label, string $status, string $color, Heroicon $icon, array $from): Action
     {
+        $mailHint = [
+            'zahlung_offen' => 'Der Kunde bekommt die Zahlungsaufforderung mit Betrag und Bankdaten.',
+            'bezahlt' => 'Der Kunde bekommt die Zahlungsbestätigung mit Rechnung (PDF).',
+            'bestaetigt' => 'Bei Kursen bekommt der Kunde die Kursbestätigung mit Anfahrt, Kleidung, Mitbringen und Kalendereintrag.',
+            'storniert' => 'Der Kunde bekommt die Stornierung (mit Stornorechnung, falls schon eine Rechnung erstellt war). Bereits gezahlte Beträge bitte selbst zurücküberweisen.',
+        ][$status] ?? null;
+
         return Action::make($name)->label($label)->icon($icon)->color($color)
             ->visible(fn (Order $record) => in_array($record->status, $from, true))
-            ->requiresConfirmation($status === 'storniert')
-            ->action(function (Order $record) use ($status, $label) {
-                if ($status === 'bezahlt') {
-                    \App\Support\OrderPaid::paid($record, 'ueberweisung');   // Gutscheincode, Lager, Bestätigungsmail
-                } else {
-                    $record->update(['status' => $status]);
-                }
-                Notification::make()->title("{$record->number}: {$label}")->success()->send();
+            ->modalHeading(fn (Order $record) => $record->number.': '.$label)
+            ->modalDescription($mailHint)
+            ->fillForm(['notify' => true])
+            ->schema($mailHint ? [self::notifyField()] : [])
+            ->action(function (Order $record, array $data) use ($status, $label) {
+                $run = function () use ($record, $status) {
+                    if ($status === 'bezahlt') {
+                        \App\Support\OrderPaid::paid($record, 'ueberweisung');   // Gutscheincode, Lager, Rechnung, Bestätigungsmail
+                    } else {
+                        $record->update(['status' => $status]);
+                    }
+                };
+                ($data['notify'] ?? true) ? $run() : \App\Support\OrderStatusFlow::quietly($run);
+                Notification::make()->title("{$record->number}: {$label}")->body(($data['notify'] ?? true) && $mailHint ? 'E-Mail an '.$record->email.' wird verschickt.' : null)->success()->send();
             });
     }
 
@@ -63,7 +76,7 @@ class OrdersTable
             ])
             ->modalDescription('Status wird „In Arbeit“. Mit Häkchen bekommt der Kunde eine E-Mail: Wir haben begonnen, Fertigung voraussichtlich …')
             ->action(function (Order $record, array $data) {
-                $record->update(['status' => 'in_arbeit', 'production_time' => $data['production_time']]);
+                \App\Support\OrderStatusFlow::quietly(fn () => $record->update(['status' => 'in_arbeit', 'production_time' => $data['production_time']]));
                 $sent = $data['notify'] && CustomerMail::send($record, 'in_arbeit', $data['personal'] ?? null);
                 self::done($record, 'In Arbeit', $sent);
             });
@@ -88,13 +101,13 @@ class OrdersTable
             ])
             ->action(function (Order $record, array $data) {
                 $pickup = $data['method'] === 'abholung';
-                $record->update([
+                \App\Support\OrderStatusFlow::quietly(fn () => $record->update([
                     'status' => 'versendet',
                     'shipping_method' => $pickup ? 'abholung' : 'versand',
                     'tracking_carrier' => $pickup ? null : $data['tracking_carrier'],
                     'tracking_number' => $pickup ? null : (preg_replace('/\s+/', '', (string) ($data['tracking_number'] ?? '')) ?: null),
                     'tracking_url' => $pickup ? null : ($data['tracking_url'] ?? null),
-                ]);
+                ]));
                 $sent = $data['notify'] && CustomerMail::send($record, $pickup ? 'abholbereit' : 'versendet', $data['personal'] ?? null);
                 self::done($record, $pickup ? 'Abholbereit' : 'Versendet', $sent);
             });
@@ -110,7 +123,7 @@ class OrdersTable
             ->modalDescription(fn (Order $record) => $record->tracking_carrier === 'dhl' && config('services.dhl.key')
                 ? 'Hinweis: DHL-Sendungen werden auch automatisch erkannt, sobald sie zugestellt sind.' : null)
             ->action(function (Order $record, array $data) {
-                $record->update(['status' => 'zugestellt']);
+                \App\Support\OrderStatusFlow::quietly(fn () => $record->update(['status' => 'zugestellt']));
                 $sent = $data['notify'] && CustomerMail::send($record, 'zugestellt');
                 self::done($record, 'Zugestellt', $sent);
             });
@@ -164,7 +177,7 @@ class OrdersTable
         return [
             self::statusAction('zahlung_offen', 'Zahlungsdaten gesendet', 'zahlung_offen', 'info', Heroicon::OutlinedEnvelope, ['neu']),
             self::statusAction('bezahlt', 'Zahlung erhalten', 'bezahlt', 'success', Heroicon::OutlinedBanknotes, ['neu', 'zahlung_offen']),
-            self::statusAction('bestaetigt', 'Bestätigen', 'bestaetigt', 'success', Heroicon::OutlinedCheckBadge, ['neu', 'zahlung_offen', 'bezahlt']),
+            self::statusAction('bestaetigt', 'Bestätigen (Kurs: Bestätigung mit Anleitung)', 'bestaetigt', 'success', Heroicon::OutlinedCheckBadge, ['neu', 'zahlung_offen', 'bezahlt']),
             Action::make('bestaetigung')->label('Eingangsbestätigung senden')->icon(Heroicon::OutlinedEnvelope)->color('gray')
                 ->visible(fn (Order $record) => in_array($record->status, ['neu', 'zahlung_offen'], true))
                 ->requiresConfirmation()

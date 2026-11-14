@@ -54,6 +54,7 @@ class Settings extends Page
             'mail_username' => config('mail.mailers.smtp.username') ?: config('ulbrich.email'),
             'mail_from_address' => str_ends_with((string) config('mail.from.address'), 'example.com') || blank(config('mail.from.address')) ? config('ulbrich.email') : config('mail.from.address'),
             'mail_from_name' => config('mail.from.name') ?: config('ulbrich.name'),
+            'booking_opens_on' => config('ulbrich.booking.opens_on'),
             'bank_holder' => config('ulbrich.bank.holder'), 'bank_iban' => config('ulbrich.bank.iban'),
             'bank_bic' => config('ulbrich.bank.bic'), 'bank_name' => config('ulbrich.bank.name'),
         ]);
@@ -67,6 +68,11 @@ class Settings extends Page
     public function form(Schema $schema): Schema
     {
         return $schema->statePath('data')->components([
+            Section::make('Kursbuchung')->description('Ab welchem Tag Kurse im Kalender buchbar sind. Davor ist kein Tag wählbar; gebucht werden kann trotzdem schon jetzt.')
+                ->columns(2)->schema([
+                    \Filament\Forms\Components\DatePicker::make('booking_opens_on')->label('Erster buchbarer Kurstag')->native(false)->displayFormat('d.m.Y')
+                        ->helperText('Leer = ab übermorgen. Aktuell: '.\App\Support\CourseCalendar::first()->format('d.m.Y')),
+                ]),
             Section::make('E-Mail-Versand')->description('Damit Bestellbestätigungen, Rechnungen, Gutscheine und Erinnerungen verschickt werden. Bei IONOS: Postfach info@ mit dessen Passwort.')
                 ->columns(2)->schema([
                     TextInput::make('mail_host')->label('SMTP-Server')->required()->maxLength(120)->placeholder('smtp.ionos.de'),

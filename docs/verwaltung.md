@@ -358,3 +358,15 @@ Ohne SSH: die E-Mail-Vorschau im Adminbereich nutzen (Vorgang → „E-Mail-Vors
 - **Bankverbindung:** Kontoinhaber, IBAN (wird geprüft), BIC, Bank – erscheint in Bestellbestätigung, Rechnung und Markt-Mails.
 - **Stripe:** geheimer Schlüssel und Webhook-Schlüssel können hinterlegt werden; die Online-Zahlung im Shop wird mit einem späteren Update freigeschaltet.
 - Ausgefüllte Werte haben Vorrang vor der `.env`. Passwörter und Schlüssel werden verschlüsselt gespeichert und nie wieder angezeigt; leeres Feld = bisherigen Wert behalten.
+
+## Kursfreigabe, Vorkasse und automatische Status-Mails (14.11.2026)
+
+- **Kurstage buchbar ab:** Verwaltung → Einstellungen → „Erster buchbarer Kurstag“ (Standard 01.01.2027). Davor ist im Kalender kein Tag wählbar; gebucht werden kann schon jetzt.
+- **Vorkasse:** Nach der Kasse erscheint der Knopf „Zahlungsübersicht mit Bankdaten öffnen“ (neues Fenster, druckbar): Betrag, Empfänger, IBAN, Verwendungszweck je Vorgang. Der Link steht auch in der Eingangsbestätigung.
+- **Status ändern = E-Mail an den Kunden** (Knopf in der Liste oder Status-Feld im Vorgang):
+  - Zahlungsdaten gesendet → Zahlungsaufforderung mit Bankdaten
+  - Zahlung erhalten → Zahlungsbestätigung „verbindlich gebucht“ + Rechnung (PDF); Kurse bleiben danach auf „Bezahlt“
+  - Bestätigen (Kurs) → Kursbestätigung mit Beginn, Anfahrt, Parken, Bus, Kleidung, Mitbringen + Kalendereintrag
+  - In Arbeit / Versendet / Zugestellt (Messer) → Status-Mails wie bisher
+  - Stornieren → Stornierung mit Hinweis zur Rückerstattung (+ Stornorechnung, falls schon eine Rechnung bestand). **Rückerstattung selbst überweisen.**
+- Bei den Knöpfen lässt sich die E-Mail per Häkchen abschalten. Jede verschickte (oder fehlgeschlagene) Mail steht als Notiz am Vorgang.

@@ -39,6 +39,8 @@
                 @case('abholbereit') Bestellstatus · Abholbereit @break
                 @case('zugestellt') Bestellstatus · Zugestellt @break
                 @case('erinnerung') Erinnerung · Schmiedekurs @break
+                @case('bestaetigt') Kursbestätigung @break
+                @case('storniert') Stornierung @break
                 @default Schmiedekurs
             @endswitch
         </div>
@@ -85,7 +87,7 @@
                 @break
             @case('bezahlt')
                 @if ($o->type === 'kurs')
-                    <p style="{{ $p }}">deine Zahlung ist eingegangen – dein Kurstag ist damit fest gebucht. Wir freuen uns auf dich an der Esse!</p>
+                    <p style="{{ $p }}">deine Zahlung ist eingegangen, vielen Dank – dein Kurs ist damit <b>verbindlich gebucht</b>. Die Rechnung findest du im Anhang. In Kürze bekommst du von uns die Kursbestätigung mit allem, was du für deinen Tag an der Esse wissen musst.</p>
                 @elseif ($o->type === 'gutschein')
                     <p style="{{ $p }}">deine Zahlung ist eingegangen, vielen Dank! Den Gutschein mit persönlichem Code bekommst du in einer eigenen E-Mail.</p>
                 @else
@@ -113,13 +115,27 @@
                 <p style="{{ $p }}">laut Versanddienst ist dein Paket angekommen. Wir hoffen, alles ist heil bei dir gelandet und du hast Freude an deinem neuen Stück aus unserer Werkstatt.</p>
                 <p style="{{ $p }}">Ein Tipp für lange Freude: von Hand spülen, gleich abtrocknen und die Klinge ab und zu leicht einölen – alles Weitere steht im beiliegenden Pflegeheft und in unserer <a href="{{ rtrim(config('app.url'), '/') }}/downloads/pflegeanleitung-messermanufaktur-ulbrich.pdf" style="color:#2d5f93;">Pflegeanleitung (PDF)</a>.</p>
                 @break
+            @case('storniert')
+                <p style="{{ $p }}">{{ $o->type === 'kurs' ? 'deine Buchung' : 'deine Bestellung' }} <b>{{ $o->number }}</b> ({{ $o->summary() }}) haben wir storniert.@if ($o->type === 'kurs') Der Kurstag ist damit wieder frei.@endif</p>
+                @if ($o->paid_at)
+                    <p style="{{ $p }}">Den bereits gezahlten Betrag von <b>{{ number_format($o->totalDue(), 2, ',', '.') }} €</b> erstatten wir dir in den nächsten Tagen auf das Konto, von dem du überwiesen hast.@if ($o->cancel_invoice_number) Die Stornorechnung findest du im Anhang.@endif</p>
+                @else
+                    <p style="{{ $p }}">Falls du schon überwiesen hast, erstatten wir dir den Betrag in den nächsten Tagen zurück. Bitte überweise nichts mehr für diesen Vorgang.</p>
+                @endif
+                <p style="{{ $p }}">Fragen dazu? Ruf an unter <a href="tel:{{ $c['phone']['e164'] }}" style="color:#2d5f93;">{{ $c['phone']['display'] }}</a> oder antworte auf diese E-Mail.</p>
+                @break
             @case('erinnerung')
+            @case('bestaetigt')
                 @php
                     $info = array_filter(config('ulbrich.course_info', []));
                     $route = 'https://www.google.com/maps/dir/?api=1&destination='.rawurlencode($c['name'].', '.$c['address']['street'].', '.$c['address']['postal_code'].' '.$c['address']['locality']);
                     $cell = 'padding:9px 0;border-bottom:1px solid '.$line.';font-family:Arial,Helvetica,sans-serif;font-size:14px;';
                 @endphp
-                <p style="{{ $p }}">in {{ max(1, (int) now('Europe/Berlin')->startOfDay()->diffInDays($o->course_start, false)) }} {{ (int) now('Europe/Berlin')->startOfDay()->diffInDays($o->course_start, false) === 1 ? 'Tag' : 'Tagen' }} stehst du bei uns an der Esse – wir freuen uns auf dich! Hier ist alles Wichtige auf einen Blick. Den Termin kannst du über den Anhang direkt in deinen Kalender übernehmen.</p>
+                @if ($kind === 'bestaetigt')
+                    <p style="{{ $p }}">dein Kurs ist bestätigt – wir freuen uns auf dich an der Esse! Hier ist alles, was du für deinen Tag bei uns wissen musst. Den Termin kannst du über den Anhang direkt in deinen Kalender übernehmen; drei Tage vorher erinnern wir dich noch einmal.</p>
+                @else
+                    <p style="{{ $p }}">in {{ max(1, (int) now('Europe/Berlin')->startOfDay()->diffInDays($o->course_start, false)) }} {{ (int) now('Europe/Berlin')->startOfDay()->diffInDays($o->course_start, false) === 1 ? 'Tag' : 'Tagen' }} stehst du bei uns an der Esse – wir freuen uns auf dich! Hier ist alles Wichtige auf einen Blick. Den Termin kannst du über den Anhang direkt in deinen Kalender übernehmen.</p>
+                @endif
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;border-top:2px solid {{ $night }};">
                     <tr><td style="{{ $cell }}color:{{ $muted }};width:36%;">Kurs</td><td style="{{ $cell }}">{{ $o->course?->name }} · {{ $o->participants }} {{ $o->participants == 1 ? 'Person' : 'Personen' }}</td></tr>
                     <tr><td style="{{ $cell }}color:{{ $muted }};">{{ $o->course_end && ! $o->course_end->isSameDay($o->course_start) ? 'Kurstage' : 'Kurstag' }}</td><td style="{{ $cell }}font-size:16px;"><b>{{ $o->course_start->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}</b>@if ($o->course_end && ! $o->course_end->isSameDay($o->course_start)) bis {{ $o->course_end->locale('de')->isoFormat('dddd, D. MMMM') }}@endif</td></tr>
@@ -241,6 +257,7 @@
                     @if (! empty($bank['bic']))BIC: {{ $bank['bic'] }}@if (! empty($bank['name'])) · {{ $bank['name'] }}@endif<br>@endif
                     Betrag: <b>{{ number_format($o->totalDue(), 2, ',', '.') }} €</b><br>
                     Verwendungszweck: <b style="font-family:Menlo,Consolas,monospace;">{{ $o->number }}</b>
+                    @if ($o->manage_token)<br><a href="{{ rtrim(config('app.url'), '/') }}/zahlung/uebersicht/?t={{ $o->manage_token }}" style="color:#2d5f93;">Zahlungsübersicht öffnen (zum Drucken)</a>@endif
                 @else
                     Die Zahlungsdaten schicken wir dir in Kürze per E-Mail. Betrag: <b>{{ number_format($o->totalDue(), 2, ',', '.') }} €</b>, Verwendungszweck: <b style="font-family:Menlo,Consolas,monospace;">{{ $o->number }}</b>.
                 @endif

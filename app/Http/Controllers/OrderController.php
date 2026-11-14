@@ -369,7 +369,7 @@ class OrderController extends Controller
             if ($export && $export['action'] === 'gesperrt') {
                 \App\Support\ExportCheck::logBlocked($export, $q['country'], $etype, $data + ['item' => $order->item, 'source_path' => $order->source_path]);
                 $piece?->update(['status' => 'frei', 'order_id' => null, 'buyer_name' => null, 'show_name' => false]);
-                $order->forceFill(['status' => 'storniert', 'export_note' => 'Gesperrt: '.$export['reason']])->save();
+                \App\Support\OrderStatusFlow::quietly(fn () => $order->forceFill(['status' => 'storniert', 'export_note' => 'Gesperrt: '.$export['reason']])->save());
 
                 return back()->withErrors(['country_code' => $export['message']])->withInput();
             }

@@ -196,6 +196,7 @@ return [
     */
     'booking' => [
         'min_days_ahead' => 2,        // frühestens übermorgen (Vorschlag)
+        'opens_on' => env('BOOKING_OPENS_ON', '2027-01-01'),   // erster buchbarer Kurstag (Inhaber, 14.11.2026); änderbar unter Verwaltung → Einstellungen
         'years_ahead' => 5,
         'free_rebookings' => 2,       // kostenlose Umbuchungen je Buchung (Kursbedingungen 12.11.2026)
         'rebook_hours_before' => 48,  // mindestens 48 Stunden vor Beginn des jeweils vereinbarten Termins

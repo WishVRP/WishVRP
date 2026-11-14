@@ -163,16 +163,23 @@ class Order extends Model
         });
 
         static::saved(function (Order $order) {
-            if ($order->wasChanged('status') || $order->wasChanged('public_name')) {
+            // vor weiteren Speichervorgängen festhalten (Rechnung/Storno speichern den Vorgang erneut)
+            $statusChanged = $order->wasChanged('status');   // beim Anlegen false
+            $from = $order->getOriginal('status');
+            if ($statusChanged || $order->wasChanged('public_name')) {
                 $order->syncEditionPiece();
             }
             // Storno nach Rechnung → Stornorechnung (Rechnungen werden nie geändert oder gelöscht)
-            if ($order->wasChanged('status') && $order->status === 'storniert' && $order->invoice_number && ! $order->cancel_invoice_number) {
+            if ($statusChanged && $order->status === 'storniert' && $order->invoice_number && ! $order->cancel_invoice_number) {
                 try {
                     \App\Support\Invoice::cancel($order);
                 } catch (\Throwable $e) {
                     report($e);
                 }
+            }
+            // Automatische Status-Mails (Zahlung erhalten, Kurs bestätigt, Storno …)
+            if ($statusChanged) {
+                \App\Support\OrderStatusFlow::changed($order, $from);
             }
         });
     }

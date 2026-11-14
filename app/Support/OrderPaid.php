@@ -12,13 +12,18 @@ final class OrderPaid
 {
     public static function paid(Order $order, string $method = 'stripe'): void
     {
-        if (in_array($order->status, ['bezahlt', 'bestaetigt', 'in_arbeit', 'versendet', 'zugestellt', 'abgeschlossen'], true)) {
+        if (in_array($order->status, OrderStatusFlow::PAID, true)) {
             return;   // schon verarbeitet (Webhook kann mehrfach kommen)
         }
         $order->forceFill(['payment_method' => $method, 'hold_until' => null])->save();
-        // Kurs und Gutschein sind mit der Zahlung bestätigt; Messer gehen danach in den Versand.
-        $order->update(['status' => in_array($order->type, ['kurs', 'gutschein'], true) ? 'bestaetigt' : 'bezahlt']);
+        // Alle Vorgänge stehen nach Zahlungseingang auf „Bezahlt“; Kurse bestätigt ihr danach selbst (Mail mit Anleitung).
+        $order->update(['status' => 'bezahlt']);   // → OrderStatusFlow::changed → effects()
+    }
 
+    /** Folgen des Zahlungseingangs (Lager, Gutschein, Rechnung, Bestätigungsmail) – aufgerufen beim ersten Wechsel auf „bezahlt“. */
+    public static function effects(Order $order, bool $mail = true): void
+    {
+        $order->forceFill(['hold_until' => null])->saveQuietly();
         // Lager: Warenkorb (mehrere Messer) bzw. Einzelkauf
         $sold = $order->items ? collect($order->items)->map(fn ($i) => [$i['product_id'] ?? null, (int) ($i['qty'] ?? 1)])->all()
             : ($order->product_id ? [[$order->product_id, max(1, (int) $order->quantity)]] : []);
@@ -36,11 +41,13 @@ final class OrderPaid
             Voucher::query()->whereKey($order->voucher_id)->update(['status' => 'eingeloest', 'redeemed_order_id' => $order->id, 'redeemed_at' => now()]);
         }
         try {
-            Invoice::assign($order->fresh());   // Rechnung (PDF) – hängt an der Auftragsbestätigung
+            Invoice::assign($order->fresh());   // Rechnung (PDF) – hängt an der Zahlungsbestätigung
         } catch (\Throwable $e) {
             report($e);
         }
-        self::mailConfirmation($order->fresh());
+        if ($mail) {
+            self::mailConfirmation($order->fresh());
+        }
     }
 
     public static function expired(Order $order): void
@@ -49,7 +56,7 @@ final class OrderPaid
             return;
         }
         $order->forceFill(['hold_until' => null])->save();
-        $order->update(['status' => 'storniert']);   // gibt Kurstag, Edition-Nummer und Lager wieder frei
+        OrderStatusFlow::quietly(fn () => $order->update(['status' => 'storniert']));   // gibt Kurstag, Edition-Nummer und Lager frei – ohne Storno-Mail
         Voucher::query()->where('order_id', $order->id)->update(['status' => 'storniert']);
     }
 

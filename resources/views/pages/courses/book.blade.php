@@ -46,6 +46,9 @@
 
                 <fieldset class="booking__step">
                     <legend><span class="booking__num">2</span> Tag wählen</legend>
+                    @if ($calendar::first()->gt(now()->startOfDay()->addDays((int) config('ulbrich.booking.min_days_ahead'))))
+                        <p class="tech booking__opens">Kurstage sind ab <b>{{ $calendar::first()->locale('de')->isoFormat('D. MMMM YYYY') }}</b> buchbar – du kannst dir deinen Tag schon jetzt sichern.</p>
+                    @endif
                     <div class="cal" data-cal>
                         <div class="cal__head">
                             <button type="button" class="cal__nav" data-cal-prev aria-label="Vorheriger Monat">‹</button>

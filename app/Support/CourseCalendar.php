@@ -17,7 +17,10 @@ final class CourseCalendar
 {
     public static function first(): Carbon
     {
-        return now()->startOfDay()->addDays((int) config('ulbrich.booking.min_days_ahead'));
+        $first = now()->startOfDay()->addDays((int) config('ulbrich.booking.min_days_ahead'));
+        $opens = config('ulbrich.booking.opens_on') ? Carbon::parse(config('ulbrich.booking.opens_on'))->startOfDay() : null;
+
+        return $opens && $opens->gt($first) ? $opens : $first;
     }
 
     public static function last(): Carbon

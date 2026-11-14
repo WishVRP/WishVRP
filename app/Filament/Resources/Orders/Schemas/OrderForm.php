@@ -21,7 +21,8 @@ class OrderForm
             ->components([
                 Section::make('Vorgang')->columns(3)->schema([
                     Select::make('type')->label('Art')->options(Order::TYPES)->required()->default('anfrage')->live(),
-                    Select::make('status')->label('Status')->options(Order::STATUSES)->required()->default('neu'),
+                    Select::make('status')->label('Status')->options(Order::STATUSES)->required()->default('neu')
+                        ->helperText('Beim Speichern eines neuen Status bekommt der Kunde automatisch die passende E-Mail (z. B. Zahlung erhalten, Kurs bestätigt, Storniert).'),
                     \Filament\Forms\Components\Toggle::make('review_consent')->label('Einverstanden mit Bitte um Bewertung per E-Mail')->helperText('Nur ankreuzen, wenn die Person ausdrücklich zugestimmt hat (z. B. am Telefon).'),
                     Select::make('assigned_to')->label('Zuständig')->options(fn () => User::query()->pluck('name', 'id'))->placeholder('niemand'),
                 ]),

@@ -80,6 +80,9 @@ final class RuntimeSettings
             $set('ulbrich.bank.'.$k, 'bank_'.$k);
         }
 
+        // Kurse: erster buchbarer Kurstag
+        $set('ulbrich.booking.opens_on', 'booking_opens_on');
+
         // Stripe: Schlüssel werden gespeichert; aktiv erst, wenn „Online-Zahlung aktiv“ eingeschaltet ist
         if (! empty($s['stripe_enabled'])) {
             $set('services.stripe.secret', 'stripe_secret');

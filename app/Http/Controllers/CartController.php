@@ -222,6 +222,9 @@ class CartController extends Controller
         }
         Cart::clear();
 
+        // Zahlungsübersicht (Bankdaten, Betrag, Verwendungszweck) darf diese Sitzung ohne Link-Token öffnen
+        session(['payment_tokens' => collect($created)->pluck('manage_token')->all()]);
+
         return redirect('/kasse/')->with('checkout_done', [
             'numbers' => collect($created)->pluck('number')->all(),
             'total' => round($total, 2),
