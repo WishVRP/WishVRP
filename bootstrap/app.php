@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\EnsureTrailingSlash;
 use App\Http\Middleware\LegacyRedirects;
+use App\Http\Middleware\MaintenanceScreen;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\StagingPassword;
 use App\Http\Middleware\TrackPageView;
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->web(append: [
+            MaintenanceScreen::class,   // nach der Session, damit angemeldete Verwaltung die Seite sieht
             SecurityHeaders::class,
             TrackPageView::class,
         ]);

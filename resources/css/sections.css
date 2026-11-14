@@ -2437,3 +2437,72 @@
 .market-home .punze-row {
     margin-top: var(--space-5);
 }
+
+/* Wartungshinweis (MAINTENANCE=true) */
+.maintenance {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: var(--space-6) 1rem;
+}
+
+.maintenance__inner {
+    max-width: 36rem;
+    background: transparent;
+}
+
+.maintenance__mark {
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
+    color: var(--temper-straw);
+}
+
+.maintenance__brand {
+    margin-top: var(--space-4);
+    font-family: var(--font-tech);
+    font-size: var(--text-sm);
+    color: rgb(255 255 255 / 0.7);
+}
+
+.maintenance__title {
+    margin-top: var(--space-3);
+    font-size: clamp(2.25rem, 7vw, 3.5rem);
+    line-height: 1.05;
+}
+
+.maintenance__lead {
+    margin-top: var(--space-4);
+    font-size: var(--text-lg);
+    color: rgb(255 255 255 / 0.85);
+}
+
+.maintenance__contact {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-5) 0 0;
+    padding: var(--space-4) 0 0;
+    border-top: 1px solid rgb(255 255 255 / 0.15);
+    list-style: none;
+}
+
+.maintenance__contact span {
+    display: inline-block;
+    min-width: 5.5rem;
+    font-family: var(--font-tech);
+    font-size: var(--text-sm);
+    color: var(--temper-straw);
+}
+
+.maintenance a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+}
+
+.maintenance__legal {
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+    color: rgb(255 255 255 / 0.6);
+}

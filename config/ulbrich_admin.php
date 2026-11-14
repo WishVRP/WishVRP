@@ -13,6 +13,11 @@ return [
     // danach wieder false. Sobald ein Konto existiert, ist die Registrierung ohnehin geschlossen.
     'setup_open' => (bool) env('ADMIN_SETUP_OPEN', false),
 
+    // Wartungsmodus: Besucher sehen nur „Wir bauen um“ (503). Verwaltung, Impressum und Datenschutz bleiben erreichbar.
+    // Ansehen trotz Wartung: in der Verwaltung angemeldet sein oder /?vorschau=MAINTENANCE_PASSWORD öffnen.
+    'maintenance' => (bool) env('MAINTENANCE', false),
+    'maintenance_password' => env('MAINTENANCE_PASSWORD', ''),
+
     // Testumgebung: Passwortschutz für die ganze Seite (leer = aus; in Produktion immer aus).
     'staging_user' => env('STAGING_USER', 'ulbrich'),
     'staging_password' => env('STAGING_PASSWORD', ''),

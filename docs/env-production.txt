@@ -5,6 +5,10 @@
 
 APP_URL=https://messermanufaktur-ulbrich.de
 
+# --- Wartungsmodus: Besucher sehen „Wir bauen um“. Zum Freischalten MAINTENANCE=false ---
+MAINTENANCE=true
+MAINTENANCE_PASSWORD=      # eigenes Wort; Seite trotzdem ansehen: https://messermanufaktur-ulbrich.de/?vorschau=DEINWORT
+
 # --- IONOS-Datenbank (IONOS → Hosting → Datenbanken → Datenbank anklicken) ---
 DB_CONNECTION=mysql
 DB_HOST=            # z. B. db5012345678.hosting-data.io

@@ -98,3 +98,10 @@ Details zu jedem Punkt: `docs/offene-punkte.md` und `docs/verwaltung.md`.
 ## Zeitkritisch
 
 Die **Weihnachtsaktion** läuft bis zum 24.12.2026. Jede Woche später live heißt eine Woche weniger Aktion und weniger Newsletter-Anmeldungen. Der Engpass sind fast immer die **Rechtstexte**, deshalb diese zuerst beauftragen.
+
+## Wartungsmodus (neue Seite liegt schon auf der Hauptdomain, ist aber noch nicht freigeschaltet)
+
+- `.env`: `MAINTENANCE=true` → alle Besucher sehen „Wir bauen gerade um“ mit Telefon, E-Mail und Adresse (HTTP 503 mit `Retry-After`, damit Google die Seite nicht abwertet).
+- Erreichbar bleiben: Verwaltung (`/{ADMIN_PATH}/`), `/impressum/`, `/datenschutz/`, `/up`, Stripe-Webhook.
+- Seite trotzdem ansehen: in der Verwaltung angemeldet sein **oder** einmal `/?vorschau=<MAINTENANCE_PASSWORD>` öffnen (Cookie für 30 Tage). Ohne `MAINTENANCE_PASSWORD` gibt es keinen Vorschau-Link.
+- Freischalten: `MAINTENANCE=false` speichern – sofort live.
