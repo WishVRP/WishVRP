@@ -101,7 +101,7 @@ Die **Weihnachtsaktion** läuft bis zum 24.12.2026. Jede Woche später live hei�
 
 ## Wartungsmodus (neue Seite liegt schon auf der Hauptdomain, ist aber noch nicht freigeschaltet)
 
-- `.env`: `MAINTENANCE=true` → alle Besucher sehen „Wir bauen gerade um“ mit Telefon, E-Mail und Adresse (HTTP 503 mit `Retry-After`, damit Google die Seite nicht abwertet).
+- `.env`: `MAINTENANCE=true` → alle Besucher (auch ohne eingerichtete Datenbank) sehen „Wir bauen gerade um“ mit Telefon, E-Mail und Adresse (HTTP 503 mit `Retry-After`, damit Google die Seite nicht abwertet).
 - Erreichbar bleiben: Verwaltung (`/{ADMIN_PATH}/`), `/impressum/`, `/datenschutz/`, `/up`, Stripe-Webhook.
-- Seite trotzdem ansehen: in der Verwaltung angemeldet sein **oder** einmal `/?vorschau=<MAINTENANCE_PASSWORD>` öffnen (Cookie für 30 Tage). Ohne `MAINTENANCE_PASSWORD` gibt es keinen Vorschau-Link.
+- Seite trotzdem ansehen: einmal `/?vorschau=<MAINTENANCE_PASSWORD>` öffnen (Cookie für 30 Tage). Ohne `MAINTENANCE_PASSWORD` gibt es keinen Vorschau-Link.
 - Freischalten: `MAINTENANCE=false` speichern – sofort live.
