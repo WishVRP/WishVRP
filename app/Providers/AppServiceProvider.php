@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \App\Support\StagingSetup::run();
+        \App\Support\RuntimeSettings::apply();   // E-Mail, Bank, Stripe aus der Verwaltung (Vorrang vor .env)
 
         // Getrennte Limits je Bereich (throttle:8,1 würde einen gemeinsamen Zähler für alle Routen nutzen).
         \Illuminate\Support\Facades\RateLimiter::for('cart', fn (\Illuminate\Http\Request $r) => \Illuminate\Cache\RateLimiting\Limit::perMinute(40)->by('cart|'.$r->ip()));

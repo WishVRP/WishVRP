@@ -350,3 +350,11 @@ Ohne SSH: die E-Mail-Vorschau im Adminbereich nutzen (Vorgang → „E-Mail-Vors
 - **Mehrere Codes erzeugen:** z. B. 20 Einmal-Codes `GEWINN-…` für ein Gewinnspiel.
 - **Per E-Mail senden:** in der Zeile des Codes – Empfänger, Vorname und persönliche Nachricht; die Mail erklärt, wie der Code eingelöst wird.
 - Prozent-Rabatte gelten für alle passenden Positionen einer Bestellung, Euro-Rabatte einmal pro Bestellung und nie über den Warenwert (Versand ist ausgenommen). Eine Bestellung zählt als eine Nutzung.
+
+## Einstellungen: E-Mail, Bank, Zahlung (ohne FTP)
+
+**Verwaltung → Einstellungen** (`/verwaltung/einstellungen`):
+- **E-Mail-Versand:** SMTP-Server (IONOS: `smtp.ionos.de`, Port 587, STARTTLS), Benutzername = komplette Adresse des Postfachs, Passwort des Postfachs, Absender. Oben „Test-E-Mail senden“ zeigt bei Fehlern den genauen Grund.
+- **Bankverbindung:** Kontoinhaber, IBAN (wird geprüft), BIC, Bank – erscheint in Bestellbestätigung, Rechnung und Markt-Mails.
+- **Stripe:** geheimer Schlüssel und Webhook-Schlüssel können hinterlegt werden; die Online-Zahlung im Shop wird mit einem späteren Update freigeschaltet.
+- Ausgefüllte Werte haben Vorrang vor der `.env`. Passwörter und Schlüssel werden verschlüsselt gespeichert und nie wieder angezeigt; leeres Feld = bisherigen Wert behalten.
