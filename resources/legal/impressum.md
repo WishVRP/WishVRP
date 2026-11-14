@@ -15,8 +15,6 @@ Deutschland
 
 **Berufsbezeichnung:** Messerschmied · **Zuständige Kammer:** Handwerkskammer Heilbronn-Franken
 
-**Handelsregister:** **[VOR LIVEGANG ERGÄNZEN: Registergericht und HRA-/HRB-Nummer sowie vollständige eingetragene Firma. Falls entgegen der bisherigen Angabe keine Eintragung vorliegt, diesen Abschnitt entfernen.]**
-
 ## Verbraucherstreitbeilegung
 
 Wir sind weder verpflichtet noch bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.

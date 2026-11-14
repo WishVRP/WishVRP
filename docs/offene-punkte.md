@@ -1,6 +1,6 @@
 # Offene Punkte – alles, was noch nachgetragen werden muss
 
-Stand: 11.11.2026. Gesammelt aus dem gesamten Projektverlauf.
+Stand: 14.11.2026. Gesammelt aus dem gesamten Projektverlauf.
 Abhaken mit `[x]`. Fehlende Angaben stehen auf der Website als neutrale Platzhalter (`<x-ui.missing>`); `php artisan ulbrich:audit` listet sie jederzeit auf.
 
 ---
@@ -75,7 +75,7 @@ Online-Zahlung (Stripe) ist in der Vorschau aus. Buchungen und Käufe laufen des
 Eingebaut sind: Impressum, AGB, Kursbedingungen, Gutscheinbedingungen, Versand & Zahlung (`/versand/#bedingungen`), Widerrufsbelehrung mit Muster-Formular, Online-Widerruf (`/widerrufen/`), lebenslange Schliff-Garantie, Datenschutzerklärung (an die echte Technik angepasst) und der Newsletter-Einwilligungstext. Die Texte liegen in `resources/legal/*.md`. Offene Angaben stehen auf der Seite als „Angabe folgt“.
 
 **Noch auszufüllen (in den Texten markiert):**
-- [ ] **Impressum:** Handelsregister (falls eingetragen) bzw. bestätigen, dass kein Eintrag besteht
+- [x] **Impressum:** kein Handelsregistereintrag (Inhaber, 14.11.2026) – Abschnitt entfernt
 - [ ] **Datenschutz:** Speicherfrist der Server-Logs bei IONOS (im IONOS-Vertrag bzw. Control-Center nachsehen)
 - [ ] **Datenschutz:** Wie lange der Newsletter-Anmeldenachweis nach der Abmeldung aufbewahrt wird (Vorschlag: 3 Jahre)
 - [ ] **Datenschutz:** Speicherdauer der Teilnahmedaten der Weihnachtsaktion (Vorschlag: bis 31.03.2027)
@@ -136,10 +136,10 @@ Eingebaut sind: Impressum, AGB, Kursbedingungen, Gutscheinbedingungen, Versand &
 - [ ] Dürfen andere Personen an einem schon gebuchten Tag dazukommen?
 - [ ] Tagesablauf des Damastkurses, Uhrzeiten
 - [ ] Mindestalter
-- [ ] Kleidung und Sicherheit (feste Schuhe, Baumwolle …)
+- [x] Kleidung und Sicherheit (13.11.2026)
 - [ ] Übernachtungstipps
 - [ ] Öffnungszeiten (wie im Google-Profil)
-- [ ] Parken und Anfahrt mit ÖPNV
+- [x] Parken und Anfahrt mit Bus (13.11.2026; Bahn noch bestätigen)
 - [ ] Außenfoto der Werkstatt
 
 ### Leistungen und Preise
@@ -164,7 +164,7 @@ Eingebaut sind: Impressum, AGB, Kursbedingungen, Gutscheinbedingungen, Versand &
 - [ ] Partner: welche Kooperationen gibt es konkret?
 
 ### Bewertungen, Fotos, Referenzen
-- [ ] **Google-Bewertungen automatisch:** API-Schlüssel für die „Places API (New)“ in der Google Cloud anlegen, in die `.env` (`GOOGLE_PLACES_KEY`) eintragen, dann Verwaltung → Bewertungen → „Google verbinden“. Schritt für Schritt in `docs/verwaltung.md`.
+- [ ] **Google-Bewertungen automatisch** (laut Google-Doku Stufe „Enterprise + Atmosphere“; bei stündlichem Abruf ≈ 720 Abrufe/Monat, Freikontingent bei Google prüfen, Tageslimit setzen): API-Schlüssel für die „Places API (New)“ in der Google Cloud anlegen, in die `.env` (`GOOGLE_PLACES_KEY`) eintragen, dann Verwaltung → Bewertungen → „Google verbinden“. Schritt für Schritt in `docs/verwaltung.md`.
 - [ ] Freigegebene Kursfotos und Projektbeschreibungen
 - [ ] Zebrano- und Rotholz-Bilder: KI-Hintergrund oder echt? Falls KI, besser durch echte Fotos ersetzen.
 - [ ] **Neue Fotos** für die Website liefern (Wunsch: Bilder überarbeiten). So geht's: `docs/fotos.md` → „Neue Fotos – so liefern“. Dateinamen, Alttexte und Bild-Sitemap werden dann automatisch passend angelegt.
