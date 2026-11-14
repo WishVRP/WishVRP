@@ -21,12 +21,14 @@ return Application::configure(basePath: dirname(__DIR__))
         // Reihenfolge wichtig: erst Alt-URL → Ziel (ein Sprung), dann Slash-Normalisierung.
         $middleware->prepend([
             StagingPassword::class,
+            MaintenanceScreen::class,   // vor Session/Datenbank: Wartungsseite klappt auch ohne eingerichtete DB
             LegacyRedirects::class,
             EnsureTrailingSlash::class,
         ]);
 
+        $middleware->encryptCookies(except: [MaintenanceScreen::COOKIE]);
+
         $middleware->web(append: [
-            MaintenanceScreen::class,   // nach der Session, damit angemeldete Verwaltung die Seite sieht
             SecurityHeaders::class,
             TrackPageView::class,
         ]);

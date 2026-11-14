@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -38,11 +37,6 @@ class MaintenanceTest extends TestCase
         $res = $this->get('/?vorschau=esse2027')->assertRedirect();
         $cookie = collect($res->headers->getCookies())->first(fn ($c) => $c->getName() === 'ulbrich_preview');
         $this->withUnencryptedCookie('ulbrich_preview', $cookie->getValue())->get('/')->assertOk()->assertHeader('X-Robots-Tag', 'noindex, nofollow');
-    }
-
-    public function test_logged_in_admin_sees_site(): void
-    {
-        $this->actingAs(User::factory()->create())->get('/')->assertOk();
     }
 
     public function test_no_password_means_no_preview_link(): void
