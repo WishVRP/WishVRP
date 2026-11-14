@@ -76,12 +76,7 @@ Eingebaut sind: Impressum, AGB, Kursbedingungen, Gutscheinbedingungen, Versand &
 
 **Noch auszufüllen (in den Texten markiert):**
 - [x] **Impressum:** kein Handelsregistereintrag (Inhaber, 14.11.2026) – Abschnitt entfernt
-- [ ] **Datenschutz:** Speicherfrist der Server-Logs bei IONOS (im IONOS-Vertrag bzw. Control-Center nachsehen)
-- [ ] **Datenschutz:** Wie lange der Newsletter-Anmeldenachweis nach der Abmeldung aufbewahrt wird (Vorschlag: 3 Jahre)
-- [ ] **Datenschutz:** Speicherdauer der Teilnahmedaten der Weihnachtsaktion (Vorschlag: bis 31.03.2027)
-- [ ] **Datenschutz:** Speicherdauer abgelehnter und abgeschlossener Markt-Bewerbungen
-- [ ] **Datenschutz:** Kanäle für Kursfotos (Website, Instagram, Facebook …?) und Löschfristen
-- [ ] **Datenschutz:** Übermittlungsmechanismen der Zahlungsdienstleister (Stripe/SumUp: EU-US Data Privacy Framework bzw. Standardvertragsklauseln) bestätigen
+- [x] **Datenschutz:** offene Stellen am 14.11.2026 mit allgemeinen, vorsichtigen Formulierungen gefüllt (Logs „so lange wie erforderlich“, Newsletter-Nachweis max. 3 Jahre, Weihnachtsaktion/Markt „sobald nicht mehr benötigt“, Fotos: Löschung nach Widerruf, Drittland: DPF/Standardvertragsklauseln) – bitte gelegentlich anwaltlich bestätigen
 - [ ] **Weihnachtsaktion:** Beginn der Aktion, Mindestalter und teilnahmeberechtigte Länder (`config/ulbrich.php` → `xmas`). Die Vorlage 10 aus dem Paket wurde nicht unverändert veröffentlicht; die Bedingungen auf `/weihnachtsaktion/` folgen ihrem Aufbau und lesen die Fakten aus der Konfiguration.
 
 **Bitte entscheiden bzw. bestätigen:**

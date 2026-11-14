@@ -8,7 +8,7 @@ Andreas Ulbrich, Messermanufaktur Ulbrich, Wannenstraße 33, 74196 Neuenstadt am
 
 ## 2. Besuch der Website und Hosting
 
-Beim Aufruf dieser Website fallen technisch erforderliche Verbindungs- und Serverprotokolldaten an, beispielsweise IP-Adresse, Zeitpunkt, angefragte Seite und technische Informationen zum Browser. Wir verarbeiten diese Daten zur sicheren Bereitstellung, Fehleranalyse und Abwehr von Angriffen (Art. 6 Abs. 1 Buchst. f DSGVO). Website und E-Mail werden bei der IONOS SE, Elgendorfer Str. 57, 56410 Montabaur, Deutschland, gehostet; mit IONOS besteht ein Vertrag zur Auftragsverarbeitung. [LOG-SPEICHERFRIST BEI IONOS VOR VERÖFFENTLICHUNG ERGÄNZEN]
+Beim Aufruf dieser Website fallen technisch erforderliche Verbindungs- und Serverprotokolldaten an, beispielsweise IP-Adresse, Zeitpunkt, angefragte Seite und technische Informationen zum Browser. Wir verarbeiten diese Daten zur sicheren Bereitstellung, Fehleranalyse und Abwehr von Angriffen (Art. 6 Abs. 1 Buchst. f DSGVO). Website und E-Mail werden bei der IONOS SE, Elgendorfer Str. 57, 56410 Montabaur, Deutschland, gehostet; mit IONOS besteht ein Vertrag zur Auftragsverarbeitung. Die Protokolldaten werden nur so lange gespeichert, wie es für diese Zwecke erforderlich ist, und anschließend automatisch gelöscht.
 
 Die Website lädt keine Schriften, Skripte, Karten oder sonstigen Inhalte von fremden Servern. Alle Schriften und Bilder liegen auf unserem eigenen Webspace.
 
@@ -57,19 +57,19 @@ Karten von Google Maps binden wir nicht ein. Über einen Link „Route in Google
 
 ## 9. Newsletter
 
-Für den Newsletter verarbeiten wir nach Ihrer ausdrücklichen Einwilligung Ihre E-Mail-Adresse sowie Nachweise zur Anmeldung (Einwilligungstext, Zeitpunkt der Anmeldung und der Bestätigung). Wir nutzen ein Bestätigungsverfahren (Double-Opt-In). Der Versand erfolgt über unseren eigenen Mailserver bei IONOS; wir werten keine Öffnungen oder Klicks aus. Sie können sich jederzeit über den Abmeldelink in jeder Nachricht oder per E-Mail abmelden. Rechtsgrundlage ist Art. 6 Abs. 1 Buchst. a DSGVO. [SPEICHERDAUER DES ANMELDENACHWEISES NACH ABMELDUNG FESTLEGEN]
+Für den Newsletter verarbeiten wir nach Ihrer ausdrücklichen Einwilligung Ihre E-Mail-Adresse sowie Nachweise zur Anmeldung (Einwilligungstext, Zeitpunkt der Anmeldung und der Bestätigung). Wir nutzen ein Bestätigungsverfahren (Double-Opt-In). Der Versand erfolgt über unseren eigenen Mailserver bei IONOS; wir werten keine Öffnungen oder Klicks aus. Sie können sich jederzeit über den Abmeldelink in jeder Nachricht oder per E-Mail abmelden. Rechtsgrundlage ist Art. 6 Abs. 1 Buchst. a DSGVO. Nach einer Abmeldung bewahren wir den Anmeldenachweis nur so lange auf, wie wir die frühere Einwilligung nachweisen müssen, längstens bis zum Ablauf der gesetzlichen Verjährungsfrist von drei Jahren.
 
 ## 10. Weihnachtsaktion, Kunst- & Handwerkermarkt, Foto- und Videoaufnahmen
 
-**Weihnachtsaktion:** Für die Teilnahme verarbeiten wir Ihre E-Mail-Adresse (Bestätigung per Link, Schutz vor Mehrfachteilnahme), Ihr Spielergebnis und den daraus erzeugten Rabattcode. Die Teilnahme meldet Sie nicht automatisch zum Newsletter an; dafür gibt es eine eigene, freiwillige Einwilligung. Weitere Informationen finden Sie in den Teilnahmebedingungen der Aktion. [SPEICHERDAUER DER TEILNAHMEDATEN FESTLEGEN]
+**Weihnachtsaktion:** Für die Teilnahme verarbeiten wir Ihre E-Mail-Adresse (Bestätigung per Link, Schutz vor Mehrfachteilnahme), Ihr Spielergebnis und den daraus erzeugten Rabattcode. Die Teilnahme meldet Sie nicht automatisch zum Newsletter an; dafür gibt es eine eigene, freiwillige Einwilligung. Weitere Informationen finden Sie in den Teilnahmebedingungen der Aktion. Die Teilnahmedaten löschen wir, sobald sie für die Durchführung der Aktion und die Einlösung der Rabattcodes nicht mehr benötigt werden, soweit keine gesetzlichen Aufbewahrungspflichten bestehen.
 
-**Markt-Bewerbungen:** Bewerben Sie sich als Aussteller, verarbeiten wir Kontaktdaten, Angaben zum Sortiment und die hochgeladenen Fotos zur Prüfung der Bewerbung und Durchführung des Standmietvertrags (Art. 6 Abs. 1 Buchst. b DSGVO). Die Fotos sind nicht öffentlich abrufbar. [SPEICHERDAUER ABGELEHNTER UND ABGESCHLOSSENER BEWERBUNGEN FESTLEGEN]
+**Markt-Bewerbungen:** Bewerben Sie sich als Aussteller, verarbeiten wir Kontaktdaten, Angaben zum Sortiment und die hochgeladenen Fotos zur Prüfung der Bewerbung und Durchführung des Standmietvertrags (Art. 6 Abs. 1 Buchst. b DSGVO). Die Fotos sind nicht öffentlich abrufbar. Abgelehnte Bewerbungen löschen wir einschließlich der Fotos, sobald sie nicht mehr benötigt werden; Unterlagen zu abgeschlossenen Standmietverträgen bewahren wir im Rahmen der gesetzlichen Aufbewahrungsfristen auf.
 
-**Foto- und Videoaufnahmen:** Veröffentlichungen erkennbarer Kursteilnehmer für Werbung erfolgen nur auf Grundlage einer gesonderten freiwilligen Einwilligung. Eine Einwilligung ist mit Wirkung für die Zukunft widerrufbar. [VERÖFFENTLICHUNGSKANÄLE UND LÖSCHFRISTEN BESTÄTIGEN]
+**Foto- und Videoaufnahmen:** Veröffentlichungen erkennbarer Kursteilnehmer für Werbung erfolgen nur auf Grundlage einer gesonderten freiwilligen Einwilligung. Eine Einwilligung ist mit Wirkung für die Zukunft widerrufbar. Nach einem Widerruf veröffentlichen wir die Aufnahmen nicht weiter und entfernen sie, soweit uns möglich, aus unseren Kanälen.
 
 ## 11. Empfänger und Drittlandübermittlungen
 
-Daten werden nur weitergegeben, soweit dies für die beschriebenen Zwecke erforderlich ist: an unseren Hosting- und E-Mail-Anbieter IONOS, an Versanddienstleister und gegebenenfalls Zollbehörden, an Stripe bzw. SumUp für Zahlungen sowie an gesetzlich berechtigte Stellen. Für Datenübermittlungen außerhalb des Europäischen Wirtschaftsraums gelten die Voraussetzungen der Art. 44 ff. DSGVO. [ÜBERMITTLUNGSMECHANISMEN DER ZAHLUNGSDIENSTLEISTER BESTÄTIGEN]
+Daten werden nur weitergegeben, soweit dies für die beschriebenen Zwecke erforderlich ist: an unseren Hosting- und E-Mail-Anbieter IONOS, an Versanddienstleister und gegebenenfalls Zollbehörden, an Stripe bzw. SumUp für Zahlungen sowie an gesetzlich berechtigte Stellen. Für Datenübermittlungen außerhalb des Europäischen Wirtschaftsraums gelten die Voraussetzungen der Art. 44 ff. DSGVO. Soweit Zahlungsdienstleister Daten außerhalb des EWR verarbeiten, geschieht dies auf Grundlage eines Angemessenheitsbeschlusses der EU-Kommission (etwa des EU-US Data Privacy Framework) oder von EU-Standardvertragsklauseln.
 
 ## 12. Aufbewahrung
 
