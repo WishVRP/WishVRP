@@ -48,19 +48,25 @@ class OrderController extends Controller
      *
      * @return array{0: XmasEntry|DiscountCode|null, 1: int|null}
      */
-    private function discount(array $data): array
+    public function discount(array $data, ?string $type = null, ?float $value = null): array
     {
         if (blank($data['discount_code'] ?? null)) {
             return [null, null];
         }
         $fail = fn (string $msg) => throw \Illuminate\Validation\ValidationException::withMessages(['discount_code' => $msg]);
 
-        if ($news = DiscountCode::redeemable($data['discount_code'])) {
-            if ($news->email_key !== XmasEntry::emailKey($data['email'] ?? '')) {
+        if ($code = DiscountCode::redeemable($data['discount_code'])) {
+            if ($code->email_key && $code->email_key !== XmasEntry::emailKey($data['email'] ?? '')) {
                 $fail('Dieser Rabattcode gilt nur zusammen mit der E-Mail-Adresse, an die er geschickt wurde.');
             }
+            if ($type && ! $code->appliesTo($type)) {
+                $fail('Dieser Rabattcode gilt hier nicht ('.$code->scopeLabel().').');
+            }
+            if ($value !== null && $code->min_order !== null && $value < (float) $code->min_order) {
+                $fail('Dieser Rabattcode gilt ab einem Bestellwert von '.number_format((float) $code->min_order, 2, ',', '.').' €.');
+            }
 
-            return [$news, $news->percent];
+            return [$code, $code->percent];
         }
 
         $entry = XmasEntry::redeemable($data['discount_code']);
@@ -94,17 +100,22 @@ class OrderController extends Controller
         return [$entry, $entry->percent];
     }
 
-    private function applyDiscount(?Order $order, XmasEntry|DiscountCode|null $entry): void
+    public function applyDiscount(?Order $order, XmasEntry|DiscountCode|null $entry, bool $redeem = true): void
     {
         if (! $order || ! $entry) {
             return;
         }
+        $base = $order->amount !== null ? (float) $order->amount : null;
+        $off = $base === null ? null : ($entry instanceof DiscountCode ? $entry->discountFor($base) : round($base * $entry->percent / 100, 2));
         $order->forceFill([
             'discount_code' => $entry->code,
             'discount_percent' => $entry->percent,
-            'amount' => $order->amount !== null ? round((float) $order->amount * (100 - $entry->percent) / 100, 2) : null,
+            'discount_amount' => $off,
+            'amount' => $base !== null ? round($base - $off, 2) : null,
         ])->save();
-        $entry->update(['redeemed_at' => now(), 'order_id' => $order->id]);
+        if ($redeem) {
+            $entry instanceof DiscountCode ? $entry->redeem($order) : $entry->update(['redeemed_at' => now(), 'order_id' => $order->id]);
+        }
     }
 
     private function isSpam(Request $request): bool
@@ -139,7 +150,7 @@ class OrderController extends Controller
         if (! $course || ! CourseCalendar::bookable($course)) {
             return back()->withErrors(['kurs' => 'Bitte wähle einen online buchbaren Kurs.'])->withInput();
         }
-        [$disc] = $this->discount($data);
+        [$disc] = $this->discount($data, 'kurs', (float) $course->price_from * (int) $data['teilnehmer']);
         $voucher = null;
         if (filled($data['gutschein_code'] ?? null)) {
             $voucher = Voucher::usable($data['gutschein_code']);
@@ -186,9 +197,9 @@ class OrderController extends Controller
     /** Für Produktkäufe: Rabattcode anwenden und Zahlung auslösen (Versand als eigene Position). */
     public function payOrder(Order $order, array $data, string $fallbackRedirect): RedirectResponse
     {
-        [$disc] = $this->discount($data);
+        [$disc] = $this->discount($data, $order->type, (float) $order->amount);
         $this->applyDiscount($order, $disc);
-        $lines = [['name' => $order->item.($order->discount_percent ? " (−{$order->discount_percent} %)" : ''), 'amount' => (float) $order->amount]];
+        $lines = [['name' => $order->item.($order->discount_code ? ' (Rabatt '.$order->discount_code.')' : ''), 'amount' => (float) $order->amount]];
         if ((float) $order->shipping_amount > 0) {
             $lines[] = ['name' => 'Versand nach '.($order->country ?: 'Deutschland').($order->shipping_note ? ' ('.\Illuminate\Support\Str::before($order->shipping_note, ' ·').')' : ''), 'amount' => (float) $order->shipping_amount];
         }
@@ -257,7 +268,7 @@ class OrderController extends Controller
         if (! $course || ! CourseCalendar::bookable($course)) {
             return back()->withErrors(['kurs' => 'Bitte wähle einen Kurs.'])->withInput();
         }
-        [$disc] = $this->discount($data);
+        [$disc] = $this->discount($data, 'gutschein');
         $value = $course->price_from * $data['personen'];
 
         $order = Order::create([
@@ -302,7 +313,7 @@ class OrderController extends Controller
             'number' => ['nullable', 'integer', 'min:1', 'max:'.config('ulbrich.edition.total')],
             'public_name' => ['nullable', 'string', 'max:80'],
         ], self::MESSAGES);
-        [$xmas] = $this->discount($data);
+        [$xmas] = $this->discount($data, in_array($data['type'], ['messer', 'kurs', 'gutschein'], true) ? $data['type'] : null);
         $quantity = $data['quantity'] ?? 1;
         $item = $data['item'] ?? null;
         $amount = null;

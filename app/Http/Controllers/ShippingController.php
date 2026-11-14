@@ -18,7 +18,16 @@ class ShippingController extends Controller
             'ort' => ['nullable', 'string', 'max:120'],
             'produkt' => ['nullable', 'integer'],
             'edition' => ['nullable', 'boolean'],
+            'warenkorb' => ['nullable', 'boolean'],
         ]);
+        if (! empty($data['warenkorb'])) {
+            $lines = \App\Support\Cart::lines();
+            $q = Shipping::quote($data['land'], \App\Support\Cart::weight($lines), $data['plz'] ?? null, $data['ort'] ?? null);
+            $export = \App\Support\Cart::export($lines, $data['land']) ?? ['action' => 'erlaubt', 'message' => null];
+            $customs = \App\Support\Customs::estimate($data['land'], \App\Support\Cart::subtotal($lines, 'product'), (float) ($q['price'] ?? 0));
+
+            return $this->respond($q, $export, $customs);
+        }
         $product = ! empty($data['produkt']) ? Product::query()->find($data['produkt']) : null;
         $q = Shipping::quote($data['land'], $product?->weight_g, $data['plz'] ?? null, $data['ort'] ?? null);
         $type = $product ? $product->knife_type : (! empty($data['edition']) ? config('ulbrich.export.edition_type') : null);
@@ -26,6 +35,11 @@ class ShippingController extends Controller
         $value = $product ? (float) $product->price : (! empty($data['edition']) ? (float) config('ulbrich.edition.price') : 0.0);
         $customs = \App\Support\Customs::estimate($data['land'], $value, (float) ($q['price'] ?? 0));
 
+        return $this->respond($q, $export, $customs);
+    }
+
+    private function respond(array $q, array $export, array $customs): JsonResponse
+    {
         return response()->json($q + [
             'formatted' => $q['price'] !== null ? number_format($q['price'], 2, ',', '.').' €' : null,
             'note' => $q['price'] === null

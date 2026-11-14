@@ -172,7 +172,9 @@ class OrderFulfillmentTest extends TestCase
     public function test_consent_checkbox_on_website_form_is_stored(): void
     {
         $this->seed(CourseSeeder::class);
-        $html = $this->get('/schmiedekurse/buchen/')->getContent();
+        $course = \App\Models\Course::query()->where('slug', 'grundlagenkurs')->first();
+        $html = $this->withSession(['cart' => ['k1' => ['type' => 'kurs', 'course' => $course->slug, 'date' => now()->addDays(20)->toDateString(), 'persons' => 1]]])
+            ->get('/kasse/')->getContent();
         $this->assertStringContainsString('name="review_consent"', $html);
         $this->assertDoesNotMatchRegularExpression('/name="review_consent"[^>]*checked/', $html, 'nie vorausgewählt');
 

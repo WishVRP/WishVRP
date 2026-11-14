@@ -43,6 +43,10 @@ class OrderForm
                     TextInput::make('preferred_date')->label('Wunschtermin')->maxLength(120)->columnSpanFull(),
                 ]),
                 Section::make('Artikel & Betrag')->columns(3)->schema([
+                    \Filament\Forms\Components\Placeholder::make('items_list')->label('Warenkorb')->columnSpanFull()
+                        ->visible(fn (?Order $record) => (bool) $record?->items)
+                        ->content(fn (?Order $record) => new \Illuminate\Support\HtmlString(collect($record?->items ?? [])->map(fn ($i) => e($i['qty'].' × '.$i['name'].' à '.number_format((float) $i['price'], 2, ',', '.').' €'))->implode('<br>')
+                            .($record?->discountOff() > 0 ? '<br>Rabatt: − '.number_format($record->discountOff(), 2, ',', '.').' €' : ''))),
                     TextInput::make('item')->label('Artikel / Leistung')->maxLength(190),
                     TextInput::make('quantity')->label('Menge')->numeric()->minValue(1)->default(1),
                     TextInput::make('amount')->label('Betrag (€, ohne Versand, nach Rabatt)')->numeric()->step(0.01),

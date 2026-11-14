@@ -1,6 +1,5 @@
 {{--
-    Buchung: Kurs → freier Tag im Kalender (ein Kurs pro Tag, bis 5 Jahre im Voraus) → Personen → Daten → Zahlung.
-    Mit Stripe: Bezahlung direkt online, der Tag ist während der Zahlung reserviert. Ohne Stripe: Anfrage + Überweisung.
+    Buchung: Kurs → freier Tag im Kalender (ein Kurs pro Tag, bis 5 Jahre im Voraus) → Personen → Warenkorb → Kasse (Überweisung).
 --}}
 @php
     $calendar = \App\Support\CourseCalendar::class;
@@ -8,11 +7,10 @@
     $selected = $bookable->first(fn ($co) => in_array(request('kurs'), array_filter([$co->booking_key, \Illuminate\Support\Str::slug($co->name), $co->slug]), true)) ?? $bookable->first();
     $max = (int) config('ulbrich.booking.max_persons');
     $persons = max(1, min($max, (int) old('teilnehmer', request('teilnehmer', 1))));
-    $online = \App\Support\Stripe::enabled();
 @endphp
 <x-layouts.site :meta="$meta" :schema="$schema" :current="$path">
     <x-page.hero :meta="$meta" title="Schmiedekurs buchen" kicker="Buchung" tone="straw"
-        lead="Kurs wählen, freien Tag im Kalender aussuchen, Personen angeben{{ $online ? ' und direkt online bezahlen' : '' }}. Pro Tag findet nur ein Kurs statt – dein Tag gehört dir." />
+        lead="Kurs wählen, freien Tag im Kalender aussuchen, Personen angeben und in den Warenkorb legen. Pro Tag findet nur ein Kurs statt – dein Tag gehört dir." />
 
     <section class="block" aria-label="Buchungsformular">
         <div class="container booking">
@@ -22,10 +20,10 @@
                     <p>Vorgangsnummer <strong>{{ session('order_ok') }}</strong>. Du bekommst eine Bestätigung per E-Mail und von uns die Zahlungsdaten. Dein Tag ist für dich vorgemerkt.</p>
                 </div>
             @endif
-            <form class="booking__form" id="booking-form" method="post" action="/schmiedekurse/buchen/" data-booking
+            <form class="booking__form" id="booking-form" method="post" action="{{ route('cart.add') }}" data-booking
                   data-availability="/schmiedekurse/verfuegbarkeit/" data-first="{{ $calendar::first()->toDateString() }}" data-last="{{ $calendar::last()->toDateString() }}">
                 @csrf
-                <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <input type="hidden" name="type" value="kurs">
 
                 <fieldset class="booking__step">
                     <legend><span class="booking__num">1</span> Kurs wählen</legend>
@@ -74,20 +72,6 @@
                     <x-ui.missing silent>Maximale Teilnehmerzahl je Kurs (vorläufig {{ $max }})</x-ui.missing>
                 </fieldset>
 
-                <fieldset class="booking__step">
-                    <legend><span class="booking__num">4</span> Deine Daten</legend>
-                    @include('pages.partials.contact-fields')
-                    <label class="field">
-                        <span class="field__label">Gutscheincode (optional)</span>
-                        <input type="text" name="gutschein_code" maxlength="20" autocomplete="off" value="{{ old('gutschein_code') }}" placeholder="GS-…">
-                        @error('gutschein_code')<span class="field__error" role="alert">{{ $message }}</span>@enderror
-                    </label>
-                    <label class="check">
-                        <input type="checkbox" name="bedingungen" value="1" required @checked(old('bedingungen'))>
-                        <span>Ich habe die <a href="/kursbedingungen/">Kursbedingungen</a>, die <a href="/agb/">AGB</a> und die <a href="/widerruf/">Widerrufsbelehrung</a> gelesen.</span>
-                    </label>
-                    @error('bedingungen')<p class="field__error" role="alert">{{ $message }}</p>@enderror
-                </fieldset>
             </form>
 
             <aside class="booking__summary" aria-labelledby="summary-title" data-booking-summary>
@@ -100,14 +84,10 @@
                     <div class="spec__row"><dt>Preis p. P.</dt><dd data-sum-price>–</dd></div>
                 </dl>
                 <p class="booking__total"><span>Gesamt</span><strong data-sum-total>–</strong></p>
-                <p class="tech muted">Gutschein- und Rabattcodes werden beim Absenden verrechnet. <x-ui.tax-note /></p>
-                <button type="submit" form="booking-form" class="btn btn--primary btn--lg booking__pay">{{ $online ? 'Zahlungspflichtig buchen' : 'Buchung anfragen' }}</button>
-                <x-page.note id="pay-note" title="{{ $online ? 'Sicher bezahlen' : 'So geht es weiter' }}">
-                    @if ($online)
-                        Du wirst zur sicheren Zahlung (Stripe) weitergeleitet. Der Tag ist {{ config('ulbrich.booking.hold_minutes') }} Minuten für dich reserviert und mit der Zahlung fest gebucht.
-                    @else
-                        Du bekommst eine Bestätigung per E-Mail und von uns die Zahlungsdaten für die Überweisung. Lieber telefonisch? <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a>
-                    @endif
+                <p class="tech muted">Gutschein- und Rabattcodes löst du an der Kasse ein. <x-ui.tax-note /></p>
+                <button type="submit" form="booking-form" class="btn btn--primary btn--lg booking__pay">In den Warenkorb</button>
+                <x-page.note id="pay-note" title="So geht es weiter">
+                    Im Warenkorb kannst du weitere Kurse oder Messer dazulegen. An der Kasse gibst du deine Daten ein und zahlst per Überweisung – die Bankdaten kommen per E-Mail, dein Tag ist ab der Bestellung für dich vorgemerkt. Online-Zahlung folgt bald. Lieber telefonisch? <a href="tel:{{ $c['phone']['e164'] }}">{{ $c['phone']['display'] }}</a>
                 </x-page.note>
                 <ul class="booking__rules" role="list">
                     @foreach ($c['booking_rules'] as $rule)<li>{{ $rule }}</li>@endforeach

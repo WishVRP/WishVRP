@@ -19,9 +19,14 @@ final class OrderPaid
         // Kurs und Gutschein sind mit der Zahlung bestätigt; Messer gehen danach in den Versand.
         $order->update(['status' => in_array($order->type, ['kurs', 'gutschein'], true) ? 'bestaetigt' : 'bezahlt']);
 
-        if ($order->product_id && ($p = Product::find($order->product_id))) {
-            $left = max(0, $p->stock - max(1, (int) $order->quantity));
-            $p->update(['stock' => $left, 'status' => $left === 0 ? 'verkauft' : $p->status]);
+        // Lager: Warenkorb (mehrere Messer) bzw. Einzelkauf
+        $sold = $order->items ? collect($order->items)->map(fn ($i) => [$i['product_id'] ?? null, (int) ($i['qty'] ?? 1)])->all()
+            : ($order->product_id ? [[$order->product_id, max(1, (int) $order->quantity)]] : []);
+        foreach ($sold as [$productId, $qty]) {
+            if ($productId && ($p = Product::find($productId))) {
+                $left = max(0, $p->stock - max(1, $qty));
+                $p->update(['stock' => $left, 'status' => $left === 0 ? 'verkauft' : $p->status]);
+            }
         }
         if ($order->type === 'gutschein') {
             Voucher::query()->where('order_id', $order->id)->update(['status' => 'bezahlt']);

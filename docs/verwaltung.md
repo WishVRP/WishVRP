@@ -337,3 +337,16 @@ Ohne SSH: die E-Mail-Vorschau im Adminbereich nutzen (Vorgang → „E-Mail-Vors
 - `public/downloads/pflegeanleitung-messermanufaktur-ulbrich.pdf`, verlinkt im Ratgeber Pflege, bei der Garantie und in der „Angekommen“-Mail. Nach Textänderungen neu erzeugen: `php artisan ulbrich:pflege-pdf`.
 
 **Test-E-Mails:** `php artisan ulbrich:mail-test deine@adresse` schickt jetzt 21 Beispiel-Mails (inkl. Erinnerung, Gutschein, Nachschärfen).
+
+
+## Warenkorb, Kasse und Rabattcodes (14.11.2026)
+
+**Warenkorb & Kasse:** Messer („In den Warenkorb“ auf der Produktseite) und Schmiedekurse (Buchungsseite → Kurs, Tag, Personen → „In den Warenkorb“) landen im Warenkorb (`/warenkorb/`). An der Kasse (`/kasse/`) gibt die Kundin Name, E-Mail, ggf. Lieferadresse, Rabatt- und Kurs-Gutscheincode ein und bestellt per **Überweisung**. Online-Zahlung steht als „bald verfügbar“ da.
+- Je Kurstag entsteht ein eigener Kurs-Vorgang (Kalender, Erinnerung, Umbuchen wie bisher), alle Messer zusammen ergeben einen Shop-Vorgang mit Artikelliste. Jeder Vorgang bekommt seine eigene Bestätigung mit Bankdaten und Verwendungszweck.
+- Der Kurstag ist ab der Bestellung vorgemerkt. Lagerbestand sinkt bei „Zahlung erhalten“. Die Rechnung führt jedes Messer als eigene Zeile, den Rabatt als Minuszeile.
+
+**Rabattcodes (Verwaltung → Rabattcodes):**
+- **Neuer Rabattcode:** Code (wird vorgeschlagen), Prozent oder Euro, wie oft einlösbar (1 = einmal, leer = unbegrenzt), gilt für Alles / nur Shop / nur Kurse / nur Kurs-Gutscheine, optional Mindestbestellwert, Gültigkeit und Bindung an eine E-Mail-Adresse.
+- **Mehrere Codes erzeugen:** z. B. 20 Einmal-Codes `GEWINN-…` für ein Gewinnspiel.
+- **Per E-Mail senden:** in der Zeile des Codes – Empfänger, Vorname und persönliche Nachricht; die Mail erklärt, wie der Code eingelöst wird.
+- Prozent-Rabatte gelten für alle passenden Positionen einer Bestellung, Euro-Rabatte einmal pro Bestellung und nie über den Warenwert (Versand ist ausgenommen). Eine Bestellung zählt als eine Nutzung.

@@ -48,6 +48,10 @@
                 @if ($en)
                     <x-ui.button href="mailto:{{ $c['email'] }}" variant="straw">Send an enquiry</x-ui.button>
                 @else
+                    @php $cartCount = \App\Support\Cart::count(); @endphp
+                    @if ($cartCount)
+                        <a class="cart-link" href="/warenkorb/" @if($current === '/warenkorb/') aria-current="page" @endif><svg class="cart-link__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 7h12l-1 13H7L6 7Zm3 0V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="cart-link__label">Warenkorb</span> <span class="cart-link__count">{{ $cartCount }}</span><span class="visually-hidden"> Positionen im Warenkorb</span></a>
+                    @endif
                     <x-ui.button href="/schmiedekurse/buchen/" variant="straw">Kurs buchen</x-ui.button>
                 @endif
             </div>

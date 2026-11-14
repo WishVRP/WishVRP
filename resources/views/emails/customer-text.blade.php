@@ -14,7 +14,16 @@ Kurstag: {{ $o->course_start ? $o->course_start->locale('de')->isoFormat('dddd, 
 Teilnehmer: {{ $o->participants }}
 Ort: {{ $c['name'] }}, {{ $c['address']['street'] }}, {{ $c['address']['postal_code'] }} {{ $c['address']['locality'] }}
 @else
+@if ($o->items)
+@foreach ($o->items as $it)
+Artikel: {{ $it['name'] }} × {{ $it['qty'] }} – {{ number_format((float) $it['price'] * (int) $it['qty'], 2, ',', '.') }} €
+@endforeach
+@else
 Artikel: {{ $o->item ?? $o->typeLabel() }}{{ $o->quantity > 1 ? ' × '.$o->quantity : '' }}
+@endif
+@if ($o->discountOff() > 0)
+Rabatt{{ $o->discount_code ? ' ('.$o->discount_code.')' : '' }}: − {{ number_format($o->discountOff(), 2, ',', '.') }} €
+@endif
 @endif
 @if ((float) $o->amount > 0)
 {{ $kind === 'bezahlt' ? 'Bezahlt' : 'Gesamt' }}: {{ number_format($o->totalDue(), 2, ',', '.') }} €{{ (float) $o->shipping_amount > 0 ? ' (inkl. Versand '.number_format((float) $o->shipping_amount, 2, ',', '.').' €)' : '' }}

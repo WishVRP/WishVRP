@@ -69,7 +69,7 @@ class SubpagesTest extends TestCase
         $html = $this->get('/schmiedekurse/buchen/?kurs=damast-messerkurs&teilnehmer=3')->assertOk()->getContent();
         $this->assertMatchesRegularExpression('/value="damast-messerkurs"[^>]*checked/s', $html);
         $this->assertStringContainsString('value="3"', $html);
-        $this->assertStringContainsString('Buchung anfragen', $html);
+        $this->assertStringContainsString('In den Warenkorb', $html);
         $this->assertStringNotContainsString('Weiter zur Zahlung', $html, 'Keine Online-Zahlung ohne Freigabe');
     }
 

@@ -26,6 +26,9 @@ Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
 */
 Route::get('/schmiedekurse/verfuegbarkeit/', [OrderController::class, 'availability'])->middleware('throttle:events')->name('booking.availability');
 Route::post('/schmiedekurse/buchen/', [OrderController::class, 'booking'])->middleware('throttle:forms')->name('booking.store');
+Route::post('/warenkorb/hinzufuegen/', [\App\Http\Controllers\CartController::class, 'add'])->middleware('throttle:cart')->name('cart.add');
+Route::post('/warenkorb/aendern/', [\App\Http\Controllers\CartController::class, 'update'])->middleware('throttle:cart')->name('cart.update');
+Route::post('/kasse/', [\App\Http\Controllers\CartController::class, 'checkout'])->middleware('throttle:forms')->name('cart.checkout');
 Route::post('/gutschein/kaufen/', [OrderController::class, 'voucher'])->middleware('throttle:forms')->name('voucher.buy');
 Route::get('/versandkosten/', [\App\Http\Controllers\ShippingController::class, 'quote'])->middleware('throttle:events')->name('shipping.quote');
 Route::get('/kunsthandwerkermarkt/staende/', [\App\Http\Controllers\MarketController::class, 'stands'])->middleware('throttle:events')->name('market.stands');

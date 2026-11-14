@@ -153,7 +153,7 @@
             ? $o->course_start->locale('de')->isoFormat('dddd, D. MMMM YYYY').($o->course_end && ! $o->course_end->isSameDay($o->course_start) ? ' – '.$o->course_end->locale('de')->isoFormat('dddd, D. MMMM YYYY') : '')
             : null;
         $amount = (float) $o->amount;
-        $before = $o->discount_percent ? round($amount / (1 - $o->discount_percent / 100), 2) : null;
+        $before = $o->discountOff() > 0 ? round($amount + $o->discountOff(), 2) : null;
     @endphp
     <tr><td style="padding:4px 32px 8px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid {{ $night }};">
@@ -165,12 +165,18 @@
                 <tr><td style="{{ $lbl }}">Teilnehmer</td><td style="{{ $row }}">{{ $o->participants }} {{ $o->participants == 1 ? 'Person' : 'Personen' }}</td></tr>
                 <tr><td style="{{ $lbl }}">Ort</td><td style="{{ $row }}">{{ $c['name'] }}, {{ $a['street'] }}, {{ $a['postal_code'] }} {{ $a['locality'] }} ({{ $a['district'] }})</td></tr>
             @else
+                @if ($o->items)
+                    @foreach ($o->items as $it)
+                        <tr><td style="{{ $lbl }}">{{ $loop->first ? 'Artikel' : '' }}</td><td style="{{ $row }}"><b>{{ $it['name'] }}</b> × {{ $it['qty'] }} – {{ $eur((float) $it['price'] * (int) $it['qty']) }}</td></tr>
+                    @endforeach
+                @else
                 <tr><td style="{{ $lbl }}">{{ in_array($o->type, ['anfrage', 'service'], true) ? 'Anliegen' : 'Artikel' }}</td><td style="{{ $row }}"><b>{{ $o->item ?? $o->typeLabel() }}</b>@if ($o->quantity > 1) × {{ $o->quantity }}@endif</td></tr>
+                @endif
             @endif
             @if ($amount > 0)
                 @if ($before)
                     <tr><td style="{{ $lbl }}">Preis</td><td style="{{ $row }}">{{ $eur($before) }}</td></tr>
-                    <tr><td style="{{ $lbl }}">Rabatt {{ $o->discount_percent }} %@if ($o->discount_code) ({{ $o->discount_code }})@endif</td><td style="{{ $row }}">− {{ $eur($before - $amount) }}</td></tr>
+                    <tr><td style="{{ $lbl }}">Rabatt{{ $o->discount_percent ? ' '.$o->discount_percent.' %' : '' }}@if ($o->discount_code) ({{ $o->discount_code }})@endif</td><td style="{{ $row }}">− {{ $eur($before - $amount) }}</td></tr>
                 @else
                     <tr><td style="{{ $lbl }}">Preis</td><td style="{{ $row }}">{{ $eur($amount) }}</td></tr>
                 @endif

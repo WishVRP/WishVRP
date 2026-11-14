@@ -152,9 +152,8 @@ class BookingCalendarTest extends TestCase
     {
         $html = $this->get('/schmiedekurse/buchen/')->assertOk()->getContent();
         $this->assertStringContainsString('data-cal-grid', $html);
-        $this->assertStringContainsString('Buchung anfragen', $html, 'ohne Stripe: Anfrage');
+        $this->assertStringContainsString('In den Warenkorb', $html, 'Kurs geht über Warenkorb und Kasse');
+        $this->assertStringContainsString('action="'.route('cart.add').'"', $html);
         $this->assertStringNotContainsString('value="manager-schmiedekurs"', $html);
-        $this->stripeOn();
-        $this->assertStringContainsString('Zahlungspflichtig buchen', $this->get('/schmiedekurse/buchen/')->getContent(), '§ 312j BGB');
     }
 }

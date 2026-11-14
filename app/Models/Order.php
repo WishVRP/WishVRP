@@ -76,6 +76,19 @@ class Order extends Model
     }
 
     /** Zu zahlender Betrag: Betrag (nach Rabatt) + Versand + vorab bezahlter Zoll − Gutschein. */
+    /** Gewährter Rabatt in Euro (aus Code), auch für ältere Vorgänge nur mit Prozentangabe. */
+    public function discountOff(): float
+    {
+        if ($this->discount_amount !== null) {
+            return (float) $this->discount_amount;
+        }
+        if ($this->discount_percent && (float) $this->amount > 0 && $this->discount_percent < 100) {
+            return round((float) $this->amount / (1 - $this->discount_percent / 100) - (float) $this->amount, 2);
+        }
+
+        return 0.0;
+    }
+
     public function totalDue(): float
     {
         return max(0, round((float) $this->amount + (float) $this->shipping_amount + (float) $this->customs_amount - (float) $this->voucher_amount, 2));
@@ -111,6 +124,8 @@ class Order extends Model
             'tracking_checked_at' => 'datetime',
             'review_requested_at' => 'datetime',
             'review_consent' => 'boolean',
+            'items' => 'array',
+            'discount_amount' => 'decimal:2',
             'customs_amount' => 'decimal:2',
             'rebooked_at' => 'datetime',
             'original_course_start' => 'date',

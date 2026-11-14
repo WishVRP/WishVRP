@@ -204,6 +204,7 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
         if (city?.value) q.set('ort', city.value.trim());
         if (box.dataset.shipProduct) q.set('produkt', box.dataset.shipProduct);
         if (box.dataset.shipEdition) q.set('edition', '1');
+        if (box.dataset.shipCart) q.set('warenkorb', '1');
         const my = ++seq;
         out.classList.add('is-loading');
         try {
@@ -253,7 +254,8 @@ document.querySelectorAll('[data-shipping]').forEach((box) => {
         const crow = sum.querySelector('[data-sum-customs-row]');
         crow.hidden = !customs;
         if (customs) sum.querySelector('[data-sum-customs]').textContent = eur(customs);
-        sum.querySelector('[data-sum-total]').textContent = ship == null ? '–' : eur(item + ship + customs);
+        const extra = parseFloat(box.dataset.shipExtra || '0');
+        sum.querySelector('[data-sum-total]').textContent = ship == null ? '–' : eur(item + ship + customs + extra);
         sum.querySelector('[data-sum-pickup-pay]').hidden = !pickup;
     }
     box.closest('form')?.querySelector('[name="quantity"]')?.addEventListener('input', () => load());

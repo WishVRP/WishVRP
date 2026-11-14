@@ -14,7 +14,7 @@ final class OrderMail
         $lines = [
             "Neuer Vorgang {$order->number}: {$order->typeLabel()}",
             $order->summary(),
-            $order->amount ? 'Richtbetrag: '.number_format((float) $order->amount, 2, ',', '.').' € (ohne Versand)'.($order->discount_percent ? " – nach {$order->discount_percent} % Weihnachtsrabatt ({$order->discount_code})" : '') : null,
+            $order->amount ? 'Richtbetrag: '.number_format((float) $order->amount, 2, ',', '.').' € (ohne Versand)'.($order->discount_code ? ' – nach Rabatt '.number_format($order->discountOff(), 2, ',', '.')." € (Code {$order->discount_code})" : '') : null,
             '',
             "Name: {$order->name}",
             "E-Mail: {$order->email}",

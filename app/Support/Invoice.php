@@ -91,12 +91,22 @@ final class Invoice
     {
         $sign = $cancel ? -1 : 1;
         $lines = [];
-        $item = $o->summary();
-        if ($o->discount_percent) {
-            $item .= ' (nach '.(int) $o->discount_percent.' % Rabatt'.($o->discount_code ? ', Code '.$o->discount_code : '').')';
-        }
-        if ((float) $o->amount > 0) {
-            $lines[] = ['text' => $item, 'qty' => max(1, (int) ($o->type === 'kurs' ? 1 : $o->quantity)), 'total' => $sign * (float) $o->amount, 'taxed' => true];
+        if ($o->items) {
+            // Warenkorb: eine Zeile je Messer, Rabatt als eigene Zeile
+            foreach ($o->items as $i) {
+                $lines[] = ['text' => $i['name'], 'qty' => (int) $i['qty'], 'total' => $sign * round((float) $i['price'] * (int) $i['qty'], 2), 'taxed' => true];
+            }
+            if ($o->discountOff() > 0) {
+                $lines[] = ['text' => 'Rabatt'.($o->discount_percent ? ' '.(int) $o->discount_percent.' %' : '').($o->discount_code ? ' (Code '.$o->discount_code.')' : ''), 'qty' => 1, 'total' => -$sign * $o->discountOff(), 'taxed' => true];
+            }
+        } else {
+            $item = $o->summary();
+            if ($o->discount_code && $o->discountOff() > 0) {
+                $item .= ' (nach '.($o->discount_percent ? (int) $o->discount_percent.' %' : number_format($o->discountOff(), 2, ',', '.').' €').' Rabatt, Code '.$o->discount_code.')';
+            }
+            if ((float) $o->amount > 0) {
+                $lines[] = ['text' => $item, 'qty' => max(1, (int) ($o->type === 'kurs' ? 1 : $o->quantity)), 'total' => $sign * (float) $o->amount, 'taxed' => true];
+            }
         }
         if ((float) $o->shipping_amount > 0) {
             $lines[] = ['text' => 'Versand'.($o->country ? ' nach '.$o->country : ''), 'qty' => 1, 'total' => $sign * (float) $o->shipping_amount, 'taxed' => true];

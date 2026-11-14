@@ -101,7 +101,8 @@ class ShippingTest extends TestCase
     {
         config(['ulbrich.tax_mode' => 'regular']);
         $p = Product::create(['name' => 'Damast-Kochmesser', 'slug' => 'damast-kochmesser', 'category' => 'damast', 'status' => 'aktiv', 'price' => 400, 'stock' => 1, 'weight_g' => 1200]);
-        $html = preg_replace('/\s+/', ' ', $this->get($p->url())->assertOk()->getContent());
+        $this->get($p->url())->assertOk()->assertSee('In den Warenkorb');
+        $html = preg_replace('/\s+/', ' ', $this->withSession(['cart' => ['p'.$p->id => ['type' => 'product', 'id' => $p->id, 'qty' => 1]]])->get('/kasse/')->assertOk()->getContent());
         $this->assertStringContainsString('Deine Bestellung im Überblick', $html);
         $this->assertStringContainsString('data-ship-value="400.00"', $html);
         $this->assertStringContainsString('<strong data-sum-total>407,99 €</strong>', $html);   // 400 + DHL Deutschland
